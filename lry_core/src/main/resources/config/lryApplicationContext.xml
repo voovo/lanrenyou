@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!-- enable component scanning  -->
+	<context:component-scan base-package="com.lanrenyou.*" />
+	<!-- 引入jdbc配置文件 -->
+    <context:property-placeholder location="config/lry_ibatis_cn_dev.properties"/>
+	
+	<bean id="sqlSessionWrapper" class="mybatis.framework.core.support.SqlSessionWrapper" />
+	
+    <!--创建bonecp数据源 -->
+    <bean id="commonDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<property name="driverClass" value="${demo_db_driver}" />
+		<property name="jdbcUrl" value="${demo_db_url}" />
+		<property name="username" value="${demo_db_username}"/>
+		<property name="password" value="${demo_db_password}"/>
+		<property name="idleConnectionTestPeriod" value="60"/>
+		<property name="idleMaxAge" value="240"/>
+		<property name="maxConnectionsPerPartition" value="${demo_db_maxPoolSize}"/>
+		<property name="minConnectionsPerPartition" value="${demo_db_minPoolSize}"/>
+		<property name="partitionCount" value="3"/>
+		<property name="acquireIncrement" value="5"/>
+		<property name="statementsCacheSize" value="100"/>
+		<property name="releaseHelperThreads" value="3"/>
+	</bean>
+    
+    <!-- 创建SqlSessionFactory，同时指定数据源-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="commonDataSource" />
+    	<property name="mapperLocations" >
+    		<list>
+    			<value>classpath:/com/lanrenyou/common/dao/mapper/*Mapper.xml</value>
+    			<value>classpath:/com/lanrenyou/user/dao/mapper/*Mapper.xml</value>
+    			<value>classpath:/com/lanrenyou/dict/dao/mapper/*Mapper.xml</value>
+    			<value>classpath:/com/lanrenyou/letter/dao/mapper/*Mapper.xml</value>
+    		</list>
+    	</property>
+    </bean>
+    
+    <!-- <tx:advice id="userTxAdvice" transaction-manager="transactionManager">
+    	<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false" 
+					rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException"/>
+	      	<tx:method name="insert*" propagation="REQUIRED" read-only="false" 
+	                rollback-for="java.lang.RuntimeException" />
+	      	<tx:method name="update*" propagation="REQUIRED" read-only="false" 
+	                rollback-for="java.lang.Exception" />
+	      	<tx:method name="find*" propagation="SUPPORTS"/>
+	      	<tx:method name="get*" propagation="SUPPORTS"/>
+	      	<tx:method name="select*" propagation="SUPPORTS"/>
+	    </tx:attributes>					
+  	</tx:advice>
+  
+	<aop:config>    
+    	<aop:pointcut id="pc" expression="execution(public * com.lanrenyou.common.service.*.*(..))" /> 把事务控制在Service层
+    	<aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice" />
+	</aop:config> -->
+	
+</beans>

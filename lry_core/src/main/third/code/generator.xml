@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+ 	<properties resource="code/mybatis.properties" /> 
+	
+	<context id="DB_CAREER" targetRuntime="mybatis.framework.components.code.IntrospectedTableImpl" defaultModelType="flat"> <!-- MyBatis3Simple -->
+		
+		<property name="dao.component" value="${generate.dao.component}" />
+		<property name="dao.environment" value="${generate.dao.environment}" />
+		<property name="generate.src.package" value="${generate.src.package}" />
+		<property name="generate.dao.type" value="${generate.dao.type}" />
+		<property name="generate.dao.base" value="${generate.dao.base}" />
+		
+		<plugin type="mybatis.framework.components.code.GeneratorCodePlugin" />
+		
+		<commentGenerator type="mybatis.framework.components.code.MyCommentGenerator"></commentGenerator>
+		
+		<jdbcConnection driverClass="${driver}" connectionURL="${url}" userId="${username}" password="${password}"></jdbcConnection>
+
+		<javaTypeResolver type="mybatis.framework.components.code.JavaTypeResolverImpl">
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="${targetPackage}.model" targetProject="${generate.src.dir}">	<!-- 实体类 -->
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+			<property name="rootClass" value="mybatis.framework.core.model.BaseValueObject" />
+		</javaModelGenerator>
+		
+		<sqlMapGenerator targetPackage="${targetPackage}.dao.mapper" targetProject="${generate.src.dir}">	<!-- Mapper.xml -->
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		<javaClientGenerator type="XMLMAPPER" targetPackage="${targetPackage}.dao" targetProject="${generate.src.dir}">	<!-- dao.java -->
+			<property name="enableSubPackages" value="true" />
+			<property name="methodNameCalculator" value="extended" />
+		</javaClientGenerator>
+		<!-- <table tableName="tb_test_1" domainObjectName="Test1">
+			<generatedKey column="ID" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="TS"/>
+		</table> -->
+		
+		<!-- 修改以下 table 生成相应的mapper -->
+		<!-- user package 
+		<table tableName="tb_user_info" domainObjectName="UserInfo">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_user_planner" domainObjectName="UserPlanner">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_user_follow" domainObjectName="UserFollow">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table> -->
+		<!-- dict package
+		<table tableName="tb_dict_city" domainObjectName="DictCity">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		  -->
+		<!-- letter package -->
+		<table tableName="tb_private_letter" domainObjectName="PrivateLetter">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		  
+	</context>
+</generatorConfiguration>

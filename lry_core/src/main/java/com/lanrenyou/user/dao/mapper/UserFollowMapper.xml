@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.user.dao.IUserFollowDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.user.model.UserFollow" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fans_uid" property="fansUid" jdbcType="INTEGER" />
+    <result column="star_uid" property="starUid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fans_uid, star_uid
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_user_follow
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.user.model.UserFollow" useGeneratedKeys="true" keyProperty="id" >
+    insert into tb_user_follow (fans_uid, star_uid)
+    values (#{fansUid,jdbcType=INTEGER}, #{starUid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.user.model.UserFollow" >
+    update tb_user_follow
+    set fans_uid = #{fansUid,jdbcType=INTEGER},
+      star_uid = #{starUid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_follow
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_follow
+  </select>
+</mapper>

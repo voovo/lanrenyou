@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.user.dao.IUserInfoDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.user.model.UserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="history_passwd" property="historyPasswd" jdbcType="VARCHAR" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="TINYINT" />
+    <result column="weibo_name" property="weiboName" jdbcType="VARCHAR" />
+    <result column="weibo_url" property="weiboUrl" jdbcType="VARCHAR" />
+    <result column="wechat_name" property="wechatName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_uid" property="createUid" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, email, password, history_passwd, avatar, nickname, user_type, weibo_name, 
+    weibo_url, wechat_name, status, create_uid, create_time, create_ip, update_uid, update_ip
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.user.model.UserInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into tb_user_info (name, email, password, 
+      history_passwd, avatar, nickname, 
+      user_type, weibo_name, weibo_url, 
+      wechat_name, status, create_uid, 
+      create_time, create_ip, update_uid, 
+      update_ip)
+    values (#{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{historyPasswd,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{userType,jdbcType=TINYINT}, #{weiboName,jdbcType=VARCHAR}, #{weiboUrl,jdbcType=VARCHAR}, 
+      #{wechatName,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createUid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, #{updateUid,jdbcType=INTEGER}, 
+      #{updateIp,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.user.model.UserInfo" >
+    update tb_user_info
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      history_passwd = #{historyPasswd,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=TINYINT},
+      weibo_name = #{weiboName,jdbcType=VARCHAR},
+      weibo_url = #{weiboUrl,jdbcType=VARCHAR},
+      wechat_name = #{wechatName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_uid = #{createUid,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_ip = #{createIp,jdbcType=VARCHAR},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_ip = #{updateIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_info
+  </select>
+</mapper>
