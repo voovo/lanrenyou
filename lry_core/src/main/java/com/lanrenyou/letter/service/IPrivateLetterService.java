@@ -43,4 +43,13 @@ public interface IPrivateLetterService extends IValueObjectService<PrivateLetter
 	 * @exception 
 	*/
 	public int updatePrivateLetterStatus(int privateLetterId, PrivateLetterStatusEnum statusEnum);
+	
+	/**
+	 * addPrivateLetter	新发一条私信
+	 * 
+	 * @param privateLetter
+	 * @return int
+	 * @exception 
+	*/
+	public int addPrivateLetter(PrivateLetter privateLetter);
 }

@@ -14,7 +14,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.user.model.UserFollow" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_user_follow (fans_uid, star_uid)
+    insert ingore into tb_user_follow (fans_uid, star_uid)
     values (#{fansUid,jdbcType=INTEGER}, #{starUid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.user.model.UserFollow" >
@@ -34,4 +34,34 @@
     <include refid="Base_Column_List" />
     from tb_user_follow
   </select>
+  <select id="getFansCountByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(1)
+    from tb_user_follow
+    where star_uid = #{starUid,jdbcType=INTEGER}
+  </select>
+  <select id="getFansByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_follow
+    where star_uid = #{starUid,jdbcType=INTEGER} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
+  </select>
+  
+  <select id="getStarCountByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(1)
+    from tb_user_follow
+    where fans_uid = #{fansUid,jdbcType=INTEGER}
+  </select>
+  <select id="getStarByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_follow
+    where fans_uid = #{fansUid,jdbcType=INTEGER} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
+  </select>
+  
+  <delete id="deleteByFansUidAndStartUid" parameterType="java.util.Map">
+    delete from tb_user_follow
+    where fans_uid = #{fansUid,jdbcType=INTEGER} and star_uid = #{starUid, jdbcType=INTEGER}
+  </delete>
 </mapper>

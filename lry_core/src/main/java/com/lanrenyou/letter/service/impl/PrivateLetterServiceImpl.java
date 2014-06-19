@@ -23,7 +23,7 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 		int totalCount = privateLetterDao.getPrivateLetterCountByReceiverUid(uid);
 		List<PrivateLetter> list = null;
 		if(totalCount > 0){
-			 list = privateLetterDao.getPrivateLetterByReceiverUid(uid, pageNo, pageSize);
+			 list = privateLetterDao.getPrivateLetterByReceiverUid(uid, (pageNo - 1) * pageSize, pageSize);
 		}
 		PageIterator<PrivateLetter> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
 		pageIterator.setData(list);
@@ -36,7 +36,7 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 		int totalCount = privateLetterDao.getPrivateLetterCountByReceiverUidAndSenderUid(senderUid, receiverUid);
 		List<PrivateLetter> list = null;
 		if(totalCount > 0){
-			 list = privateLetterDao.getPrivateLetterByReceiverUidAndSenderUid(senderUid, receiverUid, pageNo, pageSize);
+			 list = privateLetterDao.getPrivateLetterByReceiverUidAndSenderUid(senderUid, receiverUid, (pageNo - 1) * pageSize, pageSize);
 		}
 		PageIterator<PrivateLetter> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
 		pageIterator.setData(list);
@@ -51,5 +51,10 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 	@Override
 	public int updatePrivateLetterStatus(int privateLetterId, PrivateLetterStatusEnum statusEnum) {
 		return privateLetterDao.updatePrivateLetterStatus(privateLetterId, statusEnum.getValue());
+	}
+
+	@Override
+	public int addPrivateLetter(PrivateLetter privateLetter) {
+		return privateLetterDao.addPrivateLetter(privateLetter);
 	}
 }

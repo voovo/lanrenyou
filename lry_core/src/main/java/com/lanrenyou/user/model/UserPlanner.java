@@ -23,7 +23,7 @@ public class UserPlanner extends BaseValueObject {
     /**
      * 策划价格
      */
-    private BigDecimal price;
+    private Double price;
 
     /**
      * 收费模式[1:按天; 2:按周; 3:按次;]
@@ -74,11 +74,11 @@ public class UserPlanner extends BaseValueObject {
         this.targetCity = targetCity == null ? null : targetCity.trim();
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

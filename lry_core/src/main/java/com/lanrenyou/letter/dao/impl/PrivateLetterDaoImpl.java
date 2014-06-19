@@ -26,17 +26,17 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 
 	@Override
 	public List<PrivateLetter> getPrivateLetterByReceiverUid(int uid,
-			int pageNo, int pageSize) {
-		if(pageNo <= 0){
-			pageNo = 1;
+			int offset, int limit) {
+		if(offset < 0){
+			offset = 0;
 		}
-		if(pageSize <= 0 || pageSize >= 500){
-			pageSize = 10;
+		if(limit <= 0 || limit >= 500){
+			limit = 10;
 		}
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("receiverUid", uid);
-		params.put("offset", (pageNo - 1) * pageSize);
-		params.put("limit", pageSize);
+		params.put("offset", offset);
+		params.put("limit", limit);
 		return this.findList("getPrivateLetterByReceiverUid", params);
 	}
 
@@ -51,18 +51,18 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 
 	@Override
 	public List<PrivateLetter> getPrivateLetterByReceiverUidAndSenderUid(
-			int senderUid, int receiverUid, int pageNo, int pageSize) {
-		if(pageNo <= 0){
-			pageNo = 1;
+			int senderUid, int receiverUid, int offset, int limit) {
+		if(offset < 0){
+			offset = 0;
 		}
-		if(pageSize <= 0 || pageSize >= 500){
-			pageSize = 10;
+		if(limit <= 0 || limit >= 500){
+			limit = 10;
 		}
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("senderUid", senderUid);
 		params.put("receiverUid", receiverUid);
-		params.put("offset", (pageNo - 1) * pageSize);
-		params.put("limit", pageSize);
+		params.put("offset", offset);
+		params.put("limit", limit);
 		return this.findList("getPrivateLetterByReceiverUidAndSenderUid", params);
 	}
 
@@ -78,5 +78,13 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 			return this.doUpdate("updateIsDeletedById", params);
 		}
 		return 0;
+	}
+
+	@Override
+	public int addPrivateLetter(PrivateLetter privateLetter) {
+		if(null == privateLetter){
+			return 0;
+		}
+		return this.doInsert("insert", privateLetter);
 	}
 }

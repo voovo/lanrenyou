@@ -55,9 +55,6 @@
       weibo_url = #{weiboUrl,jdbcType=VARCHAR},
       wechat_name = #{wechatName,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
-      create_uid = #{createUid,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      create_ip = #{createIp,jdbcType=VARCHAR},
       update_uid = #{updateUid,jdbcType=INTEGER},
       update_ip = #{updateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -72,5 +69,28 @@
     select
     <include refid="Base_Column_List" />
     from tb_user_info
+  </select>
+  <select id="getListByUidList" resultMap="BaseResultMap" parameterType="java.uitl.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_info
+    where id in 
+    	<foreach collection="uidList" item="item" index="index" open="(" separator="," close=")">
+            #{item, jdbcType=INTEGER}
+        </foreach>
+  </select>
+  
+  <select id="getByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_info
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_info
+    where email = #{email,jdbcType=VARCHAR}
   </select>
 </mapper>
