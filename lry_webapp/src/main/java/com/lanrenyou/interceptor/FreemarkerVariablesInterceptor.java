@@ -1,9 +1,4 @@
-/**
- * 
- */
 package com.lanrenyou.interceptor;
-
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,13 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lanrenyou.config.AppConfigs;
-import com.lanrenyou.util.freemarker.FreemarkerUtil;
 
 import freemarker.ext.servlet.IncludePage;
 
-/**
- *
- */
 public class FreemarkerVariablesInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request,

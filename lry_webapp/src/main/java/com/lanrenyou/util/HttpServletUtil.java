@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lanrenyou.util;
 
 import javax.servlet.http.HttpServletRequest;

@@ -18,11 +18,6 @@ import java.io.File;
 import java.util.*;
 import java.util.jar.JarEntry;
 
-/**
- * User:tao.li
- * Date: 11-12-23
- * Time: 上午11:47
- */
 public final class ConfigurationManager extends AbstractConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationManager.class);
 
@@ -76,22 +71,6 @@ public final class ConfigurationManager extends AbstractConfiguration {
         return null;
     }
 
-    @Override
-    public String getString(String key) {
-        return ContextConfigurationWrapper.Utils.mergeString(key, super.getString(key));
-    }
-
-
-    @Override
-    public Properties toProperties() {
-        return ContextConfigurationWrapper.Utils.mergeProperties(super.toProperties());
-    }
-
-    @Override
-    public Map<String, String> toMap() {
-        return ContextConfigurationWrapper.Utils.mergeMap(super.toMap());
-    }
-
     private Configuration readFromConfigPath(String fileName) {
         return new PropertiesConfiguration("config/" + fileName);
     }
@@ -101,10 +80,10 @@ public final class ConfigurationManager extends AbstractConfiguration {
     }
 
     private String fillFileName(String fName) {
-        if (fName != null && fName.endsWith(ConfigConstant.HADWINS_CONFIG_SUFFIX)) {
+        if (fName != null && fName.endsWith(ConfigConstant.LRY_CONFIG_SUFFIX)) {
             return fName;
         } else {
-            return fName + "_" + languageName + "_" + envName + ConfigConstant.HADWINS_CONFIG_SUFFIX;
+            return fName + "_" + languageName + "_" + envName + ConfigConstant.LRY_CONFIG_SUFFIX;
         }
     }
 
@@ -151,24 +130,24 @@ public final class ConfigurationManager extends AbstractConfiguration {
     }
 
     private void initEnvName() {
-        String configEnvName = this.classesConfiguration.getString(ConfigConstant.HADWINS_APP_KEY_ENV);
+        String configEnvName = this.classesConfiguration.getString(ConfigConstant.LRY_APP_KEY_ENV);
         if (configEnvName != null && !"".equals(configEnvName.trim())) {
             LOGGER.info("set environment,use config environment:{}.", configEnvName);
             this.envName = configEnvName.toLowerCase();
         } else {
-            LOGGER.warn("not config environment, use default value:{}.", ConfigConstant.HADWINS_APP_DEFAULT_ENV);
-            this.envName = ConfigConstant.HADWINS_APP_DEFAULT_ENV;
+            LOGGER.warn("not config environment, use default value:{}.", ConfigConstant.LRY_APP_DEFAULT_ENV);
+            this.envName = ConfigConstant.LRY_APP_DEFAULT_ENV;
         }
     }
 
     private void initLanguageName() {
-        String language = this.classesConfiguration.getString(ConfigConstant.HADWINS_APP_KEY_LAN);
+        String language = this.classesConfiguration.getString(ConfigConstant.LRY_APP_KEY_LAN);
         if (language != null && !"".equals(language.trim())) {
             LOGGER.info("set config language, use config language:{}.", language);
             this.languageName = language.toLowerCase();
         } else {
-            LOGGER.warn("not config language, use default value:{}.", ConfigConstant.HADWINS_APP_DEFAULT_LAN);
-            this.languageName = ConfigConstant.HADWINS_APP_DEFAULT_LAN;
+            LOGGER.warn("not config language, use default value:{}.", ConfigConstant.LRY_APP_DEFAULT_LAN);
+            this.languageName = ConfigConstant.LRY_APP_DEFAULT_LAN;
         }
     }
 
@@ -270,7 +249,7 @@ public final class ConfigurationManager extends AbstractConfiguration {
          */
         private boolean checkConfigDir(JarEntry jarEntry) {
             String lowerEntryPath = jarEntry.getName().toLowerCase();
-            return lowerEntryPath.endsWith(("_" + languageName + "_" + envName + ConfigConstant.HADWINS_CONFIG_SUFFIX).toLowerCase())
+            return lowerEntryPath.endsWith(("_" + languageName + "_" + envName + ConfigConstant.LRY_CONFIG_SUFFIX).toLowerCase())
                     && lowerEntryPath.startsWith((ConfigConstant.JAR_CONFIG_BASE_DIR + "/").toLowerCase());
         }
 
@@ -283,8 +262,8 @@ public final class ConfigurationManager extends AbstractConfiguration {
          */
         private boolean checkRoot(JarEntry jarEntry) {
             String lowerEntryPath = jarEntry.getName().toLowerCase();
-            return lowerEntryPath.startsWith(ConfigConstant.HADWINS_CONFIG_PREFIX)
-                    && lowerEntryPath.endsWith(ConfigConstant.HADWINS_CONFIG_SUFFIX)
+            return lowerEntryPath.startsWith(ConfigConstant.LRY_CONFIG_PREFIX)
+                    && lowerEntryPath.endsWith(ConfigConstant.LRY_CONFIG_SUFFIX)
                     && lowerEntryPath.indexOf("/") < 0;
         }
     }
@@ -292,8 +271,8 @@ public final class ConfigurationManager extends AbstractConfiguration {
     private static class ClassResourceFilter implements ConfigurationResourceFilter<File> {
         @Override
         public boolean checkResource(File resource) {
-            return resource.getName().startsWith(ConfigConstant.HADWINS_CONFIG_PREFIX)
-                    && resource.getName().endsWith(ConfigConstant.HADWINS_CONFIG_SUFFIX);
+            return resource.getName().startsWith(ConfigConstant.LRY_CONFIG_PREFIX)
+                    && resource.getName().endsWith(ConfigConstant.LRY_CONFIG_SUFFIX);
         }
     }
 }

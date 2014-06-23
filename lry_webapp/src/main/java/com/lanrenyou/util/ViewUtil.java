@@ -6,7 +6,6 @@
  *
  * date		2013-3-8
  * author	peijin.zhang
- * Copyright (c) 2013, DaJie All Rights Reserved.
 */
 
 package com.lanrenyou.util;

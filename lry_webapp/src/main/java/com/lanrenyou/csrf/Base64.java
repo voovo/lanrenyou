@@ -4,11 +4,6 @@ import java.util.Arrays;
 
 import com.lanrenyou.util.StringUtil;
 
-/**
- * User: hui.ouyang
- * Date: 2010-3-3
- * Time: 14:29:18
- */
 public class Base64 {
     /**
      * Compared with standard base64,'/' will be replaced with '_',

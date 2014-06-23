@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lanrenyou.controller.base;
 
 import java.util.Date;

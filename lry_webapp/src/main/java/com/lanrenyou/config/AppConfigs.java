@@ -2,11 +2,6 @@ package com.lanrenyou.config;
 
 import java.util.Map;
 
-/**
- * User: hui.ouyang
- * Date: 2010-1-6
- * Time: 12:17:53
- */
 public final class AppConfigs {
     private static final ConfigurationManager CONFIGURATION_MANAGER = ConfigurationManager.getInstance();
 

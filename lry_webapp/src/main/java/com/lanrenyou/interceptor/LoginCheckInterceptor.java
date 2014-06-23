@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lanrenyou.interceptor;
 
 import java.io.IOException;
@@ -18,9 +15,6 @@ import com.lanrenyou.config.ConfigProperties;
 import com.lanrenyou.util.SessionUtil;
 import com.lanrenyou.util.UrlEncoderUtil;
 
-/**
- * 
- */
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 
 	protected static final int DEFAULT_PORT = 80;

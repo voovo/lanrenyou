@@ -13,11 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-/**
- * User:tao.li
- * Date: 11-12-29
- * Time: 下午5:53
- */
 public class ClassesPropertiesLoader implements PropertiesLoader<PropertiesConfiguration> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassesPropertiesLoader.class);
 

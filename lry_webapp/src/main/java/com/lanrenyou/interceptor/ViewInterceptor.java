@@ -4,7 +4,6 @@
  *
  * date		2013-3-13
  * author	peijin.zhang
- * Copyright (c) 2013, DaJie All Rights Reserved.
 */
 
 package com.lanrenyou.interceptor;
@@ -23,9 +22,6 @@ import com.lanrenyou.util.ViewUtil;
 
 /**
  * 页面展示的拦截器
- * 
- * @author leowang
- *
  */
 public class ViewInterceptor extends HandlerInterceptorAdapter {
 	

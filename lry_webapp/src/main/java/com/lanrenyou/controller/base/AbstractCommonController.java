@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lanrenyou.controller.base;
 
 import java.io.File;
@@ -21,9 +18,6 @@ import org.springframework.web.servlet.LocaleResolver;
 import com.lanrenyou.util.HttpServletUtil;
 
 
-/**
- *
- */
 public abstract class AbstractCommonController
 {
 	protected Logger logger = LoggerFactory.getLogger(getClass());

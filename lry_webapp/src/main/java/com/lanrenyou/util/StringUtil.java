@@ -11,11 +11,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * User: jiangxu.qiu
- * Date: 13-1-28
- * Time: 上午11:06
- */
 public class StringUtil extends StringUtils {
 
     private static final String[] HEX_DIGITS = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};

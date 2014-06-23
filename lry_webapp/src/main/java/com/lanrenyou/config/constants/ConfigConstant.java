@@ -6,15 +6,15 @@ public interface ConfigConstant {
 
     String JAR_SCAN_BASE_PACKAGE = "com/lanrenyou";
 
-    String HADWINS_CONFIG_SUFFIX = ".properties";
+    String LRY_CONFIG_SUFFIX = ".properties";
 
-    String HADWINS_CONFIG_PREFIX = "lanrenyou";
+    String LRY_CONFIG_PREFIX = "lanrenyou";
 
-    String HADWINS_APP_KEY_ENV = "lanrenyou_environment";
+    String LRY_APP_KEY_ENV = "lanrenyou_environment";
 
-    String HADWINS_APP_DEFAULT_ENV = "dev";
+    String LRY_APP_DEFAULT_ENV = "dev";
 
-    String HADWINS_APP_KEY_LAN = "lanrenyou_language";
+    String LRY_APP_KEY_LAN = "lanrenyou_language";
 
-    String HADWINS_APP_DEFAULT_LAN = "cn";
+    String LRY_APP_DEFAULT_LAN = "cn";
 }

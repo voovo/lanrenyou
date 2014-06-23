@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.lanrenyou.cookie;
 
 import javax.servlet.http.Cookie;
@@ -10,15 +7,9 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 import com.lanrenyou.config.AppConfigs;
 
-/**
- *
- */
-public class CrossDomainCookieLocaleResolver extends CookieLocaleResolver
-{
+public class CrossDomainCookieLocaleResolver extends CookieLocaleResolver {
 	@Override
-	public void addCookie(HttpServletResponse response, String cookieValue)
-	{
-		response.setHeader("P3P", "CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
+	public void addCookie(HttpServletResponse response, String cookieValue){
 		
 		Cookie cookie = createCookie(cookieValue);
 		Integer maxAge = getCookieMaxAge();
@@ -37,6 +28,5 @@ public class CrossDomainCookieLocaleResolver extends CookieLocaleResolver
 			logger.debug("Added cookie with name [" + getCookieName() + "] and value [" + cookieValue + "]");
 		}
 	}
-	
 
 }

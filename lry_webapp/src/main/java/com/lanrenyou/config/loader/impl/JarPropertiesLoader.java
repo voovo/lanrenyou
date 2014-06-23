@@ -16,11 +16,6 @@ import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-/**
- * User:tao.li
- * Date: 11-12-29
- * Time: 下午5:53
- */
 public class JarPropertiesLoader implements PropertiesLoader<JarPropertiesConfiguration> {
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesLoader.class);
 

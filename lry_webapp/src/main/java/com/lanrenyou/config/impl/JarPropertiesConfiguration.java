@@ -20,7 +20,7 @@ public class JarPropertiesConfiguration extends AbstractConfiguration {
     }
 
     private String parseEnvName(String fullFileName) {
-        int index = fullFileName.lastIndexOf(ConfigConstant.HADWINS_CONFIG_SUFFIX);
+        int index = fullFileName.lastIndexOf(ConfigConstant.LRY_CONFIG_SUFFIX);
         if (index < 0) {
             index = fullFileName.length();
         }

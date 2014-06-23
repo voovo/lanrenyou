@@ -12,11 +12,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.zip.CRC32;
 
-/**
- * User: haluo
- * Date: 11-4-19
- * Time: 下午2:08
- */
 public class AesCryptUtil {
     private static final byte[] IV = new byte[]{0x00, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
     private static final byte DEFAULT_MAX_CONFOUND_SIZE = 3;

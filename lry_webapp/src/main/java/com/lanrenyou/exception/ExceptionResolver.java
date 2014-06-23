@@ -10,9 +10,6 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import com.lanrenyou.interceptor.FreemarkerVariablesInterceptor;
 
-/**
- * 
- */
 public class ExceptionResolver extends SimpleMappingExceptionResolver {
 	static final Logger logger = LoggerFactory
 			.getLogger(ExceptionResolver.class);
