@@ -22,7 +22,7 @@ public class UserInfo extends BaseValueObject {
     /**
      * 密码
      */
-    private String password;
+    private String userPass;
 
     /**
      * 历史密码
@@ -63,6 +63,11 @@ public class UserInfo extends BaseValueObject {
      * 状态
      */
     private int status;
+    
+    /**
+     * 个人简介
+     */
+    private String userIntro;
 
     private Integer createUid;
 
@@ -98,12 +103,12 @@ public class UserInfo extends BaseValueObject {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getUserPass() {
+        return userPass;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setUserPass(String password) {
+        this.userPass = password == null ? null : password.trim();
     }
 
     public String getHistoryPasswd() {
@@ -160,6 +165,14 @@ public class UserInfo extends BaseValueObject {
 
     public void setWechatName(String wechatName) {
         this.wechatName = wechatName == null ? null : wechatName.trim();
+    }
+    
+    public String getUserIntro() {
+        return userIntro;
+    }
+
+    public void setUserIntro(String userIntro) {
+        this.userIntro = userIntro == null ? null : userIntro.trim();
     }
 
     public int getStatus() {

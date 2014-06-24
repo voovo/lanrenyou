@@ -1,6 +1,5 @@
 package com.lanrenyou.user.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import mybatis.framework.core.model.BaseValueObject;
 
@@ -29,11 +28,6 @@ public class UserPlanner extends BaseValueObject {
      * 收费模式[1:按天; 2:按周; 3:按次;]
      */
     private int chargeMode;
-
-    /**
-     * 个人简介
-     */
-    private String userIntro;
 
     /**
      * 状态
@@ -88,14 +82,6 @@ public class UserPlanner extends BaseValueObject {
 
     public void setChargeMode(int chargeMode) {
         this.chargeMode = chargeMode;
-    }
-
-    public String getUserIntro() {
-        return userIntro;
-    }
-
-    public void setUserIntro(String userIntro) {
-        this.userIntro = userIntro == null ? null : userIntro.trim();
     }
 
     public int getStatus() {
