@@ -23,6 +23,73 @@ public class Migrate {
 	UserInfo userInfo = new UserInfo();
 	
 	public static void main(String[] args) {
+		
+	}
+	
+	public static Map<Integer,WpPosts> filterposts(List<WpPosts> postslist){
+		Map<Integer,WpPosts> map = new HashMap<Integer, WpPosts>();
+		
+		for(int i=0;i<postslist.size();i++){
+			WpPosts post = postslist.get(i);
+			if(0==post.getPost_parent()&!map.containsKey(post.getId())){
+				map.put(post.getId(), post);
+			}
+		}
+		
+		for(int i=0;i<postslist.size();i++){
+			WpPosts post = postslist.get(i);
+			if(post.getPost_parent()>0){
+				map.get(post.getId()).getChildlists().add(post);
+			}
+		}
+		
+		return map;
+	}
+	
+	
+	public static List<WpPosts> getPosts(){
+		Connection conn = getPressConn();
+		List<WpPosts> postslist = new ArrayList<WpPosts>();
+		
+		try{
+			ResultSet rs = null;
+			Statement stat = conn.createStatement();
+			String postssql = "select b.user_login user_login,a.id id,a.post_date post_date,a.post_author post_author,a.post_content post_content,a.post_title post_title," +
+					"a.post_excerpt post_excerpt,a.post_modified post_modified,a.post_parent post_parent,c.meta_value meta_value from wp_posts a inner join wp_users b on" +
+					"a.post_author=b.id  left join  (select * from wp_postmeta where meta_key='post_views_count')  c on a.id=c.post_id where a.post_status='publish'  ";
+			rs = stat.executeQuery(postssql);
+			while(rs.next()){
+				WpPosts post = new WpPosts();
+				post.setId(rs.getInt("id"));
+				post.setPost_author(rs.getInt("post_author"));
+				post.setPost_author_name(rs.getString("user_login"));
+				post.setPost_content(rs.getString("post_content"));
+				post.setPost_excerpt(rs.getString("post_excerpt"));
+				post.setPost_title(rs.getString("post_title"));
+				post.setPost_date(rs.getTimestamp("post_date"));
+				post.setPost_modified(rs.getTimestamp("post_modified"));
+				post.setPost_parent(rs.getInt("post_parent"));
+				post.setPost_views_count(rs.getInt("meta_value"));
+				
+				postslist.add(post);
+				
+			}
+			rs.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return postslist;
+	}
+	
+	
+	
+	
+	
+	
+	public static void importUsers(){
 		List<WpUsers> userlist = getWpUsers();
 		userlist = getWpUsermeta(userlist);
 		
