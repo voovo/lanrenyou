@@ -3,7 +3,10 @@ package com.lanrenyou.travel.model;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class TravelCollect extends BaseValueObject {
-    /**
+	
+	private static final long serialVersionUID = 6831740578403765040L;
+
+	/**
      * 主键ID
      */
     private Integer id;

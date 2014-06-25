@@ -4,7 +4,9 @@ import java.util.Date;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class TravelContent extends BaseValueObject {
-    /**
+	private static final long serialVersionUID = -2397361176955297034L;
+
+	/**
      * 主键ID
      */
     private Integer id;

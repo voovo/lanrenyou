@@ -4,7 +4,10 @@ import java.util.Date;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class UserPlanner extends BaseValueObject {
-    /**
+	
+	private static final long serialVersionUID = 3189562919684403320L;
+
+	/**
      * 主键ID
      */
     private Integer id;

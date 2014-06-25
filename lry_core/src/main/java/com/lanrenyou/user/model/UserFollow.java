@@ -3,7 +3,10 @@ package com.lanrenyou.user.model;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class UserFollow extends BaseValueObject {
-    /**
+	
+	private static final long serialVersionUID = -2696227003222521219L;
+
+	/**
      * 主键ID
      */
     private Integer id;

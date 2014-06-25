@@ -3,7 +3,10 @@ package com.lanrenyou.travel.model;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class TravelShare extends BaseValueObject {
-    private Integer id;
+	
+	private static final long serialVersionUID = 7078347098642707526L;
+
+	private Integer id;
 
     /**
      * 分享者ID

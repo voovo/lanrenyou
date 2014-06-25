@@ -3,7 +3,10 @@ package com.lanrenyou.dict.model;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class DictCity extends BaseValueObject {
-    /**
+	
+	private static final long serialVersionUID = 4240590996867559945L;
+
+	/**
      * 主键ID
      */
     private Integer id;
