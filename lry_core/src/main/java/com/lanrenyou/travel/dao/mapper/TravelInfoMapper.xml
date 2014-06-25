@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.travel.dao.ITravelInfoDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.TravelInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="planner_uid" property="plannerUid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="is_elite" property="isElite" jdbcType="TINYINT" />
+    <result column="is_top" property="isTop" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_uid" property="createUid" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
+    <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, city, planner_uid, title, is_elite, is_top, status, create_uid, create_time, 
+    create_ip, update_uid, update_ip
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_travel_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelInfo" useGeneratedKeys="true" keyProperty="id" >
+    insert into tb_travel_info (city, planner_uid, title, 
+      is_elite, is_top, status, 
+      create_uid, create_time, create_ip, 
+      update_uid, update_ip)
+    values (#{city,jdbcType=INTEGER}, #{plannerUid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{isElite,jdbcType=TINYINT}, #{isTop,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{createUid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, 
+      #{updateUid,jdbcType=INTEGER}, #{updateIp,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelInfo" >
+    update tb_travel_info
+    set city = #{city,jdbcType=INTEGER},
+      planner_uid = #{plannerUid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      is_elite = #{isElite,jdbcType=TINYINT},
+      is_top = #{isTop,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      create_uid = #{createUid,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_ip = #{createIp,jdbcType=VARCHAR},
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_ip = #{updateIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info
+  </select>
+</mapper>

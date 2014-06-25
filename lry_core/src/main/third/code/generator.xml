@@ -63,11 +63,39 @@
 			<ignoreColumn column="update_time"/>
 		</table>
 		  -->
-		<!-- letter package -->
+		<!-- letter package
 		<table tableName="tb_private_letter" domainObjectName="PrivateLetter">
 			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
 			<ignoreColumn column="update_time"/>
 		</table>
-		  
+		   -->
+		<table tableName="tb_travel_info" domainObjectName="TravelInfo">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_travel_content" domainObjectName="TravelContent">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_travel_collect" domainObjectName="TravelCollect">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_travel_like" domainObjectName="TravelLike">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_travel_share" domainObjectName="TravelShare">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_travel_info_stat" domainObjectName="TravelInfoStat">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_travel_visit_log" domainObjectName="TravelVisitLog">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
 	</context>
 </generatorConfiguration>

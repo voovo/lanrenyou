@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.travel.dao.ITravelShareDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.TravelShare" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="share_type" property="shareType" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, tid, share_type
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_travel_share
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelShare" useGeneratedKeys="true" keyProperty="id" >
+    insert into tb_travel_share (uid, tid, share_type
+      )
+    values (#{uid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER}, #{shareType,jdbcType=TINYINT}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelShare" >
+    update tb_travel_share
+    set uid = #{uid,jdbcType=INTEGER},
+      tid = #{tid,jdbcType=INTEGER},
+      share_type = #{shareType,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_share
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_share
+  </select>
+</mapper>

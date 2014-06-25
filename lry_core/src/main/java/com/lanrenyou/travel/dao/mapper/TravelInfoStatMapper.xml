@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.travel.dao.ITravelInfoStatDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.TravelInfoStat" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="view_cnt" property="viewCnt" jdbcType="INTEGER" />
+    <result column="like_cnt" property="likeCnt" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tid, view_cnt, like_cnt
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_travel_info_stat
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelInfoStat" useGeneratedKeys="true" keyProperty="id" >
+    insert into tb_travel_info_stat (tid, view_cnt, like_cnt
+      )
+    values (#{tid,jdbcType=INTEGER}, #{viewCnt,jdbcType=INTEGER}, #{likeCnt,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelInfoStat" >
+    update tb_travel_info_stat
+    set tid = #{tid,jdbcType=INTEGER},
+      view_cnt = #{viewCnt,jdbcType=INTEGER},
+      like_cnt = #{likeCnt,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info_stat
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info_stat
+  </select>
+</mapper>
