@@ -11,4 +11,14 @@ import org.springframework.stereotype.Service;
 public class TravelLikeServiceImpl extends BaseVOService<TravelLike> implements ITravelLikeService {
     @Autowired
     private ITravelLikeDao travelLikeDao;
+
+	@Override
+	public int addTravelLike(TravelLike travelLike) {
+		return travelLikeDao.insert(travelLike);
+	}
+
+	@Override
+	public int getTravelLikeCntByTid(int tid) {
+		return travelLikeDao.getCountByTid(tid);
+	}
 }

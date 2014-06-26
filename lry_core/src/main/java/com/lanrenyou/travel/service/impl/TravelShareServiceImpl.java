@@ -11,4 +11,14 @@ import org.springframework.stereotype.Service;
 public class TravelShareServiceImpl extends BaseVOService<TravelShare> implements ITravelShareService {
     @Autowired
     private ITravelShareDao travelShareDao;
+
+	@Override
+	public int addTravelShare(TravelShare travelShare) {
+		return travelShareDao.insert(travelShare);
+	}
+
+	@Override
+	public int getTravelShareCntByTid(int tid) {
+		return travelShareDao.getCountByTid(tid);
+	}
 }

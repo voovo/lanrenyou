@@ -16,6 +16,9 @@ public class TravelContent extends BaseValueObject {
      */
     private Integer tid;
 
+    /**
+     * 旅行时间
+     */
     private Date travelDate;
 
     /**

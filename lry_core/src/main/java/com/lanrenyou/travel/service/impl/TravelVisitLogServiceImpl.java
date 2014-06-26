@@ -11,4 +11,9 @@ import org.springframework.stereotype.Service;
 public class TravelVisitLogServiceImpl extends BaseVOService<TravelVisitLog> implements ITravelVisitLogService {
     @Autowired
     private ITravelVisitLogDao travelVisitLogDao;
+
+	@Override
+	public int addTravelVisitLog(TravelVisitLog visitLog) {
+		return travelVisitLogDao.insert(visitLog);
+	}
 }
