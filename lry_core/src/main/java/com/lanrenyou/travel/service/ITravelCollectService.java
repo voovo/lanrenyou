@@ -16,13 +16,14 @@ public interface ITravelCollectService extends IValueObjectService<TravelCollect
 	public int addTravelCollect(TravelCollect travelCollect);
 	
 	/**
-	 * deleteTravelCollect	取消收藏
+	 * deleteByUidTid	取消收藏
 	 * 
-	 * @param travelCollect
+	 * @param uid
+	 * @param tid
 	 * @return int
 	 * @exception 
 	*/
-	public int deleteTravelCollect(TravelCollect travelCollect);
+	public int deleteByUidTid(int uid, int tid);
 	
 	/**
 	 * pageQueryTravelCollectByUid	根据用户分页查询其收藏的游记

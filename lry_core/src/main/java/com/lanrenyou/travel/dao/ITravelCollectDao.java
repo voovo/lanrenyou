@@ -17,13 +17,14 @@ public interface ITravelCollectDao extends IValueObjectDao<TravelCollect> {
 	public int insert(TravelCollect travelCollect);
 
 	/**
-	 * update2Delete	置为删除状态
+	 * deleteByUidTid	删除收藏
 	 * 
-	 * @param travelCollect
+	 * @param uid
+	 * @param tid
 	 * @return int
 	 * @exception 
 	*/
-	public int update2Delete(TravelCollect travelCollect);
+	public int deleteByUidTid(int uid, int tid);
 
 	/**
 	 * getTravelCollectCountByUid	根据用户UID查询其所收藏的游记总数

@@ -11,4 +11,12 @@ public class TravelVisitLogDaoImpl extends BaseDao<TravelVisitLog> implements IT
     public TravelVisitLogDaoImpl() {
         super(ITravelVisitLogDao.class.getName());
     }
+
+	@Override
+	public int insert(TravelVisitLog visitLog) {
+		if(null == visitLog){
+			return 0;
+		}
+		return this.doInsert("insert", visitLog);
+	}
 }

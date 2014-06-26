@@ -59,4 +59,22 @@
     <include refid="Base_Column_List" />
     from tb_travel_info
   </select>
+  
+  <select id="getByIdList" resultMap="BaseResultMap" parameterType="java.uitl.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info
+    where status = 1 and tid in 
+    	<foreach collection="tidList" item="item" index="index" open="(" separator="," close=")">
+            #{item, jdbcType=INTEGER}
+        </foreach>
+  </select>
+  
+  <select id="getTravelInfoCountByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1) from tb_travel_info where planner_uid = #{uid, jdbcType=INTEGER} and status = 1
+  </select>
+  
+  <select id="getTravelInfoListByUid" resultType="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info where planner_uid = #{uid, jdbcType=INTEGER} and status = 1 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
 </mapper>

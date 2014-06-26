@@ -22,8 +22,8 @@ public class TravelCollectServiceImpl extends BaseVOService<TravelCollect> imple
 	}
 
 	@Override
-	public int deleteTravelCollect(TravelCollect travelCollect) {
-		return travelCollectDao.update2Delete(travelCollect);
+	public int deleteByUidTid(int uid, int tid) {
+		return travelCollectDao.deleteByUidTid(uid, tid);
 	}
 
 	@Override

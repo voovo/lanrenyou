@@ -11,4 +11,17 @@ public class TravelShareDaoImpl extends BaseDao<TravelShare> implements ITravelS
     public TravelShareDaoImpl() {
         super(ITravelShareDao.class.getName());
     }
+
+	@Override
+	public int insert(TravelShare travelShare) {
+		if(null == travelShare){
+			return 0;
+		}
+		return this.doInsert("insert", travelShare);
+	}
+
+	@Override
+	public int getCountByTid(int tid) {
+		return (Integer) this.findOne("getCountByTid", tid);
+	}
 }

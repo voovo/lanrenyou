@@ -13,6 +13,10 @@
     delete from tb_travel_collect
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByUidTid" parameterType="java.lang.Integer" >
+    delete from tb_travel_collect
+    where uid = #{uid,jdbcType=INTEGER} and tid = #{tid, jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelCollect" useGeneratedKeys="true" keyProperty="id" >
     insert into tb_travel_collect (uid, tid)
     values (#{uid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER})
@@ -34,4 +38,6 @@
     <include refid="Base_Column_List" />
     from tb_travel_collect
   </select>
+  
+  
 </mapper>

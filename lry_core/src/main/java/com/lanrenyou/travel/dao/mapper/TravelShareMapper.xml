@@ -38,4 +38,8 @@
     <include refid="Base_Column_List" />
     from tb_travel_share
   </select>
+  
+  <select id="getCountByTid" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select count(1) from tb_travel_share where tid=#{tid, jdbcType=INTEGER}
+  </select>
 </mapper>

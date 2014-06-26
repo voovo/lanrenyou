@@ -11,4 +11,17 @@ public class TravelLikeDaoImpl extends BaseDao<TravelLike> implements ITravelLik
     public TravelLikeDaoImpl() {
         super(ITravelLikeDao.class.getName());
     }
+
+	@Override
+	public int insert(TravelLike travelLike) {
+		if(null == travelLike){
+			return 0;
+		}
+		return this.doInsert("insert", travelLike);
+	}
+
+	@Override
+	public int getCountByTid(int tid) {
+		return (Integer) this.findOne("getCountByTid", tid);
+	}
 }
