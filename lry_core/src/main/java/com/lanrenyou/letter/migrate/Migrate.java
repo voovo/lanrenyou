@@ -23,39 +23,79 @@ public class Migrate {
 	UserInfo userInfo = new UserInfo();
 	
 	public static void main(String[] args) {
-		
+		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
+		System.out.println();
 	}
 	
-	public static Map<Integer,WpPosts> filterposts(List<WpPosts> postslist){
+	public static Map<Integer,WpPosts> filterposts(List<WpPosts> postslist,List<WpPosts> metalist){
 		Map<Integer,WpPosts> map = new HashMap<Integer, WpPosts>();
 		
 		for(int i=0;i<postslist.size();i++){
 			WpPosts post = postslist.get(i);
-			if(0==post.getPost_parent()&!map.containsKey(post.getId())){
+			if(!map.containsKey(post.getId())){
 				map.put(post.getId(), post);
 			}
 		}
 		
-		for(int i=0;i<postslist.size();i++){
-			WpPosts post = postslist.get(i);
+		for(int i=0;i<metalist.size();i++){
+			WpPosts post = metalist.get(i);
+			
 			if(post.getPost_parent()>0){
-				map.get(post.getId()).getChildlists().add(post);
+				map.get(post.getPost_parent()).getChildlists().add(post);
 			}
 		}
 		
 		return map;
 	}
 	
+	public static List<WpPosts> getPostmetas(List<WpPosts> postlist){
+		StringBuffer ids = new StringBuffer();
+		for (int i=0;i<postlist.size();i++){
+			ids.append(postlist.get(i).getId()).append(",");
+		}
+		
+		List<WpPosts> metalist = new ArrayList<WpPosts>();
+		 Map<String,Integer> map = getUserIdMap();
+		try{
+			Connection conn = getPressConn();
+			ResultSet rs = null;
+			Statement stat = conn.createStatement();
+			String metasql = "	select p.id id,p.post_parent post_parent,p.post_date post_date,p.post_author post_author,p.post_content post_content,p.post_title post_title" +
+					",p.post_excerpt post_excerpt,p.post_modified post_modified,p.post_parent post_parent,f.meta_value meta_value from 	wp_posts  p left join (select * from wp_postmeta where meta_key='_wp_attached_file')  f on p.id=f.post_id " +
+					"where 	p.post_parent in ( "+ids.toString().substring(0, ids.length()-1)+" )";
+			rs = stat.executeQuery(metasql);
+			while(rs.next()){
+				WpPosts post = new WpPosts();
+				post.setId(rs.getInt("id"));
+				post.setPost_author(rs.getInt("post_author"));
+				post.setPost_content(rs.getString("post_content"));
+				post.setPost_excerpt(rs.getString("post_excerpt"));
+				post.setPost_title(rs.getString("post_title"));
+				post.setPost_date(rs.getTimestamp("post_date"));
+				post.setPost_modified(rs.getTimestamp("post_modified"));
+				post.setPost_parent(rs.getInt("post_parent"));
+				post.setPost_attc_url(rs.getString("meta_value"));	
+				metalist.add(post);
+			}
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return metalist;
+		
+	}
 	
 	public static List<WpPosts> getPosts(){
 		Connection conn = getPressConn();
 		List<WpPosts> postslist = new ArrayList<WpPosts>();
+		 Map<String,Integer> map = getUserIdMap();
 		
 		try{
 			ResultSet rs = null;
 			Statement stat = conn.createStatement();
 			String postssql = "select b.user_login user_login,a.id id,a.post_date post_date,a.post_author post_author,a.post_content post_content,a.post_title post_title," +
-					"a.post_excerpt post_excerpt,a.post_modified post_modified,a.post_parent post_parent,c.meta_value meta_value from wp_posts a inner join wp_users b on" +
+					"a.post_excerpt post_excerpt,a.post_modified post_modified,a.post_parent post_parent,c.meta_value meta_value from wp_posts a inner join wp_users b on " +
 					"a.post_author=b.id  left join  (select * from wp_postmeta where meta_key='post_views_count')  c on a.id=c.post_id where a.post_status='publish'  ";
 			rs = stat.executeQuery(postssql);
 			while(rs.next()){
@@ -63,6 +103,7 @@ public class Migrate {
 				post.setId(rs.getInt("id"));
 				post.setPost_author(rs.getInt("post_author"));
 				post.setPost_author_name(rs.getString("user_login"));
+				post.setPost_author_id_new(map.get(rs.getString("user_login")));
 				post.setPost_content(rs.getString("post_content"));
 				post.setPost_excerpt(rs.getString("post_excerpt"));
 				post.setPost_title(rs.getString("post_title"));

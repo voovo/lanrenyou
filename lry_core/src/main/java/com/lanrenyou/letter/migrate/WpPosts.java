@@ -1,6 +1,7 @@
 package com.lanrenyou.letter.migrate;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WpPosts {
@@ -8,14 +9,16 @@ public class WpPosts {
 	private Integer id;
 	private Integer post_author;
 	private String post_author_name;
+	private Integer post_author_id_new;
 	private String post_content;
 	private String post_title;
 	private String post_excerpt;
 	private Timestamp post_date;
 	private Timestamp post_modified;
 	private int post_parent;
-	private List<WpPosts> childlists;
+	private List<WpPosts> childlists = new ArrayList<WpPosts>();
 	private int post_views_count;
+	private String post_attc_url;
 	
 	public Integer getId() {
 		return id;
@@ -34,6 +37,13 @@ public class WpPosts {
 	}
 	public void setPost_author_name(String post_author_name) {
 		this.post_author_name = post_author_name;
+	}
+
+	public Integer getPost_author_id_new() {
+		return post_author_id_new;
+	}
+	public void setPost_author_id_new(Integer post_author_id_new) {
+		this.post_author_id_new = post_author_id_new;
 	}
 	public String getPost_content() {
 		return post_content;
@@ -82,6 +92,12 @@ public class WpPosts {
 	}
 	public void setPost_views_count(int post_views_count) {
 		this.post_views_count = post_views_count;
+	}
+	public String getPost_attc_url() {
+		return post_attc_url;
+	}
+	public void setPost_attc_url(String post_attc_url) {
+		this.post_attc_url = post_attc_url;
 	}
 	
 }
