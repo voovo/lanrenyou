@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.admin.dao.IAdminRolePowerDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.admin.model.AdminRolePower" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="power_id" property="powerId" jdbcType="INTEGER" />
+    <result column="create_uid" property="createUid" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, role_id, power_id, create_uid, create_time, create_ip
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_admin_role_power
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.admin.model.AdminRolePower" useGeneratedKeys="true" keyProperty="id" >
+    insert into tb_admin_role_power (role_id, power_id, create_uid, 
+      create_time, create_ip)
+    values (#{roleId,jdbcType=INTEGER}, #{powerId,jdbcType=INTEGER}, #{createUid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.admin.model.AdminRolePower" >
+    update tb_admin_role_power
+    set role_id = #{roleId,jdbcType=INTEGER},
+      power_id = #{powerId,jdbcType=INTEGER},
+      create_uid = #{createUid,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_ip = #{createIp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_admin_role_power
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_admin_role_power
+  </select>
+</mapper>

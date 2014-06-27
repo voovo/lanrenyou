@@ -69,6 +69,7 @@
 			<ignoreColumn column="update_time"/>
 		</table>
 		   -->
+		<!-- travel
 		<table tableName="tb_travel_info" domainObjectName="TravelInfo">
 			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
 			<ignoreColumn column="update_time"/>
@@ -97,5 +98,28 @@
 			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
 			<ignoreColumn column="update_time"/>
 		</table>
+		 -->
+		 
+		<table tableName="tb_admin_user" domainObjectName="AdminUser">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_admin_power_item" domainObjectName="AdminPowerItem">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_admin_role" domainObjectName="AdminRole">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_admin_role_power" domainObjectName="AdminRolePower">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		<table tableName="tb_admin_log" domainObjectName="AdminLog">
+			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+			<ignoreColumn column="update_time"/>
+		</table>
+		
 	</context>
 </generatorConfiguration>

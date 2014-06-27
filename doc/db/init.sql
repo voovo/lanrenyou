@@ -1,16 +1,16 @@
-drop table if exists tb_admin;
-
 drop table if exists tb_admin_log;
+
+drop table if exists tb_admin_power_item;
+
+drop table if exists tb_admin_role;
+
+drop table if exists tb_admin_role_power;
+
+drop table if exists tb_admin_user;
 
 drop table if exists tb_dict_city;
 
-drop table if exists tb_power_item;
-
 drop table if exists tb_private_letter;
-
-drop table if exists tb_role;
-
-drop table if exists tb_role_power;
 
 drop table if exists tb_travel_collect;
 
@@ -33,9 +33,82 @@ drop table if exists tb_user_info;
 drop table if exists tb_user_planner;
 
 /*==============================================================*/
-/* Table: tb_admin                                              */
+/* Table: tb_admin_log                                          */
 /*==============================================================*/
-create table tb_admin
+create table tb_admin_log
+(
+   id                   int(11) not null auto_increment,
+   admin_id             int(11) not null comment '管理员ID',
+   oper_type            tinyint(6) not null comment '操作类型',
+   oper_context         varchar(512),
+   oper_time            timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   oper_ip              varchar(64),
+   primary key (id)
+);
+
+alter table tb_admin_log comment '管理员操作日志';
+
+/*==============================================================*/
+/* Table: tb_admin_power_item                                   */
+/*==============================================================*/
+create table tb_admin_power_item
+(
+   id                   int(11) not null auto_increment,
+   p_id                 int(11) not null comment '父级ID',
+   level                tinyint(6) not null comment '权限级别',
+   name                 varchar(128) not null comment '名称',
+   url                  varchar(512) not null comment 'URL，支持正则',
+   status               tinyint(6) comment '状态[0:停用, 1:正常]',
+   create_uid           int(11),
+   create_time          datetime,
+   create_ip            varchar(64),
+   update_uid           int(11),
+   update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   update_ip            varchar(64),
+   primary key (id)
+);
+
+alter table tb_admin_power_item comment '权限项';
+
+/*==============================================================*/
+/* Table: tb_admin_role                                         */
+/*==============================================================*/
+create table tb_admin_role
+(
+   id                   int(11) not null auto_increment,
+   name                 varchar(128) not null comment '角色名称',
+   status               tinyint(6) not null comment '状态[0:停用, 1:正常]',
+   create_uid           int(11),
+   create_time          datetime,
+   create_ip            varchar(64),
+   update_uid           int(11),
+   update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   update_ip            varchar(64),
+   primary key (id)
+);
+
+alter table tb_admin_role comment '角色表';
+
+/*==============================================================*/
+/* Table: tb_admin_role_power                                   */
+/*==============================================================*/
+create table tb_admin_role_power
+(
+   id                   int(11) not null auto_increment,
+   role_id              int(11) not null comment '角色ID',
+   power_id             int(11) not null comment '权限ID',
+   create_uid           int(11),
+   create_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   create_ip            varchar(64),
+   primary key (id)
+);
+
+alter table tb_admin_role_power comment '角色权限对应表';
+
+/*==============================================================*/
+/* Table: tb_admin_user                                         */
+/*==============================================================*/
+create table tb_admin_user
 (
    id                   int(11) not null auto_increment,
    name                 varchar(128) not null comment '用户名',
@@ -53,23 +126,7 @@ create table tb_admin
    primary key (id)
 );
 
-alter table tb_admin comment '系统管理员';
-
-/*==============================================================*/
-/* Table: tb_admin_log                                          */
-/*==============================================================*/
-create table tb_admin_log
-(
-   id                   int(11) not null auto_increment,
-   admin_id             int(11) not null comment '管理员ID',
-   oper_type            tinyint(6) not null comment '操作类型',
-   oper_context         varchar(512),
-   oper_time            timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   oper_ip              varchar(64),
-   primary key (id)
-);
-
-alter table tb_admin_log comment '管理员操作日志';
+alter table tb_admin_user comment '系统管理员';
 
 /*==============================================================*/
 /* Table: tb_dict_city                                          */
@@ -84,28 +141,6 @@ create table tb_dict_city
 );
 
 alter table tb_dict_city comment '城市字典表';
-
-/*==============================================================*/
-/* Table: tb_power_item                                         */
-/*==============================================================*/
-create table tb_power_item
-(
-   id                   int(11) not null auto_increment,
-   p_id                 int(11) not null comment '父级ID',
-   level                tinyint(6) not null comment '权限级别',
-   name                 varchar(128) not null comment '名称',
-   url                  varchar(512) not null comment 'URL，支持正则',
-   status               tinyint(6) comment '状态[0:停用, 1:正常]',
-   create_uid           int(11),
-   create_time          datetime,
-   create_ip            varchar(64),
-   update_uid           int(11),
-   update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   update_ip            varchar(64),
-   primary key (id)
-);
-
-alter table tb_power_item comment '权限项';
 
 /*==============================================================*/
 /* Table: tb_private_letter                                     */
@@ -124,41 +159,6 @@ create table tb_private_letter
 );
 
 alter table tb_private_letter comment '私信';
-
-/*==============================================================*/
-/* Table: tb_role                                               */
-/*==============================================================*/
-create table tb_role
-(
-   id                   int(11) not null auto_increment,
-   name                 varchar(128) not null comment '角色名称',
-   status               tinyint(6) not null comment '状态[0:停用, 1:正常]',
-   create_uid           int(11),
-   create_time          datetime,
-   create_ip            varchar(64),
-   update_uid           int(11),
-   update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   update_ip            varchar(64),
-   primary key (id)
-);
-
-alter table tb_role comment '角色表';
-
-/*==============================================================*/
-/* Table: tb_role_power                                         */
-/*==============================================================*/
-create table tb_role_power
-(
-   id                   int(11) not null auto_increment,
-   role_id              int(11) not null comment '角色ID',
-   power_id             int(11) not null comment '权限ID',
-   create_uid           int(11),
-   create_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   create_ip            varchar(64),
-   primary key (id)
-);
-
-alter table tb_role_power comment '角色权限对应表';
 
 /*==============================================================*/
 /* Table: tb_travel_collect                                     */
@@ -334,9 +334,6 @@ create table tb_user_planner
 );
 
 alter table tb_user_planner comment '策划师';
-
-
-
 
 
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1001,'纽约NYC及周边');
