@@ -7,14 +7,19 @@ public enum TravelInfoStatusEnum {
     DELETE(0),
 
     /**
-     * 正常
+     * 发布成功未审核
      */
     NORMAL(1),
+    
+    /**
+     * 审核通过
+     */
+    PASS(2),
 
     /**
      * 审核不通过
      */
-    UNPASS(2);
+    UNPASS(3);
 
     private int value;
 
