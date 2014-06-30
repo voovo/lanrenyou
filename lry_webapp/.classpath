@@ -56,5 +56,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/httpmime-4.3.3.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jna.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/simplecaptcha-1.2.1.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

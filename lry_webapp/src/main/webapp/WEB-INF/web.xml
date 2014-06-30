@@ -61,7 +61,6 @@
 		<servlet-name>SpringMVCServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-
 	<!-- 浏览器不支持put,delete等method,由该filter将/xxx?_method=delete转换为标准的http delete方法 -->
 	<filter>
 		<filter-name>HiddenHttpMethodFilter</filter-name>
