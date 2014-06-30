@@ -62,7 +62,7 @@
     where uid = #{uid,jdbcType=INTEGER}
   </select>
   
-  <select id="getListByUidList" resultMap="BaseResultMap" parameterType="java.uitl.Map" >
+  <select id="getListByUidList" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select
     <include refid="Base_Column_List" />
     from tb_user_planner

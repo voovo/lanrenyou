@@ -1,11 +1,8 @@
-package com.lanrenyou.csrf;
+package com.lanrenyou.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import com.lanrenyou.util.StringUtil;
-
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;

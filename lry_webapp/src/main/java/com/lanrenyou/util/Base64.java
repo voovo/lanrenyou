@@ -1,8 +1,6 @@
-package com.lanrenyou.csrf;
+package com.lanrenyou.util;
 
 import java.util.Arrays;
-
-import com.lanrenyou.util.StringUtil;
 
 public class Base64 {
     /**

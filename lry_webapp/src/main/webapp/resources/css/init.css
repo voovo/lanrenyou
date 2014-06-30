@@ -1,0 +1,242 @@
+/*
+ * init.css
+ * 大街独立项目公用样式
+ * 2012/12/04
+ */
+
+/*页面元素属性初始化*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    padding: 0;
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+input,button,select,textarea{outline:none}
+textarea{resize:none}
+
+fieldset, img {
+    border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var, i {
+    font-weight: 400;
+    font-style: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+abbr, acronym {
+    border: 0;
+}
+/*
+ * 默认字体控制
+ * 字磅400, 字号12px, 英文和数字采用tahoma方便对齐，中文首选微软雅黑，宋体为降级方案（le IE7）
+ */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, address, caption, cite, code, dfn, em, strong, th, var {
+    font: 400 12px "微软雅黑", "Microsoft YaHei", "Tahoma", "宋体";
+}
+body{background-color:#fff;}
+html{overflow-y:scroll; overflow-x:hidden;}
+
+/*
+ * 清除浮动
+ */
+.clr:after , .clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+.clr,.clearfix {
+    zoom: 1
+}
+
+/*
+ * 页面公用样式
+ */
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.inl {
+    display: inline;
+}
+
+.inlb {
+    display: inline-block;
+    *display:inline;
+    * zoom: 1;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.fnon {
+    float: none;
+}
+
+.abs {
+    position: absolute;
+}
+
+.relt {
+    position: relative;
+}
+
+.box {
+    width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.zom {
+    zoom: 1;
+}
+
+.largest {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.txtshad {
+    text-shadow: 1px 2px 3px #ddd;
+}
+
+.mgt10 {
+    margin-top: 10px;
+}
+
+.pd5 {
+    padding: 5px;
+}
+
+.pd10 {
+    padding: 10px;
+}
+
+.gray ,.gray a {
+    color: #888;
+}
+
+.red , .red a{
+    color: #f00;
+}
+
+.black , .black a{
+    color: #000;
+}
+
+.price {
+    font-family: Arial;
+    font-weight: 700;
+}
+
+.shad-x1y1b5-ddd {
+    -moz-box-shadow: 1px 1px 5px #ddd;
+    -webkit-box-shadow: 1px 1px 5px #ddd;
+    -o-box-shadow: 1px 1px 5px #ddd;
+    box-shadow: 1px 1px 5px #ddd;
+}
+
+.shad-x0y1b5-ddd {
+    -moz-box-shadow: 0 1px 3px #666;
+    -webkit-box-shadow: 0 1px 3px #666;
+    -o-box-shadow: 0 1px 3px #666;
+    box-shadow: 0 1px 3px #666;
+}
+
+.shad-x0y4b7-ddd {
+	-moz-box-shadow: 0 4px 7px #555;
+    -webkit-box-shadow: 0 4px 7px #555;
+    -o-box-shadow: 0 4px 7px #555;
+    box-shadow: 0 4px 7px #555;
+}
+
+
+a:link, a:visited {
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover, a:active {
+    color: #000;
+}
+
+a.a-gray:link, a.a-gray:visited {
+    color: #888;
+}
+
+a.a-gray:hover, a.a-gray:active {
+    color: #000;
+}
+
+a.a-black:link, a.a-black:visited {
+    color: #000;
+}
+
+input {
+    outline: 0;
+}
+a{blr:expression(this.onFocus=this.blur());}
+a:active, a:focus {outline:none;}
+
+
+.bdTd{
+	border-top:1px dashed #ccc;
+}
+.bdTs{
+	border-top:1px solid #ccc;
+}
+.bdTdo{
+	border-top:1px dotted #ccc;
+}
+.bdBd{
+	border-bottom:1px dashed #ccc;
+}
+.bdBs{
+	border-bottom:1px solid #ccc;
+}
+.bdBdo{
+	border-bottom:1px dotted #ccc;
+}
+.noRbd{
+	border-right:0 !important;
+}
+
+.loader1{ background:url(http://assets.dajieimg.com/bd/bd_lib/img/plug/loader/loader1.gif) center center no-repeat;}
+.loader2{ background:url(http://assets.dajieimg.com/bd/bd_lib/img/plug/loader/loader2.gif) center center no-repeat;}
+.loader3{ background:url(http://assets.dajieimg.com/bd/bd_lib/img/plug/loader/loader3.gif) center center no-repeat;}
+.loader4{ background:url(http://assets.dajieimg.com/bd/bd_lib/img/plug/loader/loader4.gif) center center no-repeat;}
+.loader6{ background:url(http://assets.dajieimg.com/bd/bd_lib/img/plug/loader/loader6.gif) center center no-repeat;}
+

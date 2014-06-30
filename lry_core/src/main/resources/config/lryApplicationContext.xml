@@ -13,20 +13,20 @@
     <!-- enable component scanning  -->
 	<context:component-scan base-package="com.lanrenyou.*" />
 	<!-- 引入jdbc配置文件 -->
-    <context:property-placeholder location="config/lry_ibatis_cn_dev.properties"/>
+    <context:property-placeholder location="classpath:/config/lry_ibatis_cn_dev.properties"/>
 	
 	<bean id="sqlSessionWrapper" class="mybatis.framework.core.support.SqlSessionWrapper" />
 	
     <!--创建bonecp数据源 -->
     <bean id="commonDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-		<property name="driverClass" value="${demo_db_driver}" />
-		<property name="jdbcUrl" value="${demo_db_url}" />
-		<property name="username" value="${demo_db_username}"/>
-		<property name="password" value="${demo_db_password}"/>
+		<property name="driverClass" value="${lry_db_driver}" />
+		<property name="jdbcUrl" value="${lry_db_url}" />
+		<property name="username" value="${lry_db_username}"/>
+		<property name="password" value="${lry_db_password}"/>
 		<property name="idleConnectionTestPeriod" value="60"/>
 		<property name="idleMaxAge" value="240"/>
-		<property name="maxConnectionsPerPartition" value="${demo_db_maxPoolSize}"/>
-		<property name="minConnectionsPerPartition" value="${demo_db_minPoolSize}"/>
+		<property name="maxConnectionsPerPartition" value="${lry_db_maxPoolSize}"/>
+		<property name="minConnectionsPerPartition" value="${lry_db_minPoolSize}"/>
 		<property name="partitionCount" value="3"/>
 		<property name="acquireIncrement" value="5"/>
 		<property name="statementsCacheSize" value="100"/>
@@ -42,6 +42,7 @@
     			<value>classpath:/com/lanrenyou/user/dao/mapper/*Mapper.xml</value>
     			<value>classpath:/com/lanrenyou/dict/dao/mapper/*Mapper.xml</value>
     			<value>classpath:/com/lanrenyou/letter/dao/mapper/*Mapper.xml</value>
+    			<value>classpath:/com/lanrenyou/travel/dao/mapper/*Mapper.xml</value>
     		</list>
     	</property>
     </bean>

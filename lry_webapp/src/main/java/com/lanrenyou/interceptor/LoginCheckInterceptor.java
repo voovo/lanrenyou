@@ -1,76 +1,75 @@
 package com.lanrenyou.interceptor;
 
-import java.io.IOException;
-
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.lanrenyou.config.AppConfigs;
-import com.lanrenyou.config.ConfigProperties;
-import com.lanrenyou.util.SessionUtil;
-import com.lanrenyou.util.UrlEncoderUtil;
+import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.util.AesCryptUtil;
+import com.lanrenyou.util.ServletUtil;
+import com.lanrenyou.util.StringUtil;
+import com.lanrenyou.util.constants.UserConstant;
 
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 	protected static final int DEFAULT_PORT = 80;
+	
+	@Autowired
+	protected IUserInfoService userInfoService;
 
-	@Override
-	public boolean preHandle(HttpServletRequest request,
+	protected boolean doPreHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		// TODO 用户登录拦截，只使用session或者request中的的Attribute，不要使用cookie
+		UserInfo userInfo = getUserBaseFromLoginCookie(request);
+
+		if (userInfo != null) {
+			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+		} else {
+			ServletUtil.clearUserCookie(request, response);
+		}
 		return true;
 	}
 
-	private void sendRedirect(HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String currentUrl = getForwardUrl(request);
-        String defaultRedirectValue = "/";
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.removeAttribute("loginUserVo");
-        }
-		response.sendRedirect("http://"+ConfigProperties.getProperty("domain.www")+"/login?redir="
-                        + UrlEncoderUtil.encodeByUtf8(currentUrl, defaultRedirectValue)
-        );
-		
-	}
+	private UserInfo getUserBaseFromLoginCookie(HttpServletRequest request) {
+		Cookie c = ServletUtil.getCookie(request, UserConstant.AUTH_COOKIE_KEY);
 
-	/**
-     * 获取用户的请求URL，主要用于URL调整
-     *
-     * @param request
-     * @return
-     */
-    protected String getForwardUrl(HttpServletRequest request) {
-        int port = request.getServerPort();
-        String servletPath = request.getServletPath();
-        if (servletPath == null || "/".equals(servletPath)) {
-            servletPath = "";
-        }
-        StringBuilder stringBuilder = new StringBuilder(request.getScheme())
-                .append("://").append(request.getServerName()).append(port == DEFAULT_PORT ? "" : ":" + port)
-                .append(request.getContextPath()).append(servletPath).append(request.getPathInfo());
-        if (request.getQueryString() != null && !request.getQueryString().isEmpty()) {
-            stringBuilder.append("?").append(filterHeaderValue(request.getQueryString()));
-        }
-        return stringBuilder.toString();
-    }
-    
-    public static String filterHeaderValue(String value) {
-        if (value == null || value.length() == 0) {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder(value.length());
-        for (int i = 0; i < value.length(); i++) {
-            char c = value.charAt(i);
-            if (c >= 32 && c < 127) {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
-    }
+		if ((c == null) || (StringUtil.isEmpty(c.getValue()))) {
+			return null;
+		}
+		String decode = AesCryptUtil.decrypt(c.getValue(), UserConstant.AUTH_ENCODE_KEY);
+		StringBuffer requestUrlBuffer = request.getRequestURL();
+		String requestUrl = (requestUrlBuffer == null) ? "" : requestUrlBuffer.toString();
+		if (StringUtil.isEmpty(decode)) {
+			LOGGER.warn("===>>>Parse uid from login cookie failed.cookie value is {}, request url:{}", c.getValue(), requestUrl);
+			return null;
+		}
+		String[] info = decode.split("\\|");
+		if ((info.length != 2) || (!(StringUtil.isInteger(info[0])))) {
+			return null;
+		}
+		int uid = Integer.parseInt(info[0]);
+		String cookiePassword = info[1];
+		if (uid <= 0) {
+			LOGGER.warn("===>>>Get uid from login cookie failed.cookie value is {}, request url:{}", c.getValue(), requestUrl);
+			return null;
+		}
+		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
+		if (userInfo == null) {
+			LOGGER.warn("===>>>Query user base by uid failed. uid:{}, request url:{}", Integer.valueOf(uid), requestUrl);
+			return null;
+		}
+		if (!(userInfo.getUserPass().equalsIgnoreCase(cookiePassword))) {
+			LOGGER.warn( "===>>>Wrong password in login cookie. uid:{}, cookie password:{}, user base password:{}, cookie value:{}, request url:{}",
+					new Object[] { Integer.valueOf(uid), cookiePassword, userInfo.getUserPass(), c.getValue(), requestUrl });
+			return null;
+		}
+		LOGGER.debug("===>>>Get login user from cookie success, uid:{}, request url:{}", userInfo.getId(), requestUrl);
+		return userInfo;
+	}
 }

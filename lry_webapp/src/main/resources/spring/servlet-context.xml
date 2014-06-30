@@ -72,7 +72,7 @@
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 	 	<property name="cookieName" value="clientlanguage"/>
 		<property name="cookieMaxAge" value="94608000"/>
-		<property name="defaultLocale" value="en_US" />
+		<property name="defaultLocale" value="zh_CN" />
 	 </bean>
 
 	<!-- Application Message Bundle -->
@@ -119,7 +119,6 @@
         </property>
         <property name="exceptionMappings">
         	<props>
-        		<prop key="com.lanrenyou.payment.exception.PayException">/common/404</prop>
         		<prop key="org.apache.ibatis.exceptions.IbatisException">/common/404</prop>
         	</props>
         </property>

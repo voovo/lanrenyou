@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.user.service.IUserInfoService;
-import com.lanrenyou.util.SessionUtil;
 
 
 @Controller
