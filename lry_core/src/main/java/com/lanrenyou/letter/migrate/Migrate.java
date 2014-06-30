@@ -23,7 +23,21 @@ public class Migrate {
 	UserInfo userInfo = new UserInfo();
 	
 	public static void main(String[] args) {
+		//migrate users
+		//importUsers();
+		
 		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
+		
+		WpPosts po = a.get(6440);		
+		System.out.println("id:"+po.getId()+" content:"+po.getPost_content()+" title:"+po.getPost_title()+" autohr:"+po.getPost_author_name()+" author-new-id:"+po.getPost_author_id_new()+" viewcount:"+po.getPost_views_count());
+		
+		List<WpPosts> list = po.getChildlists();
+		if(list!=null&&list.size()>0){
+			for(int i=0;i<list.size();i++){
+				WpPosts t = list.get(i);
+				System.out.println("child-id:"+t.getId()+" child-content:"+t.getPost_content()+" child-title:"+t.getPost_title()+" child-impurl:"+t.getPost_attc_url());					
+			}			
+		}		
 		System.out.println();
 	}
 	
@@ -143,23 +157,22 @@ public class Migrate {
 		try{	
 			for(int i=0;i<userlist.size();i++){
 				WpUsers user = userlist.get(i);
-				String insertuserinfo = "insert into tb_user_planner (uid,target_city,price,charge_mode,user_intro,status,create_uid,create_time," +
+				String insertuserinfo = "insert into tb_user_planner (uid,target_city,price,charge_mode,status,create_uid,create_time," +
 						"create_ip,update_uid,update_time,update_ip) " +
-						" values(?,?,?,?,?,?,?,?,?,?,?,?)";
+						" values(?,?,?,?,?,?,?,?,?,?,?)";
 				
 					PreparedStatement stat = conn.prepareStatement(insertuserinfo);
 					stat.setInt(1, map.get(user.getUser_login()));
 					stat.setString(2,user.getAreas());
 					stat.setBigDecimal(3, new BigDecimal(0.00));
 					stat.setInt(4,3);
-					stat.setString(5,user.getDescription());
-					stat.setInt(6,1);
-					stat.setInt(7,0);
-					stat.setTimestamp(8,user.getUser_registered() );
-					stat.setString(9,"127.0.0.1");
-					stat.setInt(10,0 );
-					stat.setTimestamp(11,user.getUser_registered());
-					stat.setString(12,"127.0.0.1");
+					stat.setInt(5,1);
+					stat.setInt(6,0);
+					stat.setTimestamp(7,user.getUser_registered() );
+					stat.setString(8,"127.0.0.1");
+					stat.setInt(9,0 );
+					stat.setTimestamp(10,user.getUser_registered());
+					stat.setString(11,"127.0.0.1");
 										
 					stat.executeUpdate();					
 					stat.close();
