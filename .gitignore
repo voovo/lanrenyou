@@ -40,3 +40,5 @@ classes/
 .class
 .project
 settings/
+lry_webapp/.project
+*.project
