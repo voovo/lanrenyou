@@ -1,0 +1,19 @@
+1、用户注册页面的邮箱判断是否被占用
+method:get
+url: /regist/checkEmail?email=xxxx
+return:
+	code:0 或者 1，为0表示有问题，原因请读取msg；为1表示未被占用
+	msg:描述
+	
+
+2、用户注册提交
+method:post
+url: /regist/submit
+data:
+	email
+	userPass
+	userPass2
+	captcha
+return:
+	code:0 或者 1，为0表示有问题，原因请读取msg；为1表示创建成功，请验证邮箱
+	msg:描述
