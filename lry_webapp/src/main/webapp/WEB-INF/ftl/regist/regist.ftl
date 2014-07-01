@@ -4,7 +4,7 @@
 	]
 	>
 <!-- regist_box -->
-<div id="regist_box">
+<div id="regist_box" class="login_bg">
     <div id="regist_form" class="sign_form">
         <div class="reg_tt clearfix">
             <h1 class="left">注册新账号</h1>
@@ -12,7 +12,6 @@
         </div>
 
         <div class="form_table">
-        	<form id="" name="" method="POST" action="/regist/submit" >
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td width="18%" align="right"><span class="ft_14">电子邮件：</span></td>
@@ -35,11 +34,10 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" class="btn blue_btn" value="立即注册" /></td>
+                    <td><a href="javascript:;" class="btn blue_btn">立即注册</a></td>
                     <td></td>
                 </tr>
             </table>
-            </form>
         </div>
     </div>
 </div>

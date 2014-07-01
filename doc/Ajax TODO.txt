@@ -17,3 +17,6 @@ data:
 return:
 	code:0 或者 1，为0表示有问题，原因请读取msg；为1表示创建成功，请验证邮箱
 	msg:描述
+code 为1 时跳转到 /regsit/waitEmailVerify
+
+regist_mail.html 中的 再发一次 调整为ajax请求，链接为： /regist/sendVerifyEmail
