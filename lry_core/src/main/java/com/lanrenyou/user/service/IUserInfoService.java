@@ -39,4 +39,25 @@ public interface IUserInfoService extends IValueObjectService<UserInfo> {
 	 * @exception 
 	*/
 	public UserInfo getUserInfoByEmail(String email);
+	
+	/**
+	 * 创建一个用户 
+	 * @param userInfo
+	 * @return
+	 */
+	public int addUserInfo(UserInfo userInfo);
+	
+	/**
+	 * 修改一个用户 
+	 * @param userInfo
+	 * @return
+	 */
+	public int updateUserInfo(UserInfo userInfo);
+	
+	/**
+	 * 删除一个用户
+	 * @param userInfo
+	 * @return
+	 */
+	public int deleteUserInfo(UserInfo userInfo);
 }

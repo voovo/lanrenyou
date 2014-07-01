@@ -353,3 +353,5 @@ INSERT INTO tb_dict_city (CODE,NAME) VALUES (1014,'波士顿Boston及周边');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1015,'自驾游－加州一号公路Pacific Coast Highway');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1016,'波多黎各Puerto Rico');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1017,'圣地亚哥San Diego及周边');
+
+create unique index uniq_userinfo_email on tb_user_info (email); 
