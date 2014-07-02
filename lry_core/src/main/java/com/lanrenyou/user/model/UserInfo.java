@@ -61,6 +61,16 @@ public class UserInfo extends BaseValueObject {
      * 微信账号
      */
     private String wechatName;
+    
+    /**
+     * 现住址
+     */
+    private String presentAddress;
+    
+    /**
+     * 以前住址
+     */
+    private String previousAddress;
 
     /**
      * 状态
@@ -178,7 +188,23 @@ public class UserInfo extends BaseValueObject {
         this.userIntro = userIntro == null ? null : userIntro.trim();
     }
 
-    public int getStatus() {
+    public String getPresentAddress() {
+		return presentAddress;
+	}
+
+	public void setPresentAddress(String presentAddress) {
+		this.presentAddress = presentAddress;
+	}
+
+	public String getPreviousAddress() {
+		return previousAddress;
+	}
+
+	public void setPreviousAddress(String previousAddress) {
+		this.previousAddress = previousAddress;
+	}
+
+	public int getStatus() {
         return status;
     }
 

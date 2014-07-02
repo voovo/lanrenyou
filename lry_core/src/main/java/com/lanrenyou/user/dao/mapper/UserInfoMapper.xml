@@ -14,6 +14,8 @@
     <result column="weibo_url" property="weiboUrl" jdbcType="VARCHAR" />
     <result column="wechat_name" property="wechatName" jdbcType="VARCHAR" />
     <result column="user_intro" property="userIntro" jdbcType="VARCHAR" />
+    <result column="present_address" property="presentAddress" jdbcType="VARCHAR" />
+    <result column="previous_address" property="previousAddress" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="TINYINT" />
     <result column="create_uid" property="createUid" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -23,7 +25,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, email, user_pass, history_passwd, avatar, nickname, user_type, weibo_name, 
-    weibo_url, wechat_name, user_intro, status, create_uid, create_time, create_ip, update_uid, update_ip
+    weibo_url, wechat_name, user_intro, present_address, previous_address, status, create_uid, create_time, create_ip, update_uid, update_ip
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_user_info
@@ -33,13 +35,13 @@
     insert into tb_user_info (name, email, user_pass, 
       history_passwd, avatar, nickname, 
       user_type, weibo_name, weibo_url, 
-      wechat_name, user_intro, status, create_uid, 
+      wechat_name, user_intro, present_address, previous_address, status, create_uid, 
       create_time, create_ip, update_uid, 
       update_ip)
     values (#{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{userPass,jdbcType=VARCHAR}, 
       #{historyPasswd,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{userType,jdbcType=TINYINT}, #{weiboName,jdbcType=VARCHAR}, #{weiboUrl,jdbcType=VARCHAR}, 
-      #{wechatName,jdbcType=VARCHAR}, #{userIntro,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createUid,jdbcType=INTEGER}, 
+      #{wechatName,jdbcType=VARCHAR}, #{userIntro,jdbcType=VARCHAR}, #{presentAddress, jdbcType=VARCHAR}, #{previousAddress, jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createUid,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, #{updateUid,jdbcType=INTEGER}, 
       #{updateIp,jdbcType=VARCHAR})
   </insert>
@@ -56,6 +58,8 @@
       weibo_url = #{weiboUrl,jdbcType=VARCHAR},
       wechat_name = #{wechatName,jdbcType=VARCHAR},
       user_intro = #{userIntro,jdbcType=VARCHAR},
+      present_address = #{presentAddress,jdbcType=VARCHAR},
+      previous_address = #{previousAddress,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       update_uid = #{updateUid,jdbcType=INTEGER},
       update_ip = #{updateIp,jdbcType=VARCHAR}
