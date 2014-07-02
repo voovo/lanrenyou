@@ -1,6 +1,10 @@
 
 package com.lanrenyou.controller.login;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.controller.base.BaseController;
+import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
 
 
@@ -36,13 +41,48 @@ public class LoginController extends BaseController {
 	public String loginSubmit(
 			@RequestParam(value = "userName", required = true) String userName,
 			@RequestParam(value = "password", required = true) String password,
-			//@RequestParam(value = "code", required = true) String code,
+			@RequestParam(value = "captcha", required = true) String captcha,
 			@RequestParam(value = "redir",required = false) String redir,
 			HttpServletRequest request,
             HttpServletResponse response) {
-		//TODO 校验验证码,暂时没有
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(StringUtils.isBlank(userName)){
+			map.put("code", 0);
+			map.put("msg", "请输入用户名");
+			return gson.toJson(map);
+		}
+		if(StringUtils.isBlank(password)){
+			map.put("code", 0);
+			map.put("msg", "请输入密码");
+			return gson.toJson(map);
+		}
+		if(StringUtils.isBlank(captcha)){
+			map.put("code", 0);
+			map.put("msg", "请输入验证码");
+			return gson.toJson(map);
+		}
+
+		UserInfo userInfo = userInfoService.getUserInfoByName(userName);
+		if(userInfo==null){
+			map.put("code", 0);
+			map.put("msg", "用户名错误");
+			return gson.toJson(map);
+		}
+		if(!password.equals(userInfo.getUserPass())){
+			map.put("code", 0);
+			map.put("msg", "密码错误");
+			return gson.toJson(map);
+		}
+		if(captcha.equals(request.getSession().getAttribute("captchaValue"))){
+			map.put("code", 0);
+			map.put("msg", "验证码不正确");
+			return gson.toJson(map);
+		}
 		
-		
+		Cookie cookie = new Cookie("lry_loginid",userInfo.getId().toString());
+		cookie.setPath("/");
+		response.addCookie(cookie);
+
 		return null;
 	}
 
