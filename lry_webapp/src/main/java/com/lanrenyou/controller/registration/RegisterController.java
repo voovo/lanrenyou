@@ -251,6 +251,7 @@ public class RegisterController extends BaseController {
 			userInfo.setUpdateUid(uid);
 			userInfo.setUpdateIp(request.getRemoteAddr());
 			userInfoService.updateUserInfo(userInfo);
+			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
 		}
 		ModelAndView mav = new ModelAndView("/regist/regist_form");
 		return mav;

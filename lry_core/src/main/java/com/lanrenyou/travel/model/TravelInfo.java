@@ -17,9 +17,9 @@ public class TravelInfo extends BaseValueObject {
     private Integer city;
 
     /**
-     * 策划师ID
+     * 发布者ID
      */
-    private Integer plannerUid;
+    private Integer uid;
 
     /**
      * 标题
@@ -67,12 +67,12 @@ public class TravelInfo extends BaseValueObject {
         this.city = city;
     }
 
-    public Integer getPlannerUid() {
-        return plannerUid;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setPlannerUid(Integer plannerUid) {
-        this.plannerUid = plannerUid;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getTitle() {

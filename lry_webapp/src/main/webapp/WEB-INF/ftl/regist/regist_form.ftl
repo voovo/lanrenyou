@@ -13,22 +13,23 @@
 
         <div class="form_table">
             <table cellpadding="0" cellspacing="0" border="0">
+            	<input type="hidden" name="uid" value="${loginUser.id!''}" />
                 <tr>
                     <td width="18%" align="right"><span class="ft_14">昵称：</span></td>
-                    <td><input type="text" class="input_220"></td>
+                    <td><input type="text" name="nickname" class="input_220"></td>
                 </tr>
                 <tr>
                     <td align="right"><span class="ft_14">邮箱：</span></td>
-                    <td><i>mr.sheak@gmail.com</i></td>
+                    <td><i>${loginUser.email!''}</i></td>
                 </tr>
                 <tr>
                     <td align="right"><span class="ft_14">自我介绍：</span></td>
-                    <td><textarea class="textarea" name="" id="" cols="30" rows="10" placeholder="请输入自我介绍 不超过200字"></textarea></td>
+                    <td><textarea class="textarea" name="userIntro" id="userIntro" cols="30" rows="10" placeholder="请输入自我介绍 不超过200字"></textarea></td>
                 </tr>
                 <tr>
                     <td align="right"><span class="ft_14">现居住地：</span></td>
                     <td>
-                        <select name="" id="" class="select">
+                        <select name="presendAddress" id="" class="select">
                             <option value="0">城市</option>
                             <option value="1">加州</option>
                             <option value="2">旧金山</option>
@@ -45,7 +46,7 @@
                 </tr>
                 <tr>
                     <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
-                    <td><input type="text" class="input_100"></td>
+                    <td><input type="text" name="previousAddress" class="input_100"></td>
                 </tr>
                 <tr>
                     <td width="18%" align="right"></td>
