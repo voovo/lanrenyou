@@ -28,21 +28,7 @@
                 </tr>
                 <tr>
                     <td align="right"><span class="ft_14">现居住地：</span></td>
-                    <td>
-                        <select name="presendAddress" id="" class="select">
-                            <option value="0">城市</option>
-                            <option value="1">加州</option>
-                            <option value="2">旧金山</option>
-                            <option value="3">纽约</option>
-                        </select>
-
-                        <select name="" id="" class="select">
-                            <option value="0">地区</option>
-                            <option value="1">加州</option>
-                            <option value="2">旧金山</option>
-                            <option value="3">纽约</option>
-                        </select>
-                    </td>
+                    <td><input type="text" name="presentAddress" class="input_100"></td>
                 </tr>
                 <tr>
                     <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
@@ -51,7 +37,7 @@
                 <tr>
                     <td width="18%" align="right"></td>
                     <td>
-                        <input type="checkbox" id="be_planner">
+                        <input type="checkbox" name="toBePlanner" value="1" id="be_planner">
                         <label for="be_planner" class="planner_tt">我想成为规划师<span>( 高质量的游记能更快通过申请，现在就去<a href="javascript:;" target="_blank">写游记</a> )</span></label>
                     </td>
                 </tr>
@@ -59,7 +45,7 @@
                     <td width="18%" align="right"><span class="ft_14">可策划地区：</span></td>
                     <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
-                    <input id="last_home" type="text" class="input_100" placeholder="用分号分隔多个地区"></td>
+                    <input id="last_home" type="text" name="targetCity" class="input_100" placeholder="用分号分隔多个地区"></td>
                 </tr>
                 <tr>
                     <td></td>

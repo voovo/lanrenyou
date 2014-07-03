@@ -10,7 +10,7 @@ public enum UserInfoTypeEnum {
     /**
      * 规划师
      */
-    VERIFIED_EMAIL_WAIT_AUDIT(2);
+    PLANNER(2);
 
     private int value;
 

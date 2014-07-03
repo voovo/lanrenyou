@@ -16,14 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.user.enums.UserInfoStatusEnum;
 import com.lanrenyou.user.enums.UserInfoTypeEnum;
+import com.lanrenyou.user.enums.UserPlannerStatusEnum;
 import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.user.service.IUserPlannerService;
 import com.lanrenyou.util.AesCryptUtil;
 import com.lanrenyou.util.MailUtil;
 import com.lanrenyou.util.ServletUtil;
@@ -35,6 +37,9 @@ public class RegisterController extends BaseController {
 	
 	@Autowired
 	private IUserInfoService userInfoService;
+	
+	@Autowired
+	private IUserPlannerService userPlannerService;
 	
 	private static final String REGIST_COOKIE_NAME = "regist_wait_verify_uid";
 	
@@ -247,7 +252,7 @@ public class RegisterController extends BaseController {
 			return toError("没有此用户信息");
 		}
 		if(userInfo.getStatus() == UserInfoStatusEnum.WAIT_VERIFY_EMAIL.getValue()){
-			userInfo.setStatus(UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_AUDIT.getValue());
+			userInfo.setStatus(UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue());
 			userInfo.setUpdateUid(uid);
 			userInfo.setUpdateIp(request.getRemoteAddr());
 			userInfoService.updateUserInfo(userInfo);
@@ -257,5 +262,77 @@ public class RegisterController extends BaseController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/submitInfo")
+	@ResponseBody
+	public String submitUserInfo(
+			HttpServletResponse response,
+			@RequestParam(value = "uid", required = true) Integer uid,
+            @RequestParam(value = "nickname", required = false, defaultValue = "") String nickname,
+            @RequestParam(value = "userIntro", required = false, defaultValue = "") String userIntro,
+            @RequestParam(value = "presentAddress", required = false, defaultValue = "") String presentAddress,
+            @RequestParam(value = "previousAddress", required = false, defaultValue = "") String previousAddress,
+            @RequestParam(value = "toBePlanner", required = false) Integer toBePlanner,
+            @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(null == uid || uid <= 0){
+			map.put("code", 0);
+			map.put("msg", "验证邮件发送失败");
+			return gson.toJson(map);
+		}
+		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
+		if(null == userInfo){
+			map.put("code", 0);
+			map.put("msg", "用户信息不存在");
+			return gson.toJson(map);
+		}
+		if(userInfo.getStatus() != UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue() ){
+			map.put("code", 0);
+			map.put("msg", "数据异常，用户不得进行此操作");
+			return gson.toJson(map);
+		}
+		boolean hasUpdateUserInfo = false;
+		if(StringUtils.isNotBlank(nickname.trim())){
+			userInfo.setNickname(nickname.trim());
+			hasUpdateUserInfo = true;
+		}
+		if(StringUtils.isNotBlank(userIntro)){
+			userInfo.setUserIntro(userIntro);
+			hasUpdateUserInfo = true;
+		}
+		if(StringUtils.isNotBlank(presentAddress)){
+			userInfo.setPresentAddress(presentAddress);
+			hasUpdateUserInfo = true;
+		}
+		if(StringUtils.isNotBlank(previousAddress)){
+			userInfo.setPreviousAddress(previousAddress);
+			hasUpdateUserInfo = true;
+		}
+		
+		if(hasUpdateUserInfo){
+			userInfo.setUpdateUid(uid);
+			userInfo.setUpdateIp(this.getRemoteAddr());
+			userInfoService.updateUserInfo(userInfo);
+		}
+		
+		if(null != toBePlanner && toBePlanner == 1 && StringUtils.isNotBlank(targetCity)){
+			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(uid);
+			if(null != userPlanner){
+				map.put("code", 0);
+				map.put("msg", "数据异常，规划师不得进行此操作");
+				return gson.toJson(map);
+			}
+			userPlanner = new UserPlanner();
+			userPlanner.setTargetCity(targetCity);
+			userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
+			userPlanner.setCreateUid(uid);
+			userPlanner.setCreateTime(new Date());
+			userPlanner.setCreateIp(this.getRemoteAddr());
+			userPlannerService.addUserPlanner(userPlanner);
+		}
+		
+		map.put("code", 1);
+		map.put("msg", "操作成功");
+		return gson.toJson(map);
+	}
 	
 }

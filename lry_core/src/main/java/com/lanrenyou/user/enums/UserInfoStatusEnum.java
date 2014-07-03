@@ -17,20 +17,10 @@ public enum UserInfoStatusEnum {
     VERIFIED_EMAIL_WAIT_COMPLATE_INFO(2),
 
     /**
-     * 已完善用户资料待审核
+     * 已完善用户资料
      */
-    VERIFIED_EMAIL_WAIT_AUDIT(3),
+    VERIFIED_EMAIL(3);
     
-    /**
-     * 审核通过
-     */
-    AUDIT_PASS(4),
-
-    /**
-     * 审核不通过
-     */
-    AUDIT_UNPASS(5);
-
     private int value;
 
     private UserInfoStatusEnum(int type) {

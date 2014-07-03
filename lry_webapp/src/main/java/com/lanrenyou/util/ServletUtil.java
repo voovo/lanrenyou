@@ -19,7 +19,7 @@ public abstract class ServletUtil {
     public static void clearUserCookie(HttpServletRequest request, HttpServletResponse response) {
         deleteCookie(request, response, UserConstant.USER_NAME);
         deleteCookie(request, response, UserConstant.AUTH_COOKIE_KEY);
-        deleteCookie(request, response, UserConstant.AUTH_UID_COOKIE_KEY);
+        deleteCookie(request, response, UserConstant.AUTH_EMAIL_COOKIE_KEY);
         deleteCookie(request, response, UserConstant.LOGIN_STATUS);
     }
 
@@ -28,7 +28,7 @@ public abstract class ServletUtil {
         String loginAuthV3 = AesCryptUtil.encrypt(uid + "|" + password, UserConstant.AUTH_ENCODE_KEY);
         ServletUtil.writeCookie(response, UserConstant.AUTH_COOKIE_KEY,
                 loginAuthV3, rootDomain, expiry);
-        ServletUtil.writeCookie(response, UserConstant.AUTH_UID_COOKIE_KEY,
+        ServletUtil.writeCookie(response, UserConstant.AUTH_EMAIL_COOKIE_KEY,
                 String.valueOf(uid), rootDomain, expiry);
     }
 
