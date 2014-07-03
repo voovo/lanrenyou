@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>注册-懒人游</title>
+    <title>找游记-懒人游</title>
     <!-- 全站通用 -->
     <link rel="shortcut icon" type="image/ico" href="imgs/favicon.ico">
     <link rel="stylesheet" href="css/init.css">
@@ -13,9 +13,7 @@
 
     <!-- 页面自用 -->
     <link rel="stylesheet" href="css/regist.css">
-    <link rel="stylesheet" href="css/plug/style.css">
-    <script src="js/plug/Validform_v5.3.2_min.js"></script>
-    <script src="js/regist.js"></script>
+
     <!-- 页面自用 -->
 
 
@@ -137,35 +135,32 @@
 <div id="regist_box" class="login_bg">
     <div id="regist_form" class="sign_form">
         <div class="reg_tt clearfix">
-            <h1 class="left">注册新账号</h1>
-            <p class="right">已注册账号， 直接[<a href="">登录</a>]</p>
+            <h1 class="left">登录懒人游</h1>
+            <p class="right">还没有账号？马上[<a href="regist.html">注册</a>]</p>
         </div>
 
-        <div class="form_table registerform">
-            <form class="registerform" action="/regist/submit">
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <tr>
-                        <td width="15%" align="right"><span class="ft_14">电子邮件：</span></td>
-                        <td width="48%"><input id="reg_email" name="reg_email" type="text" class="input_220" datatype="e" errormsg="请输入正确的邮箱格式！"></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><span class="ft_14">密码：</span></td>
-                        <td><input id="reg_pwd" name="reg_pwd" type="password" class="input_220" datatype="*6-16" errormsg="请输入6-16位密码！"></td>
-                    </tr>
-                    <tr>
-                        <td align="right"><span class="ft_14">确认密码：</span></td>
-                        <td><input id="reg_repwd" name="reg_repwd" type="password" class="input_220" datatype="e" errormsg="请重复以上密码！"></td>
-                    </tr>
-                    <tr class="reg_code_tr">
-                        <td align="right"><span class="ft_14">验证码：</span></td>
-                        <td colspan="2"><input id="reg_code" name="reg_code" type="text" class="input_70" maxlength="4" datatype="n4-4" errormsg="请输入正确的邮箱格式！"> <div id="form_code"><img src="imgs/code.jpg" alt=""> </div><span id="changeCode">看不清，<a href="javascript:;">换一张</a></span></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><a id="reg_btn" href="javascript:;" class="btn blue_btn">立即注册</a></td>
-                    </tr>
-                </table>
-            </form>
+        <div class="form_table">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td width="18%" align="right"><span class="ft_14">电子邮件：</span></td>
+                    <td width="40%"><input type="text" class="input_220"></td>
+                    <td><span class="form_notice"></span></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">密码：</span></td>
+                    <td><input type="password" class="input_220"></td>
+                    <td><span class="form_notice"></span></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">验证码：</span></td>
+                    <td colspan="2"><input type="text" class="input_70" maxlength="4"> <div id="form_code"><img src="imgs/code.jpg" alt=""> </div><span id="changeCode">看不清，<a href="javascript:;">换一张</a></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="javascript:;" class="btn blue_btn">登&nbsp;&nbsp;录</a>  <a id="get_pwd" href="">忘记密码?</a></td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

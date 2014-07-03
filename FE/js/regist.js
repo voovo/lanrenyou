@@ -46,28 +46,6 @@ var lablId = -1;
     })
 
 
-    // var addlabl = function(id) {
-    //     if (lablId == id) {
-    //         return;
-    //     }
-    //     lablId = id;
-    //     var str = $("#add_" + id).text();
-    //     var li_id = $(".label li:last-child").attr('id');
-    //     if (li_id != undefined) {
-    //         li_id = li_id.split('_');
-    //         li_id = parseInt(li_id[1]) + 1;
-    //     } else {
-    //         li_id = 0;
-    //     }
-    //     $(".label_box").css("display", "block");
-    //     var text = "<li id='li_" + li_id + "'>" + str + "<input type='hidden' name='label[" + li_id + "].name' value='" + str + "'></li>";
-    //     $(".label").append(text).find("li a").click(function(){
-    //         var id = $(this).attr("id");
-    //         deletes(id);
-    //     });
-    // }
-
-
     // 成为规划师
     $("#be_planner").change(function(){
         if($(this).attr("checked")){
@@ -77,15 +55,62 @@ var lablId = -1;
         }
     });
 
+
+    // 注册表单校验
+    //$(".registerform").Validform();
+
+
+    var RegForm = $(".registerform").Validform({
+        tiptype:4,
+        btnSubmit:"#reg_btn",
+        label:".label",
+        showAllError:true,
+        datatype:{
+            "zh1-6":/^[\u4E00-\u9FA5\uf900-\ufa2d]{1,6}$/
+        },
+        ajaxPost:true,
+        callback:function(data){
+
+            console.log(data);
+
+            if(data.status=="y"){
+                setTimeout(function(){
+                    //$.Hidemsg(); //公用方法关闭信息提示框;显示方法是$.Showmsg("message goes here.");
+                },2000);
+            }
+        }
+    });
+
+    RegForm.addRule([
+    {
+        ele:"#reg_email",
+        ajaxurl:"/regist/checkEmail?email="+$("#reg_email").val(),
+        datatype:"e",
+        nullmsg:"请输入邮箱地址！",
+        errormsg:"请输入正确的邮箱地址！"
+    },
+    {
+        ele:"#reg_pwd",
+        datatype:"*6-16",
+        nullmsg:"请设置密码！",
+        errormsg:"密码范围在6~16位之间！"
+    },
+    {
+        ele:"#reg_repwd",
+        datatype:"*",
+        recheck:"reg_pwd",
+        nullmsg:"请再输入一次密码！",
+        errormsg:"您两次输入的账号密码不一致！"
+    },{
+        ele:"#reg_code",
+        datatype:"n4-4",
+        ajaxurl:"valid.php",
+        nullmsg:"请输入验证码！",
+        errormsg:"请检查验证码！"
+    }
+]);
+
     
-
-
-
-
-
-
-
-
 
 
 

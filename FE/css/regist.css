@@ -3,7 +3,7 @@
  * mr.sheak@gmail.com 20140628
  */
 /*regist*/
-#regist_box{  width: 100%; padding: 70px 0; background:#f6f6f6;}
+#regist_box{  width: 100%; padding: 70px 0; background-color:#f6f6f6;}
 .login_bg{background:url(../imgs/regist_bg.jpg) center top repeat-y; background-size:100%;}
 
 
@@ -26,6 +26,9 @@
 #form_code{ position: absolute; top:5px; left:75px;}
 #changeCode{ position: absolute; top:0; left:160px;}
 
+.reg_code_tr .Validform_checktip{ margin-left: 155px;}
+
+
 #get_pwd{ margin-left: 20px; color: #364758; text-decoration: underline;}
 
 /*form_mail_box*/
@@ -40,3 +43,4 @@
 /*form_success_box*/
 .form_success_box{}
 .form_success_box h1{ margin:0 0 15px -40px;}
+
