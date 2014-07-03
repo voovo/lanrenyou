@@ -81,14 +81,21 @@ public class LoginController extends BaseController {
 		
 		Cookie cookie = new Cookie("lry_loginid",userInfo.getId().toString());
 		cookie.setPath("/");
+		cookie.setDomain("www.lanrenyou.com");
 		response.addCookie(cookie);
 
-		return null;
+		map.put("code", 1);
+		map.put("msg", "登录成功");
+		return gson.toJson(map);
 	}
 
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpServletRequest request,
             HttpServletResponse response){
+		Cookie cookie = new Cookie("lry_loginid","");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login/login");
 		return mav;
