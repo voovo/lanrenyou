@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Results;
@@ -26,19 +28,66 @@ public class Migrate {
 		//migrate users
 		//importUsers();
 		
-		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
+//		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
+//		
+//		WpPosts po = a.get(6440);		
+//		System.out.println("id:"+po.getId()+" content:"+po.getPost_content()+" title:"+po.getPost_title()+" autohr:"+po.getPost_author_name()+" author-new-id:"+po.getPost_author_id_new()+" viewcount:"+po.getPost_views_count());
+//		
+//		List<WpPosts> list = po.getChildlists();
+//		if(list!=null&&list.size()>0){
+//			for(int i=0;i<list.size();i++){
+//				WpPosts t = list.get(i);
+//				System.out.println("child-id:"+t.getId()+" child-content:"+t.getPost_content()+" child-title:"+t.getPost_title()+" child-impurl:"+t.getPost_attc_url());					
+//			}			
+//		}		
+//		System.out.println();
 		
-		WpPosts po = a.get(6440);		
-		System.out.println("id:"+po.getId()+" content:"+po.getPost_content()+" title:"+po.getPost_title()+" autohr:"+po.getPost_author_name()+" author-new-id:"+po.getPost_author_id_new()+" viewcount:"+po.getPost_views_count());
 		
-		List<WpPosts> list = po.getChildlists();
-		if(list!=null&&list.size()>0){
-			for(int i=0;i<list.size();i++){
-				WpPosts t = list.get(i);
-				System.out.println("child-id:"+t.getId()+" child-content:"+t.getPost_content()+" child-title:"+t.getPost_title()+" child-impurl:"+t.getPost_attc_url());					
-			}			
-		}		
-		System.out.println();
+		
+		splitOldPosts(getPosts());
+		
+	}
+	
+	public static void splitOldPosts(List<WpPosts> postslist){
+		for(int i=0;i<postslist.size();i++){
+			
+			WpPosts po = postslist.get(i);
+			if(po.getId()<=5704){//处理13年的游记
+				List<WpPosts> clist = new ArrayList<WpPosts>();
+				String content = po.getPost_content();
+				Pattern p = Pattern.compile("<img[^>]+/>");  
+				Matcher m = p.matcher(content);
+				List<String> imglist = new ArrayList<String>();
+
+				while(m.find()){
+					String s0 = m.group();
+					imglist.add(s0);
+				}
+				String s = m.replaceAll("--------");
+
+				String[] contents = s.split("--------");			
+				Object[] imgs = imglist.toArray();
+				
+				if(contents.length>imgs.length){
+					for(int idx = 0;idx<imgs.length;idx++){
+						WpPosts cpost = new WpPosts();
+						cpost.setPost_content(contents[idx+1]);
+						cpost.setPost_attc_url(imgs[idx].toString());
+						clist.add(cpost);
+					
+					}
+				}else{
+					for(int idx = 0;idx<contents.length;idx++){
+						WpPosts cpost = new WpPosts();
+						cpost.setPost_content(contents[idx]);
+						cpost.setPost_attc_url(imgs[idx].toString());
+						clist.add(cpost);
+					}
+				}
+				po.setChildlists(clist);
+				
+			}
+		}
 	}
 	
 	public static Map<Integer,WpPosts> filterposts(List<WpPosts> postslist,List<WpPosts> metalist){

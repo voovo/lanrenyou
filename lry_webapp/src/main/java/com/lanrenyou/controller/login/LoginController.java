@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,7 +37,7 @@ public class LoginController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/login/loginSubmit")
+	@RequestMapping(value="/login/loginSubmit",method=RequestMethod.POST)
 	@ResponseBody
 	public String loginSubmit(
 			@RequestParam(value = "userName", required = true) String userName,
@@ -84,8 +85,10 @@ public class LoginController extends BaseController {
 		cookie.setDomain("www.lanrenyou.com");
 		response.addCookie(cookie);
 
+		if(StringUtils.isEmpty(redir))
+			redir = "/index";
 		map.put("code", 1);
-		map.put("msg", "登录成功");
+		map.put("msg", redir);
 		return gson.toJson(map);
 	}
 
