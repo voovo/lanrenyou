@@ -2,7 +2,7 @@
  * 懒人游 首页交互
  * mr.sheak@gmail.com 20140626
  */
-var lablId = -1;
+var lablId = -1 , ele;
 ;$(function(){
 /*********************************************************/
     
@@ -72,19 +72,20 @@ var lablId = -1;
         callback:function(data){
 
             console.log(data);
-
-            if(data.status=="y"){
-                setTimeout(function(){
-                    //$.Hidemsg(); //公用方法关闭信息提示框;显示方法是$.Showmsg("message goes here.");
-                },2000);
+            if(data.code == 1){
+                $.Hidemsg();
+                window.location.href = "/regsit/waitEmailVerify";
+            }else{
+                alert(data.msg);
             }
         }
     });
 
+
     RegForm.addRule([
     {
         ele:"#reg_email",
-        ajaxurl:"/regist/checkEmail?email="+$("#reg_email").val(),
+        ajaxurl:"/regist/checkEmail",
         datatype:"e",
         nullmsg:"请输入邮箱地址！",
         errormsg:"请输入正确的邮箱地址！"
