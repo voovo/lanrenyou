@@ -102,7 +102,7 @@
 	            </li>
 	        </ul>
     	<#else>
-    		<ul class="clearfix hide">
+    		<ul class="clearfix">
 	            <li class="bd_right"><a href="javascript:;">登陆</a></li>
 	            <li><a href="javascript:;">注册</a></li>
         	</ul>

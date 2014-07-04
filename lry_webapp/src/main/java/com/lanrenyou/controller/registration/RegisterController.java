@@ -53,7 +53,7 @@ public class RegisterController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/checkEmail")
+	@RequestMapping(value="/checkEmail", method=RequestMethod.POST)
 	@ResponseBody
 	public String checkEmail(
 			@RequestParam(value = "email") String submitEmail){
@@ -80,10 +80,10 @@ public class RegisterController extends BaseController {
 	@ResponseBody
 	public String submit(
 			HttpServletResponse response,
-			@RequestParam(value = "email") String submitEmail,
-            @RequestParam(value = "userPass") String submitPassword,
-            @RequestParam(value = "userPass2") String submitPassword2,
-            @RequestParam(value = "captcha", required = false, defaultValue = "") String captcha){
+			@RequestParam(value = "reg_email") String submitEmail,
+            @RequestParam(value = "reg_pwd") String submitPassword,
+            @RequestParam(value = "reg_repwd") String submitPassword2,
+            @RequestParam(value = "reg_code", required = false, defaultValue = "") String captcha){
 		UserInfo userInfo = getLoginUser();
 		if(null != userInfo){
 			ServletUtil.clearUserCookie(request, response);

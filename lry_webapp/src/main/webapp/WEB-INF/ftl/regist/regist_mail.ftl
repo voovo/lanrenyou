@@ -1,18 +1,19 @@
 <@page  title="查看确认邮件-懒人游" description=""  keywords="" 
 	assets=[
-	"/resources/css/regist.css"
+	"/resources/css/regist.css",
+	"/resources/js/regist.js"
 	]
 	>
 <!-- regist_box -->
 <div id="regist_box">
     <div class="form_mail_box">
-        <h3>确认邮件已发到你的 <a href="">${userInfo.email!''}</a> 邮箱,需要你点击邮件中的链接来完成注册。</h3>
+        <h3>确认邮件已发到你的 <a class="user_reg_mail" href="">${userInfo.email!''}</a> 邮箱,需要你点击邮件中的链接来完成注册。</h3>
 
         <div class="clearfix">
             <div class="left">
                 <a href="" class="btn blue_btn big_btn">登陆邮箱查收确认邮件</a>
             </div>
-            <div class="left">没收到邮件？<a href="/regsit/sendVerifyEmail">再发一次</a></div>
+            <div class="left">没收到邮件？<a id="resend_mail" href="javascript:;">再发一次</a></div>
         </div>
 
         <div class="form_mail_msg">
