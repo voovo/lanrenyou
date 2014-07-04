@@ -58,58 +58,78 @@ var lablId = -1 , ele;
 
     // 注册表单校验
     //$(".registerform").Validform();
+    if($(".registerform") && $(".registerform").length > 0){
+        var RegForm = $(".registerform").Validform({
+            tiptype:4,
+            btnSubmit:"#reg_btn",
+            label:".label",
+            showAllError:true,
+            datatype:{
+                "zh1-6":/^[\u4E00-\u9FA5\uf900-\ufa2d]{1,6}$/
+            },
+            ajaxPost:true,
+            callback:function(data){
 
-
-    var RegForm = $(".registerform").Validform({
-        tiptype:4,
-        btnSubmit:"#reg_btn",
-        label:".label",
-        showAllError:true,
-        datatype:{
-            "zh1-6":/^[\u4E00-\u9FA5\uf900-\ufa2d]{1,6}$/
-        },
-        ajaxPost:true,
-        callback:function(data){
-
-            console.log(data);
-            if(data.code == 1){
-                $.Hidemsg();
-                window.location.href = "/regsit/waitEmailVerify";
-            }else{
-                alert(data.msg);
+                console.log(data);
+                if(data.code == 1){
+                    $.Hidemsg();
+                    window.location.href = "/regsit/waitEmailVerify";
+                }else{
+                    alert(data.msg);
+                }
             }
-        }
-    });
+        });
 
-
-    RegForm.addRule([
-    {
-        ele:"#reg_email",
-        ajaxurl:"/regist/checkEmail",
-        datatype:"e",
-        nullmsg:"请输入邮箱地址！",
-        errormsg:"请输入正确的邮箱地址！"
-    },
-    {
-        ele:"#reg_pwd",
-        datatype:"*6-16",
-        nullmsg:"请设置密码！",
-        errormsg:"密码范围在6~16位之间！"
-    },
-    {
-        ele:"#reg_repwd",
-        datatype:"*",
-        recheck:"reg_pwd",
-        nullmsg:"请再输入一次密码！",
-        errormsg:"您两次输入的账号密码不一致！"
-    },{
-        ele:"#reg_code",
-        datatype:"n4-4",
-        ajaxurl:"valid.php",
-        nullmsg:"请输入验证码！",
-        errormsg:"请检查验证码！"
+        RegForm.addRule([
+            {
+                ele:"#reg_email",
+                ajaxurl:"/regist/checkEmail",
+                datatype:"e",
+                nullmsg:"请输入邮箱地址！",
+                errormsg:"请输入正确的邮箱地址！"
+            },
+            {
+                ele:"#reg_pwd",
+                datatype:"*6-16",
+                nullmsg:"请设置密码！",
+                errormsg:"密码范围在6~16位之间！"
+            },
+            {
+                ele:"#reg_repwd",
+                datatype:"*",
+                recheck:"reg_pwd",
+                nullmsg:"请再输入一次密码！",
+                errormsg:"您两次输入的账号密码不一致！"
+            },{
+                ele:"#reg_code",
+                datatype:"n4-4",
+                ajaxurl:"valid.php",
+                nullmsg:"请输入验证码！",
+                errormsg:"请检查验证码！"
+            }
+        ]);
     }
-]);
+
+
+    // 重发验证邮件
+    $("#resend_mail").one("click" , function(){
+        var u_mail = $(".user_reg_mail").text();
+
+        $.ajax({
+            url:"/regist/sendVerifyEmail",
+            data: {"mail" : u_mail},
+            success : function(r){
+                console.log(r);
+                if(r.code == 1){
+                    $("#resend_mail").html("发送成功，请查收邮件！").unbind();
+                }
+            }
+        })
+    });
+    
+
+
+    
 
     
 

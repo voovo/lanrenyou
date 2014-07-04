@@ -13,6 +13,7 @@
 
     <!-- 页面自用 -->
     <link rel="stylesheet" href="css/regist.css">
+    <script src="js/regist.js"></script>
     <!-- 页面自用 -->
 
 
@@ -133,13 +134,13 @@
 <!-- regist_box -->
 <div id="regist_box">
     <div class="form_mail_box">
-        <h3>确认邮件已发到你的 <a href="mailto:mr.sheak@gmail.com">mr.sheak@gmail.com</a> 邮箱,需要你点击邮件中的链接来完成注册。</h3>
+        <h3>确认邮件已发到你的 <a class="user_reg_mail" href="mailto:mr.sheak@gmail.com">mr.sheak@gmail.com</a> 邮箱,需要你点击邮件中的链接来完成注册。</h3>
 
         <div class="clearfix">
             <div class="left">
                 <a href="" class="btn blue_btn big_btn">登陆邮箱查收确认邮件</a>
             </div>
-            <div class="left">没收到邮件？<a href="">再发一次</a></div>
+            <div class="left">没收到邮件？<a id="resend_mail" href="javascript:;">再发一次</a></div>
         </div>
 
         <div class="form_mail_msg">
