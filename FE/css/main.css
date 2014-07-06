@@ -1,20 +1,49 @@
+/*
+ * 懒人游公共样式文件
+ * mr.sheak@gmail.com 20140628
+ */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+
+.blue , .blue a{ color: #364758;}
 
 .btn{ font-size: 18px; color: #fff !important; padding: 8px 25px; text-align: center; border-radius: 3px; }
 .blue_btn{ background: #364758;}
 .blue_btn:hover{ background:#1f2f3e;}
+.big_btn{ padding:12px 25px;}
 
 
+.success{ color: #99c700;}
+.suc_ico{ padding-left: 40px; background-position: -832px -8px; height: 35px; line-height: 35px; font-size: 24px;}
 .error{ color: #d60a30 !important; font-size: 12px;}
+
+.gray{ color: #bcbcbc;}
 
 .ft_14{ font-size: 14px; color: #666 !important;}
 .form_notice{ font-size: 12px; color:#a6a6a6 !important;}
 
 
-.input_220 , .input_70{ height: 34px; line-height: 34px; padding:0 5px; width: 210px; background:#fafafa; border:1px solid #ddd; font-size: 14px; margin-right: 15px;}
-.input_70{ width: 60px;}
+.input_220 , .input_70 , .input_100{ height: 34px; line-height: 34px; padding:0 5px; width: 210px; background:#fafafa; border:1px solid #ddd; font-size: 14px; margin-right: 15px;}
+.input_70{ width: 60px; }
+.input_100{ width: 98%; }
+
+.textarea{background:#fafafa; border:1px solid #ddd; font-size: 14px;  padding:5px; width: 98%; height: 120px;}
+.select{background:#fafafa; border:1px solid #ddd; font-size: 14px;  padding:5px; width: 100px;}
+
+.ico{ padding-left: 18px; margin-right: 10px;}
+.icon_time{ background-position: -847px -432px;}
+.icon_eye{ background-position: -847px -461px;}
+.up_ico{ display:block; width:12px; height: 12px; background-position: -7px -370px;}
+.vip_ico{ padding-right: 20px;  background-position: right -492px;}
+.add_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -404px;}
+
+/*分页*/
+.page{ width: 100%; text-align: center; height: 40px; }
+.page ul{ height: 40px;}
+.page ul li{margin-right: 5px;font-size: 18px; color: #ccc; vertical-align:top;display:inline-block;*display:inline;*zoom:1;}
+.page ul li a{ font-size: 18px; color: #fff; background: #ccc; padding: 3px 10px;}
+.page ul li a.cur , .page ul li.cur a , .page ul li a:hover{ background: #364758;}
 
 
 /*顶部导航*/
@@ -78,6 +107,14 @@
 
 .msg_bottom{ height: 32px; line-height: 32px; background: #ebebeb; text-align: right; padding-right: 10px;}
 
+
+/*居住地标签*/
+.label_box{}
+.label{}
+.label li{ float: left; height: 26px; line-height: 26px; padding: 0 18px 0 8px; color: #fff; text-align: left; font-size: 12px; background:#364758; border-radius: 3px; position: relative; margin-right: 10px;}
+.label li i.close{ display: block; width: 16px; height:26px; background-color:#23313e; background-position: -3px -158px; position: absolute; top:0; right:0; cursor: pointer; border-radius:0 3px 3px 0;}
+.planner_tt{ font-size: 14px; color: #364758;}
+.planner_tt span{ color: #9d9d9d; font-size: 12px; margin-left: 15px;}
 
 
 /*foot_share*/
