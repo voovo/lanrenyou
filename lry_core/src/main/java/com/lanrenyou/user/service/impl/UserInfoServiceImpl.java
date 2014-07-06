@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.lanrenyou.user.dao.IUserInfoDao;
+import com.lanrenyou.user.enums.UserInfoStatusEnum;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
 import mybatis.framework.core.service.BaseVOService;
@@ -42,5 +43,21 @@ public class UserInfoServiceImpl extends BaseVOService<UserInfo> implements IUse
 	@Override
 	public UserInfo getUserInfoByEmail(String email) {
 		return userInfoDao.getByEmail(email);
+	}
+
+	@Override
+	public int addUserInfo(UserInfo userInfo) {
+		return userInfoDao.addUserInfo(userInfo);
+	}
+
+	@Override
+	public int updateUserInfo(UserInfo userInfo) {
+		return userInfoDao.updateUserInfo(userInfo);
+	}
+
+	@Override
+	public int deleteUserInfo(UserInfo userInfo) {
+		userInfo.setStatus(UserInfoStatusEnum.DELETE.getValue());
+		return userInfoDao.updateUserInfo(userInfo);
 	}
 }

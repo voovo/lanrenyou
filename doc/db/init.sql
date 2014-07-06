@@ -196,7 +196,7 @@ create table tb_travel_info
 (
    id                   int(11) not null auto_increment comment '主键ID',
    city                 int(11) not null comment '城市',
-   planner_uid          int(11) not null comment '策划师ID',
+   uid                  int(11) not null comment '发布者ID',
    title                varchar(128) not null comment '标题',
    is_elite             tinyint(6) default 0 comment '是否精华[0:不是; 1:是]',
    is_top               tinyint(6) default 0 comment '是否置顶[0:否; 1:是]',
@@ -301,6 +301,8 @@ create table tb_user_info
    weibo_url            varchar(256) comment '微博链接',
    wechat_name          varchar(128) comment '微信账号',
    user_intro           varchar(1024),
+   present_address      varchar(512) comment '现住址',
+   previous_address     varchar(512) comment '曾经住址',
    status               tinyint(6) comment '状态',
    create_uid           int(11),
    create_time          datetime,
@@ -353,3 +355,5 @@ INSERT INTO tb_dict_city (CODE,NAME) VALUES (1014,'波士顿Boston及周边');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1015,'自驾游－加州一号公路Pacific Coast Highway');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1016,'波多黎各Puerto Rico');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1017,'圣地亚哥San Diego及周边');
+
+create unique index uniq_userinfo_email on tb_user_info (email); 

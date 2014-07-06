@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.TravelInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="city" property="city" jdbcType="INTEGER" />
-    <result column="planner_uid" property="plannerUid" jdbcType="INTEGER" />
+    <result column="uid" property="plannerUid" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="is_elite" property="isElite" jdbcType="TINYINT" />
     <result column="is_top" property="isTop" jdbcType="TINYINT" />
@@ -16,7 +16,7 @@
     <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, city, planner_uid, title, is_elite, is_top, status, create_uid, create_time, 
+    id, city, uid, title, is_elite, is_top, status, create_uid, create_time, 
     create_ip, update_uid, update_ip
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -24,7 +24,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelInfo" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_travel_info (city, planner_uid, title, 
+    insert into tb_travel_info (city, uid, title, 
       is_elite, is_top, status, 
       create_uid, create_time, create_ip, 
       update_uid, update_ip)
@@ -36,7 +36,7 @@
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelInfo" >
     update tb_travel_info
     set city = #{city,jdbcType=INTEGER},
-      planner_uid = #{plannerUid,jdbcType=INTEGER},
+      uid = #{plannerUid,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       is_elite = #{isElite,jdbcType=TINYINT},
       is_top = #{isTop,jdbcType=TINYINT},
@@ -60,7 +60,7 @@
     from tb_travel_info
   </select>
   
-  <select id="getByIdList" resultMap="BaseResultMap" parameterType="java.uitl.Map">
+  <select id="getByIdList" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     from tb_travel_info
@@ -71,10 +71,10 @@
   </select>
   
   <select id="getTravelInfoCountByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
-    select count(1) from tb_travel_info where planner_uid = #{uid, jdbcType=INTEGER} and status = 1
+    select count(1) from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status = 1
   </select>
   
-  <select id="getTravelInfoListByUid" resultType="BaseResultMap" parameterType="java.util.Map">
-    select <include refid="Base_Column_List" /> from tb_travel_info where planner_uid = #{uid, jdbcType=INTEGER} and status = 1 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  <select id="getTravelInfoListByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status = 1 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
 </mapper>

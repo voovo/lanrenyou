@@ -45,13 +45,13 @@ public interface IUserInfoDao extends IValueObjectDao<UserInfo> {
 	 * @return int
 	 * @exception 
 	*/
+	public int addUserInfo(UserInfo userInfo);
+	
 	/**
-	 * addUserInfo	(这里用一句话描述这个方法的作用)
+	 * updateUserInfo	修改用户
 	 * @param userInfo
 	 * @return int
 	 * @exception 
 	*/
-	public int addUserInfo(UserInfo userInfo);
-	
 	public int updateUserInfo(UserInfo userInfo);
 }

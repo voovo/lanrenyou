@@ -14,9 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * 
- */
 public class SqlSessionWrapper {
     private static final Logger LOG = LoggerFactory.getLogger(SqlSessionWrapper.class);
 

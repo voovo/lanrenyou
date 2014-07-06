@@ -1,0 +1,46 @@
+/*
+ * 懒人游注册登陆样式文件
+ * mr.sheak@gmail.com 20140628
+ */
+/*regist*/
+#regist_box{  width: 100%; padding: 70px 0; background-color:#f6f6f6;}
+.login_bg{background:url(../imgs/regist_bg.jpg) center top repeat-y; background-size:100%;}
+
+
+#regist_form{}
+.sign_form{ border-radius: 10px; border:10px solid #e1e2e2; background-color:rgba(234,237,238,0.95); *background:#eaedee; *filter:alpha(opacity=95);  width: 540px; margin: 0 auto; padding: 25px 30px;}
+.sign_form *{position: relative; color: #000;}
+
+.reg_tt{ border-bottom: 1px solid #ccc; padding-bottom: 10px;}
+.reg_tt h1{ font-size: 24px; color: #364758;}
+.reg_tt p{ color: #333; line-height: 30px;}
+.reg_tt p a{ color: #364758; text-decoration: underline;}
+
+.form_table{ margin-top: 20px;}
+.form_table table{ width: 100%;}
+.form_table table tr{ }
+.form_table table tr td{ height: 46px; line-height: 46px;}
+.form_table table tr td .ft_14{ margin-right: 15px;}
+.form_table table tr td .form_notice{}
+
+#form_code{ position: absolute; top:5px; left:75px;}
+#changeCode{ position: absolute; top:0; left:160px;}
+
+.reg_code_tr .Validform_checktip{ margin-left: 155px;}
+
+
+#get_pwd{ margin-left: 20px; color: #364758; text-decoration: underline;}
+
+/*form_mail_box*/
+.form_mail_box , .form_success_box{ width: 700px; margin: 10px auto; padding:0 20px;}
+.form_mail_box h2{ font-size: 14px; color: #333; font-weight: bold; margin-bottom: 10px;}
+.form_mail_box h3{ font-size: 14px; color: #666; height: 30px; line-height: 30px; margin-bottom: 30px;}
+.form_mail_box .btn{ margin-right: 20px;}
+.form_mail_box ol li{ list-style: decimal; line-height: 26px; margin-left: 20px;}
+
+.form_mail_msg{ width: 100%; border:1px solid #ccc; padding:25px; margin-top: 30px;}
+
+/*form_success_box*/
+.form_success_box{}
+.form_success_box h1{ margin:0 0 15px -40px;}
+

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Results;
@@ -23,8 +25,69 @@ public class Migrate {
 	UserInfo userInfo = new UserInfo();
 	
 	public static void main(String[] args) {
-		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
-		System.out.println();
+		//migrate users
+		//importUsers();
+		
+//		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
+//		
+//		WpPosts po = a.get(6440);		
+//		System.out.println("id:"+po.getId()+" content:"+po.getPost_content()+" title:"+po.getPost_title()+" autohr:"+po.getPost_author_name()+" author-new-id:"+po.getPost_author_id_new()+" viewcount:"+po.getPost_views_count());
+//		
+//		List<WpPosts> list = po.getChildlists();
+//		if(list!=null&&list.size()>0){
+//			for(int i=0;i<list.size();i++){
+//				WpPosts t = list.get(i);
+//				System.out.println("child-id:"+t.getId()+" child-content:"+t.getPost_content()+" child-title:"+t.getPost_title()+" child-impurl:"+t.getPost_attc_url());					
+//			}			
+//		}		
+//		System.out.println();
+		
+		
+		
+		splitOldPosts(getPosts());
+		
+	}
+	
+	public static void splitOldPosts(List<WpPosts> postslist){
+		for(int i=0;i<postslist.size();i++){
+			
+			WpPosts po = postslist.get(i);
+			if(po.getId()<=5704){//处理13年的游记
+				List<WpPosts> clist = new ArrayList<WpPosts>();
+				String content = po.getPost_content();
+				Pattern p = Pattern.compile("<img[^>]+/>");  
+				Matcher m = p.matcher(content);
+				List<String> imglist = new ArrayList<String>();
+
+				while(m.find()){
+					String s0 = m.group();
+					imglist.add(s0);
+				}
+				String s = m.replaceAll("--------");
+
+				String[] contents = s.split("--------");			
+				Object[] imgs = imglist.toArray();
+				
+				if(contents.length>imgs.length){
+					for(int idx = 0;idx<imgs.length;idx++){
+						WpPosts cpost = new WpPosts();
+						cpost.setPost_content(contents[idx+1]);
+						cpost.setPost_attc_url(imgs[idx].toString());
+						clist.add(cpost);
+					
+					}
+				}else{
+					for(int idx = 0;idx<contents.length;idx++){
+						WpPosts cpost = new WpPosts();
+						cpost.setPost_content(contents[idx]);
+						cpost.setPost_attc_url(imgs[idx].toString());
+						clist.add(cpost);
+					}
+				}
+				po.setChildlists(clist);
+				
+			}
+		}
 	}
 	
 	public static Map<Integer,WpPosts> filterposts(List<WpPosts> postslist,List<WpPosts> metalist){
@@ -143,23 +206,22 @@ public class Migrate {
 		try{	
 			for(int i=0;i<userlist.size();i++){
 				WpUsers user = userlist.get(i);
-				String insertuserinfo = "insert into tb_user_planner (uid,target_city,price,charge_mode,user_intro,status,create_uid,create_time," +
+				String insertuserinfo = "insert into tb_user_planner (uid,target_city,price,charge_mode,status,create_uid,create_time," +
 						"create_ip,update_uid,update_time,update_ip) " +
-						" values(?,?,?,?,?,?,?,?,?,?,?,?)";
+						" values(?,?,?,?,?,?,?,?,?,?,?)";
 				
 					PreparedStatement stat = conn.prepareStatement(insertuserinfo);
 					stat.setInt(1, map.get(user.getUser_login()));
 					stat.setString(2,user.getAreas());
 					stat.setBigDecimal(3, new BigDecimal(0.00));
 					stat.setInt(4,3);
-					stat.setString(5,user.getDescription());
-					stat.setInt(6,1);
-					stat.setInt(7,0);
-					stat.setTimestamp(8,user.getUser_registered() );
-					stat.setString(9,"127.0.0.1");
-					stat.setInt(10,0 );
-					stat.setTimestamp(11,user.getUser_registered());
-					stat.setString(12,"127.0.0.1");
+					stat.setInt(5,1);
+					stat.setInt(6,0);
+					stat.setTimestamp(7,user.getUser_registered() );
+					stat.setString(8,"127.0.0.1");
+					stat.setInt(9,0 );
+					stat.setTimestamp(10,user.getUser_registered());
+					stat.setString(11,"127.0.0.1");
 										
 					stat.executeUpdate();					
 					stat.close();

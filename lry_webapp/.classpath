@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry kind="src" path="third"/>
+	<classpathentry kind="src" path="core-third"/>
 	<classpathentry kind="src" path="core-resources"/>
 	<classpathentry kind="src" path="core-java"/>
-	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" including="**/*.xml|**/*.properties|**/*.ftl" kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -56,5 +55,6 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/httpmime-4.3.3.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/jna.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/simplecaptcha-1.2.1.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

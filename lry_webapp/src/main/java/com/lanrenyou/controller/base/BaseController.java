@@ -1,33 +1,22 @@
 package com.lanrenyou.controller.base;
 
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.lanrenyou.util.HttpServletUtil;
-import com.lanrenyou.util.SessionUtil;
+import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.util.constants.UserConstant;
 import com.lanrenyou.util.freemarker.FreemarkerUtil;
 
 /**
  * 项目抽象controller
  */
 public abstract class BaseController extends AbstractCommonController {
+	
 	protected static final Gson gson = new Gson();
 
-	/**
-	 * 取用户IP地址
-	 * @return
-	 */
-	protected String getUserIP() {
-		return HttpServletUtil.getRemoteAddr(request);
+	public UserInfo getLoginUser(){
+		return (UserInfo) request.getAttribute(UserConstant.LOGIN_USER);
 	}
-	
-	
 	
 	/**
 	 * 导入枚举到ftl中
@@ -50,6 +39,5 @@ public abstract class BaseController extends AbstractCommonController {
 		mav.addObject("errorMsg", errorMsg);
 		return mav;
 	}
-	
 	
 }

@@ -5,7 +5,7 @@
 	version="2.5">
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/applicationContext.xml;classpath*:config/lanrenyouApplicationContext.xml;</param-value>
+		<param-value>classpath:spring/applicationContext.xml;classpath*:config/lryApplicationContext.xml;</param-value>
 	</context-param>
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
@@ -28,18 +28,6 @@
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
-
-	<filter>
-		<filter-name>configContext</filter-name>
-		<filter-class>com.lanrenyou.filter.ConfigContextFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>configContext</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
-	</filter-mapping>
 
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
@@ -73,7 +61,6 @@
 		<servlet-name>SpringMVCServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-
 	<!-- 浏览器不支持put,delete等method,由该filter将/xxx?_method=delete转换为标准的http delete方法 -->
 	<filter>
 		<filter-name>HiddenHttpMethodFilter</filter-name>

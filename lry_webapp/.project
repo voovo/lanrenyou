@@ -18,17 +18,22 @@
 		<link>
 			<name>core-java</name>
 			<type>2</type>
-			<location>D:/workspace/github/lanrenyou/lry_core/src/main/java</location>
+			<location>/Users/limf/work/git/lanrenyou/lry_core/src/main/java</location>
 		</link>
 		<link>
 			<name>core-resources</name>
 			<type>2</type>
-			<location>D:/workspace/github/lanrenyou/lry_core/src/main/resources</location>
+			<location>/Users/limf/work/git/lanrenyou/lry_core/src/main/resources</location>
+		</link>
+		<link>
+			<name>core-third</name>
+			<type>2</type>
+			<location>/Users/limf/work/git/lanrenyou/lry_core/src/main/third</location>
 		</link>
 		<link>
 			<name>third</name>
 			<type>2</type>
-			<location>D:/workspace/github/lanrenyou/lry_core/src/main/third</location>
+			<location>/Users/limf/work/dajie_dev/eclipse_64/eclipse/Eclipse.app/Contents/MacOS/D::/workspace/github/lanrenyou/lry_core/src/main/third</location>
 		</link>
 	</linkedResources>
 </projectDescription>
