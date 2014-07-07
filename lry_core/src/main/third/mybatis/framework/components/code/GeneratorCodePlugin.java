@@ -1,6 +1,3 @@
-/**
- * 
- */
 package mybatis.framework.components.code;
 
 import java.util.ArrayList;
@@ -17,92 +14,73 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
 
-/**
- *
- */
-public class GeneratorCodePlugin extends PluginAdapter
-{
-	//
+public class GeneratorCodePlugin extends PluginAdapter {
 	private List<String> mapperResources = new ArrayList<String>();
-	
+
 	String targetPackage = null;
 
 	@Override
-	public boolean validate(List<String> warnings)
-	{
+	public boolean validate(List<String> warnings) {
 		return true;
 	}
 
 	@Override
 	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(
-			IntrospectedTable introspectedTable)
-	{
-        List<GeneratedJavaFile> answer = new ArrayList<GeneratedJavaFile>();
+			IntrospectedTable introspectedTable) {
+		List<GeneratedJavaFile> answer = new ArrayList<GeneratedJavaFile>();
 
-//		Service.
-        AbstractJavaGenerator serviceGenerator = new ServiceGenerator(context, introspectedTable);
-//        serviceGenerator.setContext(context);
-//        serviceGenerator.setIntrospectedTable(introspectedTable);
-//        abstractGenerator.setProgressCallback(progressCallback);
-//        abstractGenerator.setWarnings(warnings);
-        
-        List<CompilationUnit> compilationUnits = serviceGenerator.getCompilationUnits();
-        for (CompilationUnit compilationUnit : compilationUnits) {
-            GeneratedJavaFile gjf = new GeneratedJavaFile(compilationUnit,
-                    context.getJavaModelGeneratorConfiguration()
-                            .getTargetProject(),
-                            context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING),
-                            context.getJavaFormatter());
-            answer.add(gjf);
-        }
-        
-        // Dao.
-//        System.out.println("	" + getDaoEnvironment(introspectedTable));
-        
-        String xml_package = introspectedTable.getMyBatis3XmlMapperPackage();
-        String xml_name = introspectedTable.getMyBatis3XmlMapperFileName();
-        mapperResources.add(xml_package.replace('.', '/') + "/" + xml_name);
-        
+		AbstractJavaGenerator serviceGenerator = new ServiceGenerator(context,
+				introspectedTable);
+
+		List<CompilationUnit> compilationUnits = serviceGenerator
+				.getCompilationUnits();
+		for (CompilationUnit compilationUnit : compilationUnits) {
+			GeneratedJavaFile gjf = new GeneratedJavaFile(
+					compilationUnit,
+					context.getJavaModelGeneratorConfiguration()
+							.getTargetProject(),
+					context.getProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING),
+					context.getJavaFormatter());
+			answer.add(gjf);
+		}
+
+		String xml_package = introspectedTable.getMyBatis3XmlMapperPackage();
+		String xml_name = introspectedTable.getMyBatis3XmlMapperFileName();
+		mapperResources.add(xml_package.replace('.', '/') + "/" + xml_name);
+
 		return answer;
 	}
-	
-	
+
 	@Override
-	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles()
-	{
-		//System.out.println("	gen other java files...");
-		
+	public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles() {
 		return null;
 	}
-	
+
 	@Override
-	public List<GeneratedXmlFile> contextGenerateAdditionalXmlFiles()
-	{
-		//System.out.println("	gen other xml files...");
+	public List<GeneratedXmlFile> contextGenerateAdditionalXmlFiles() {
 		Document document = new Document();
 		XmlElement root = new XmlElement("configuration");
-		XmlElement mappers = new XmlElement("mappers"); 
-		if (!mapperResources.isEmpty())
-		{
-			for (String file : mapperResources)
-			{
+		XmlElement mappers = new XmlElement("mappers");
+		if (!mapperResources.isEmpty()) {
+			for (String file : mapperResources) {
 				XmlElement mapper = new XmlElement("mapper");
 				mapper.addAttribute(new Attribute("resource", file));
 				mappers.addElement(mapper);
 			}
 		}
-		
+
 		root.addElement(mappers);
 		document.setRootElement(root);
-		
+
 		List<GeneratedXmlFile> answer = new ArrayList<GeneratedXmlFile>();
 
-		GeneratedXmlFile gxf = new GeneratedXmlFile(document,"add_to_ibatis.xml", "",
-                context.getSqlMapGeneratorConfiguration().getTargetProject(),
-                false, context.getXmlFormatter());
+		GeneratedXmlFile gxf = new GeneratedXmlFile(document,
+				"add_to_ibatis.xml", "", context
+						.getSqlMapGeneratorConfiguration().getTargetProject(),
+				false, context.getXmlFormatter());
 		answer.add(gxf);
-		
+
 		return answer;
 	}
-	
+
 }
