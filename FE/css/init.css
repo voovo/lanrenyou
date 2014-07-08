@@ -20,6 +20,8 @@ textarea{resize:none}
 
 fieldset, img {
     border: 0;
+    font-size: 0;
+    line-height: 0;
 }
 
 address, caption, cite, code, dfn, em, strong, th, var, i {

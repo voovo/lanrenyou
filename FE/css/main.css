@@ -4,7 +4,7 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn , .msg_btn , .plan_area li a{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
 
@@ -15,7 +15,7 @@
 
 
 .success{ color: #99c700;}
-.suc_ico{ padding-left: 40px; background-position: -760px -374px; height: 35px; line-height: 35px; font-size: 24px;}
+.suc_ico{ padding-left: 40px; background-position: -832px -8px; height: 35px; line-height: 35px; font-size: 24px;}
 .error{ color: #d60a30 !important; font-size: 12px;}
 
 .gray{ color: #bcbcbc;}
@@ -30,6 +30,63 @@
 
 .textarea{background:#fafafa; border:1px solid #ddd; font-size: 14px;  padding:5px; width: 98%; height: 120px;}
 .select{background:#fafafa; border:1px solid #ddd; font-size: 14px;  padding:5px; width: 100px;}
+
+.ico{ padding-left: 18px; margin-right: 10px;}
+.icon_time{ background-position: -847px -432px;}
+.icon_eye{ background-position: -847px -461px;}
+.up_ico{ display:block; width:12px; height: 12px; background-position: -7px -370px;}
+.vip_ico{ padding-right: 20px;  background-position: right -492px;}
+.add_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -404px;}
+.msg_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -437px;}
+
+/*可策划地区*/
+.plan_area{ margin: 10px 0; position: relative; padding-left: 80px; height: 22px;}
+.plan_area dt{ position: absolute; top:0; left:0;}
+.plan_area dd{}
+.plan_area li{ float: left; margin-bottom: 5px;}
+.plan_area li a{ padding:0 15px 0 5px; display: block; height: 20px; line-height: 20px; background-position: right -517px; color: #364758 !important; margin-right: 5px; }
+
+
+/*按钮*/
+
+.button {
+    position: relative;
+    overflow: visible;
+    display: inline-block;
+    border: 1px solid #d4d4d4;
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 0 #fff;
+    font:11px/normal sans-serif;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    background-color: #ececec;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+    background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+    background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+    background-image: -o-linear-gradient(#f4f4f4, #ececec);
+    background-image: linear-gradient(#f4f4f4, #ececec);
+    -moz-background-clip: padding; /* for Firefox 3.6 */
+    background-clip: padding-box;
+    border-radius: 0.2em;
+    /* IE hacks */
+    zoom: 1;
+    *display: inline;
+}
+
+
+
+
+
+/*分页*/
+.page{ width: 100%; text-align: center; height: 40px; margin:30px auto;}
+.page ul{ height: 40px;}
+.page ul li{margin-right: 5px;font-size: 18px; color: #ccc; vertical-align:top;display:inline-block;*display:inline;*zoom:1;}
+.page ul li a{ font-size: 18px; color: #fff; background: #ccc; padding: 3px 10px;}
+.page ul li a.cur , .page ul li.cur a , .page ul li a:hover{ background: #364758;}
 
 
 /*顶部导航*/
@@ -168,6 +225,7 @@
 .share_box ul li.tt a , .share_box ul li.tt a:hover{ background-position: -585px -371px;}
 .share_box ul li.qq a , .share_box ul li.qq a:hover{ background-position: -642px -371px;}
 
+.planner_item , .yj_item{ float: none !important;}
 
 
 #footer p{  text-align: left; margin-left: 20px;}

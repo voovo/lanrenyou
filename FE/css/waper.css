@@ -1,0 +1,85 @@
+/* 
+ * 懒人游主体样式
+ * mr.sheak@gmail.com
+ * 20140705
+ */
+.waper_box{ max-width: 1200px; min-width: 960px; margin: 30px auto;}
+.waper_box h1.warper_tt{ font-size: 30px; color: #333; padding-left: 40px; margin-bottom: 30px; position: relative;}
+.yj_icon{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+
+.warper_tab{ height: 40px; line-height: 40px; border-bottom: 1px solid #d3d3d3; margin-bottom: 20px;}
+.warper_tab li{height: 39px; line-height: 39px; float: left; font-size: 14px; color: #333; padding: 0 30px; border-radius: 3px;}
+.warper_tab li.cur{border: 1px solid #d3d3d3; border-bottom: 3px solid #fff;}
+.warper_tab li a{ color: #305d8a; padding: 8px 10px;}
+
+/*找游记*/
+.yj_icon{ background-position: -833px -55px;}
+
+.yj_list{ width: 1240px;}
+.yj_list .yj_item{ float: left; width: 570px; margin:0 20px 20px 0; background: #fff; padding:10px; box-shadow: 0 0 7px #c7c7c7;}
+.yj_list .yj_item > dl{ position: relative; width: 570px; height: 370px; overflow: hidden;}
+.yj_list .yj_item > dl > dd{}
+.yj_list .yj_item > dl > dd img{ display: block; width: 570px; height: 370px;}
+
+.yj_list .yj_item > dl > dt{ position: absolute; width: 530px; padding:30px 20px; height: 310px;}
+.yj_list .yj_item > dl > dt h2{ color: #fff; font-size: 24px; height: 34px; line-height: 34px; overflow: hidden;}
+
+.yj_list .yj_item > dl > dt .yj_author{ position: relative; padding-left: 28px; height: 24px; line-height: 24px; color: #fff; margin-top: 10px;}
+.yj_list .yj_item > dl > dt .yj_author img.u_sm{ width: 24px; height: 24px; position: absolute; left:0; top:0;}
+.yj_list .yj_item > dl > dt .yj_author .author_link > a{ color: #010101; text-decoration: underline; margin-right: 10px;}
+.yj_list .yj_item > dl > dt .yj_author .author_link .author_info{ position: absolute; width: 280px; height: 120px; top:30px; left:0; padding: 10px; background-color:rgba(255,255,255,0.85); *background:#000; *filter:alpha(opacity=85);}
+.author_info *{position: relative; color: #000;}
+
+.author_tt{ position: absolute; top:-12px; left:40px; width: 260px; height: 16px;}
+
+.author_detail{ }
+.author_detail dl{position: relative; height: 50px; padding-left: 60px;}
+.author_detail dl dt{ position: absolute; width: 60px; top:0; left:0;}
+.author_detail dl dt.add_form{ left:222px; top:2px; z-index:40;}
+.author_detail dl dt img , .planner_face img{ display: block; width: 45px; height: 45px; padding: 2px; border: 1px solid #ccc;}
+.author_detail dl dd{ padding-top: 5px;}
+.author_detail dl dd p{ margin-top: 5px;}
+.author_detail dl dd p span{ margin-right: 10px; color: #333;}
+.vip_ico a{ color: #305d8a !important; font-weight: bold;}
+
+.author_yj_last{ margin-top: 10px;}
+.author_yj_last li{}
+.author_yj_last li a{ color: #305d8a !important;}
+.author_yj_last li a:hover{ text-decoration: underline;}
+.author_yj_last .gray{ color: #ccc; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 5px;}
+
+.yj_info{ background: #000; color: #fff; height: 80px; position: absolute; bottom: 0; left:0; padding:20px; line-height: 24px; background-color:rgba(0,0,0,0.55); *background:#000; *filter:alpha(opacity=55);}
+.yj_info *{position: relative; color: #000;}
+
+
+/*找规划师*/
+.planner_search{ position: absolute; top:4px; left:190px;}
+.search_btn{background-color: #efefef; text-align: center; color: #000 !important; display: block; width: 66px; height: 34px; line-height: 34px; position: absolute; top:0px; left:221px; border: 1px solid #ddd;}
+.planner_list{width: 1240px;}
+.planner_item{float: left; margin:0 20px 20px 0; background: #fff; padding:10px; box-shadow: 0 0 7px #c7c7c7; height: 235px;  width: 570px; }
+.planner_item > dl{ position: relative;overflow: hidden;}
+.planner_item > dl > dt{ float: left;}
+.planner_item > dl > dd{}
+.planner_item > dl > dd.planner_name{ float: left; margin: 15px 0 0 20px;}
+.planner_item > dl > dd.planner_info{ float: right; padding:13px 140px 10px 0;}
+.planner_item > dl > dd.planner_info span{ margin-right: 10px;}
+.planner_item > dl > dd.planner_info a.btn_s{ position: absolute;}
+.planner_item > dl > dd.planner_info .add_btn{ top:10px; right:60px;}
+.planner_item > dl > dd.planner_info .msg_btn{ top:10px; right:0px;}
+
+.planner_item .planner_yj_list{ margin-top: 10px;}
+.planner_item .planner_yj_list .more_yj{ text-align: right; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 10px;}
+.planner_item .planner_yj_list .more_yj a{ text-decoration: underline; color: #364758;}
+.planner_item .planner_yj_list .planner_yj_detail{ padding: 0 5px;}
+.planner_item .planner_yj_list .planner_yj_detail img{ width: 184px; height: 110px; display: block;}
+.planner_item .planner_yj_list .planner_yj_detail .right li{ position: relative; width: 360px; height: 28px; line-height: 28px;}
+.planner_item .planner_yj_list .planner_yj_detail .right li a{ color: #305d8a; position: absolute; left:0; top:0;}
+.planner_item .planner_yj_list .planner_yj_detail .right li a:hover{ text-decoration: underline;}
+.planner_item .planner_yj_list .planner_yj_detail .right li span{ position: absolute; right:0; top:0; color: #9b9b9b;}
+
+
+
+
+
+
+
