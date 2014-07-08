@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.dao.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,5 +73,26 @@ public class TravelInfoDaoImpl extends BaseDao<TravelInfo> implements ITravelInf
 		params.put("offset", offset);
 		params.put("limit", limit);
 		return this.findList("getTravelInfoListByUid", params);
+	}
+
+	@Override
+	public List<TravelInfo> getTravelInfoListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("startTime", startTime);
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListForAddIndex", params);
+	}
+
+	@Override
+	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime,
+			int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListForFullIndex", params);
 	}
 }
