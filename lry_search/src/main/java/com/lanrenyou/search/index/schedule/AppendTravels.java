@@ -15,6 +15,8 @@ import com.lanrenyou.search.index.ExportTravels;
 
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
+import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.travel.service.ITravelInfoService;
 /**
  * 游记增量索引
  */
@@ -23,16 +25,20 @@ import com.lanrenyou.search.index.util.StringTool;
 public class AppendTravels  {
 	
 	@Autowired
-	private TravelInfoReository repo;
+	private ITravelInfoService travelInfoService;
 	
 	@Autowired
 	private ExportTravels exp;
 	
 	@Autowired
 	private SolrUtil solrUtil;
+	
 	private SolrServer[] servers;
+	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private String filePath="/WEB-INF/data/exportWish";
+	
+	private String filePath="D:/tmp/data/exportWish";
+	
 	private Log log = LogFactory.getLog(AppendTravels.class);
 
 	@Scheduled(cron="0 0/5 * * * ?")
@@ -65,7 +71,7 @@ public class AppendTravels  {
 		int startID = 0, batchSize = 1000;
 		List<TravelInfo> list = null;
 		Date[] lastRunning=getLastRunningDate();
-		Date endTime = repo.getMaxModifyDate();
+		Date endTime = new Date();
 		if(endTime==null) return;
 		if(lastRunning==null){
 			log.error("时间文件出错！");
@@ -77,21 +83,15 @@ public class AppendTravels  {
 			servers = solrUtil.getLryServers();
 		}
 		//==查询是否有需要更新的记录
-//		int amount = repo.getCountCrWishApplyVos(lastRunning[1],endTime);
-//		if(amount<=0){
-//			log.info("本次更新操作记录为  0！");
-//			return;
-//		}else{
-//			servers = solrUtil.getCampusServers();
-//		}
-		//==
 		do {
 			try {
-				list = repo.getCrWishApplyVos(startID, batchSize,lastRunning[1],endTime);
+				list = travelInfoService.getTravelInfoListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
 	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
-					if(lists.get(i).size()==0)continue;
+					if(lists.get(i).size()==0){
+						continue;
+					}
 					exp.export(servers[i], lists.get(i));
 				}
 			} catch (Exception e) {
@@ -100,7 +100,7 @@ public class AppendTravels  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
-		StringTool.WriteContentToTextFile(SpringTool.getRealPath(filePath), sdf.format(lastRunning[1])+"\n"+sdf.format(endTime));
+		StringTool.WriteContentToTextFile(filePath, sdf.format(lastRunning[1])+"\n"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
 				server.optimize();
@@ -116,10 +116,10 @@ public class AppendTravels  {
 			lists.add(new ArrayList<TravelInfo>());
 		}
 		
-		for(TravelInfo wish: list){
+		for(TravelInfo t: list){
 			for(int i=0;i<size;i++){
-				if(wish.getCorpId()%size==i){
-					lists.get(i).add(wish);
+				if(t.getId()%size==i){
+					lists.get(i).add(t);
 					break;
 				}
 			}
@@ -131,8 +131,7 @@ public class AppendTravels  {
 	
 	private Date[] getLastRunningDate(){
 		try {
-			
-			String str=StringTool.getTextFileContent(SpringTool.getRealPath(filePath));	
+			String str=StringTool.getTextFileContent(filePath);	
 			if(str==null){
 				return null;
 			}
@@ -140,7 +139,6 @@ public class AppendTravels  {
 			Date[] darray=new Date[2];
 			darray[0]=sdf.parse(array[0].trim());
 			darray[1]=sdf.parse(array[1].trim());
-			
 			return darray;
 		} catch (Exception e) {
 			log.error("从时间文件中读取数据出错,异常信息： "+e.toString());

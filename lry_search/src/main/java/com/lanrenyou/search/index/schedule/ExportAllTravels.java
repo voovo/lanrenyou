@@ -11,51 +11,50 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import com.baidu.job.search.index.ExportWishs;
-import com.baidu.job.search.index.domain.campus.TravelInfo;
-import com.baidu.job.search.index.repository.campus.TravelInfoReository;
 
-import com.baidu.job.search.index.util.SolrUtil;
-import com.baidu.job.search.index.util.SpringTool;
-import com.baidu.job.search.index.util.StringTool;
+import com.lanrenyou.search.index.ExportTravels;
+import com.lanrenyou.search.index.util.SolrUtil;
+import com.lanrenyou.search.index.util.StringTool;
+import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.travel.service.ITravelInfoService;
 
 /**
- * 
- *
- * @author zhaolei
- * create time:2011-06
- *  修改记录：
+ * 全量创建索引
  */
 @Component
 public class ExportAllTravels  {
 	
 	@Autowired
-	private TravelInfoReository repo;
+	private ITravelInfoService travelInfoService;
 	
 	@Autowired
 	private ExportTravels exp;
 	
 	@Autowired
 	private SolrUtil solrUtil;
+	
 	private SolrServer[] servers;
+	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private String filePath="/WEB-INF/data/exportWish";
+	
+	private String filePath="D:/tmp/data/exportWish";
+	
 	private Log log = LogFactory.getLog(ExportAllTravels.class);
 
 	@Scheduled(cron="0 12 4 * * ?")
 	public void executue() {
 		if (System.getProperty("ALL")!=null && "start".equals(System.getProperty("ALL"))) {
-			log.info("export all crWishApply is running.....");
+			log.info("export all Travel is running.....");
 			return;
 		}
 		long s = System.currentTimeMillis();
-		log.info("Export All crWishApply ...............................");
+		log.info("Export All Travel ...............................");
 		try {
 			System.setProperty("ALL", "start");
 			servers = solrUtil.getLryServers();
 			deleteAllIndex();
 			log.info("删除先前的索引文件完成！");
-			exportWishVos();
+			exportTravelVos();
 			long e = System.currentTimeMillis();
 			log.info("索引重建完成,用时  : "+(e-s)+" 毫秒！");
 		} catch (Exception e) {
@@ -65,14 +64,14 @@ public class ExportAllTravels  {
 		}
 	}
 
-	private void exportWishVos() {
+	private void exportTravelVos() {
 		int startID = 0, batchSize = 1000;
 		List<TravelInfo> list = null;
-		Date endTime = repo.getMaxModifyDate();
+		Date endTime = new Date();
 		if(endTime==null) return;
 		do {
 			try {
-				list = repo.getCrWishApplyVos(startID, batchSize,endTime);
+				list = travelInfoService.getTravelInfoListForSearchIndex(endTime, startID, batchSize);
 	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
@@ -85,7 +84,7 @@ public class ExportAllTravels  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
-		StringTool.WriteContentToTextFile(SpringTool.getRealPath(filePath), sdf.format(endTime)+"\n"+sdf.format(endTime));
+		StringTool.WriteContentToTextFile(filePath, sdf.format(endTime)+"\n"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
 				server.optimize();
@@ -103,7 +102,7 @@ public class ExportAllTravels  {
 		
 		for(TravelInfo wish: list){
 			for(int i=0;i<size;i++){
-				if(wish.getCorpId()%size==i){
+				if(wish.getId()%size==i){
 					lists.get(i).add(wish);
 					break;
 				}
@@ -112,8 +111,6 @@ public class ExportAllTravels  {
 		
 		return lists;
 	}
-	
-	
 	
 	private void deleteAllIndex() throws Exception {
 		for (SolrServer server:servers) {

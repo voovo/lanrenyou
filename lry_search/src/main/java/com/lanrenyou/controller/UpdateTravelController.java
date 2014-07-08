@@ -1,18 +1,13 @@
 package com.lanrenyou.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.solr.client.solrj.SolrServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,10 +88,10 @@ public class UpdateTravelController extends BaseController {
 			lists.add(new ArrayList<TravelInfo>());
 		}
 
-		for (TravelInfo wish : list) {
+		for (TravelInfo travel : list) {
 			for (int i = 0; i < size; i++) {
-				if (wish.getId() % size == i) {
-					lists.get(i).add(wish);
+				if (travel.getId() % size == i) {
+					lists.get(i).add(travel);
 					break;
 				}
 			}

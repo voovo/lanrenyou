@@ -47,7 +47,6 @@ public class StringTool {
 	
 	public static boolean WriteContentToTextFile(String path,String content){
 		try {
-			
 			BufferedWriter bw=new BufferedWriter(new FileWriter(path));
 			bw.write(content);
 			bw.flush();
