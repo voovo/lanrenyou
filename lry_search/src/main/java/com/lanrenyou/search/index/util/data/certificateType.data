@@ -1,0 +1,171 @@
+000,所有,null
+101,外语证书,000
+104229,初级工程师,104
+101101,托福,101
+105237,全国律师资格证书,105
+102125,全国计算机应用技术证书,102
+103221,注册会计师,103
+102126,全国计算机软件技术资格与水平考试,102
+104230,中级工程师,104
+105238,造价工程师,105
+103222,高级会计师,103
+102,计算机证书,000
+101102,雅思,101
+105239,监理工程师,105
+102127,初级程序员,102
+103,会计证书,000
+104231,高级工程师,104
+101103,GRE,101
+103223,中级会计师,103
+104232,助理工程师,104
+104,职称证书,000
+105240,注册结构师,105
+101104,GMAT,101
+102128,程序员,102
+103224,助理会计师,103
+102129,高级程序员,102
+104233,初级经济师,104
+105,其他证书,000
+101105,托业,101
+105241,注册建筑师,105
+103225,会计从业资格证,103
+102130,系统分析员,102
+105242,注册税务师,105
+101106,通用英语初级,101
+104234,中级经济师,104
+103226,会计电算化证书,103
+104235,高级经济师,104
+105243,注册土木工程师,105
+101107,通用英语高级,101
+102131,全国计算机等级一级,102
+103227,会计珠算证书,103
+102132,全国计算机等级二级,102
+103228,国际财务会计证书,103
+104236,助理经济师,104
+105244,注册资产评估师,105
+101108,大学英语四级,101
+102133,全国计算机等级三级A,102
+101109,大学英语六级,101
+105245,注册城市规划师,105
+102134,全国计算机等级三级B,102
+105246,企业法律顾问执业资格证书,105
+101110,英语专业四级,101
+105247,注册咨询工程师（投资）执业资格证书,105
+101111,英语专业八级,101
+102135,全国计算机等级四级,102
+101112,中级口译证书,101
+105248,执业药师资格证书,105
+102136,计算机初级,102
+101113,高级口译证书,101
+105249,房地产估价师执业资格证书,105
+102137,计算机中级,102
+105250,房地产经纪人执业资格证书,105
+102138,网络初级证书,102
+101114,全国公共英语等级考试（PETS）,101
+105251,电子商务师执业资格证书,105
+101115,日语一级证书,101
+102139,MCDST微软认证操作系统技术支持工程师,102
+105252,价格鉴定师,105
+101116,日语二级证书,101
+102140,MCAD微软认证应用程序开发专家,102
+105253,矿业权评估师,105
+101117,日语三级证书,101
+102141,MCP微软专家认证,102
+102142,MCTS微软认证技术专家,102
+105254,珠宝玉石质量检验师,105
+101118,日语四级证书,101
+102143,MCPD微软认证程序开发专家,102
+105255,ISO体系内审员注册审核员,105
+101119,俄语四级证书,101
+105256,公共关系资格证书,105
+101120,俄语六级证书,101
+102144,MCITP微软IT专家认证,102
+102145,MCM微软认证高级技术专家,102
+105257,报关员资格证书,105
+101121,法语四级证书,101
+105258,报检员资格证书,105
+101122,法语六级证书,101
+102146,MSBC微软商务认证,102
+105259,外销员资格证书,105
+101123,德语四级证书,101
+102147,MCLC微软认证学习顾问,102
+101124,德语六级证书,101
+102148,MCSA微软认证系统管理员,102
+105260,保险代理人资格证书,105
+105261,导游人员资格证书,105
+102149,MCSA:Messaging 微软认证信息系统管理员,102
+105262,办公自动化资格证书,105
+102150,MCSE微软认证系统工程师,102
+105263,普通话等级证书,105
+102151,MCSD微软认证解决方案开发专家,102
+105264,驾驶执照,105
+102152,MCSE:Messaging微软认证信息系统工程师,102
+102153,MCSE:Security微软认证安全系统工程师,102
+102154,MCDBA微软认证数据库系统管理员,102
+102155,MCT微软认证培训师,102
+102156,CCCP思科认证网络规划和网络支持工程师,102
+102157,CCDA思科认证网络设计工程师,102
+102158,CCIE思科认证互联网专家,102
+102159,CCNA思科认证网络工程师,102
+102160,CCNP思科认证网络专业人员,102
+102161,CCIP思科认证的互联网专业人员,102
+102162,CCDP思科认证网络设计专业人员,102
+102163,思科认证专家-优先,102
+102164,思科认证专家-互联网解决方案,102
+102165,思科认证专家-安全性,102
+102166,思科认证专家-SNA/IP,102
+102167,Novell授权网络管理师,102
+102168,Novell授权网络工程师,102
+102169,Novell授权高级网络工程师,102
+102170,Novell授权Internet专家,102
+102171,3com认证网络大师,102
+102172,SUN 认证Java程序员,102
+102173,Intel 认证方案咨询专家,102
+102174,Intel 认证方案继承专家,102
+102175,Adobel认证专家,102
+102176,Domino R5 Application Development CLP,102
+102177,Domino R5 System Administration CLP,102
+102178,Sybase 认证考试,102
+102179,IBM Certified AIX User,102
+102180,IBM eServer pSeries AIX System Administration,102
+102181,IBM eServer pSeries AIX System Support,102
+102182,IBM Certified Advanced Technical Expert - RS/6000 AIX,102
+102183,IBM AS/400 Associate System Operator,102
+102184,IBM Certified Specialist - DB2 V6.1/V7 User,102
+102185,IBM Certified Solutions Expert - Business Intelligence,102
+102186,IBM Expert -DB2 UDB V7.1 Database Administration,102
+102187,IBM Expert -DB2 UDB V7.1 Family Application Development,102
+102188,IBM Expert -DB2 UDB V6.1 Database Administration,102
+102189,IBM Expert -DB2 UDB V6.1 Application Development,102
+102190,IBM Certified for e-business - Solution Advisor,102
+102191,IBM Certified for e-business - Solution Designer,102
+102192,IBM Certified for e-business - Solution Technologist,102
+102193,IBM Certified Specialist - MQSeries,102
+102194,IBM Certified Solutions Expert -MQSeries,102
+102195,IBM Certified Developer - MQSeries,102
+102196,IBM Certified Specialist - MQSeries Adapter Offering,102
+102197,IBM Certified Specialist - WebSphere MQ Integrator,102
+102198,IBM Certified Solutions Expert - WebSphere MQ Integrator,102
+102199,IBM Certified Solutions Expert - MQSeries Workflow,102
+102200,IBM Specialist - IBM VisualAge,102
+102201,IBM Solution Developer - IBM VisualAge,102
+102202,IBM -WebSphere Server,102
+102203,IBM Enterprise Developer - WebSphere Server,102
+102204,IBM Specialist - WebSphere Server VisualAge for Java based,102
+102205,IBM Enterprise Developer - WebSphere Server VisualAge for Java based,102
+102206,IBM Systems Expert - Administration for WebSphere Server,102
+102207,IBM - WebSphere Commerce Business Edition V5.4 Implementation,102
+102208,IBM - WebSphere Commerce Business Edition V5.4 Customization,102
+102209,IBM WebSphere Commerce Suite V5.1 Implementation,102
+102210,IBM - WebSphere Studio Professional or Advanced Edition,102
+102211,IBM WebSphere Studio Family of Products V4.0,102
+102212,IBM WebSphere Studio Application Developer for Windows,102
+102213,IBM Websphere Studio Application Developer for Window,102
+102214,IBM - XML and Related Technologies,102
+102215,Domino R5 Application Development CLS,102
+102216,Domino R5 Application Development PCLP,102
+102217,Domino R5 System Administration CLS,102
+102218,Domino R5 System Administration PCLP,102
+102219,LPI Certification Level 1,102
+102220,LPI Certification Level 2,102
+106,自定义证书,000

@@ -48,6 +48,8 @@ public class TravelInfo extends BaseValueObject {
     private String createIp;
 
     private Integer updateUid;
+    
+    private Date updateTime;
 
     private String updateIp;
 
@@ -138,8 +140,16 @@ public class TravelInfo extends BaseValueObject {
     public void setUpdateUid(Integer updateUid) {
         this.updateUid = updateUid;
     }
+    
+    public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public String getUpdateIp() {
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getUpdateIp() {
         return updateIp;
     }
 

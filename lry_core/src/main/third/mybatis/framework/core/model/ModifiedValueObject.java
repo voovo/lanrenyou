@@ -1,63 +1,38 @@
-/**
- * 
- */
 package mybatis.framework.core.model;
 
 import java.util.Date;
 
-/**
-
- */
-public abstract class ModifiedValueObject implements IValueObject
-{
-	/**
-	 * 
-	 */
+public abstract class ModifiedValueObject implements IValueObject{
 	private static final long serialVersionUID = 1L;
 	
-	protected Date createDate;
-	protected Date modifyDate;
-	protected String modifyIp;
-	protected Long modifyUserId;
+	protected Date createTime;
+	protected Date updateTime;
+	protected String updateIp;
+	protected Integer updateUid;
 	
-	public Date getCreateDate()
-	{
-		return createDate;
+	public Date getCreateTime() {
+		return createTime;
 	}
-
-	public void setCreateDate(Date createDate)
-	{
-		this.createDate = createDate;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
-
-	public Date getModifyDate()
-	{
-		return modifyDate;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
-
-	public void setModifyDate(Date modifyDate)
-	{
-		this.modifyDate = modifyDate;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
-
-	public String getModifyIp()
-	{
-		return modifyIp;
+	public String getUpdateIp() {
+		return updateIp;
 	}
-
-	public void setModifyIp(String modifyIp)
-	{
-		this.modifyIp = modifyIp;
+	public void setUpdateIp(String updateIp) {
+		this.updateIp = updateIp;
 	}
-
-	public Long getModifyUserId()
-	{
-		return modifyUserId;
+	public Integer getUpdateUid() {
+		return updateUid;
 	}
-
-	public void setModifyUserId(Long modifyUserID)
-	{
-		this.modifyUserId = modifyUserID;
+	public void setUpdateUid(Integer updateUid) {
+		this.updateUid = updateUid;
 	}
 
 }
