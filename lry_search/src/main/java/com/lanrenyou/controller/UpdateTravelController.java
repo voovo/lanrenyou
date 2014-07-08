@@ -10,61 +10,70 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.solr.client.solrj.SolrServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.travel.service.ITravelInfoService;
 
 /**
  * 更新索引文件
  */
 @Controller
-@RequestMapping("/search_index")
+@RequestMapping("/search_index/travel")
 public class UpdateTravelController extends BaseController {
+	
+	@Autowired
+	private SolrUtil solrUtil;
+	
+	@Autowired
+	private ExportTravels exportTravels;
+	
+	@Autowired
+	private ITravelInfoService travelInfoService;
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping("/update")
+	public void update(HttpServletResponse response,
+			@RequestParam(value = "password", required = true) String password,
+			@RequestParam(value = "tids", required = true) String tids)
 			throws ServletException, IOException {
-		String password = request.getParameter("password");
-		if (password != null && "zhonglixuntaqianbaidurencai".equals(password)) {
+		if (password != null && "woailanrenyou".equals(password)) {
 		} else {
 			return;
 		}
-		ExportTravels exp = SpringTool.getBeanByClass(ExportTravels.class);
-		SolrUtil solrUtil = SpringTool.getBeanByClass(SolrUtil.class);
-		TravelInfoReository repo = SpringTool
-				.getBeanByClass(TravelInfoReository.class);
 		SolrServer[] servers = null;
-		PrintWriter out = response.getWriter();
-		String id = request.getParameter("id");
 		try {
 			servers = solrUtil.getLryServers();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-		if (id != null && !"".equals(id)) {
-			List<TravelInfo> wishs = new ArrayList<TravelInfo>();
-			String[] idArr = id.split(",");
+		if (StringUtils.isNotBlank(tids)) {
+			List<TravelInfo> travls = new ArrayList<TravelInfo>();
+			String[] idArr = tids.split(",");
 			for (int i = 0; i < idArr.length; i++) {
-				List<TravelInfo> wish = repo.getCrWishApplyVos(
-						"FROM CrWishApply WHERE id=" + idArr[i], null, null);
-				if (wish != null && wish.size() > 0) {
-					wishs.add(wish.get(0));
+				Integer tid = Integer.parseInt(idArr[i]);
+				TravelInfo travelInfo = travelInfoService.getTravelInfoById(tid);
+				if (null != travelInfo) {
+					travls.add(travelInfo);
 				} else {
-					log.info("不存在这个id=[" + idArr[i] + "]的志愿");
+					logger.info("不存在这个id=[" + idArr[i] + "]的志愿");
 					return;
 				}
 			}
-			List<List<TravelInfo>> lists = assignServer(wishs, servers.length);
+			List<List<TravelInfo>> lists = assignServer(travls, servers.length);
 
 			for (int i = 0; i < servers.length; i++) {
-				exp.export(servers[i], lists.get(i));
+				exportTravels.export(servers[i], lists.get(i));
 			}
 			for (int i = 0; i < servers.length; i++) {
 				try {
@@ -74,9 +83,6 @@ public class UpdateTravelController extends BaseController {
 				}
 			}
 		}
-		out.print("ok");
-		out.flush();
-		out.close();
 	}
 
 	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,
@@ -95,7 +101,6 @@ public class UpdateTravelController extends BaseController {
 				}
 			}
 		}
-
 		return lists;
 	}
 }

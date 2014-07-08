@@ -32,15 +32,13 @@ public class DelTravelController extends BaseController {
 	private SolrUtil solrUtil;
 
 	@RequestMapping("/delTravel")
-	public void delTravel(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	public void delTravel(HttpServletRequest request, HttpServletResponse response) {
 		String password = request.getParameter("password");
 		if (password != null && "zhonglixuntaqianbaidurencai".equals(password)) {
 		} else {
 			return;
 		}
 		SolrServer[] servers = null;
-		PrintWriter out = response.getWriter();
 		String id = request.getParameter("id");
 		try {
 			servers = solrUtil.getLryServers();
@@ -78,9 +76,6 @@ public class DelTravelController extends BaseController {
 			}
 
 		}
-		out.print("ok");
-		out.flush();
-		out.close();
 	}
 
 	private List<List<String>> assignServer(List<String> list, int size) {

@@ -16,11 +16,7 @@ import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
 /**
- * 志愿增量索引
- * @author zhaolei
- * create time:2011/06
- * 修改记录：
- * 
+ * 游记增量索引
  */
 
 @Component
