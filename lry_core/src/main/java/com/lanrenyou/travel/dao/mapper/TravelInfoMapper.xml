@@ -13,11 +13,12 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
     <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, city, uid, title, is_elite, is_top, status, create_uid, create_time, 
-    create_ip, update_uid, update_ip
+    create_ip, update_uid, update_time, update_ip
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_travel_info
@@ -77,4 +78,13 @@
   <select id="getTravelInfoListByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
     select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status = 1 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
+  
+  <select id="getListForAddIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info where update_time &gt;= #{startTime, jdbcType=TIMESTAMP} and update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getListForFullIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info where update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
 </mapper>

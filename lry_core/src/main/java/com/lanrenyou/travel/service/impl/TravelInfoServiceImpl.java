@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,5 +69,17 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
 		pageIterator.setData(list);
 		return pageIterator;
+	}
+
+	@Override
+	public List<TravelInfo> getTravelInfoListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit) {
+		return travelInfoDao.getTravelInfoListForSearchIndex(startTime, endTime, offset, limit);
+	}
+
+	@Override
+	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime,
+			int offset, int limit) {
+		return travelInfoDao.getTravelInfoListForSearchIndex(endTime, offset, limit);
 	}
 }

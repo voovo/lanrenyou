@@ -4,6 +4,7 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
+
 #city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}

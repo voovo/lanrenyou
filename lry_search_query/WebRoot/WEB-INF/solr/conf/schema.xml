@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<schema name="lry_search" version="1.3">
+
+<!-- lenrenyou solr schema # create 2014/07 # creator zhangpj-->
+  <types>
+  
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+    <fieldtype name="binary" class="solr.BinaryField"/>
+    <fieldType name="random" class="solr.RandomSortField" indexed="true" />
+    <fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" />
+    
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+
+    <fieldType name="tint" class="solr.TrieIntField" precisionStep="8" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="8" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" omitNorms="true" positionIncrementGap="0"/>
+    <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" omitNorms="true" positionIncrementGap="0"/>
+
+    <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="tdate" class="solr.TrieDateField" omitNorms="true" precisionStep="6" positionIncrementGap="0"/>
+
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="com.chenlb.mmseg4j.solr.MMSegTokenizerFactory" mode="max-word" dicPath="conf"/>  
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.dic" ignoreCase="true" expand="false"/>
+        <filter class="solr.StopFilterFactory"   words="stopwords.dic" ignoreCase="true" enablePositionIncrements="true" />
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>        
+		<filter class="solr.LowerCaseFilterFactory"/>
+		<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
+      </analyzer>
+      <analyzer type="query">
+       <tokenizer class="com.chenlb.mmseg4j.solr.MMSegTokenizerFactory" mode="max-word" dicPath="conf"/>  
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.dic" ignoreCase="true" expand="false"/>
+        <filter class="solr.StopFilterFactory"   words="stopwords.dic" ignoreCase="true" enablePositionIncrements="true" />
+        <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1"/>        
+		<filter class="solr.LowerCaseFilterFactory"/>
+		<filter class="solr.RemoveDuplicatesTokenFilterFactory" />
+      </analyzer>
+    </fieldType>
+ </types>
+
+
+  
+ <fields>
+	<!--########## 单值  ########-->
+ 	<!-- 游记ID-->
+ 	<field name="tid" type="int" indexed="true" stored="true" omitNorms="true" required="true" />
+ 	<!-- 发布者ID -->
+	<field name="uid" type="int" indexed="true" stored="true" omitNorms="true" /> 
+	<!-- 游记标题 -->
+	<field name="title" type="string" indexed="true" stored="true" omitNorms="true" /> 
+     <!-- 游记城市 -->
+    <field name="city" type="string" indexed="true" stored="true" omitNorms="true"  /> 
+	<!-- 是否精华 -->
+	<field name="isElite" type="int" indexed="true" stored="true" omitNorms="true"/> 
+     <!-- 是否置顶 -->
+    <field name="isTop" type="int" indexed="true" stored="true" omitNorms="true"  /> 
+     <!-- 状态 -->
+    <field name="status" type="int" indexed="true" stored="true" omitNorms="true"  /> 
+     <!-- 创建者ID -->
+    <field name="createUid" type="int" indexed="true" stored="true" omitNorms="true"  /> 
+     <!-- 创建时间 -->
+     <field name="createTime" type="tdate" indexed="true" stored="true" omitNorms="true"  /> 
+     <!-- 修改者ID -->
+     <field name="updateUid" type="int" indexed="true" stored="true" omitNorms="true"  />
+     <!-- 修改时间 -->
+     <field name="updateTime" type="tdate" indexed="true" stored="true" omitNorms="true"  />
+     <!-- 旅行时间 -->
+     <field name="travelDate" type="tdate" indexed="true" stored="true" omitNorms="true"  />
+        
+    <!-- ###########全文检索单值 ###########--> 
+	<!-- 游记内容 -->
+   <field name="content" type="text" indexed="true" omitNorms="true"  stored="true"/> 
+ </fields>
+ 	
+ 	<uniqueKey>tid</uniqueKey>
+ 	<defaultSearchField>text</defaultSearchField>
+
+ 	<!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
+ 	<solrQueryParser defaultOperator="OR"/>
+
+</schema>

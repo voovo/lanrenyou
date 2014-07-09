@@ -9,11 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 
-/**
- * User: hui.ouyang
- * Date: 2010-4-8
- * Time: 13:53:43
- */
 public abstract class Dao {
 	@Autowired
 	@Qualifier("sqlSessionWrapper")

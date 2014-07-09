@@ -4,7 +4,6 @@ package com.lanrenyou.controller.login;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.util.ServletUtil;
+import com.lanrenyou.util.constants.UserConstant;
 
 
 @Controller
@@ -40,16 +41,16 @@ public class LoginController extends BaseController {
 	@RequestMapping(value="/login/loginSubmit",method=RequestMethod.POST)
 	@ResponseBody
 	public String loginSubmit(
-			@RequestParam(value = "userName", required = true) String userName,
+			@RequestParam(value = "userName", required = true) String email,
 			@RequestParam(value = "password", required = true) String password,
 			@RequestParam(value = "captcha", required = true) String captcha,
 			@RequestParam(value = "redir",required = false) String redir,
 			HttpServletRequest request,
             HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(StringUtils.isBlank(userName)){
+		if(StringUtils.isBlank(email)){
 			map.put("code", 0);
-			map.put("msg", "请输入用户名");
+			map.put("msg", "请输入邮箱");
 			return gson.toJson(map);
 		}
 		if(StringUtils.isBlank(password)){
@@ -63,10 +64,10 @@ public class LoginController extends BaseController {
 			return gson.toJson(map);
 		}
 
-		UserInfo userInfo = userInfoService.getUserInfoByName(userName);
+		UserInfo userInfo = userInfoService.getUserInfoByEmail(email);
 		if(userInfo==null){
 			map.put("code", 0);
-			map.put("msg", "用户名错误");
+			map.put("msg", "邮箱错误");
 			return gson.toJson(map);
 		}
 		if(!password.equals(userInfo.getUserPass())){
@@ -79,11 +80,9 @@ public class LoginController extends BaseController {
 			map.put("msg", "验证码不正确");
 			return gson.toJson(map);
 		}
-		
-		Cookie cookie = new Cookie("lry_loginid",userInfo.getId().toString());
-		cookie.setPath("/");
-		cookie.setDomain("www.lanrenyou.com");
-		response.addCookie(cookie);
+				
+		ServletUtil.writeUserAuthCookie(response, userInfo.getId(), userInfo.getUserPass(), "www.lanrenyou.com", 2592000);
+		ServletUtil.writeCookie(response, UserConstant.AUTH_EMAIL_COOKIE_KEY, userInfo.getEmail(), "www.lanrenyou.com", 2592000);
 
 		if(StringUtils.isEmpty(redir))
 			redir = "/index";
@@ -95,9 +94,8 @@ public class LoginController extends BaseController {
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpServletRequest request,
             HttpServletResponse response){
-		Cookie cookie = new Cookie("lry_loginid","");
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
+		
+		ServletUtil.deleteCookie(request, response, UserConstant.AUTH_EMAIL_COOKIE_KEY);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login/login");
