@@ -57,3 +57,7 @@ lry_webapp/src/main/java/com/lanrenyou/solrtest/SolrjTest.java
 lry_webapp/src/main/webapp/WEB-INF/lib/solr-solrj-4.2.0.jar
 
 lry_webapp/.classpath
+
+lry_search/.classpath
+
+lry_webapp/.classpath
