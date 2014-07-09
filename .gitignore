@@ -65,3 +65,7 @@ lry_webapp/.classpath
 lry_search/.classpath
 
 lry_webapp/.classpath
+
+lry_webapp/bin
+
+lry_search/bin
