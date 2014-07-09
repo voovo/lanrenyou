@@ -290,7 +290,7 @@ alter table tb_user_follow comment '关注表';
 create table tb_user_info
 (
    id                   int(11) not null auto_increment comment '主键ID',
-   name                 varchar(128) not null default '' comment '登录用户名',
+   name                 varchar(128) default '' comment '登录用户名',
    email                varchar(128) comment '邮箱',
    user_pass            varchar(128) not null default '' comment '密码',
    history_passwd       varchar(128) comment '历史密码',

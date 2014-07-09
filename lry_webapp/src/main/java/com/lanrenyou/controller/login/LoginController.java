@@ -50,35 +50,35 @@ public class LoginController extends BaseController {
             HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(StringUtils.isBlank(email)){
-			map.put("code", 0);
-			map.put("msg", "请输入邮箱");
+			map.put("status", "n");
+			map.put("info", "请输入邮箱");
 			return gson.toJson(map);
 		}
 		if(StringUtils.isBlank(password)){
-			map.put("code", 0);
-			map.put("msg", "请输入密码");
+			map.put("status", "n");
+			map.put("info", "请输入密码");
 			return gson.toJson(map);
 		}
 		if(StringUtils.isBlank(captcha)){
-			map.put("code", 0);
-			map.put("msg", "请输入验证码");
+			map.put("status", "n");
+			map.put("info", "请输入验证码");
 			return gson.toJson(map);
 		}
 
 		UserInfo userInfo = userInfoService.getUserInfoByEmail(email);
 		if(userInfo==null){
-			map.put("code", 0);
-			map.put("msg", "邮箱错误");
+			map.put("status", "n");
+			map.put("info", "邮箱错误");
 			return gson.toJson(map);
 		}
 		if(!password.equals(userInfo.getUserPass())){
-			map.put("code", 0);
-			map.put("msg", "密码错误");
+			map.put("status", "n");
+			map.put("info", "密码错误");
 			return gson.toJson(map);
 		}
 		if(captcha.equals(request.getSession().getAttribute("captchaValue"))){
-			map.put("code", 0);
-			map.put("msg", "验证码不正确");
+			map.put("status", "n");
+			map.put("info", "验证码不正确");
 			return gson.toJson(map);
 		}
 				
@@ -87,8 +87,8 @@ public class LoginController extends BaseController {
 
 		if(StringUtils.isEmpty(redir))
 			redir = "/index";
-		map.put("code", 1);
-		map.put("msg", redir);
+		map.put("status", "y");
+		map.put("info", redir);
 		return gson.toJson(map);
 	}
 

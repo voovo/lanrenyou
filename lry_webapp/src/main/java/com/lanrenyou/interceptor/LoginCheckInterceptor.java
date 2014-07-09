@@ -24,7 +24,8 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	protected IUserInfoService userInfoService;
 
-	protected boolean doPreHandle(HttpServletRequest request,
+	@Override
+	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		UserInfo userInfo = getUserBaseFromLoginCookie(request);
 

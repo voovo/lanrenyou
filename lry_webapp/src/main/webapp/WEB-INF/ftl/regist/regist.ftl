@@ -31,7 +31,7 @@
                     </tr>
                     <tr class="reg_code_tr">
                         <td align="right"><span class="ft_14">验证码：</span></td>
-                        <td colspan="2"><input id="reg_code" name="reg_code" type="text" class="input_70" maxlength="4" datatype="n4-4" errormsg="请输入正确的邮箱格式！"> <div id="form_code"><img src="/captcha/getCaptcha" alt=""> </div><span id="changeCode">看不清，<a href="javascript:;">换一张</a></span></td>
+                        <td colspan="2"><input id="reg_code" name="reg_code" type="text" class="input_70" maxlength="4" datatype="n4-4" errormsg="请输入正确的邮箱格式！"> <div id="form_code"><img /> </div><span id="changeCode">看不清，<a href="javascript:;">换一张</a></span></td>
                     </tr>
                     <tr>
                         <td></td>

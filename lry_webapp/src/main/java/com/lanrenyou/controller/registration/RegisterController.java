@@ -56,22 +56,22 @@ public class RegisterController extends BaseController {
 	@RequestMapping(value="/checkEmail", method=RequestMethod.POST)
 	@ResponseBody
 	public String checkEmail(
-			@RequestParam(value = "email") String submitEmail){
+			@RequestParam(value = "reg_email") String submitEmail){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(StringUtils.isBlank(submitEmail)){
-			map.put("code", 0);
-			map.put("msg", "请输入邮箱");
+			map.put("status", "n");
+			map.put("info", "请输入邮箱");
 			return gson.toJson(map);
 		}
 		
 		UserInfo userInfo = userInfoService.getUserInfoByEmail(submitEmail);
 		if(null != userInfo){
-			map.put("code", 0);
-			map.put("msg", "邮箱已被占用");
+			map.put("status", "n");
+			map.put("info", "邮箱已被占用");
 			return gson.toJson(map);
 		} else {
-			map.put("code", 1);
-			map.put("msg", "恭喜，邮箱可使用");
+			map.put("status", "y");
+			map.put("info", "恭喜，邮箱可使用");
 			return gson.toJson(map);
 		}
 	}
@@ -91,28 +91,47 @@ public class RegisterController extends BaseController {
 		submitEmail = submitEmail.trim();
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(StringUtils.isBlank(submitEmail)){
-			map.put("code", 0);
-			map.put("msg", "请输入邮箱");
+			map.put("status", "n");
+			map.put("info", "请输入邮箱");
 			return gson.toJson(map);
 		}
 		if(StringUtils.isBlank(submitPassword) || StringUtils.isBlank(submitPassword2)){
-			map.put("code", 0);
-			map.put("msg", "密码不得为空");
+			map.put("status", "n");
+			map.put("info", "密码不得为空");
 			return gson.toJson(map);
 		}
 		if(!submitPassword.equals(submitPassword2)){
-			map.put("code", 0);
-			map.put("msg", "两次密码不一致");
+			map.put("status", "n");
+			map.put("info", "两次密码不一致");
 			return gson.toJson(map);
 		}
 		if(StringUtils.isBlank(captcha)){
-			map.put("code", 0);
-			map.put("msg", "验证码不得为空");
+			map.put("status", "n");
+			map.put("info", "验证码不得为空");
 			return gson.toJson(map);
 		}
-		if(captcha.equals(request.getSession().getAttribute("captchaValue"))){
-			map.put("code", 0);
-			map.put("msg", "验证码不正确");
+		String sessionCaptcha = (String) request.getSession().getAttribute("captchaValue");
+		if(null == sessionCaptcha){
+			map.put("status", "n");
+			map.put("info", "验证码验证失败");
+			return gson.toJson(map);
+		}
+		String[] arr = sessionCaptcha.split("#");
+		if(arr.length != 2){
+			map.put("status", "n");
+			map.put("info", "验证码验证失败");
+			return gson.toJson(map);
+		}
+		long startTime = Long.parseLong(arr[1]);
+		if(System.currentTimeMillis() - startTime > 600000){
+			map.put("status", "n");
+			map.put("info", "验证码失效");
+			return gson.toJson(map);
+		}
+		
+		if(!captcha.toUpperCase().equals(arr[0])){
+			map.put("status", "n");
+			map.put("info", "验证码不正确");
 			return gson.toJson(map);
 		}
 		
@@ -132,8 +151,8 @@ public class RegisterController extends BaseController {
 				String encryptCode = AesCryptUtil.encrypt(code.toString(), AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
 				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");	
 				if(mailResult <= 0){
-					map.put("code", 0);
-					map.put("msg", "验证邮件发送失败");
+					map.put("status", "n");
+					map.put("info", "验证邮件发送失败");
 					return gson.toJson(map);
 				}
 			} catch (UnsupportedEncodingException e) {
@@ -145,12 +164,12 @@ public class RegisterController extends BaseController {
 			cookie.setPath("/regist");
 			cookie.setDomain("www.lanrenyou.com");
 			response.addCookie(cookie);
-			map.put("code", 1);
-			map.put("msg", "创建成功，请验证邮箱");
+			map.put("status", "y");
+			map.put("info", "创建成功，请验证邮箱");
 			return gson.toJson(map);
 		} else {
-			map.put("code", 0);
-			map.put("msg", "创建失败，请稍后重试");
+			map.put("status", "n");
+			map.put("info", "创建失败，请稍后重试");
 			return gson.toJson(map);
 		}
 	}
@@ -188,14 +207,14 @@ public class RegisterController extends BaseController {
 			}
 		}
 		if(uid <= 0){
-			map.put("code", 0);
-			map.put("msg", "未获取到用户信息");
+			map.put("status", "n");
+			map.put("info", "未获取到用户信息");
 			return gson.toJson(map);
 		}
 		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
 		if(null == userInfo){
-			map.put("code", 0);
-			map.put("msg", "未获取到用户信息");
+			map.put("status", "n");
+			map.put("info", "未获取到用户信息");
 			return gson.toJson(map);
 		}
 		
@@ -206,23 +225,23 @@ public class RegisterController extends BaseController {
 				String encryptCode = AesCryptUtil.encrypt(code.toString(), AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
 				int mailResult = MailUtil.sendEmail(userInfo.getEmail(), "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");	
 				if(mailResult <= 0){
-					map.put("code", 0);
-					map.put("msg", "验证邮件发送失败");
+					map.put("status", "n");
+					map.put("info", "验证邮件发送失败");
 					return gson.toJson(map);
 				} else {
-					map.put("code", 1);
-					map.put("msg", "验证邮件发送成功");
+					map.put("status", "y");
+					map.put("info", "验证邮件发送成功");
 					return gson.toJson(map);
 				}
 			} catch (UnsupportedEncodingException e) {
 				logger.error("{}", e);
-				map.put("code", 0);
-				map.put("msg", "验证邮件发送失败，请稍后重试");
+				map.put("status", "n");
+				map.put("info", "验证邮件发送失败，请稍后重试");
 				return gson.toJson(map);
 			}
 		} else {
-			map.put("code", 0);
-			map.put("msg", "用户已经完成邮箱验证");
+			map.put("status", "n");
+			map.put("info", "用户已经完成邮箱验证");
 			return gson.toJson(map);
 		}
 	}
@@ -275,19 +294,19 @@ public class RegisterController extends BaseController {
             @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == uid || uid <= 0){
-			map.put("code", 0);
-			map.put("msg", "验证邮件发送失败");
+			map.put("status", "n");
+			map.put("info", "验证邮件发送失败");
 			return gson.toJson(map);
 		}
 		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
 		if(null == userInfo){
-			map.put("code", 0);
-			map.put("msg", "用户信息不存在");
+			map.put("status", "n");
+			map.put("info", "用户信息不存在");
 			return gson.toJson(map);
 		}
 		if(userInfo.getStatus() != UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue() ){
-			map.put("code", 0);
-			map.put("msg", "数据异常，用户不得进行此操作");
+			map.put("status", "n");
+			map.put("info", "数据异常，用户不得进行此操作");
 			return gson.toJson(map);
 		}
 		boolean hasUpdateUserInfo = false;
@@ -317,8 +336,8 @@ public class RegisterController extends BaseController {
 		if(null != toBePlanner && toBePlanner == 1 && StringUtils.isNotBlank(targetCity)){
 			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(uid);
 			if(null != userPlanner){
-				map.put("code", 0);
-				map.put("msg", "数据异常，规划师不得进行此操作");
+				map.put("status", "n");
+				map.put("info", "数据异常，规划师不得进行此操作");
 				return gson.toJson(map);
 			}
 			userPlanner = new UserPlanner();
@@ -330,8 +349,8 @@ public class RegisterController extends BaseController {
 			userPlannerService.addUserPlanner(userPlanner);
 		}
 		
-		map.put("code", 1);
-		map.put("msg", "操作成功");
+		map.put("status", "y");
+		map.put("info", "操作成功");
 		return gson.toJson(map);
 	}
 	
