@@ -13,9 +13,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Results;
-
 import com.lanrenyou.user.model.UserInfo;
 
 public class Migrate {

@@ -11,18 +11,30 @@
             <h1 class="left">登录懒人游</h1>
             <p class="right">还没有账号？马上[<a href="/regist/toPage">注册</a>]</p>
         </div>
-
+        <#assign username="" password="">
+        <#assign cookies = request.getCookies()>
+        	<#list cookies as cookie>
+        		<#if cookie.name = "lry_email">        		  
+        		<#assign username = cookie.value>
+        		</#if>
+        	</#list>
+     
+		<#if Request["loginUser"]?exists>
+		<#assign username = Request["loginUser"].getEmail()>
+		<#assign password = Request["loginUser"].getUserPass()>
+		</#if>
+		
         <div class="form_table">
         	<form id="" name="" method="POST" action="/login/loginSubmit">
 	            <table cellpadding="0" cellspacing="0" border="0">
 	                <tr>
 	                    <td width="18%" align="right"><span class="ft_14">电子邮件：</span></td>
-	                    <td width="40%"><input type="text" name="userName" class="input_220"></td>
+	                    <td width="40%"><input type="text" name="userName" class="input_220" value="${username}"></td>
 	                    <td><span class="form_notice"></span></td>
 	                </tr>
 	                <tr>
 	                    <td align="right"><span class="ft_14">密码：</span></td>
-	                    <td><input type="password"  name="password" class="input_220"></td>
+	                    <td><input type="password"  name="password" class="input_220" value="${password}"></td>
 	                    <td><span class="form_notice"></span></td>
 	                </tr>
 	                <tr>
