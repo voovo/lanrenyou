@@ -69,13 +69,11 @@ var lablId = -1 , ele;
             },
             ajaxPost:true,
             callback:function(data){
-
-                console.log(data);
-                if(data.code == 1){
-                    $.Hidemsg();
+                if(data.status == "y"){
+                    //$.Hidemsg();
                     window.location.href = "/regsit/waitEmailVerify";
                 }else{
-                    alert(data.msg);
+                    console.log(data.info);
                 }
             }
         });
@@ -99,15 +97,33 @@ var lablId = -1 , ele;
                 datatype:"*",
                 recheck:"reg_pwd",
                 nullmsg:"请再输入一次密码！",
-                errormsg:"您两次输入的账号密码不一致！"
+                errormsg:"两次输入的密码不一致！"
             },{
                 ele:"#reg_code",
-                datatype:"n4-4",
-                ajaxurl:"valid.php",
+                ajaxurl:"/captcha/checkCaptcha",
+                datatype:"*4-4",
                 nullmsg:"请输入验证码！",
                 errormsg:"请检查验证码！"
             }
         ]);
+
+        // 设置验证码
+        var getCaptcha = function(){
+            var d = new Date();
+            $("#form_code img").attr("src" , "/captcha/getCaptcha?r="+d.getTime());
+        }
+        $("#form_code").hide();
+        getCaptcha();
+        setTimeout(function(){
+            $("#form_code").trigger("click");
+            $("#form_code").fadeIn();
+        } , 200);
+        // 刷新验证码
+        $("#changeCode a , #form_code").click(function(){
+            getCaptcha();
+        });
+
+
     }
 
 
