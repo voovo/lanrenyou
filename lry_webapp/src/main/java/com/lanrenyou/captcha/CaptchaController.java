@@ -81,7 +81,7 @@ public class CaptchaController extends BaseController {
     
     @RequestMapping(value="/checkCaptcha", method=RequestMethod.POST)
 	@ResponseBody
-	public String checkCaptcha(@RequestParam(value = "reg_code") String captcha){
+	public String checkCaptcha(@RequestParam(value = "captcha") String captcha){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(StringUtils.isBlank(captcha)){
 			map.put("status", "n");

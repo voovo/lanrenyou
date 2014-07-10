@@ -85,7 +85,7 @@ public class RegisterController extends BaseController {
 			@RequestParam(value = "reg_email") String submitEmail,
             @RequestParam(value = "reg_pwd") String submitPassword,
             @RequestParam(value = "reg_repwd") String submitPassword2,
-            @RequestParam(value = "reg_code", required = false, defaultValue = "") String captcha){
+            @RequestParam(value = "captcha", required = false, defaultValue = "") String captcha){
 		UserInfo userInfo = getLoginUser();
 		if(null != userInfo){
 			ServletUtil.clearUserCookie(request, response);
