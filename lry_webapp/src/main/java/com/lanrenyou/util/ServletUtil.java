@@ -25,7 +25,7 @@ public abstract class ServletUtil {
 
     public static void writeUserAuthCookie(HttpServletResponse response, int uid, String password,
                                    String rootDomain, int expiry) {
-        String loginAuthV3 = AesCryptUtil.encrypt(uid + "|" + password, UserConstant.AUTH_ENCODE_KEY);
+        String loginAuthV3 = AesCryptUtil.encrypt(uid + "|" + password, LRYEncryptKeyProperties.getProperty(UserConstant.AUTH_ENCODE_KEY));
         ServletUtil.writeCookie(response, UserConstant.AUTH_COOKIE_KEY,
                 loginAuthV3, rootDomain, expiry);
         ServletUtil.writeCookie(response, UserConstant.AUTH_EMAIL_COOKIE_KEY,

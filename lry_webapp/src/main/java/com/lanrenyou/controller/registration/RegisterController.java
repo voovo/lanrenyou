@@ -253,13 +253,14 @@ public class RegisterController extends BaseController {
 		if(StringUtils.isBlank(code)){
 			return toError("校验码为空");
 		}
-		
+		ModelAndView mav = new ModelAndView();
 		String decrptCode = AesCryptUtil.decrypt(code, AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
 		if(StringUtils.isBlank(decrptCode)){
 			return toError("校验码错误");
 		}
 		String[] array = decrptCode.split("|");
 		if(array.length != 2){
+			mav.setViewName("");
 			return toError("校验码错误");
 		}
 		int uid = Integer.parseInt(array[0]);
@@ -269,7 +270,9 @@ public class RegisterController extends BaseController {
 		}
 		long createTime = Long.parseLong(array[1]);
 		if(System.currentTimeMillis() - createTime > 7200000){
-			return toError("校验码失效");
+			mav.addObject("userInfo", userInfo);
+			mav.setViewName("regist/regist_verify_fail");
+			return mav;
 		}
 		if(userInfo.getStatus() == UserInfoStatusEnum.WAIT_VERIFY_EMAIL.getValue()){
 			userInfo.setStatus(UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue());
@@ -278,7 +281,7 @@ public class RegisterController extends BaseController {
 			userInfoService.updateUserInfo(userInfo);
 			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
 		}
-		ModelAndView mav = new ModelAndView("/regist/regist_form");
+		mav.setViewName("/regist/regist_form");
 		return mav;
 	}
 	

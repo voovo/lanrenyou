@@ -12,6 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
 import com.lanrenyou.util.AesCryptUtil;
+import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.ServletUtil;
 import com.lanrenyou.util.StringUtil;
 import com.lanrenyou.util.constants.UserConstant;
@@ -43,7 +44,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		if ((c == null) || (StringUtil.isEmpty(c.getValue()))) {
 			return null;
 		}
-		String decode = AesCryptUtil.decrypt(c.getValue(), UserConstant.AUTH_ENCODE_KEY);
+		String decode = AesCryptUtil.decrypt(c.getValue(), LRYEncryptKeyProperties.getProperty(UserConstant.AUTH_ENCODE_KEY));
 		StringBuffer requestUrlBuffer = request.getRequestURL();
 		String requestUrl = (requestUrlBuffer == null) ? "" : requestUrlBuffer.toString();
 		if (StringUtil.isEmpty(decode)) {
