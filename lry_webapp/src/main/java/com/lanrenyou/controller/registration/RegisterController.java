@@ -149,7 +149,8 @@ public class RegisterController extends BaseController {
 				StringBuilder code = new StringBuilder(newUserInfo.getId());
 				code.append("|").append(System.currentTimeMillis());
 				String encryptCode = AesCryptUtil.encrypt(code.toString(), AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
-				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");	
+				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");
+				logger.info("http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode);
 				if(mailResult <= 0){
 					map.put("status", "n");
 					map.put("info", "验证邮件发送失败");
@@ -262,13 +263,13 @@ public class RegisterController extends BaseController {
 			return toError("校验码错误");
 		}
 		int uid = Integer.parseInt(array[0]);
-		long createTime = Long.parseLong(array[1]);
-		if(System.currentTimeMillis() - createTime > 7200000){
-			return toError("校验码失效");
-		}
 		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
 		if(null == userInfo){
 			return toError("没有此用户信息");
+		}
+		long createTime = Long.parseLong(array[1]);
+		if(System.currentTimeMillis() - createTime > 7200000){
+			return toError("校验码失效");
 		}
 		if(userInfo.getStatus() == UserInfoStatusEnum.WAIT_VERIFY_EMAIL.getValue()){
 			userInfo.setStatus(UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue());
