@@ -9,7 +9,8 @@
     <meta content="${keywords}" name="keywords"/>
     <title>${titile!''}</title>
     <!-- 全站通用 -->
-    <link rel="shortcut icon" type="image/ico" href="/resources/imgs/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/resources/imgs/favicon.ico">
+    <link rel="shortcut icon" href="/resources/imgs/favicon.ico" type="image/x-icon" />
     <!-- 全站通用 -->
     <@AssetsImport assets />
 </head>

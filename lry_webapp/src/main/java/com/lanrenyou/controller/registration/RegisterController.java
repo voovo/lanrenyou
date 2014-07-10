@@ -43,8 +43,6 @@ public class RegisterController extends BaseController {
 	@Autowired
 	private IUserPlannerService userPlannerService;
 	
-	private static final String REGIST_COOKIE_NAME = "regist_wait_verify_uid";
-	
 	@RequestMapping("/toPage")
 	public ModelAndView toPage(HttpServletResponse response){
 		UserInfo userInfo = getLoginUser();
@@ -161,7 +159,7 @@ public class RegisterController extends BaseController {
 				logger.error("{}", e);
 			}
 			request.setAttribute(UserConstant.LOGIN_USER, newUserInfo);
-			Cookie cookie = new Cookie(REGIST_COOKIE_NAME, String.valueOf(newUserInfo.getId()));
+			Cookie cookie = new Cookie(UserConstant.REGIST_COOKIE_NAME, String.valueOf(newUserInfo.getId()));
 			cookie.setMaxAge(7200);
 			cookie.setPath("/regist");
 			cookie.setDomain("www.lanrenyou.com");
@@ -181,7 +179,7 @@ public class RegisterController extends BaseController {
 		Cookie[] cookieArray = request.getCookies();
 		int uid = 0;
 		for(Cookie c : cookieArray){
-			if (c.getName().equals(REGIST_COOKIE_NAME)) {
+			if (c.getName().equals(UserConstant.REGIST_COOKIE_NAME)) {
 				uid = Integer.parseInt(c.getValue());
 			}
 		}
@@ -204,7 +202,7 @@ public class RegisterController extends BaseController {
 		Cookie[] cookieArray = request.getCookies();
 		int uid = 0;
 		for(Cookie c : cookieArray){
-			if (c.getName().equals(REGIST_COOKIE_NAME)) {
+			if (c.getName().equals(UserConstant.REGIST_COOKIE_NAME)) {
 				uid = Integer.parseInt(c.getValue());
 			}
 		}

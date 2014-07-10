@@ -19,7 +19,7 @@ public enum UserInfoStatusEnum {
     /**
      * 已完善用户资料
      */
-    VERIFIED_EMAIL(3);
+    HAS_COMPLAE_INFO(3);
     
     private int value;
 
