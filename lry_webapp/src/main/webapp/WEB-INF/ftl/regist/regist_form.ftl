@@ -12,6 +12,7 @@
         <span class="gray">为了更好的体验懒人游，请先完善自己的基本资料！</span>
 
         <div class="form_table">
+        	<form action="/regist/submitInfo" method="POST">
             <table cellpadding="0" cellspacing="0" border="0">
             	<input type="hidden" name="uid" value="${loginUser.id!''}" />
                 <tr>
@@ -49,10 +50,11 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><a href="javascript:;" class="btn blue_btn">提交修改</a></td>
+                    <td><input type="submit" class="btn blue_btn" value="提交修改" /></td>
                     <td></td>
                 </tr>
             </table>
+            </form>
         </div>
     </div>
 </div>

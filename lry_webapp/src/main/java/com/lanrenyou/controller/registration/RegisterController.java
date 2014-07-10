@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.controller.base.BaseController;
@@ -27,6 +28,7 @@ import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserInfoService;
 import com.lanrenyou.user.service.IUserPlannerService;
 import com.lanrenyou.util.AesCryptUtil;
+import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.MailUtil;
 import com.lanrenyou.util.ServletUtil;
 import com.lanrenyou.util.constants.UserConstant;
@@ -146,15 +148,14 @@ public class RegisterController extends BaseController {
 		int result = userInfoService.addUserInfo(newUserInfo);
 		if(result > 0){
 			try {
-				StringBuilder code = new StringBuilder(newUserInfo.getId());
-				code.append("|").append(System.currentTimeMillis());
-				String encryptCode = AesCryptUtil.encrypt(code.toString(), AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
+				StringBuilder code = new StringBuilder();
+				code.append(newUserInfo.getId().intValue()).append("#").append(System.currentTimeMillis());
+				logger.debug("Source Code:{}", code.toString());
+				String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
 				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");
 				logger.info("http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode);
 				if(mailResult <= 0){
-					map.put("status", "n");
-					map.put("info", "验证邮件发送失败");
-					return gson.toJson(map);
+					logger.error("Registion Send Mail Fail, UID:{} | Email:{} | Verify Code:{}", newUserInfo.getId(), newUserInfo.getEmail(), encryptCode);
 				}
 			} catch (UnsupportedEncodingException e) {
 				logger.error("{}", e);
@@ -191,7 +192,7 @@ public class RegisterController extends BaseController {
 		if(null == userInfo){
 			return toError("未获取到用户信息");
 		}
-		request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+		request.setAttribute("userInfo", userInfo);
 		ModelAndView mav = new ModelAndView("/regist/regist_mail");
 		return mav;
 	}
@@ -221,9 +222,10 @@ public class RegisterController extends BaseController {
 		
 		if(userInfo.getStatus() == UserInfoStatusEnum.WAIT_VERIFY_EMAIL.getValue()){
 			try {
-				StringBuilder code = new StringBuilder(userInfo.getId());
-				code.append("|").append(System.currentTimeMillis());
-				String encryptCode = AesCryptUtil.encrypt(code.toString(), AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
+				StringBuilder code = new StringBuilder();
+				code.append(userInfo.getId().intValue()).append("#").append(System.currentTimeMillis());
+				logger.debug("Source Code:{}", code.toString());
+				String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
 				int mailResult = MailUtil.sendEmail(userInfo.getEmail(), "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");	
 				if(mailResult <= 0){
 					map.put("status", "n");
@@ -254,14 +256,14 @@ public class RegisterController extends BaseController {
 			return toError("校验码为空");
 		}
 		ModelAndView mav = new ModelAndView();
-		String decrptCode = AesCryptUtil.decrypt(code, AppConfigs.getInstance().get("REGIST_VERIFY_EMAIL_KEY"));
+		String decrptCode = AesCryptUtil.decrypt(code, LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
+		logger.debug("DecryptCode:{}", decrptCode);
 		if(StringUtils.isBlank(decrptCode)){
-			return toError("校验码错误");
+			return toError("校验码错误--1");
 		}
-		String[] array = decrptCode.split("|");
+		String[] array = decrptCode.split("#");
 		if(array.length != 2){
-			mav.setViewName("");
-			return toError("校验码错误");
+			return toError("校验码错误--2");
 		}
 		int uid = Integer.parseInt(array[0]);
 		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
@@ -280,14 +282,18 @@ public class RegisterController extends BaseController {
 			userInfo.setUpdateIp(request.getRemoteAddr());
 			userInfoService.updateUserInfo(userInfo);
 			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+		} else if(userInfo.getStatus() == UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue()){
+			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+		} else {
+			mav.setView(new RedirectView("/index"));
+			return mav;
 		}
 		mav.setViewName("/regist/regist_form");
 		return mav;
 	}
 	
-	@RequestMapping(value="/submitInfo")
-	@ResponseBody
-	public String submitUserInfo(
+	@RequestMapping(value="/submitInfo", method=RequestMethod.POST)
+	public ModelAndView submitUserInfo(
 			HttpServletResponse response,
 			@RequestParam(value = "uid", required = true) Integer uid,
             @RequestParam(value = "nickname", required = false, defaultValue = "") String nickname,
@@ -298,20 +304,14 @@ public class RegisterController extends BaseController {
             @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == uid || uid <= 0){
-			map.put("status", "n");
-			map.put("info", "验证邮件发送失败");
-			return gson.toJson(map);
+			return toError("没有用户ID");
 		}
 		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
 		if(null == userInfo){
-			map.put("status", "n");
-			map.put("info", "用户信息不存在");
-			return gson.toJson(map);
+			return toError("用户信息不存在");
 		}
 		if(userInfo.getStatus() != UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue() ){
-			map.put("status", "n");
-			map.put("info", "数据异常，用户不得进行此操作");
-			return gson.toJson(map);
+			return toError("数据异常，用户不得进行此操作");
 		}
 		boolean hasUpdateUserInfo = false;
 		if(StringUtils.isNotBlank(nickname.trim())){
@@ -340,9 +340,7 @@ public class RegisterController extends BaseController {
 		if(null != toBePlanner && toBePlanner == 1 && StringUtils.isNotBlank(targetCity)){
 			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(uid);
 			if(null != userPlanner){
-				map.put("status", "n");
-				map.put("info", "数据异常，规划师不得进行此操作");
-				return gson.toJson(map);
+				return toError("数据异常，规划师不得进行此操作");
 			}
 			userPlanner = new UserPlanner();
 			userPlanner.setTargetCity(targetCity);
@@ -353,9 +351,9 @@ public class RegisterController extends BaseController {
 			userPlannerService.addUserPlanner(userPlanner);
 		}
 		
-		map.put("status", "y");
-		map.put("info", "操作成功");
-		return gson.toJson(map);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/user/info");
+		return mav;
 	}
 	
 }
