@@ -74,6 +74,10 @@
 	<welcome-file-list>
 		<welcome-file>/WEB-INF/ftl/index.ftl</welcome-file>
 	</welcome-file-list>
+	<mime-mapping>
+    	<extension>ico</extension>
+    	<mime-type>image/x-icon</mime-type>
+	</mime-mapping>
 	<!-- <error-page> <error-code>404</error-code> <location>/WEB-INF/ftl/common/404.ftl</location> 
 		</error-page> <error-page> <error-code>500</error-code> <location>/WEB-INF/ftl/common/500.ftl</location> 
 		</error-page> <error-page> <error-code>503</error-code> <location>/WEB-INF/ftl/common/500.ftl</location> 
