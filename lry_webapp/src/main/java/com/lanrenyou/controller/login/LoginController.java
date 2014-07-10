@@ -26,7 +26,7 @@ import com.lanrenyou.util.AesCryptUtil;
 import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.MailUtil;
 import com.lanrenyou.util.ServletUtil;
-import com.lanrenyou.util.constants.UserConstant;
+import com.lanrenyou.util.constants.LRYConstant;
 
 
 @Controller
@@ -101,8 +101,8 @@ public class LoginController extends BaseController {
 			} catch (UnsupportedEncodingException e) {
 				logger.error("{}", e);
 			}
-			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
-			Cookie cookie = new Cookie(UserConstant.REGIST_COOKIE_NAME, String.valueOf(userInfo.getId()));
+			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
+			Cookie cookie = new Cookie(LRYConstant.REGIST_COOKIE_NAME, String.valueOf(userInfo.getId()));
 			cookie.setMaxAge(7200);
 			cookie.setPath("/regist");
 			cookie.setDomain("www.lanrenyou.com");
@@ -117,7 +117,7 @@ public class LoginController extends BaseController {
 		}
 				
 		ServletUtil.writeUserAuthCookie(response, userInfo.getId(), userInfo.getUserPass(), "www.lanrenyou.com", 2592000);
-		ServletUtil.writeCookie(response, UserConstant.AUTH_EMAIL_COOKIE_KEY, userInfo.getEmail(), "www.lanrenyou.com", 2592000);
+		ServletUtil.writeCookie(response, LRYConstant.AUTH_EMAIL_COOKIE_KEY, userInfo.getEmail(), "www.lanrenyou.com", 2592000);
 
 		if(StringUtils.isEmpty(redir)){
 			redir = "/index";
@@ -131,7 +131,7 @@ public class LoginController extends BaseController {
 	public ModelAndView logout(HttpServletRequest request,
             HttpServletResponse response){
 		
-		ServletUtil.deleteCookie(request, response, UserConstant.AUTH_EMAIL_COOKIE_KEY);
+		ServletUtil.deleteCookie(request, response, LRYConstant.AUTH_EMAIL_COOKIE_KEY);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("login/login");

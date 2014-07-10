@@ -3,8 +3,9 @@ package com.lanrenyou.controller.base;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.user.model.UserInfo;
-import com.lanrenyou.util.constants.UserConstant;
+import com.lanrenyou.util.constants.LRYConstant;
 import com.lanrenyou.util.freemarker.FreemarkerUtil;
 
 /**
@@ -15,7 +16,11 @@ public abstract class BaseController extends AbstractCommonController {
 	protected static final Gson gson = new Gson();
 
 	public UserInfo getLoginUser(){
-		return (UserInfo) request.getAttribute(UserConstant.LOGIN_USER);
+		return (UserInfo) request.getAttribute(LRYConstant.LOGIN_USER);
+	}
+	
+	public TravelInfo getCurrentTravel(){
+		return (TravelInfo) request.getAttribute(LRYConstant.LOGIN_USER);
 	}
 	
 	/**

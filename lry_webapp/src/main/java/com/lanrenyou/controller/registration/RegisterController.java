@@ -31,7 +31,7 @@ import com.lanrenyou.util.AesCryptUtil;
 import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.MailUtil;
 import com.lanrenyou.util.ServletUtil;
-import com.lanrenyou.util.constants.UserConstant;
+import com.lanrenyou.util.constants.LRYConstant;
 
 @Controller
 @RequestMapping("/regist")
@@ -158,8 +158,8 @@ public class RegisterController extends BaseController {
 			} catch (UnsupportedEncodingException e) {
 				logger.error("{}", e);
 			}
-			request.setAttribute(UserConstant.LOGIN_USER, newUserInfo);
-			Cookie cookie = new Cookie(UserConstant.REGIST_COOKIE_NAME, String.valueOf(newUserInfo.getId()));
+			request.setAttribute(LRYConstant.LOGIN_USER, newUserInfo);
+			Cookie cookie = new Cookie(LRYConstant.REGIST_COOKIE_NAME, String.valueOf(newUserInfo.getId()));
 			cookie.setMaxAge(7200);
 			cookie.setPath("/regist");
 			cookie.setDomain("www.lanrenyou.com");
@@ -179,7 +179,7 @@ public class RegisterController extends BaseController {
 		Cookie[] cookieArray = request.getCookies();
 		int uid = 0;
 		for(Cookie c : cookieArray){
-			if (c.getName().equals(UserConstant.REGIST_COOKIE_NAME)) {
+			if (c.getName().equals(LRYConstant.REGIST_COOKIE_NAME)) {
 				uid = Integer.parseInt(c.getValue());
 			}
 		}
@@ -202,7 +202,7 @@ public class RegisterController extends BaseController {
 		Cookie[] cookieArray = request.getCookies();
 		int uid = 0;
 		for(Cookie c : cookieArray){
-			if (c.getName().equals(UserConstant.REGIST_COOKIE_NAME)) {
+			if (c.getName().equals(LRYConstant.REGIST_COOKIE_NAME)) {
 				uid = Integer.parseInt(c.getValue());
 			}
 		}
@@ -279,9 +279,9 @@ public class RegisterController extends BaseController {
 			userInfo.setUpdateUid(uid);
 			userInfo.setUpdateIp(request.getRemoteAddr());
 			userInfoService.updateUserInfo(userInfo);
-			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
 		} else if(userInfo.getStatus() == UserInfoStatusEnum.VERIFIED_EMAIL_WAIT_COMPLATE_INFO.getValue()){
-			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
 		} else {
 			mav.setView(new RedirectView("/index"));
 			return mav;

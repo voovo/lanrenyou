@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.lanrenyou.util.constants.UserConstant;
+import com.lanrenyou.util.constants.LRYConstant;
 
 public class LRYEncryptKeyProperties {
 	
@@ -13,8 +13,8 @@ public class LRYEncryptKeyProperties {
 	static {
 		FileInputStream fileinput=null;
 		try {
-			Class cls = Class.forName(UserConstant.class.getName());
-			UserConstant gl = (UserConstant) cls.newInstance();
+			Class cls = Class.forName(LRYConstant.class.getName());
+			LRYConstant gl = (LRYConstant) cls.newInstance();
 			java.net.URL abspath=gl.getClass().getClassLoader().getResource("");
 			String path=(abspath.getPath()).toString();
 			fileinput = new FileInputStream(path+"/encrypt_keys.properties");

@@ -3,7 +3,7 @@ package com.lanrenyou.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.lanrenyou.util.constants.UserConstant;
+import com.lanrenyou.util.constants.LRYConstant;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
@@ -17,18 +17,16 @@ public abstract class ServletUtil {
     public static final int MAX_IP_LENGTH = 15;
 
     public static void clearUserCookie(HttpServletRequest request, HttpServletResponse response) {
-        deleteCookie(request, response, UserConstant.USER_NAME);
-        deleteCookie(request, response, UserConstant.AUTH_COOKIE_KEY);
-        deleteCookie(request, response, UserConstant.AUTH_EMAIL_COOKIE_KEY);
-        deleteCookie(request, response, UserConstant.LOGIN_STATUS);
+        deleteCookie(request, response, LRYConstant.AUTH_COOKIE_KEY);
+        deleteCookie(request, response, LRYConstant.AUTH_EMAIL_COOKIE_KEY);
     }
 
     public static void writeUserAuthCookie(HttpServletResponse response, int uid, String password,
                                    String rootDomain, int expiry) {
-        String loginAuthV3 = AesCryptUtil.encrypt(uid + "|" + password, LRYEncryptKeyProperties.getProperty(UserConstant.AUTH_ENCODE_KEY));
-        ServletUtil.writeCookie(response, UserConstant.AUTH_COOKIE_KEY,
+        String loginAuthV3 = AesCryptUtil.encrypt(uid + "|" + password, LRYEncryptKeyProperties.getProperty(LRYConstant.AUTH_ENCODE_KEY));
+        ServletUtil.writeCookie(response, LRYConstant.AUTH_COOKIE_KEY,
                 loginAuthV3, rootDomain, expiry);
-        ServletUtil.writeCookie(response, UserConstant.AUTH_EMAIL_COOKIE_KEY,
+        ServletUtil.writeCookie(response, LRYConstant.AUTH_EMAIL_COOKIE_KEY,
                 String.valueOf(uid), rootDomain, expiry);
     }
 
