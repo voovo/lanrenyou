@@ -34,4 +34,18 @@
     <include refid="Base_Column_List" />
     from tb_travel_visit_log
   </select>
+  
+  <select id="getCountByTid" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select
+    count(1)
+    from tb_travel_visit_log
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getVisitCntMapByTidList" resultType="java.util.Map" parameterType="java.lang.Integer" >
+    select
+    	tid, count(1) as cnt
+    from tb_travel_visit_log
+    where tid in <foreach collection="tidList" open="(" close=")" item="item" separator=",">#{item, jdbcType=INTEGER}</foreach> group by tid
+  </select>
 </mapper>
