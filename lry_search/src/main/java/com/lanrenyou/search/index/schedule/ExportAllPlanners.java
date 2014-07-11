@@ -12,23 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.lanrenyou.search.index.ExportPlanners;
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserPlannerService;
 
 /**
  * 全量创建索引
  */
 @Component
-public class ExportAllTravels  {
+public class ExportAllPlanners  {
 	
 	@Autowired
-	private ITravelInfoService travelInfoService;
+	private IUserPlannerService userPlannerService;
 	
 	@Autowired
-	private ExportTravels exp;
+	private ExportPlanners exp;
 	
 	@Autowired
 	private SolrUtil solrUtil;
@@ -37,20 +38,20 @@ public class ExportAllTravels  {
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	private String filePath="D:/tmp/data/exportTravel";
+	private String filePath="D:/tmp/data/exportPlanner";
 	
-	private Log log = LogFactory.getLog(ExportAllTravels.class);
+	private Log log = LogFactory.getLog(ExportAllPlanners.class);
 
 	@Scheduled(cron="0 12 4 * * ?")
 	public void executue() {
-		if (System.getProperty("ALL")!=null && "start".equals(System.getProperty("ALL"))) {
-			log.info("export all Travel is running.....");
+		if (System.getProperty("ALLPlanner")!=null && "start".equals(System.getProperty("ALLPlanner"))) {
+			log.info("export all Planner is running.....");
 			return;
 		}
 		long s = System.currentTimeMillis();
-		log.info("Export All Travel ...............................");
+		log.info("Export All Planner ...............................");
 		try {
-			System.setProperty("ALL", "start");
+			System.setProperty("ALLPlanner", "start");
 			servers = solrUtil.getLryTravelServers();
 			deleteAllIndex();
 			log.info("删除先前的索引文件完成！");
@@ -60,19 +61,19 @@ public class ExportAllTravels  {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			 System.setProperty("ALL", "end");
+			 System.setProperty("ALLPlanner", "end");
 		}
 	}
 
 	private void exportTravelVos() {
 		int startID = 0, batchSize = 1000;
-		List<TravelInfo> list = null;
+		List<UserPlanner> list = null;
 		Date endTime = new Date();
 		if(endTime==null) return;
 		do {
 			try {
-				list = travelInfoService.getTravelInfoListForSearchIndex(endTime, startID, batchSize);
-	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
+				list = userPlannerService.getUserPlannerListForSearchIndex(endTime, startID, batchSize);
+	            List<List<UserPlanner>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
 					if(lists.get(i).size()==0)continue;
@@ -94,13 +95,13 @@ public class ExportAllTravels  {
 		}
 	}
 
-	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,int size){
-		ArrayList<List<TravelInfo>> lists=new ArrayList<List<TravelInfo>>(size);
+	private List<List<UserPlanner>> assignServer(List<UserPlanner> list,int size){
+		ArrayList<List<UserPlanner>> lists=new ArrayList<List<UserPlanner>>(size);
 		for(int i=0;i<size;i++){
-			lists.add(new ArrayList<TravelInfo>());
+			lists.add(new ArrayList<UserPlanner>());
 		}
 		
-		for(TravelInfo wish: list){
+		for(UserPlanner wish: list){
 			for(int i=0;i<size;i++){
 				if(wish.getId()%size==i){
 					lists.get(i).add(wish);

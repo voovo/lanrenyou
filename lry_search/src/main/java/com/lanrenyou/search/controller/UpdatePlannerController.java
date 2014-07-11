@@ -47,7 +47,7 @@ public class UpdatePlannerController extends BaseController {
 		}
 		SolrServer[] servers = null;
 		try {
-			servers = solrUtil.getLryServers();
+			servers = solrUtil.getLryPlannerServers();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

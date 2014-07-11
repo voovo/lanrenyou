@@ -1,5 +1,6 @@
 package com.lanrenyou.user.dao.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,5 +46,26 @@ public class UserPlannerDaoImpl extends BaseDao<UserPlanner> implements IUserPla
 			return 0;
 		}
 		return this.doUpdate("updateByPrimaryKey", userPlanner);
+	}
+
+	@Override
+	public List<UserPlanner> getListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("startTime", startTime);
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListForAddIndex", params);
+	}
+
+	@Override
+	public List<UserPlanner> getListForSearchIndex(Date endTime, int offset,
+			int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListForFullIndex", params);
 	}
 }

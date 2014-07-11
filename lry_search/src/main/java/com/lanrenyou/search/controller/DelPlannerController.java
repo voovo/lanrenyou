@@ -19,14 +19,14 @@ import com.lanrenyou.search.index.util.SolrUtil;
  * 删除索引文件
  */
 @Controller
-@RequestMapping("/search_index/travel")
-public class DelTravelController extends BaseController {
+@RequestMapping("/search_index/planner")
+public class DelPlannerController extends BaseController {
 	
 	@Autowired
 	private SolrUtil solrUtil;
 
 	@RequestMapping("/delete")
-	public void delTravel(HttpServletRequest request, HttpServletResponse response) {
+	public void delete(HttpServletRequest request, HttpServletResponse response) {
 		String password = request.getParameter("password");
 		if (password != null && "woailanrenyou".equals(password)) {
 		} else {
@@ -35,7 +35,7 @@ public class DelTravelController extends BaseController {
 		SolrServer[] servers = null;
 		String id = request.getParameter("id");
 		try {
-			servers = solrUtil.getLryTravelServers();
+			servers = solrUtil.getLryPlannerServers();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

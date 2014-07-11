@@ -26,7 +26,8 @@
 	</bean>
 
 	<bean class="com.lanrenyou.search.index.util.SolrUtil">
-    	<property name="lryServer" value="${lry_server}"/>
+    	<property name="lryTravelServer" value="${lry_travel_server}"/>
+    	<property name="lryPlannerServer" value="${lry_planner_server}"/>
 	</bean>
 
 

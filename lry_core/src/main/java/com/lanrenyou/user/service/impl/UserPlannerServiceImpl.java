@@ -1,5 +1,6 @@
 package com.lanrenyou.user.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,5 +44,17 @@ public class UserPlannerServiceImpl extends BaseVOService<UserPlanner> implement
 	@Override
 	public int updateUserPlanner(UserPlanner userPlanner) {
 		return userPlannerDao.update(userPlanner);
+	}
+
+	@Override
+	public List<UserPlanner> getUserPlannerListForSearchIndex(Date staratTime,
+			Date endTime, int offset, int limit) {
+		return userPlannerDao.getListForSearchIndex(staratTime, endTime, offset, limit);
+	}
+
+	@Override
+	public List<UserPlanner> getUserPlannerListForSearchIndex(Date endTime,
+			int offset, int limit) {
+		return userPlannerDao.getListForSearchIndex(endTime, offset, limit);
 	}
 }

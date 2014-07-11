@@ -47,7 +47,7 @@ public class UpdateTravelController extends BaseController {
 		}
 		SolrServer[] servers = null;
 		try {
-			servers = solrUtil.getLryServers();
+			servers = solrUtil.getLryTravelServers();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

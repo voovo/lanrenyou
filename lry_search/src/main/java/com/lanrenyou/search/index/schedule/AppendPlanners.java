@@ -11,23 +11,24 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import com.lanrenyou.search.index.ExportTravels;
+
+import com.lanrenyou.search.index.ExportPlanners;
 
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserPlannerService;
 /**
- * 游记增量索引
+ * 规划师增量索引
  */
 @Component
-public class AppendTravels  {
+public class AppendPlanners  {
 	
 	@Autowired
-	private ITravelInfoService travelInfoService;
+	private IUserPlannerService userPlannerService;
 	
 	@Autowired
-	private ExportTravels exp;
+	private ExportPlanners exp;
 	
 	@Autowired
 	private SolrUtil solrUtil;
@@ -36,39 +37,39 @@ public class AppendTravels  {
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	private String filePath="D:/tmp/data/exportTravel";
+	private String filePath="D:/tmp/data/exportPlanner";
 	
-	private Log log = LogFactory.getLog(AppendTravels.class);
+	private Log log = LogFactory.getLog(AppendPlanners.class);
 
 	@Scheduled(cron="0 0/5 * * * ?")
 	public void executue() {
 		
-		if (System.getProperty("AppendTravel")!=null && "start".equals(System.getProperty("AppendTravel"))) {
-			log.info("Append Travel is running,this Exit!!");
+		if (System.getProperty("AppendPlanner")!=null && "start".equals(System.getProperty("AppendPlanner"))) {
+			log.info("Append Planner is running,this Exit!!");
 			return;
 		}
 		
-		if (System.getProperty("ALLTravel")!=null && "start".equals(System.getProperty("ALLTravel"))) {
-			log.info("Export all Travel is running,this Exit!!");
+		if (System.getProperty("ALLPlanner")!=null && "start".equals(System.getProperty("ALLPlanner"))) {
+			log.info("Export all Planner is running,this Exit!!");
 			return;
 		}
 		long s = System.currentTimeMillis();
 		log.info("增量索引开始...");
 		try {
-			System.setProperty("AppendTravel", "start");
+			System.setProperty("AppendPlanner", "start");
 			exportWishVos();
 			long e = System.currentTimeMillis();
 			log.info("索引增量完,用时 :  "+(e-s)+" 毫秒！");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			 System.setProperty("AppendTravel", "end");
+			 System.setProperty("AppendPlanner", "end");
 		}
 	}
 
 	private void exportWishVos() {
 		int startID = 0, batchSize = 1000;
-		List<TravelInfo> list = null;
+		List<UserPlanner> list = null;
 		Date[] lastRunning=getLastRunningDate();
 		Date endTime = new Date();
 		if(endTime==null) return;
@@ -84,8 +85,8 @@ public class AppendTravels  {
 		//==查询是否有需要更新的记录
 		do {
 			try {
-				list = travelInfoService.getTravelInfoListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
-	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
+				list = userPlannerService.getUserPlannerListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
+	            List<List<UserPlanner>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
 					if(lists.get(i).size()==0){
@@ -109,16 +110,16 @@ public class AppendTravels  {
 		}
 	}
 
-	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,int size){
-		ArrayList<List<TravelInfo>> lists=new ArrayList<List<TravelInfo>>(size);
+	private List<List<UserPlanner>> assignServer(List<UserPlanner> list,int size){
+		ArrayList<List<UserPlanner>> lists=new ArrayList<List<UserPlanner>>(size);
 		for(int i=0;i<size;i++){
-			lists.add(new ArrayList<TravelInfo>());
+			lists.add(new ArrayList<UserPlanner>());
 		}
 		
-		for(TravelInfo t: list){
+		for(UserPlanner p: list){
 			for(int i=0;i<size;i++){
-				if(t.getId()%size==i){
-					lists.get(i).add(t);
+				if(p.getId()%size==i){
+					lists.get(i).add(p);
 					break;
 				}
 			}
