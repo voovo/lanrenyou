@@ -13,10 +13,11 @@
     <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
     <result column="update_uid" property="updateUid" jdbcType="INTEGER" />
     <result column="update_ip" property="updateIp" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, uid, target_city, price, charge_mode, status, create_uid, create_time, 
-    create_ip, update_uid, update_ip
+    create_ip, update_uid, update_time, update_ip
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_user_planner

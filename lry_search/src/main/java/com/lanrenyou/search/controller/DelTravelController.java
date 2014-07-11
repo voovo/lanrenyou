@@ -1,4 +1,4 @@
-package com.lanrenyou.controller;
+package com.lanrenyou.search.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lanrenyou.controller.base.BaseController;
+import com.lanrenyou.search.controller.base.BaseController;
 import com.lanrenyou.search.index.util.SolrUtil;
 
 

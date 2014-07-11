@@ -46,6 +46,8 @@ public class UserPlanner extends BaseValueObject {
     private Integer updateUid;
 
     private String updateIp;
+    
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -126,8 +128,16 @@ public class UserPlanner extends BaseValueObject {
     public void setUpdateUid(Integer updateUid) {
         this.updateUid = updateUid;
     }
+    
+    public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public String getUpdateIp() {
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getUpdateIp() {
         return updateIp;
     }
 
