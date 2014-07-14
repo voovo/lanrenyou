@@ -7,7 +7,7 @@
 		</layout> 
 	</appender>
 	<appender name="stdout_file" class="org.apache.log4j.DailyRollingFileAppender">     
-        <param name="File" value="log/tomcat_stdout.log" />
+        <param name="File" value="D:/logs/tomcat_stdout.log" />
         <param name="Threshold" value="DEBUG" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
         <param name="Append" value="true" />
@@ -17,7 +17,8 @@
     </appender>
     <logger name="com.lanrenyou" additivity="false">
 		<level value="INFO" />
-		<appender-ref ref="stdout_file,stdout" />
+		<appender-ref ref="stdout_file" />
+		<appender-ref ref="stdout" />
 	</logger>
 	<root>
 		<level value="INFO" />
