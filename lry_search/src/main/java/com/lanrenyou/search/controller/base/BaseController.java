@@ -1,4 +1,4 @@
-package com.lanrenyou.controller.base;
+package com.lanrenyou.search.controller.base;
 
 import org.springframework.web.servlet.ModelAndView;
 

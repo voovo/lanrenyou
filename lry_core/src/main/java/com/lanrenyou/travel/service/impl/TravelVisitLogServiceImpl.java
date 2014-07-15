@@ -1,5 +1,8 @@
 package com.lanrenyou.travel.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import com.lanrenyou.travel.dao.ITravelVisitLogDao;
 import com.lanrenyou.travel.model.TravelVisitLog;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
@@ -15,5 +18,15 @@ public class TravelVisitLogServiceImpl extends BaseVOService<TravelVisitLog> imp
 	@Override
 	public int addTravelVisitLog(TravelVisitLog visitLog) {
 		return travelVisitLogDao.insert(visitLog);
+	}
+
+	@Override
+	public int getVisitCountByTid(int tid) {
+		return travelVisitLogDao.getCountByTid(tid);
+	}
+
+	@Override
+	public Map<Integer, Integer> getVisitCountMapByTidList(List<Integer> tidList) {
+		return travelVisitLogDao.getVisitCntMapByTidList(tidList);
 	}
 }

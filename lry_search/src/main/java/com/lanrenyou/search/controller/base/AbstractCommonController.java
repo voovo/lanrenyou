@@ -1,4 +1,4 @@
-package com.lanrenyou.controller.base;
+package com.lanrenyou.search.controller.base;
 
 import java.io.File;
 import java.io.IOException;

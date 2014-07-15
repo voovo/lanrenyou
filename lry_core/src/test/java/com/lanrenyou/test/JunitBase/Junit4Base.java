@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:config/demoApplicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:config/lryApplicationContext.xml" })
 public abstract class Junit4Base {
 	
 	protected Logger logger = LoggerFactory.getLogger(getClass());

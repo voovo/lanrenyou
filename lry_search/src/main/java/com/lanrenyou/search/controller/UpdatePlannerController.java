@@ -1,4 +1,4 @@
-package com.lanrenyou.controller;
+package com.lanrenyou.search.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,32 +14,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lanrenyou.controller.base.BaseController;
-import com.lanrenyou.search.index.ExportTravels;
+import com.lanrenyou.search.controller.base.BaseController;
+import com.lanrenyou.search.index.ExportPlanners;
 import com.lanrenyou.search.index.util.SolrUtil;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserPlannerService;
 
 /**
  * 更新索引文件
  */
 @Controller
-@RequestMapping("/search_index/travel")
-public class UpdateTravelController extends BaseController {
+@RequestMapping("/search_index/planner")
+public class UpdatePlannerController extends BaseController {
 	
 	@Autowired
 	private SolrUtil solrUtil;
 	
 	@Autowired
-	private ExportTravels exportTravels;
+	private ExportPlanners exportPlanners;
 	
 	@Autowired
-	private ITravelInfoService travelInfoService;
+	private IUserPlannerService userPlannerService;
 
 	@RequestMapping("/update")
 	public void update(HttpServletResponse response,
 			@RequestParam(value = "password", required = true) String password,
-			@RequestParam(value = "tids", required = true) String tids)
+			@RequestParam(value = "uids", required = true) String uids)
 			throws ServletException, IOException {
 		if (password != null && "woailanrenyou".equals(password)) {
 		} else {
@@ -47,28 +47,28 @@ public class UpdateTravelController extends BaseController {
 		}
 		SolrServer[] servers = null;
 		try {
-			servers = solrUtil.getLryServers();
+			servers = solrUtil.getLryPlannerServers();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
 		}
-		if (StringUtils.isNotBlank(tids)) {
-			List<TravelInfo> travls = new ArrayList<TravelInfo>();
-			String[] idArr = tids.split(",");
+		if (StringUtils.isNotBlank(uids)) {
+			List<UserPlanner> planners = new ArrayList<UserPlanner>();
+			String[] idArr = uids.split(",");
 			for (int i = 0; i < idArr.length; i++) {
-				Integer tid = Integer.parseInt(idArr[i]);
-				TravelInfo travelInfo = travelInfoService.getTravelInfoById(tid);
-				if (null != travelInfo) {
-					travls.add(travelInfo);
+				Integer uid = Integer.parseInt(idArr[i]);
+				UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(uid);
+				if (null != userPlanner) {
+					planners.add(userPlanner);
 				} else {
-					logger.info("不存在这个id=[" + idArr[i] + "]的志愿");
+					logger.info("不存在这个id=[" + idArr[i] + "]的规划师");
 					return;
 				}
 			}
-			List<List<TravelInfo>> lists = assignServer(travls, servers.length);
+			List<List<UserPlanner>> lists = assignServer(planners, servers.length);
 
 			for (int i = 0; i < servers.length; i++) {
-				exportTravels.export(servers[i], lists.get(i));
+				exportPlanners.export(servers[i], lists.get(i));
 			}
 			for (int i = 0; i < servers.length; i++) {
 				try {
@@ -80,18 +80,18 @@ public class UpdateTravelController extends BaseController {
 		}
 	}
 
-	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,
+	private List<List<UserPlanner>> assignServer(List<UserPlanner> list,
 			int size) {
-		ArrayList<List<TravelInfo>> lists = new ArrayList<List<TravelInfo>>(
+		ArrayList<List<UserPlanner>> lists = new ArrayList<List<UserPlanner>>(
 				size);
 		for (int i = 0; i < size; i++) {
-			lists.add(new ArrayList<TravelInfo>());
+			lists.add(new ArrayList<UserPlanner>());
 		}
 
-		for (TravelInfo travel : list) {
+		for (UserPlanner planner : list) {
 			for (int i = 0; i < size; i++) {
-				if (travel.getId() % size == i) {
-					lists.get(i).add(travel);
+				if (planner.getId() % size == i) {
+					lists.get(i).add(planner);
 					break;
 				}
 			}

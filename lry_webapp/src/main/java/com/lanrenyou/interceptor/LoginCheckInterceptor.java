@@ -12,9 +12,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
 import com.lanrenyou.util.AesCryptUtil;
+import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.ServletUtil;
 import com.lanrenyou.util.StringUtil;
-import com.lanrenyou.util.constants.UserConstant;
+import com.lanrenyou.util.constants.LRYConstant;
 
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	
@@ -30,7 +31,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		UserInfo userInfo = getUserBaseFromLoginCookie(request);
 
 		if (userInfo != null) {
-			request.setAttribute(UserConstant.LOGIN_USER, userInfo);
+			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
 		} else {
 			ServletUtil.clearUserCookie(request, response);
 		}
@@ -38,12 +39,12 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	private UserInfo getUserBaseFromLoginCookie(HttpServletRequest request) {
-		Cookie c = ServletUtil.getCookie(request, UserConstant.AUTH_COOKIE_KEY);
+		Cookie c = ServletUtil.getCookie(request, LRYConstant.AUTH_COOKIE_KEY);
 
 		if ((c == null) || (StringUtil.isEmpty(c.getValue()))) {
 			return null;
 		}
-		String decode = AesCryptUtil.decrypt(c.getValue(), UserConstant.AUTH_ENCODE_KEY);
+		String decode = AesCryptUtil.decrypt(c.getValue(), LRYEncryptKeyProperties.getProperty(LRYConstant.AUTH_ENCODE_KEY));
 		StringBuffer requestUrlBuffer = request.getRequestURL();
 		String requestUrl = (requestUrlBuffer == null) ? "" : requestUrlBuffer.toString();
 		if (StringUtil.isEmpty(decode)) {

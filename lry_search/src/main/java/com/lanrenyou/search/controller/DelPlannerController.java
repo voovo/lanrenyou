@@ -1,23 +1,17 @@
-package com.lanrenyou.controller;
+package com.lanrenyou.search.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.solr.client.solrj.SolrServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lanrenyou.controller.base.BaseController;
+import com.lanrenyou.search.controller.base.BaseController;
 import com.lanrenyou.search.index.util.SolrUtil;
 
 
@@ -25,23 +19,23 @@ import com.lanrenyou.search.index.util.SolrUtil;
  * 删除索引文件
  */
 @Controller
-@RequestMapping("/search_index")
-public class DelTravelController extends BaseController {
+@RequestMapping("/search_index/planner")
+public class DelPlannerController extends BaseController {
 	
 	@Autowired
 	private SolrUtil solrUtil;
 
-	@RequestMapping("/delTravel")
-	public void delTravel(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/delete")
+	public void delete(HttpServletRequest request, HttpServletResponse response) {
 		String password = request.getParameter("password");
-		if (password != null && "zhonglixuntaqianbaidurencai".equals(password)) {
+		if (password != null && "woailanrenyou".equals(password)) {
 		} else {
 			return;
 		}
 		SolrServer[] servers = null;
 		String id = request.getParameter("id");
 		try {
-			servers = solrUtil.getLryServers();
+			servers = solrUtil.getLryPlannerServers();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;
