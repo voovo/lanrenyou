@@ -15,18 +15,9 @@
  
 
       <form name="Webform" action="/upload/submit" method="post" enctype="multipart/form-data">
-         输入你的名字:
-         <br />
-         <input type="text" name="name" size="15" value="hello" />
-         <br />
          图形:
          <br />
-         <input type="file" name="myfiles">
-         <br />
-         文件:
-         <br />
-         <input type="file" name="myfiles">
-         <br />
+         <input type="file" name="upload_file">
          <br />
          <input type="submit" name="Submit" value="Submit Files" />
       </form>
