@@ -50,7 +50,7 @@
 		<bean class="com.lanrenyou.interceptor.FreemarkerVariablesInterceptor" />
 		
 		<mvc:interceptor>
-			<mvc:mapping path="/login/*"/> 
+			<mvc:mapping path="/**"/> 
 			<bean class="com.lanrenyou.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
 		

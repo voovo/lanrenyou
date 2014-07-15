@@ -41,26 +41,8 @@ public class TravelController  extends BaseController {
 	@ResponseBody
 	public String create(){
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(null == getCurrentTravel()){
-			map.put("status", "n");
-			map.put("info", "没有获取当前游记");
-			return gson.toJson(map);
-		}
-		TravelVisitLog visitLog = new TravelVisitLog();
-		visitLog.setTid(this.getCurrentTravel().getId());
-		if(null != this.getLoginUser()){
-			visitLog.setUid(this.getLoginUser().getId());
-		} else {
-			visitLog.setUid(0);
-		}
-		int result = travelVisitLogService.addTravelVisitLog(visitLog);
-		if(result > 0){
-			map.put("status", "y");
-			map.put("info", "记录成功");
-		} else {
-			map.put("status", "n");
-			map.put("info", "系统正忙，请稍后再试");
-		}
+		map.put("status", "n");
+		map.put("info", "系统正忙，请稍后再试");
 		return gson.toJson(map);
 	}
 }
