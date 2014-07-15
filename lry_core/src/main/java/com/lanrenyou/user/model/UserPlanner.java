@@ -18,12 +18,12 @@ public class UserPlanner extends BaseValueObject {
     private Integer uid;
 
     /**
-     * 可策划地区
+     * 可规划地区
      */
     private String targetCity;
 
     /**
-     * 策划价格
+     * 规划价格
      */
     private Double price;
 

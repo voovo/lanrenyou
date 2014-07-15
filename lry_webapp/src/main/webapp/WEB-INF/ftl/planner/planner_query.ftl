@@ -39,7 +39,7 @@
             </dl>
 
             <dl class="plan_area clearfix">
-                <dt>可策划地区：</dt>
+                <dt>可规划地区：</dt>
                 <dd>
                     <ul>
                         <li><a href="javascript:;">美国纽约</a></li>
@@ -93,7 +93,7 @@
             </dl>
 
             <dl class="plan_area clearfix">
-                <dt>可策划地区：</dt>
+                <dt>可规划地区：</dt>
                 <dd>
                     <ul>
                         <li><a href="javascript:;">美国纽约</a></li>
@@ -147,7 +147,7 @@
             </dl>
 
             <dl class="plan_area clearfix">
-                <dt>可策划地区：</dt>
+                <dt>可规划地区：</dt>
                 <dd>
                     <ul>
                         <li><a href="javascript:;">美国纽约</a></li>
@@ -201,7 +201,7 @@
             </dl>
 
             <dl class="plan_area clearfix">
-                <dt>可策划地区：</dt>
+                <dt>可规划地区：</dt>
                 <dd>
                     <ul>
                         <li><a href="javascript:;">美国纽约</a></li>

@@ -20,7 +20,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class ImageUtils {
 	
 	public static void main(String[] args) throws IOException{
-		cropImageForTravel("D:/tmp/img/AAA.jpg");
+		cropImageForTravel("D:/tmp/img/174959434.gif");
 	}
 	
 	public static void cropImageForTravel(String srcPath) throws IOException{

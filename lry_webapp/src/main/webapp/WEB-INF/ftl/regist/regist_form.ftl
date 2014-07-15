@@ -43,7 +43,7 @@
                     </td>
                 </tr>
                 <tr id="planner_box" class="hide">
-                    <td width="18%" align="right"><span class="ft_14">可策划地区：</span></td>
+                    <td width="18%" align="right"><span class="ft_14">可规划地区：</span></td>
                     <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
                     <input id="last_home" type="text" name="targetCity" class="input_100" placeholder="用分号分隔多个地区"></td>
