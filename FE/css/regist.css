@@ -26,7 +26,7 @@
 #form_code{ position: absolute; top:5px; left:75px;}
 #changeCode{ position: absolute; top:0; left:160px;}
 
-.reg_code_tr .Validform_checktip{ margin-left: 155px;}
+.reg_code_tr .Validform_checktip , .login_code_tr .Validform_checktip{ margin-left: 155px;}
 
 
 #get_pwd{ margin-left: 20px; color: #364758; text-decoration: underline;}

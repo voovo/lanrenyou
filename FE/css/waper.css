@@ -81,6 +81,16 @@
 .search_icon{ background-position: -832px -232px;}
 .no_result{ font-size: 24px; color: #6e6e6e; text-align: center; padding:130px 0;}
 
+/*撰写*/
+.create_icon{ background-position: -832px -98px;}
+.add_photo_form_box{}
+.add_photo_form_box table{ margin: 15px 0;}
+.add_photo_form_box table tr{ height: 50px; line-height: 50px;}
+.add_photo_form_box table tr td{ font-size: 14px;}
+#add_photo_box{ width: 100%; background: #ebebeb; border-radius: 4px; padding: 20px 30px;}
+
+
+
 
 
 
