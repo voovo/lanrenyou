@@ -92,7 +92,7 @@
         'auto'          : true,
         'fileTypeExts'  : '*.*',
         'onUploadStart' : function(file) {
-            //
+            //开始上传之前的校验工作
         },
         'onComplete':function(event,ID,fileObj,response,data){
             alert(response) //response为服务器响应数据
