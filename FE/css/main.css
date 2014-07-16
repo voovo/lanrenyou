@@ -4,10 +4,10 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
-
+.g9{ color: #999 !important;}
 .btn{ font-size: 18px; color: #fff !important; padding: 8px 25px; text-align: center; border-radius: 3px; border:0;}
 .blue_btn{ background: #364758;}
 .blue_btn:hover{ background:#1f2f3e;}
@@ -81,6 +81,41 @@
     *display: inline;
 }
 
+
+.clean-gray {
+  background-color: #eeeeee;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee), color-stop(100%, #cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: linear-gradient(top, #eeeeee, #cccccc);
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
+  border-radius: 3px;
+  color: #333;
+  font: bold 11px/1 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  padding: 8px 0;
+  text-align: center;
+  text-shadow: 0 1px 0 #eee;
+  width: 150px; }
+  .clean-gray:hover {
+    background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #bbbbbb));
+    background-image: -webkit-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
+    background-image: linear-gradient(top, #dddddd, #bbbbbb);
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd; }
+  .clean-gray:active {
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #888;
+    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee; }
 
 
 
@@ -300,3 +335,38 @@
 #index_main .row .h , #index_main .row .w , #index_main .row .h img , #index_main .row .w img{ width: 100%; height: auto;}
 
 }
+
+
+
+.album_list{position: relative;}
+/*每个相册块*/
+.album_block{margin-bottom: 15px;}
+.album_block .a_title .right .g9:hover{text-decoration: none;color:#999;cursor: default}
+.a_title{border:1px solid #DCDCDC;background: #fafafa;padding:15px ;clear:both;overflow: hidden;zoom:1;}
+.a_title .left{width:300px;float: left; }
+.a_title .right{width:850px;float: right; position: relative;}
+.a_title .right textarea{ width: 98%;  height: 165px; padding: 10px;}
+
+.a_title .right a{position: absolute; display: block; height: 22px; width: 22px; text-indent: -2000px; }
+.a_title .right a.g9{ display: none;}
+.J_moveUp{ top:70px; left:-28px; background-position: -852px -722px;}
+.J_moveDown{top:100px; left:-28px; background-position:  -852px -761px;}
+.J_delete{ top:0; left:-55px;  background-color: #b4b4b4; background-position: -852px -687px;}
+
+
+
+.img_left{ width: 285px; height: 185px;}
+
+.a_content{border:1px solid #DCDCDC;border-top:none;display: none;}
+.a_content img,.a_content .photo_intro,.a_content .remove{float: left;}
+.a_content img{width:80px;height:80px;overflow: hidden;margin-right: 10px;}
+.photo_intro{width:236px;height:80px;padding: 0 0 0 5px;overflow-y: scroll;resize: none;margin-right: 3px;line-height: 20px;color:#B3B3B3;}
+.a_content li{margin: 29px 0 0 10px;float: left;}
+.a_content .remove{margin-top: 35px;}
+.upload{margin: 15px 0;}
+.moveBox {
+    position: absolute;
+    top: 0;
+    width: 728px;
+}
+
