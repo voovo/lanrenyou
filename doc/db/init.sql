@@ -195,7 +195,7 @@ alter table tb_travel_content comment '游记详情表';
 create table tb_travel_info
 (
    id                   int(11) not null auto_increment comment '主键ID',
-   city                 int(11) not null comment '城市',
+   city                 varchar(256) not null comment '城市',
    uid                  int(11) not null comment '发布者ID',
    title                varchar(128) not null comment '标题',
    is_elite             tinyint(6) default 0 comment '是否精华[0:不是; 1:是]',
@@ -322,8 +322,8 @@ create table tb_user_planner
 (
    id                   int(11) not null auto_increment comment '主键ID',
    uid                  int(11) not null comment '用户ID',
-   target_city          varchar(256) comment '可策划地区',
-   price                numeric(10,2) comment '策划价格',
+   target_city          varchar(256) comment '可规划地区',
+   price                numeric(10,2) comment '规划价格',
    charge_mode          tinyint(6) comment '收费模式[1:按天; 2:按周; 3:按次;]',
    status               tinyint(6) comment '状态',
    create_uid           int(11),
@@ -335,7 +335,8 @@ create table tb_user_planner
    primary key (id)
 );
 
-alter table tb_user_planner comment '策划师';
+alter table tb_user_planner comment '规划师';
+
 
 
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1001,'纽约NYC及周边');

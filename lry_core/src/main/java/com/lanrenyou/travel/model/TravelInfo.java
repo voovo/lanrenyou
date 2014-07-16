@@ -14,7 +14,7 @@ public class TravelInfo extends BaseValueObject {
     /**
      * 城市
      */
-    private Integer city;
+    private String city;
 
     /**
      * 发布者ID
@@ -61,11 +61,11 @@ public class TravelInfo extends BaseValueObject {
         this.id = id;
     }
 
-    public Integer getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(Integer city) {
+    public void setCity(String city) {
         this.city = city;
     }
 

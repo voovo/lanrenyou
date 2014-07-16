@@ -3,7 +3,7 @@
 <mapper namespace="com.lanrenyou.travel.dao.ITravelInfoDao" >
   <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.TravelInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="uid" property="plannerUid" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="is_elite" property="isElite" jdbcType="TINYINT" />
@@ -29,14 +29,14 @@
       is_elite, is_top, status, 
       create_uid, create_time, create_ip, 
       update_uid, update_ip)
-    values (#{city,jdbcType=INTEGER}, #{plannerUid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+    values (#{city,jdbcType=VARCHAR}, #{plannerUid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{isElite,jdbcType=TINYINT}, #{isTop,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
       #{createUid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, 
       #{updateUid,jdbcType=INTEGER}, #{updateIp,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelInfo" >
     update tb_travel_info
-    set city = #{city,jdbcType=INTEGER},
+    set city = #{city,jdbcType=VARCHAR},
       uid = #{plannerUid,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       is_elite = #{isElite,jdbcType=TINYINT},
