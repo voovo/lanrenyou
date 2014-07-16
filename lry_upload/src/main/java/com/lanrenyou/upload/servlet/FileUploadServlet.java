@@ -95,7 +95,11 @@ public class FileUploadServlet extends HttpServlet {
             }
         }
         map.put("status", "y");
-    	map.put("url", urlList);
+        if(urlList.size() > 1){
+        	map.put("url", urlList);
+        } else if (urlList.size() == 1){
+        	map.put("url", urlList.get(0));
+        }
     	response.getWriter().print(gson.toJson(map));
 	}
 }
