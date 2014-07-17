@@ -59,12 +59,8 @@ public class ImageUtils {
 			String toPath590x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n" + srcPath.substring(srcPath.lastIndexOf('.'));
 			cropImage(operateImgPath, toPath590x185, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			toWidth = 285;
-			toHeight = 185;
-			x = (w - toWidth)/2;
-			y = (h - toHeight)/2;
 			String toPath285x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s" + srcPath.substring(srcPath.lastIndexOf('.'));
-			cropImage(operateImgPath, toPath285x185, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+			reduceImageEqualProportion(toPath590x390, toPath285x185, 2);
 			
 			toWidth = 285;
 			toHeight = 390;
