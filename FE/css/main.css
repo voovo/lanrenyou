@@ -4,7 +4,7 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
 .g9{ color: #999 !important;}
@@ -338,6 +338,7 @@
 
 
 
+/*创建游记*/
 .album_list{position: relative;}
 /*每个相册块*/
 .album_block{margin-bottom: 15px;}
@@ -370,3 +371,8 @@
     width: 728px;
 }
 
+#create_youji_btn{ margin: 30px; display: inline-block;}
+/*成功弹层*/
+#create_success{ height: 150px; padding-top: 60px;}
+#create_success h2{ width: 400px; height: 55px; line-height: 55px; text-align: center; margin: 20px auto 5px; font-size: 24px; color: #333; background-position: -793px -805px;}
+#create_success .suc_link{ margin-left: 145px;}

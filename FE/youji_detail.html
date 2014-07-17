@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新建游记-懒人游</title>
+    <title>【美国66号公路自驾全攻略】翻滚吧，青春！-懒人游</title>
     <!-- 全站通用 -->
     <link rel="shortcut icon" type="image/ico" href="imgs/favicon.ico">
     <link rel="stylesheet" href="css/init.css">
@@ -12,14 +12,8 @@
     <!-- 全站通用 -->
 
     <!-- 页面自用 -->
-    <link rel="stylesheet" href="css/waper.css">
-    <script src="js/create.js"></script>
-    <!-- 上传 -->
-    <link rel="stylesheet" href="css/plug/uploadify.css">
-    <script src="js/plug/jquery.uploadify.min.js"></script>
-    <!-- 弹层 -->
-    <script type="text/javascript" src="js/plug/jquery.reveal.js"></script>
-    <link rel="stylesheet" href="css/plug/reveal.css">
+    <link rel="stylesheet" href="css/detail.css">
+    <script src="js/detail.js"></script>
     <!-- 页面自用 -->
 
 
@@ -137,58 +131,37 @@
 </div>
 
 
-<!-- waper_box -->
-<div class="waper_box">
-    <h1 class="warper_tt create_icon">撰写游记</h1>
+<!-- box -->
+<div class="youji_detail_main box">
+    <div class="bread_box"><a href="#">首页</a> > <a href="#">找游记</a> > 【美国66号公路自驾全攻略】翻滚吧，青春！</div>
+    
+    <div class="detail_main_box clearfix">
+        <div class="detail_left left">
+            <h1>【美国66号公路自驾全攻略】翻滚吧，青春！</h1>
+            <h2 class="clearfix">
+                <div class="left">日期：<i>2014-06-17</i> 浏览：<i>63585</i></div>
+                <div class="right">
+                    <a href="javascript:;" class="add_fav button"><i></i><span>1237</span></a>
+                </div>              
+            </h2>
 
-    <div class="add_photo_form_box">
-        <table>
-            <tr>
-                <td width="130" align="right"><i class="rq">*</i>游记标题：</td>
-                <td><i class="rq"><input id="c_title" type="text" class="input_620" placeholder="游记标题不超过20字" maxlength="20"></i></td>
-            </tr>
-            <tr>
-                <td align="right"><i class="rq">*</i>城市：</td>
-                <td>
-                    <div class="label_box hide"><ul class="label clearfix"></ul></div>
-                    <input id="last_home" type="text" class="input_620 placeholder" placeholder="每个城市请用分号结束" value="">
-                </td>
-            </tr>
-        </table>
-
-        <!-- 添加照片 -->
-        <div id="add_photo_box">
-            <div class="album_list">
-                    
-                <div id="upBox" class="moveBox" style="top: 0px; z-index: 0;"></div>
-                <div id="downBox" class="moveBox" style="z-index: 0; top: 0px;"></div>
-
-                <!-- <div class="album_block clone">
-                    <input type="hidden" value="028225222">
-                    <div class="a_title">
-                        <div class="left img_left">
-                            <img src="http://img.lanrenyou.com/2014/07/16/145826730_s.jpg" alt="">
-                        </div>
-                        <div class="right">
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
-                            <a href="javascript:;" class="J_moveUp">向上</a>
-                            <a href="javascript:;" class="J_moveDown">向下</a>
-                            <a href="javascript:;" class="J_delete">删除</a>
-                        </div>
+            <!-- 游记列表开始 -->
+            <div class="youji_detail_list">
+                <div class="detail_item">
+                    <div class="detail_img">
+                        <i class="img_memb"></i>
+                        <img src="imgs/detail/1.jpg" alt="">
                     </div>
-                </div> -->
-
+                    <div>
+                        <p class="detail_img_info">在异国他乡看到中国银行的感觉是很不错的，国家的荣誉感油然而生！</p>
+                    </div>
+                </div>
             </div>
+            <!-- 游记列表结束 -->
 
-            <div id="fileQueue"></div>
-            <!-- <a href="javascript:;" id="add_yj_photo" class="add_yj_photo file_upload"></a> -->
-            <input type="file" name="upload_file" id="add_yj_photo" class="add_yj_photo file_upload" />
         </div>
+        <div class="detail_right right"></div>
     </div>
-
-    
-    <a id="create_youji_btn" class="btn blue_btn" href="javascript:;" data-reveal-id="create_success" data-animation="fade">发布游记</a>
-    
 
 </div>
 
@@ -216,21 +189,6 @@
 
         <p class="copyright">Copyright @lanrenyou. 2014 All Right Reserved.</p>
     </div>
-</div>
-
-
-
-
-
-<!-- 发布成功弹层 -->
-<div id="create_success" class="reveal-modal">
-    <h2>游记已经发布成功!</h2>
-    <p class="suc_link">
-        <a href="#">查看该游记</a> | 
-        <a href="#">我的游记</a> | 
-        <a href="javascript:;" class="close_d">继续发游记</a>
-    </p>
-    <a class="close-reveal-modal close_d">&#215;</a>
 </div>
 
 
