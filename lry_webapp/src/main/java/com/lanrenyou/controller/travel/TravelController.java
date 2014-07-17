@@ -83,7 +83,7 @@ public class TravelController  extends BaseController {
 		}
 		
 		map.put("status", "y");
-		map.put("info", "创建成功");
+		map.put("info", "/travel/" + travelInfo.getId());
 		return gson.toJson(map);
 	}
 }
