@@ -40,7 +40,8 @@ public class AppendTravels  {
 	
 	private Log log = LogFactory.getLog(AppendTravels.class);
 
-	@Scheduled(cron="0 0/5 * * * ?")
+//	@Scheduled(cron="0 0/5 * * * ?")
+	@Scheduled(cron="0/10 * * * * ?")
 	public void executue() {
 		
 		if (System.getProperty("AppendTravel")!=null && "start".equals(System.getProperty("AppendTravel"))) {

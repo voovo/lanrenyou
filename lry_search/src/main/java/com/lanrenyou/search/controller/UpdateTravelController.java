@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lanrenyou.search.controller.base.BaseController;
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.travel.model.TravelInfo;
@@ -25,7 +26,9 @@ import com.lanrenyou.travel.service.ITravelInfoService;
  */
 @Controller
 @RequestMapping("/search_index/travel")
-public class UpdateTravelController extends BaseController {
+public class UpdateTravelController {
+	
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private SolrUtil solrUtil;

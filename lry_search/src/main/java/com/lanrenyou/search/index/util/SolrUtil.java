@@ -9,12 +9,20 @@ public class SolrUtil {
 	
 	private String lryPlannerServer;
 
-	public void setLryTravelServers(String travelServer) {
-		this.lryTravelServer = travelServer;
+	public String getLryTravelServer() {
+		return lryTravelServer;
 	}
-	
-	public void setLryPlannerServers(String plannerServer) {
-		this.lryPlannerServer = plannerServer;
+
+	public void setLryTravelServer(String lryTravelServer) {
+		this.lryTravelServer = lryTravelServer;
+	}
+
+	public String getLryPlannerServer() {
+		return lryPlannerServer;
+	}
+
+	public void setLryPlannerServer(String lryPlannerServer) {
+		this.lryPlannerServer = lryPlannerServer;
 	}
 
 	public SolrServer[] getLryTravelServers() {

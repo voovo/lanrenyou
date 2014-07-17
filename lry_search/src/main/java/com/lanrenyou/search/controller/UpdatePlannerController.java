@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lanrenyou.search.controller.base.BaseController;
 import com.lanrenyou.search.index.ExportPlanners;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.user.model.UserPlanner;
@@ -25,7 +26,9 @@ import com.lanrenyou.user.service.IUserPlannerService;
  */
 @Controller
 @RequestMapping("/search_index/planner")
-public class UpdatePlannerController extends BaseController {
+public class UpdatePlannerController {
+	
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private SolrUtil solrUtil;

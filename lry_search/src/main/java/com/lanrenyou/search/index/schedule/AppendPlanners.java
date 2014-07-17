@@ -41,7 +41,7 @@ public class AppendPlanners  {
 	
 	private Log log = LogFactory.getLog(AppendPlanners.class);
 
-	@Scheduled(cron="0 0/5 * * * ?")
+	@Scheduled(cron="0 0/60 * * * ?")
 	public void executue() {
 		
 		if (System.getProperty("AppendPlanner")!=null && "start".equals(System.getProperty("AppendPlanner"))) {

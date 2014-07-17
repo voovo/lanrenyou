@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-
 <schema name="lry_search" version="1.3">
 
 <!-- lenrenyou solr schema # create 2014/07 # creator zhangpj-->
@@ -80,7 +79,7 @@
  </fields>
  	
  	<uniqueKey>tid</uniqueKey>
- 	<defaultSearchField>text</defaultSearchField>
+ 	<defaultSearchField>title</defaultSearchField>
 
  	<!-- SolrQueryParser configuration: defaultOperator="AND|OR" -->
  	<solrQueryParser defaultOperator="OR"/>

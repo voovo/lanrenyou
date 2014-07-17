@@ -1,7 +1,7 @@
 <@page  title="新建游记-懒人游" description=""  keywords="" 
 	assets=[
 	"/resources/css/waper.css",
-	"/resources/js/waper.js",
+	"/resources/js/create.js",
 	"/resources/css/plug/uploadify.css",
 	"/resources/js/plug/jquery.uploadify.min.js"
 	]

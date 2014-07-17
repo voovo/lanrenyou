@@ -20,7 +20,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>WEB-INF/application.properties</value>
+				<value>classpath:application.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -29,11 +29,12 @@
     	<property name="lryTravelServer" value="${lry_travel_server}"/>
     	<property name="lryPlannerServer" value="${lry_planner_server}"/>
 	</bean>
-
+	
+	<task:annotation-driven/>
 
 	<context:annotation-config />
 
-	<context:component-scan base-package="com">
+	<context:component-scan base-package="com.lanrenyou">
 		<!-- <context:include-filter type="regex" expression=".*Stub.*Repository"/> -->
 	</context:component-scan>
 </beans>
