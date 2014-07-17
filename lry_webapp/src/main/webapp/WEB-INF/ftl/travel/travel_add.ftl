@@ -24,7 +24,7 @@
                 <td align="right"><i class="rq">*</i>城市：</td>
                 <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
-                    <input id="last_home" type="text" name="city" class="input_620placeholder" placeholder="每个城市请用分号结束" value="">
+                    <input id="last_home" type="text" name="city" class="input_620 placeholder" placeholder="每个城市请用分号结束" value="">
                 </td>
             </tr>
         </table>
