@@ -11,8 +11,6 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.lanrenyou.travel.model.TravelContent;
-import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserInfoService;
@@ -31,7 +29,7 @@ public class ExportPlanners {
 	
 	private boolean isRunning = false;
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 	public void export(SolrServer server,List<UserPlanner> list) {
 		if (isRunning) {

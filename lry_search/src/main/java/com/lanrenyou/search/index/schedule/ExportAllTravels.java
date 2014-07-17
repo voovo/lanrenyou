@@ -42,15 +42,16 @@ public class ExportAllTravels  {
 	private Log log = LogFactory.getLog(ExportAllTravels.class);
 
 	@Scheduled(cron="0 12 4 * * ?")
+//	@Scheduled(cron="0/20 * * * * ?")
 	public void executue() {
-		if (System.getProperty("ALL")!=null && "start".equals(System.getProperty("ALL"))) {
+		if (System.getProperty("ALLTravel")!=null && "start".equals(System.getProperty("ALLTravel"))) {
 			log.info("export all Travel is running.....");
 			return;
 		}
 		long s = System.currentTimeMillis();
 		log.info("Export All Travel ...............................");
 		try {
-			System.setProperty("ALL", "start");
+			System.setProperty("ALLTravel", "start");
 			servers = solrUtil.getLryTravelServers();
 			deleteAllIndex();
 			log.info("删除先前的索引文件完成！");
@@ -60,7 +61,7 @@ public class ExportAllTravels  {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			 System.setProperty("ALL", "end");
+			 System.setProperty("ALLTravel", "end");
 		}
 	}
 
@@ -72,11 +73,15 @@ public class ExportAllTravels  {
 		do {
 			try {
 				list = travelInfoService.getTravelInfoListForSearchIndex(endTime, startID, batchSize);
+				log.info(" Travel Size:" + list.size());
 	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
-					if(lists.get(i).size()==0)continue;
+					if(lists.get(i).size()==0){
+						continue;
+					}
 					exp.export(servers[i], lists.get(i));
+					log.info(" ADD Travel Index:" + list.get(i).getId());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -29,7 +29,7 @@ public class ExportTravels {
 	
 	private boolean isRunning = false;
 
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 	public void export(SolrServer server,List<TravelInfo> list) {
 		if (isRunning) {
