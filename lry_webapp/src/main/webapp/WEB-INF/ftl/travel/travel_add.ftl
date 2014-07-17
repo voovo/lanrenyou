@@ -1,9 +1,11 @@
 <@page  title="新建游记-懒人游" description=""  keywords="" 
 	assets=[
 	"/resources/css/waper.css",
-	"/resources/js/create.js",
+	"/resources/css/plug/reveal.css",
 	"/resources/css/plug/uploadify.css",
-	"/resources/js/plug/jquery.uploadify.min.js"
+	"/resources/js/create.js",
+	"/resources/js/plug/jquery.uploadify.min.js",
+	"/resources/js/plug/jquery.reveal.js"
 	]
 	>
 
@@ -22,7 +24,7 @@
                 <td align="right"><i class="rq">*</i>城市：</td>
                 <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
-                    <input id="last_home" type="text" name="city" class="input_620" placeholder="用分号分隔多个城市">
+                    <input id="last_home" type="text" name="city" class="input_620placeholder" placeholder="每个城市请用分号结束" value="">
                 </td>
             </tr>
         </table>
@@ -39,6 +41,16 @@
             <a href="javascript:;" id="add_yj_photo" class="add_yj_photo file_upload">添加照片</a>
         </div>
     </div>
-            <a id="create_youji_btn" class="btn blue_btn" href="javascript:;">发布游记</a>
+            <a id="create_youji_btn" class="btn blue_btn" href="javascript:;" data-reveal-id="create_success" data-animation="fade">发布游记</a>
+</div>
+<!-- 发布成功弹层 -->
+<div id="create_success" class="reveal-modal">
+    <h2>游记已经发布成功!</h2>
+    <p class="suc_link">
+        <a href="#">查看该游记</a> | 
+        <a href="#">我的游记</a> | 
+        <a href="javascript:;" class="close_d">继续发游记</a>
+    </p>
+    <a class="close-reveal-modal close_d">&#215;</a>
 </div>
 </@page>

@@ -49,7 +49,7 @@
         }
 
         $("#last_home").keyup(function(event) {
-            if (event.keyCode == 186) {
+            if (event.keyCode == 186 || event.keyCode == 59) {
                 var str = $("#last_home").val().substr(0 , $("#last_home").val().length-1);
                 if (isNan(str) != true) {
                     var li_id = $(".label li:last-child").attr('id');
@@ -71,33 +71,33 @@
         });
     }
 
+    // 获取指定规格图片
+    var getResizeImg = function(src , tag){
+        var srcLen = src.length,
+            srcName = src.substr(0 , srcLen-4),
+            srcType = src.substr(-4 , 4),
+            newSrc = srcName+"_"+tag+srcType;
 
-    // 上传组件
-    $(".file_upload").uploadify({
-        'height'        : 50, 
-        'width'         : 155, 
-        'queueID'       : 'fileQueue',
-        'multi'         : true,
-        'folder'        : '20140714',
-        'cancelImage'   : '/imgs/plug/uploadify-cancel.png',
-        'simUploadLimit': '5',
-        'sizeLimit'     : '100000',
-        'method'        : 'POST',
-        'fileExt'       : '*.jpg;*.gif;*.png', //控制可上传文件的扩展名
-        'fileDesc'      : 'jpg、gif、png文件', //控制可上传文件的扩展名描述，两者需要同时使用  
-        'buttonText'    : '添加照片',
-        'swf'           : 'js/plug/uploadify.swf',
-        'uploader'      : 'http://www.lanrenyou.com/upload/submit',
-        'fileDataName'  : 'lan_fileData',
-        'auto'          : true,
-        'fileTypeExts'  : '*.*',
-        'onUploadStart' : function(file) {
-            //开始上传之前的校验工作
-        },
-        'onComplete':function(event,ID,fileObj,response,data){
-            alert(response) //response为服务器响应数据
+        return newSrc;
+    }
+
+
+    // placeholder
+    var placeholder = function(nodes,pcolor) {
+        if(nodes.length > 0 && !('placeholder' in document.createElement('input'))){
+            nodes.each(function(){
+                var holder = $(this).attr("placeholder");
+                console.log(holder)
+            });
         }
-    });
+
+        
+    }
+    //placeholder($(".placeholder") , "#ccc");
+
+
+    
+    
 
 
 

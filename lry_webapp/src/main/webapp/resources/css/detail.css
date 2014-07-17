@@ -1,0 +1,26 @@
+/* 
+ * 懒人游 游记详情
+ * mr.sheak@gmail.com
+ * 20140705
+ */
+.youji_detail_main{ margin: 10px auto;}
+.bread_box{ width: 100%; height: 46px; line-height: 46px; font-size: 14px;}
+.detail_main_box{ border: 1px solid #ff0;}
+.detail_main_box .detail_left{ border: 1px solid #f00; width: 745px; padding: 20px 40px;}
+.detail_main_box .detail_right{ border: 1px solid #f00; padding: 20px; width: 315px; background: #fff;}
+
+.detail_main_box .detail_left h1{ font-size: 24px; color: #333; text-align: center; margin-bottom: 20px; overflow: hidden;}
+.detail_main_box .detail_left h2{ padding: 7px 15px ; border-top:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3;}
+.detail_main_box .detail_left h2 .left{ color: #999; margin-top: 5px;}
+.detail_main_box .detail_left h2 .left i{ color: #333; margin-right: 10px;}
+.detail_main_box .detail_left h2 .right a{ padding: 5px 15px 5px 10px; color: #364758; text-align: center;}
+.add_fav i{ background-position: -858px -630px;display: inline-block; width: 8px; height: 8px; padding: 3px; margin-right: 3px;}
+.added_fav i{ background-position: -858px -658px;display: inline-block; width: 8px; height: 8px; padding: 3px; margin-right: 3px;}
+
+.youji_detail_list{ width: 660px; margin: 20px auto;}
+.detail_item{ width: 640px; padding:10px; background: #fff; overflow: hidden; border-bottom: 1px solid #ccc;}
+.detail_img{ width: 640px; overflow: hidden; position: relative; font-size: 0; line-height: 0; text-align: center;}
+.detail_img .img_memb{ position: absolute; width: 640px; height: 15px; left:0; bottom:0; background: url(../imgs/detail_img_memb.png) left top no-repeat;}
+.detail_item img{ max-width: 640px; text-align: center;}
+
+
