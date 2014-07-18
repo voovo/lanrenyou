@@ -71,36 +71,6 @@
         });
     }
 
-    // 获取指定规格图片
-    var getResizeImg = function(src , tag){
-        var srcLen = src.length,
-            srcName = src.substr(0 , srcLen-4),
-            srcType = src.substr(-4 , 4),
-            newSrc = srcName+"_"+tag+srcType;
-
-        return newSrc;
-    }
-
-
-    // placeholder
-    var placeholder = function(nodes,pcolor) {
-        if(nodes.length > 0 && !('placeholder' in document.createElement('input'))){
-            nodes.each(function(){
-                var holder = $(this).attr("placeholder");
-                console.log(holder)
-            });
-        }
-
-        
-    }
-    //placeholder($(".placeholder") , "#ccc");
-
-
-    
-    
-
-
-
 
 
 

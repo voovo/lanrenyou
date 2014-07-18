@@ -12,7 +12,7 @@ $(function(){
                arryAlbumOrder.push($('.clone').eq(i).attr('album_id'));
            }
          };
-         console.log(arryAlbumOrder)
+         //console.log(arryAlbumOrder)
 
         arryAlbumOrder = [];
     };
@@ -100,6 +100,30 @@ $(function(){
         var that = $(this);
         that.closest(".album_block").fadeOut();
     });
+
+    // 获取指定规格图片
+    var getResizeImg = function(src , tag){
+        var srcLen = src.length,
+            srcName = src.substr(0 , srcLen-4),
+            srcType = src.substr(-4 , 4),
+            newSrc = srcName+"_"+tag+srcType;
+
+        return newSrc;
+    }
+
+
+    // placeholder
+    var placeholder = function(nodes,pcolor) {
+        if(nodes.length > 0 && !('placeholder' in document.createElement('input'))){
+            nodes.each(function(){
+                var holder = $(this).attr("placeholder");
+                console.log(holder)
+            });
+        }
+
+        
+    }
+    //placeholder($(".placeholder") , "#ccc");
 
     // 图片上传成功后重新渲染页面，创建图片列表
     var setPhotoList = function(imgSrc){
@@ -198,7 +222,12 @@ $(function(){
                     success : function(r){
                         var _d = jQuery.parseJSON(r);
                         if(_d.status == "y"){
-                            alert("ok");
+                            // 显示弹层
+                            //e.preventDefault();
+                            //var modalLocation = $(this).attr('data-reveal-id');
+                            var t_url = _d.info;
+                            $('#create_success .suc_link a').eq(0).attr("href" , t_url);
+                            $('#create_success').reveal($(this).data());
                         }else{
                             alert(_d.info);
                         }
@@ -212,11 +241,11 @@ $(function(){
 
 
     // 弹层
-    $('a[data-reveal-id]').live('click', function(e) {
-        e.preventDefault();
-        var modalLocation = $(this).attr('data-reveal-id');
-        $('#'+modalLocation).reveal($(this).data());
-    });
+    // $('a[data-reveal-id]').live('click', function(e) {
+    //     e.preventDefault();
+    //     var modalLocation = $(this).attr('data-reveal-id');
+    //     $('#'+modalLocation).reveal($(this).data());
+    // });
 
 
 

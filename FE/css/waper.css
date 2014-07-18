@@ -8,7 +8,7 @@
 
 .warper_tab{ height: 40px; line-height: 40px; border-bottom: 1px solid #d3d3d3; margin-bottom: 20px;}
 .warper_tab li{height: 39px; line-height: 39px; float: left; font-size: 14px; color: #333; padding: 0 30px; border-radius: 3px;}
-.warper_tab li.cur{border: 1px solid #d3d3d3; border-bottom: 3px solid #fff;}
+.warper_tab li.cur{border: 1px solid #d3d3d3; border-bottom: 3px solid #f6f6f6;}
 .warper_tab li a{ color: #305d8a; padding: 8px 10px;}
 
 /*找游记*/
