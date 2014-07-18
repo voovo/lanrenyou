@@ -182,7 +182,7 @@ create table tb_travel_content
    id                   int(11) not null auto_increment comment '主键ID',
    tid                  int(11) not null comment '游记ID',
    travel_date          datetime,
-   content              text not null comment '详细内容',
+   content              MEDIUMTEXT not null comment '详细内容',
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    primary key (id)
 );
