@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.search.index.ExportPlanners;
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
@@ -37,8 +38,6 @@ public class ExportAllPlanners  {
 	private SolrServer[] servers;
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
-	private String filePath="D:/tmp/data/exportPlanner";
 	
 	private Log log = LogFactory.getLog(ExportAllPlanners.class);
 
@@ -85,7 +84,7 @@ public class ExportAllPlanners  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
-		StringTool.WriteContentToTextFile(filePath, sdf.format(endTime)+"\n"+sdf.format(endTime));
+		StringTool.WriteContentToTextFile(AppConfigs.getInstance().get("search_index_export_record_planner"), sdf.format(endTime)+"#"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
 				server.optimize();

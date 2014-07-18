@@ -11,6 +11,8 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.search.index.ExportTravels;
 
 import com.lanrenyou.search.index.util.SolrUtil;
@@ -35,8 +37,6 @@ public class AppendTravels  {
 	private SolrServer[] servers;
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
-	private String filePath="D:/tmp/data/exportTravel";
 	
 	private Log log = LogFactory.getLog(AppendTravels.class);
 
@@ -100,7 +100,7 @@ public class AppendTravels  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
-		StringTool.WriteContentToTextFile(filePath, sdf.format(lastRunning[1])+"\n"+sdf.format(endTime));
+		StringTool.WriteContentToTextFile(AppConfigs.getInstance().get("search_index_export_record_travel"), sdf.format(lastRunning[1])+"#"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
 				server.optimize();
@@ -131,11 +131,11 @@ public class AppendTravels  {
 	
 	private Date[] getLastRunningDate(){
 		try {
-			String str=StringTool.getTextFileContent(filePath);	
+			String str=StringTool.getTextFileContent(AppConfigs.getInstance().get("search_index_export_record_travel"));	
 			if(str==null){
 				return null;
 			}
-			String[] array=str.split("\n");
+			String[] array=str.split("#");
 			Date[] darray=new Date[2];
 			darray[0]=sdf.parse(array[0].trim());
 			darray[1]=sdf.parse(array[1].trim());

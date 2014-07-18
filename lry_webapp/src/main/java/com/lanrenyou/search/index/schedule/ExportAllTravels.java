@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
@@ -36,8 +37,6 @@ public class ExportAllTravels  {
 	private SolrServer[] servers;
 	
 	private SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	
-	private String filePath="D:/tmp/data/exportTravel";
 	
 	private Log log = LogFactory.getLog(ExportAllTravels.class);
 
@@ -89,7 +88,7 @@ public class ExportAllTravels  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
-		StringTool.WriteContentToTextFile(filePath, sdf.format(endTime)+"\n"+sdf.format(endTime));
+		StringTool.WriteContentToTextFile(AppConfigs.getInstance().get("search_index_export_record_travel"), sdf.format(endTime)+"#"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
 				server.optimize();

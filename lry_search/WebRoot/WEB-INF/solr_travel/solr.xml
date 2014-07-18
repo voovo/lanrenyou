@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<solr persistent="false">
+  <cores adminPath="/admin/cores" defaultCoreName="travel">
+    <core name="travel" instanceDir="." />
+    <core name="planner" instanceDir="../solr_planner" />
+  </cores>
+</solr>

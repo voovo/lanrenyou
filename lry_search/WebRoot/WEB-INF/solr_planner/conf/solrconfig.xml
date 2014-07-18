@@ -95,7 +95,7 @@
        replication is in use, this should match the replication
        configuration.
     -->
-  <dataDir>${solr.data.dir:D:\\tmp\\index}</dataDir>
+  <dataDir>${solr.data.dir:D:\\lry_index\\planner}</dataDir>
 
 
   <!-- The DirectoryFactory to use for indexes.
