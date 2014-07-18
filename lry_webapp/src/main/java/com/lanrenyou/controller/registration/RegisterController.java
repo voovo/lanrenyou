@@ -150,8 +150,8 @@ public class RegisterController extends BaseController {
 				code.append(newUserInfo.getId().intValue()).append("#").append(System.currentTimeMillis());
 				logger.debug("Source Code:{}", code.toString());
 				String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
-				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");
-				logger.info("http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode);
+				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");
+				logger.info("http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode);
 				if(mailResult <= 0){
 					logger.error("Registion Send Mail Fail, UID:{} | Email:{} | Verify Code:{}", newUserInfo.getId(), newUserInfo.getEmail(), encryptCode);
 				}
@@ -162,7 +162,7 @@ public class RegisterController extends BaseController {
 			Cookie cookie = new Cookie(LRYConstant.REGIST_COOKIE_NAME, String.valueOf(newUserInfo.getId()));
 			cookie.setMaxAge(7200);
 			cookie.setPath("/regist");
-			cookie.setDomain("www.lanrenyou.com");
+			cookie.setDomain(AppConfigs.getInstance().get("domains.www"));
 			response.addCookie(cookie);
 			map.put("status", "y");
 			map.put("info", "创建成功，请验证邮箱");
@@ -224,7 +224,7 @@ public class RegisterController extends BaseController {
 				code.append(userInfo.getId().intValue()).append("#").append(System.currentTimeMillis());
 				logger.debug("Source Code:{}", code.toString());
 				String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
-				int mailResult = MailUtil.sendEmail(userInfo.getEmail(), "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");	
+				int mailResult = MailUtil.sendEmail(userInfo.getEmail(), "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode+"</a>");	
 				if(mailResult <= 0){
 					map.put("status", "n");
 					map.put("info", "验证邮件发送失败");

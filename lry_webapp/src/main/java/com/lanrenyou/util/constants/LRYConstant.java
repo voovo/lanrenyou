@@ -19,6 +19,7 @@ public interface LRYConstant {
     public static final String AUTH_EMAIL_COOKIE_KEY = "lry_email";
     public static final String AUTH_ENCODE_KEY = "AUTH_ENCODE_KEY";
     public static final String REGIST_COOKIE_NAME = "regist_wait_verify_uid";
+    public static final String REDIR_COOKIE_NAME = "redir";  
     /**
 	 * 密码类常量－－－－end
 	 */

@@ -9,69 +9,61 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
 import com.lanrenyou.util.AesCryptUtil;
+import com.lanrenyou.util.HtmlFilterUtil;
 import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.ServletUtil;
 import com.lanrenyou.util.StringUtil;
+import com.lanrenyou.util.UrlEncoderUtil;
 import com.lanrenyou.util.constants.LRYConstant;
 
 public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(LoginCheckInterceptor.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 	protected static final int DEFAULT_PORT = 80;
 	
-	@Autowired
-	protected IUserInfoService userInfoService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		UserInfo userInfo = getUserBaseFromLoginCookie(request);
+		UserInfo userInfo = (UserInfo)request.getAttribute(LRYConstant.LOGIN_USER);
+	    if (null == userInfo) {
+	    	if ((request.getHeader("X-Requested-With") != null) && (request.getHeader("X-Requested-With").equals("XMLHttpRequest"))) {
+	    		return false;
+	    	}
+	    	String currentUrl = getForwardUrl(request);
+	    	String defaultRedirectValue = "/";
+	    	logger.debug("user does not login");
+	    	String redirectDomains = AppConfigs.getInstance().get("interceptorRedirectDomains");
+	    	if (StringUtil.isEmpty(redirectDomains)) {
+	    		redirectDomains = AppConfigs.getInstance().get("domains.www");
+	    	}
+	    	response.sendRedirect("http://" + redirectDomains + "/login?redir=" + UrlEncoderUtil.encodeByUtf8(currentUrl, defaultRedirectValue));
+	    	return false;
+	    }
 
-		if (userInfo != null) {
-			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
-		} else {
-			ServletUtil.clearUserCookie(request, response);
-		}
-		return true;
+	    Cookie mailCookie = ServletUtil.getCookie(request, LRYConstant.AUTH_EMAIL_COOKIE_KEY);
+	    if ((mailCookie == null) || (StringUtil.isBlank(mailCookie.getValue())) || mailCookie.getValue().equals(userInfo.getEmail())) {
+	    	ServletUtil.writeCookie(response, LRYConstant.AUTH_EMAIL_COOKIE_KEY, userInfo.getEmail(), AppConfigs.getInstance().get("domains.www"), -1);
+	    }
+
+	    return true;
 	}
 
-	private UserInfo getUserBaseFromLoginCookie(HttpServletRequest request) {
-		Cookie c = ServletUtil.getCookie(request, LRYConstant.AUTH_COOKIE_KEY);
+	protected String getForwardUrl(HttpServletRequest request) {
+	    int port = request.getServerPort();
+	    String servletPath = request.getServletPath();
+	    if ((servletPath == null) || ("/".equals(servletPath))) {
+	      servletPath = "";
+	    }
+	    StringBuilder stringBuilder = new StringBuilder(request.getScheme()).append("://").append(request.getServerName()).append(port == 80 ? "" : new StringBuilder().append(":").append(port).toString()).append(request.getContextPath()).append(servletPath).append(request.getPathInfo());
 
-		if ((c == null) || (StringUtil.isEmpty(c.getValue()))) {
-			return null;
-		}
-		String decode = AesCryptUtil.decrypt(c.getValue(), LRYEncryptKeyProperties.getProperty(LRYConstant.AUTH_ENCODE_KEY));
-		StringBuffer requestUrlBuffer = request.getRequestURL();
-		String requestUrl = (requestUrlBuffer == null) ? "" : requestUrlBuffer.toString();
-		if (StringUtil.isEmpty(decode)) {
-			LOGGER.warn("===>>>Parse uid from login cookie failed.cookie value is {}, request url:{}", c.getValue(), requestUrl);
-			return null;
-		}
-		String[] info = decode.split("\\|");
-		if ((info.length != 2) || (!(StringUtil.isInteger(info[0])))) {
-			return null;
-		}
-		int uid = Integer.parseInt(info[0]);
-		String cookiePassword = info[1];
-		if (uid <= 0) {
-			LOGGER.warn("===>>>Get uid from login cookie failed.cookie value is {}, request url:{}", c.getValue(), requestUrl);
-			return null;
-		}
-		UserInfo userInfo = userInfoService.getUserInfoByUid(uid);
-		if (userInfo == null) {
-			LOGGER.warn("===>>>Query user base by uid failed. uid:{}, request url:{}", Integer.valueOf(uid), requestUrl);
-			return null;
-		}
-		if (!(userInfo.getUserPass().equalsIgnoreCase(cookiePassword))) {
-			LOGGER.warn( "===>>>Wrong password in login cookie. uid:{}, cookie password:{}, user base password:{}, cookie value:{}, request url:{}",
-					new Object[] { Integer.valueOf(uid), cookiePassword, userInfo.getUserPass(), c.getValue(), requestUrl });
-			return null;
-		}
-		LOGGER.debug("===>>>Get login user from cookie success, uid:{}, request url:{}", userInfo.getId(), requestUrl);
-		return userInfo;
+	    if ((request.getQueryString() != null) && (!request.getQueryString().isEmpty())) {
+	    	stringBuilder.append("?").append(HtmlFilterUtil.filterHeaderValue(request.getQueryString()));
+	    }
+	    return stringBuilder.toString();
 	}
 }

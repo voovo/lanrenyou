@@ -60,13 +60,12 @@
 		<!-- 在Request范围中添加AppConfigs、request资源, 用于Freemarker渲染  --> 
 		<bean class="com.lanrenyou.interceptor.FreemarkerVariablesInterceptor" />
 		
+		<bean class="com.lanrenyou.interceptor.ViewInterceptor" />
+
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/> 
 			<bean class="com.lanrenyou.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
-		
-		
-		<bean class="com.lanrenyou.interceptor.ViewInterceptor" />
 		
         <!-- 管理员权限的url 
         <mvc:interceptor>
