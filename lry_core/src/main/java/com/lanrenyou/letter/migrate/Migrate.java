@@ -1,5 +1,6 @@
 package com.lanrenyou.letter.migrate;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,9 +17,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Results;
 
 import com.google.gson.Gson;
 import com.lanrenyou.user.model.UserInfo;
@@ -31,10 +30,12 @@ public class Migrate {
 	protected static final Gson gson = new Gson();
 	
 	public static void main(String[] args) {
+		
+		importUsers();
 		 importTravel(exportPost());
 		
- 
 	}
+	
 	public static void importTravel(Map<Integer,WpPosts> postmap){
 		for(Map.Entry<Integer, WpPosts> entry : postmap.entrySet()){
 			 WpPosts post = entry.getValue();			 
@@ -88,8 +89,8 @@ public class Migrate {
 			
 			PreparedStatement contentp = conn.prepareStatement(contentsql);
 			contentp.setInt(1, id);
-			contentp.setTimestamp(2, post.getPost_date());
-			contentp.setString(3, convertListToJson(post));
+			contentp.setTimestamp(2, post.getPost_date());			
+			contentp.setString(3, filterHtmlTag(convertListToJson(post)));
 			contentp.setTimestamp(4,post.getPost_modified());
 			
 			contentp.executeUpdate();
@@ -118,8 +119,7 @@ public class Migrate {
 		}	
 		
 	}
-	
-	
+		
 	public static String convertListToJson(WpPosts post){
 		List<WpPosts> list = post.getChildlists();
 		List<Map> clist = new ArrayList<Map>();
@@ -134,6 +134,36 @@ public class Migrate {
 		
 	}
 	
+	public static String filterHtmlTag(String content){
+		System.out.println("转换前："+content);
+		Pattern blankp = Pattern.compile("&nbsp;");		
+		Pattern htmlp = Pattern.compile("<[^>]+>");
+		Pattern rnp = Pattern.compile("\\r\\n");
+		
+		Matcher blankm = blankp.matcher(content);
+		content = blankm.replaceAll("");
+		
+		Matcher htmlm = htmlp.matcher(content);
+		content = htmlm.replaceAll("");
+		
+		Matcher rnm = rnp.matcher(content);
+		content = rnm.replaceAll("");
+		
+		//System.out.println("转换后 ："+content);
+		
+		return content;
+		
+	}
+	
+//	public static String decodeUnicode(String unicodeStr){		
+//		try {
+//			String s = new String(unicodeStr.getBytes("ISO8859-1"),"UTF-8");
+//			return s;
+//		} catch (UnsupportedEncodingException e) {			
+//			e.printStackTrace();
+//		}
+//		return unicodeStr;
+//	}
 	
 	public static String convertGallery(String content){
 		
@@ -154,10 +184,11 @@ public class Migrate {
 				for(int a=0;a<postids.length;a++){
 					urls = urls+"<img src=\""+getWppostById(Integer.parseInt(postids[a])).getPost_attc_url()+"\" />  ";
 				}
-				System.out.println("ids++++:"+key);
+				
 				content = content.replaceAll("\\"+key.substring(0,key.length()-1)+"\\]", urls);
 				
 			}	
+			System.out.println(content);
 		return content;
 	}
 	
@@ -184,8 +215,7 @@ public class Migrate {
 					Matcher m1 = p1.matcher(s0);
 					String url = "";
 					while(m1.find()){
-						url = m1.group();
-						System.out.println(url);
+						url = m1.group();						
 					}
 					
 					imglist.add(url);
@@ -196,19 +226,17 @@ public class Migrate {
 				Object[] imgs = imglist.toArray();
 				
 				if(StringUtils.isEmpty(contents[0].trim())){
-					System.out.println("c lentth:"+contents.length);
-					System.out.println("i length:"+imgs.length);
-					System.out.println(po.getId());
+
 					for(int idx = 1;idx<contents.length;idx++){
 						WpPosts cpost = new WpPosts();
-						cpost.setPost_content(contents[idx]);					
+						cpost.setPost_content(filterHtmlTag(contents[idx]));							
 						cpost.setPost_attc_url(imgs[idx-1].toString());						
 						clist.add(cpost);
 					}					
 				}else{
 					for(int idx = 0;idx<contents.length;idx++){
 						WpPosts cpost = new WpPosts();
-						cpost.setPost_content(contents[idx]);
+						cpost.setPost_content(filterHtmlTag(contents[idx]));
 						if(imgs.length>idx){
 							cpost.setPost_attc_url(imgs[idx].toString());
 						}						
@@ -672,45 +700,6 @@ public class Migrate {
 		}
 		return conn;
 	}
-	
-//	private static String areaCodeTrans(String area){
-//		if(StringUtils.isEmpty(area)){
-//			return "";
-//		}
-//		String[] areas  =  area.split(" ");
-//		String areacodes = "";
-//		for(int i=0;i<areas.length;i++){
-//			
-//			if("纽约NYC及周边".equals(area)){
-//				areacodes = areacodes+"1001"+" ";
-//			}
-//			if("洛杉矶LA及周边".equals(area)){
-//				areacodes = areacodes+"1002"+" ";
-//			}
-//			if("旧金山San Francisco及周边".equals(area)){
-//				areacodes = areacodes+"1003"+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			
-//			
-//		}
-//		
-//		
-//		
-//		return "";
-//		
-//	}
 	
 }
 
