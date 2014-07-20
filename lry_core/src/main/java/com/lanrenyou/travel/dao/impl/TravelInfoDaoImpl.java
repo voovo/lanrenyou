@@ -95,4 +95,22 @@ public class TravelInfoDaoImpl extends BaseDao<TravelInfo> implements ITravelInf
 		params.put("limit", limit);
 		return this.findList("getListForFullIndex", params);
 	}
+
+	@Override
+	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(
+			List<Integer> uidList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uidList", uidList);
+		List<Map<String, Object>> list = (List<Map<String, Object>>) this.findList("getPublishedTravelCntMapByUidList", params);
+		if(null == list){
+			return null;
+		}
+		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>(list.size());
+		for(Map<String, Object> map : list){
+			Integer tid = (Integer)map.get("uid");
+			Long cnt = (Long)map.get("cnt");
+			resMap.put(tid, cnt.intValue());
+		}
+		return resMap;
+	}
 }

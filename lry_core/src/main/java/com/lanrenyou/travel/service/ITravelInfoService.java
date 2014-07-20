@@ -94,4 +94,11 @@ public interface ITravelInfoService extends IValueObjectService<TravelInfo> {
 	 */
 	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime, int offset, int limit);
 	
+	/**
+	 * 批量获取某些人发布过的游记数量
+	 * @param uidList
+	 * @return
+	 */
+	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(List<Integer> uidList);
+	
 }

@@ -52,6 +52,8 @@ public class TravelInfo extends BaseValueObject {
     private Date updateTime;
 
     private String updateIp;
+    
+    private String content;
 
     public Integer getId() {
         return id;
@@ -156,4 +158,13 @@ public class TravelInfo extends BaseValueObject {
     public void setUpdateIp(String updateIp) {
         this.updateIp = updateIp == null ? null : updateIp.trim();
     }
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+    
 }

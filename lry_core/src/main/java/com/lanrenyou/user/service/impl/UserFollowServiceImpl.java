@@ -1,6 +1,7 @@
 package com.lanrenyou.user.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lanrenyou.letter.model.PrivateLetter;
 import com.lanrenyou.user.dao.IUserFollowDao;
@@ -54,6 +55,22 @@ public class UserFollowServiceImpl extends BaseVOService<UserFollow> implements 
 		PageIterator<UserFollow> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
 		pageIterator.setData(list);
 		return pageIterator;
+	}
+
+	@Override
+	public Map<Integer, Integer> getFansCountMapByUidList(List<Integer> uidList) {
+		if(null == uidList || uidList.size() <= 0){
+			return null;
+		}
+		return userFollowDao.getFansCountMapByUidList(uidList);
+	}
+
+	@Override
+	public Map<Integer, Integer> getStarCountMapByUidList(List<Integer> uidList) {
+		if(null == uidList || uidList.size() <= 0){
+			return null;
+		}
+		return userFollowDao.getStarCountMapByUidList(uidList);
 	}
 
 }

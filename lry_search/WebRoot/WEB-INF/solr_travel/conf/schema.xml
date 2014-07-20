@@ -72,10 +72,29 @@
      <field name="updateTime" type="tdate" indexed="true" stored="true" omitNorms="true"  />
      <!-- 旅行时间 -->
      <field name="travelDate" type="tdate" indexed="true" stored="true" omitNorms="true"  />
-        
-    <!-- ###########全文检索单值 ###########--> 
+    
 	<!-- 游记内容 -->
-   <field name="content" type="text" indexed="true" omitNorms="true"  stored="true"/> 
+    <field name="content" type="text" indexed="true" omitNorms="true"  stored="false"/>
+   
+	<!-- 发布者邮箱 -->
+	<field name="user_email" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者名称 -->
+	<field name="user_name" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者昵称 -->
+	<field name="user_nickname" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者微博账号 -->
+	<field name="user_weiboName" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者微信账号 -->
+	<field name="user_wechatName" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者现住址 -->
+	<field name="user_presentAddress" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者曾经住址 -->
+	<field name="user_previousAddress" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	<!-- 发布者简介 -->
+	<field name="user_userIntro" type="text" indexed="true" omitNorms="true"  stored="true"/>
+	
+	<!-- 规划师可规划地区 -->
+	<field name="planner_targetCity" type="string" indexed="true" omitNorms="true"  stored="true"/>
  </fields>
  	
  	<uniqueKey>tid</uniqueKey>

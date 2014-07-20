@@ -87,4 +87,10 @@
     select <include refid="Base_Column_List" /> from tb_travel_info where update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
+  <select id="getPublishedTravelCntMapByUidList" resultType="java.util.Map" parameterType="java.lang.Integer" >
+    select
+    	uid, count(1) as cnt
+    from tb_travel_info
+    where uid in <foreach collection="uidList" open="(" close=")" item="item" separator=",">#{item, jdbcType=INTEGER}</foreach> group by uid
+  </select>
 </mapper>

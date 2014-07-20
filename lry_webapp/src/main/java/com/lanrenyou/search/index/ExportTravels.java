@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.ITravelContentService;
+import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.user.service.IUserPlannerService;
 
 
 /**
@@ -22,10 +26,16 @@ import com.lanrenyou.travel.service.ITravelContentService;
 @Component
 public class ExportTravels {
 	
+	private Log log = LogFactory.getLog(ExportTravels.class);
+	
 	@Autowired
 	private ITravelContentService travelContentService;
 	
-	private Log log = LogFactory.getLog(ExportTravels.class);
+	@Autowired
+	private IUserInfoService userInfoService;
+	
+	@Autowired
+	private IUserPlannerService userPlannerService;
 	
 	private boolean isRunning = false;
 
@@ -91,6 +101,35 @@ public class ExportTravels {
 				}
 			}
 			
+			UserInfo userInfo = userInfoService.getUserInfoByUid(vo.getUid());
+			doc.addField("user_email", userInfo.getEmail());
+			if(null != userInfo.getName()){
+				doc.addField("user_name", userInfo.getName());//名称
+			}
+			if(null != userInfo.getNickname()){
+				doc.addField("user_nickname", userInfo.getNickname());//昵称
+			}
+			if(null != userInfo.getWeiboName()){
+				doc.addField("user_weiboName", userInfo.getWeiboName());//微博账号
+			}
+			if(null != userInfo.getWechatName()){
+				doc.addField("user_wechatName", userInfo.getWechatName());//微信账号
+			}
+			if(null != userInfo.getPresentAddress()){
+				doc.addField("user_presentAddress", userInfo.getPresentAddress());//现住址
+			}
+			if(null != userInfo.getPreviousAddress()){
+				doc.addField("user_previousAddress", userInfo.getPreviousAddress());//以前住址
+			}
+			if(null != userInfo.getUserIntro()){
+				doc.addField("user_userIntro", userInfo.getUserIntro());//用户简介
+			}
+			
+			
+			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(vo.getUid());
+			if(null != userPlanner){
+				doc.addField("planner_targetCity", userPlanner.getTargetCity());
+			}
 			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();

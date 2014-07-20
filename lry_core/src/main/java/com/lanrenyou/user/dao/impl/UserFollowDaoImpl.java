@@ -60,4 +60,38 @@ public class UserFollowDaoImpl extends BaseDao<UserFollow> implements IUserFollo
 		params.put("starUid", starUid);
 		return this.doDelete("deleteByFansUidAndStartUid", params);
 	}
+
+	@Override
+	public Map<Integer, Integer> getFansCountMapByUidList(List<Integer> uidList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uidList", uidList);
+		List<Map<String, Object>> list = (List<Map<String, Object>>) this.findList("getFansCountMapByUidList", params);
+		if(null == list){
+			return null;
+		}
+		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>(list.size());
+		for(Map<String, Object> map : list){
+			Integer tid = (Integer)map.get("star_uid");
+			Long cnt = (Long)map.get("cnt");
+			resMap.put(tid, cnt.intValue());
+		}
+		return resMap;
+	}
+
+	@Override
+	public Map<Integer, Integer> getStarCountMapByUidList(List<Integer> uidList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uidList", uidList);
+		List<Map<String, Object>> list = (List<Map<String, Object>>) this.findList("getStarCountMapByUidList", params);
+		if(null == list){
+			return null;
+		}
+		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>(list.size());
+		for(Map<String, Object> map : list){
+			Integer tid = (Integer)map.get("fans_uid");
+			Long cnt = (Long)map.get("cnt");
+			resMap.put(tid, cnt.intValue());
+		}
+		return resMap;
+	}
 }

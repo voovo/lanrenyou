@@ -82,4 +82,13 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 			int offset, int limit) {
 		return travelInfoDao.getTravelInfoListForSearchIndex(endTime, offset, limit);
 	}
+
+	@Override
+	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(
+			List<Integer> uidList) {
+		if(null == uidList || uidList.size() <= 0){
+			return null;
+		}
+		return travelInfoDao.getPublishedTravelCntMapByUidList(uidList);
+	}
 }

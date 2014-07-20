@@ -1,6 +1,10 @@
 package com.lanrenyou.user.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.lanrenyou.user.model.UserFollow;
+
 import mybatis.framework.core.service.IValueObjectService;
 import mybatis.framework.core.support.PageIterator;
 
@@ -45,4 +49,18 @@ public interface IUserFollowService extends IValueObjectService<UserFollow> {
 	 * @exception 
 	*/
 	public PageIterator<UserFollow> pageQueryStarByUid(int fansUid, int pageNo, int pageSize);
+	
+	/**
+	 * 批量查询某些人的粉丝数
+	 * @param uidList
+	 * @return
+	 */
+	public Map<Integer, Integer> getFansCountMapByUidList(List<Integer> uidList);
+	
+	/**
+	 * 批量查询某些人的关注数
+	 * @param uidList
+	 * @return
+	 */
+	public Map<Integer, Integer> getStarCountMapByUidList(List<Integer> uidList);
 }
