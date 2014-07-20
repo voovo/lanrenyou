@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </i>
-                        <span class="ico icon_time">${travelInfo.getCreateTime()}</span>
+                        <span class="ico icon_time"><#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if></span>
                         <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.uid)??>${travelVisitCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
                     </div>
 
@@ -72,25 +72,15 @@
         </#list>
         <!-- 游记列表循环结束 -->
     </ul>
+    <#if pageIter.totalPages?? && pageIter.totalPages gt 100>
+        <#assign totalPageCount = 100>
+    <#else>
+        <#assign totalPageCount = pageIter.totalPages!0>
+    </#if>
+    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/travel/search?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
     <#else>
     <div class="no_result">对不起，未找到匹配内容，请更换搜索条件</div>
 	</#if>
-
-    <div id="page" class="page">
-        <ul class="clearfix">
-            <li><a class="cur" href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li><a href="">6</a></li>
-            <li>...</li>
-            <li><a href="">15</a></li>
-            <li><a href="">16</a></li>
-        </ul>
-    </div>
-
-
 </div>
 
 </@page>

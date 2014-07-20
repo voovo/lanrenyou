@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import mybatis.framework.core.support.PageIterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,12 +62,13 @@ public class TravelSearchController  extends BaseController {
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		List<TravelInfo> travelInfoList = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, pageNo, pageSize);
-		mav.addObject("travelInfoList", travelInfoList);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, pageNo, pageSize);
+		mav.addObject("pageIter", pageIter);
+		mav.addObject("travelInfoList", pageIter.getData());
 
 		Set<Integer> uidSet = new HashSet<Integer>();
 		List<Integer> tidList = new ArrayList<Integer>();
-		for(TravelInfo travelInfo :travelInfoList){
+		for(TravelInfo travelInfo : pageIter.getData()){
 			tidList.add(travelInfo.getId());
 			uidSet.add(travelInfo.getUid());
 		}

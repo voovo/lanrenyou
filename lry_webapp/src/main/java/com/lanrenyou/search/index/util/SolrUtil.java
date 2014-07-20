@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import mybatis.framework.core.support.PageIterator;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrRequest.METHOD;
@@ -85,7 +87,7 @@ public class SolrUtil {
 		return servers;
 	}
 
-	public List<TravelInfo> searchTravel(String keyword, String city, int pageNo, int pageSize){
+	public PageIterator<TravelInfo> searchTravel(String keyword, String city, int pageNo, int pageSize){
 		SolrQuery query = new SolrQuery();
 		if(pageNo < 1){
 			pageNo = 1;
@@ -121,18 +123,21 @@ public class SolrUtil {
 		
 		query.setSortField("updateTime", ORDER.desc);
 		
+		List<TravelInfo> travelInfoList = null;
+		Integer totalCount = 0;
+		
 		try {
 			QueryResponse resp = this.getLryTravelServers()[0].query(query);
+			totalCount = (Integer) resp.getResponse().size();	// 命中个数怎么取？
 			SolrDocumentList docList = resp.getResults();
 			Iterator<SolrDocument> docIter = docList.iterator();
-			List<TravelInfo> travelInfoList = new ArrayList<TravelInfo>();
+			travelInfoList = new ArrayList<TravelInfo>();
 			while(docIter.hasNext()){
 				SolrDocument doc = docIter.next();
-				logger.info("#################{}", gson.toJson(doc));
 				Integer tid = (Integer) doc.getFieldValue("tid");
 				String title = (String) doc.getFieldValue("titile");
 				Integer uid = (Integer) doc.getFieldValue("uid");
-				Date createTime = (Date) doc.getFieldValue("create_time");
+				Date createTime = (Date) doc.getFieldValue("create_time");	// 时间类型怎么处理？
 				String content = (String) doc.getFieldValue("content");
 				TravelInfo travelInfo = new TravelInfo();
 				travelInfo.setId(tid);
@@ -142,14 +147,12 @@ public class SolrUtil {
 				travelInfo.setContent(content);
 				travelInfoList.add(travelInfo);
 			}
-			return travelInfoList;
 		} catch (SolrServerException e) {
 			e.printStackTrace();
-			return null;
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//			return null;
 		}
+		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(travelInfoList);
+		return pageIterator;
 	}
 	
 	public static void main(String[] args) throws MalformedURLException{
