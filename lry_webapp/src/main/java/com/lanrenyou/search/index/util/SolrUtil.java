@@ -19,6 +19,8 @@ import org.apache.solr.client.solrj.impl.CommonsHttpSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.lanrenyou.travel.model.TravelInfo;
@@ -30,6 +32,10 @@ public class SolrUtil {
 	private String lryPlannerServer;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+	
+	protected Logger logger = LoggerFactory.getLogger(getClass());
+	
+	private static final Gson gson = new Gson();
 
 	public String getLryTravelServer() {
 		return lryTravelServer;
@@ -116,18 +122,18 @@ public class SolrUtil {
 		query.setSortField("updateTime", ORDER.desc);
 		
 		try {
-			QueryResponse resp = this.getLryPlannerServers()[0].query(query);
+			QueryResponse resp = this.getLryTravelServers()[0].query(query);
 			SolrDocumentList docList = resp.getResults();
 			Iterator<SolrDocument> docIter = docList.iterator();
 			List<TravelInfo> travelInfoList = new ArrayList<TravelInfo>();
 			while(docIter.hasNext()){
 				SolrDocument doc = docIter.next();
+				logger.info("#################{}", gson.toJson(doc));
 				Integer tid = (Integer) doc.getFieldValue("tid");
 				String title = (String) doc.getFieldValue("titile");
 				Integer uid = (Integer) doc.getFieldValue("uid");
-				String createTimeStr = (String) doc.getFieldValue("create_time");
+				Date createTime = (Date) doc.getFieldValue("create_time");
 				String content = (String) doc.getFieldValue("content");
-				Date createTime = sdf.parse(createTimeStr);
 				TravelInfo travelInfo = new TravelInfo();
 				travelInfo.setId(tid);
 				travelInfo.setTitle(title);
@@ -140,9 +146,9 @@ public class SolrUtil {
 		} catch (SolrServerException e) {
 			e.printStackTrace();
 			return null;
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return null;
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//			return null;
 		}
 	}
 	

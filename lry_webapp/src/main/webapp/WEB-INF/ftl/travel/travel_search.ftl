@@ -58,12 +58,12 @@
                                 </div>
                             </div>
                         </i>
-                        <span class="ico icon_time">${travelInfo.createTime?string('yyyy-MM-dd')}</span>
+                        <span class="ico icon_time">${travelInfo.getCreateTime()}</span>
                         <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.uid)??>${travelVisitCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
                     </div>
 
                     <div class="yj_info hide">
-                    <@truncateChars value="${travelInfo.content}" length="104"/>
+                    <@truncateChars value="${travelInfo.getContent()!''}" length="104"/>
                     </div>
                 </dt>
                 <dd><a href="#"><img src="imgs/yj_img.jpg" alt=""></a></dd>

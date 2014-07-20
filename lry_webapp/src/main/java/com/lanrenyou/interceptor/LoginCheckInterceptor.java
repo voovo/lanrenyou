@@ -6,15 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.user.model.UserInfo;
-import com.lanrenyou.user.service.IUserInfoService;
-import com.lanrenyou.util.AesCryptUtil;
 import com.lanrenyou.util.HtmlFilterUtil;
-import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.ServletUtil;
 import com.lanrenyou.util.StringUtil;
 import com.lanrenyou.util.UrlEncoderUtil;
@@ -35,13 +31,8 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	    		return false;
 	    	}
 	    	String currentUrl = getForwardUrl(request);
-	    	String defaultRedirectValue = "/";
 	    	logger.debug("user does not login");
-	    	String redirectDomains = AppConfigs.getInstance().get("interceptorRedirectDomains");
-	    	if (StringUtil.isEmpty(redirectDomains)) {
-	    		redirectDomains = AppConfigs.getInstance().get("domains.www");
-	    	}
-	    	response.sendRedirect("http://" + redirectDomains + "/login?redir=" + UrlEncoderUtil.encodeByUtf8(currentUrl, defaultRedirectValue));
+	    	response.sendRedirect("http://" + AppConfigs.getInstance().get("domains.www") + "/login?redir=" + UrlEncoderUtil.encodeByUtf8(currentUrl));
 	    	return false;
 	    }
 

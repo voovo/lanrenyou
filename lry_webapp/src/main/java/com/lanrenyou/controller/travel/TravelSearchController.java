@@ -1,8 +1,10 @@
 package com.lanrenyou.controller.travel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,12 +63,14 @@ public class TravelSearchController  extends BaseController {
 		List<TravelInfo> travelInfoList = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, pageNo, pageSize);
 		mav.addObject("travelInfoList", travelInfoList);
 
-		List<Integer> uidList = new ArrayList<Integer>();
+		Set<Integer> uidSet = new HashSet<Integer>();
 		List<Integer> tidList = new ArrayList<Integer>();
 		for(TravelInfo travelInfo :travelInfoList){
 			tidList.add(travelInfo.getId());
-			uidList.add(travelInfo.getUid());
+			uidSet.add(travelInfo.getUid());
 		}
+		
+		List<Integer> uidList = new ArrayList<Integer>(uidSet);
 		Map<Integer, UserInfo> userInfoMap = userInfoService.getUserInfoMapByUidList(uidList);
 		mav.addObject("userInfoMap", userInfoMap);
 		
