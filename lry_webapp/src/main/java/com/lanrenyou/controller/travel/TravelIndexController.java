@@ -14,9 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.travel.service.ITravelCollectService;
 import com.lanrenyou.travel.service.ITravelContentService;
+import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
+import com.lanrenyou.travel.service.impl.TravelInfoStatServiceImpl;
 import com.lanrenyou.travel.model.TravelCollect;
 import com.lanrenyou.travel.model.TravelContent;
+import com.lanrenyou.travel.model.TravelInfoStat;
 import com.lanrenyou.travel.model.TravelVisitLog;
 
 @Controller
@@ -31,6 +34,9 @@ public class TravelIndexController  extends BaseController {
 	
 	@Autowired
 	private ITravelCollectService travelCollectService;
+	
+	@Autowired
+	private ITravelInfoStatService travelInfoStatService;
 	
 	@RequestMapping(value="/visit", method=RequestMethod.GET)
 	@ResponseBody
@@ -71,8 +77,9 @@ public class TravelIndexController  extends BaseController {
 		List<Map<String, String>> contentList = TravelShowUtil.getShowInfoForTravelDetail(travelContent.getContent());
 		mav.addObject("contentList", contentList);
 		
-		int visitCnt = travelVisitLogService.getVisitCountByTid(this.getCurrentTravel().getId());
-		mav.addObject("visitCnt", visitCnt);
+		TravelInfoStat travelStat = travelInfoStatService.getTravelInfoStatByTid(this.getCurrentTravel().getId());
+		mav.addObject("visitCnt", travelStat == null ? 0 : travelStat.getViewCnt());
+		mav.addObject("likeCnt", travelStat == null ? 0 : travelStat.getLikeCnt());
 		
 		int collectCnt = travelCollectService.getCollectCntByTid(this.getCurrentTravel().getId());
 		mav.addObject("collectCnt", collectCnt);

@@ -30,10 +30,13 @@
                     </div>
                     <div class="clearfix detail_info">
                         <p class="detail_img_info">${contentMap.get('info')!''}</p>
-                        <div class="left ico icon_time">2014-07-14 08:32:15</div>
+                        <div class="left ico icon_time"><#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd HH:mm:ss')}</#if></div>
                         <div class="right">
+                        	<!--
                             <a href="javascript:;" class="ico like_ico">喜欢(<i>18</i>)</a>
                             <a href="javascript:;" class="ico share_ico">分享(<i>30</i>)</a>
+                             -->
+                            <a href="javascript:;" class="ico share_ico">分享</a>
                         </div>
                         <div class="share_dialogbox">
                             <a href="javascript:;" class="weibo_ico">新浪微博</a>
