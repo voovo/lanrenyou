@@ -1,6 +1,7 @@
 package com.lanrenyou.controller.travel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -68,10 +69,15 @@ public class TravelSearchController  extends BaseController {
 
 		Set<Integer> uidSet = new HashSet<Integer>();
 		List<Integer> tidList = new ArrayList<Integer>();
+		Map<Integer, String> contentMap = new HashMap<Integer, String>();
 		for(TravelInfo travelInfo : pageIter.getData()){
 			tidList.add(travelInfo.getId());
 			uidSet.add(travelInfo.getUid());
+			contentMap.put(travelInfo.getId(), travelInfo.getContent());
 		}
+		
+		Map<Integer, Map<String, String>> infoMap = TravelShowUtil.getShowInfoForTravel(contentMap);
+		mav.addObject("infoMap", infoMap);
 		
 		List<Integer> uidList = new ArrayList<Integer>(uidSet);
 		Map<Integer, UserInfo> userInfoMap = userInfoService.getUserInfoMapByUidList(uidList);

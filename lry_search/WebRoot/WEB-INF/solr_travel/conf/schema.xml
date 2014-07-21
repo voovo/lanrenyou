@@ -74,7 +74,7 @@
      <field name="travelDate" type="tdate" indexed="true" stored="true" omitNorms="true"  />
     
 	<!-- 游记内容 -->
-    <field name="content" type="text" indexed="true" omitNorms="true"  stored="false"/>
+    <field name="content" type="text" indexed="true" omitNorms="true"  stored="true"/>
    
 	<!-- 发布者邮箱 -->
 	<field name="user_email" type="string" indexed="true" omitNorms="true"  stored="true"/>

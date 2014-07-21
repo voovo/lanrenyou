@@ -47,7 +47,7 @@
                                                 <span>游记 <a href="/user/${travelInfo.uid!''}/travelList"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(travelInfo.uid)??>${userPublishedTravelCntMap.get(travelInfo.uid)!''}<#else>0</#if></a></span>
                                             </p>
                                             
-                                        </dd
+                                        </dd>
                                     </dl>
 
                                     <ul class="author_yj_last">
@@ -62,11 +62,12 @@
                         <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.uid)??>${travelVisitCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
                     </div>
 
+					<#if infoMap?? && infoMap.get(travelInfo.id)??><#assign travelMsg = infoMap.get(travelInfo.id).get('info') /></#if>
                     <div class="yj_info hide">
-                    <@truncateChars value="${travelInfo.getContent()!''}" length="104"/>
+                    <@truncateChars value="${travelMsg!''}" length="104"/>
                     </div>
                 </dt>
-                <dd><a href="#"><img src="imgs/yj_img.jpg" alt=""></a></dd>
+                <dd><a href="#"><img src="<#if infoMap?? && infoMap.get(travelInfo.id)??>${infoMap.get(travelInfo.id).get('src')!''}</#if>" alt=""></a></dd>
             </dl>
         </li>
         </#list>
