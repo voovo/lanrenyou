@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.travel.model.TravelInfoStat;
 import com.lanrenyou.travel.service.ITravelContentService;
+import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserInfoService;
@@ -30,6 +32,9 @@ public class ExportTravels {
 	
 	@Autowired
 	private ITravelContentService travelContentService;
+	
+	@Autowired
+	private ITravelInfoStatService travelInfoStatService;
 	
 	@Autowired
 	private IUserInfoService userInfoService;
@@ -130,6 +135,13 @@ public class ExportTravels {
 			if(null != userPlanner){
 				doc.addField("planner_targetCity", userPlanner.getTargetCity());
 			}
+			
+			TravelInfoStat travelInfoStat = travelInfoStatService.getTravelInfoStatByTid(vo.getId());
+			if(null != travelInfoStat){
+				doc.addField("viewCnt", travelInfoStat.getViewCnt());
+				doc.addField("likeCnt", travelInfoStat.getLikeCnt());
+			}
+			
 			return doc;
 		} catch (Exception e) {
 			e.printStackTrace();

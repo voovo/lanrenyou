@@ -63,7 +63,68 @@ public class TravelSearchController  extends BaseController {
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, pageNo, pageSize);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, pageNo, pageSize, "updateTime", true);
+		prepareSearchData(pageNo, pageSize, pageIter, mav);
+		
+		return mav;
+	}
+	
+	/*
+	 * 批量获取游记的浏览数
+	 */
+	private Map<Integer, Integer> getTravelVisitCntByTidList(List<Integer> tidList){
+		if(null == tidList || tidList.size() <= 0){
+			return null;
+		}
+		return travelVisitLogService.getVisitCountMapByTidList(tidList);
+	}
+	
+	@RequestMapping("/hot")
+	public ModelAndView hotTravel(
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
+			){
+		if(null == pageNo){
+			pageNo = 1;
+		}
+		if(null == pageSize){
+			pageSize = 10;
+		}
+		ModelAndView mav = new ModelAndView("/travel/travel_hot");
+		mav.addObject("pageNo", pageNo);
+		mav.addObject("pageSize", pageSize);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, pageNo, pageSize, "viewCnt", true);
+		prepareSearchData(pageNo, pageSize, pageIter, mav);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/latest")
+	public ModelAndView latestTravel(
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
+			){
+		if(null == pageNo){
+			pageNo = 1;
+		}
+		if(null == pageSize){
+			pageSize = 10;
+		}
+		ModelAndView mav = new ModelAndView("/travel/travel_latest");
+		mav.addObject("pageNo", pageNo);
+		mav.addObject("pageSize", pageSize);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, pageNo, pageSize, "updateTime", true);
+		prepareSearchData(pageNo, pageSize, pageIter, mav);
+		
+		return mav;
+	}
+
+	/*
+	 * 针对页面显示内容准备数据
+	 */
+	private void prepareSearchData(Integer pageNo, Integer pageSize, PageIterator<TravelInfo> pageIter,
+			ModelAndView mav) {
+		
 		mav.addObject("pageIter", pageIter);
 		mav.addObject("travelInfoList", pageIter.getData());
 
@@ -93,17 +154,6 @@ public class TravelSearchController  extends BaseController {
 		
 		Map<Integer, Integer> travelVisitCntMap = getTravelVisitCntByTidList(tidList);
 		mav.addObject("travelVisitCntMap", travelVisitCntMap);
-		
-		return mav;
 	}
-	
-	/*
-	 * 批量获取游记的浏览数
-	 */
-	private Map<Integer, Integer> getTravelVisitCntByTidList(List<Integer> tidList){
-		if(null == tidList || tidList.size() <= 0){
-			return null;
-		}
-		return travelVisitLogService.getVisitCountMapByTidList(tidList);
-	}
+			
 }

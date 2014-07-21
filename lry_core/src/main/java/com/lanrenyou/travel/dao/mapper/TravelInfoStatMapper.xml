@@ -38,4 +38,21 @@
     <include refid="Base_Column_List" />
     from tb_travel_info_stat
   </select>
+  
+  <select id="getByTid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info_stat
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getByTidList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_travel_info_stat
+    where tid in 
+    	<foreach collection="tidList" item="item" index="index" open="(" separator="," close=")">
+            #{item, jdbcType=INTEGER}
+        </foreach>
+  </select>
 </mapper>

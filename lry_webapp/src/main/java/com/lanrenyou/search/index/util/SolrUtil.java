@@ -81,7 +81,7 @@ public class SolrUtil {
 		return servers;
 	}
 
-	public PageIterator<TravelInfo> searchTravel(String keyword, String city, int pageNo, int pageSize){
+	public PageIterator<TravelInfo> searchTravel(String keyword, String city, int pageNo, int pageSize, String orderBy, boolean orderDesc){
 		SolrQuery query = new SolrQuery();
 		if(pageNo < 1){
 			pageNo = 1;
@@ -115,7 +115,11 @@ public class SolrUtil {
 		
 		query.setQuery(querySb.toString());
 		
-		query.setSortField("updateTime", ORDER.desc);
+		if(StringUtils.isBlank(orderBy)){
+			query.setSortField("updateTime", ORDER.desc);
+		} else {
+			query.setSortField(orderBy, orderDesc ?ORDER.desc:ORDER.asc);
+		}
 		
 		List<TravelInfo> travelInfoList = null;
 		Integer totalCount = 0;

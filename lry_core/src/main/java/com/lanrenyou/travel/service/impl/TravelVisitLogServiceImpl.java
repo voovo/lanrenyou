@@ -7,6 +7,8 @@ import com.lanrenyou.travel.dao.ITravelVisitLogDao;
 import com.lanrenyou.travel.model.TravelVisitLog;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
 import mybatis.framework.core.service.BaseVOService;
+import mybatis.framework.core.support.PageIterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +31,5 @@ public class TravelVisitLogServiceImpl extends BaseVOService<TravelVisitLog> imp
 	public Map<Integer, Integer> getVisitCountMapByTidList(List<Integer> tidList) {
 		return travelVisitLogDao.getVisitCntMapByTidList(tidList);
 	}
+	
 }

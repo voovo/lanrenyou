@@ -95,6 +95,11 @@
 	
 	<!-- 规划师可规划地区 -->
 	<field name="planner_targetCity" type="string" indexed="true" omitNorms="true"  stored="true"/>
+	
+	<!-- 浏览数 -->
+    <field name="viewCnt" type="int" indexed="true" stored="true" omitNorms="true"  /> 
+    <!-- 喜欢数 -->
+    <field name="likeCnt" type="int" indexed="true" stored="true" omitNorms="true"  /> 
  </fields>
  	
  	<uniqueKey>tid</uniqueKey>
