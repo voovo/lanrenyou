@@ -93,6 +93,9 @@ public class ExportPlanners {
 				if(null != userInfo.getWechatName()){
 					doc.addField("wechatName", userInfo.getWechatName());//微信账号
 				}
+				if(null != userInfo.getAvatar()){
+					doc.addField("avatar", userInfo.getAvatar());
+				}
 				if(null != userInfo.getPresentAddress()){
 					doc.addField("presentAddress", userInfo.getPresentAddress());//现住址
 				}

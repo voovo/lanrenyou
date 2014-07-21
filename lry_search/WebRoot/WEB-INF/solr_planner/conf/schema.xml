@@ -68,6 +68,8 @@
     <field name="weiboName" type="string" indexed="true" stored="true" omitNorms="true"  />
     <!-- 微信账号 -->
     <field name="wechatName" type="string" indexed="true" stored="true" omitNorms="true"  />
+    <!-- 头像 -->
+    <field name="avatar" type="string" indexed="true" stored="true" omitNorms="true"  />
     <!-- 现住址 -->
     <field name="presentAddress" type="string" indexed="true" stored="true" omitNorms="true"  />
     <!-- 曾经住址 -->

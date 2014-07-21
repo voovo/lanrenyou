@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.user.model.UserInfo;
 
 public class SolrUtil {
 
@@ -81,7 +82,7 @@ public class SolrUtil {
 		return servers;
 	}
 
-	public PageIterator<TravelInfo> searchTravel(String keyword, String city, int pageNo, int pageSize, String orderBy, boolean orderDesc){
+	public PageIterator<TravelInfo> searchTravel(String keyword, String city, Integer createUid, int pageNo, int pageSize, String orderBy, boolean orderDesc){
 		SolrQuery query = new SolrQuery();
 		if(pageNo < 1){
 			pageNo = 1;
@@ -94,6 +95,13 @@ public class SolrUtil {
 		StringBuilder querySb = new StringBuilder();
 		if(StringUtils.isNotBlank(city)){
 			querySb.append("city:").append(city);
+		}
+		if(null != createUid && createUid > 0){
+			if(querySb.length() > 0){
+				querySb.append(" and ").append("uid:").append(createUid);
+			} else {
+				querySb.append("uid:").append(createUid);
+			}
 		}
 		if(StringUtils.isNotBlank(keyword)){
 			StringBuilder keywordSb = new StringBuilder("(");
@@ -133,7 +141,7 @@ public class SolrUtil {
 			while(docIter.hasNext()){
 				SolrDocument doc = docIter.next();
 				Integer tid = (Integer) doc.getFieldValue("tid");
-				String title = (String) doc.getFieldValue("titile");
+				String title = (String) doc.getFieldValue("title");
 				Integer uid = (Integer) doc.getFieldValue("uid");
 				String createTimeS = doc.getFieldValue("createTime").toString();
 				String content = (String) doc.getFieldValue("content");
@@ -152,6 +160,88 @@ public class SolrUtil {
 		}
 		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
 		pageIterator.setData(travelInfoList);
+		return pageIterator;
+	}
+	
+	public PageIterator<UserInfo> searchUser(String keyword, String city, int pageNo, int pageSize, String orderBy, boolean orderDesc){
+		SolrQuery query = new SolrQuery();
+		if(pageNo < 1){
+			pageNo = 1;
+		}
+		if(pageSize < 1){
+			pageSize = 10;
+		}
+		query.setStart((pageNo -1) * pageSize);
+		query.setRows(pageSize);
+		StringBuilder querySb = new StringBuilder();
+		if(StringUtils.isNotBlank(city)){
+			querySb.append("targetCity:").append(city);
+		}
+		if(StringUtils.isNotBlank(keyword)){
+			StringBuilder keywordSb = new StringBuilder("(");
+			keywordSb.append("name:").append(keyword).append(" or ");
+			keywordSb.append("nickname:").append(keyword).append(" or ");
+			keywordSb.append("weiboName:").append(keyword).append(" or ");
+			keywordSb.append("wechatName:").append(keyword).append(" or ");
+			keywordSb.append("presentAddress:").append(keyword).append(" or ");
+			keywordSb.append("previousAddress:").append(keyword).append(" or ");
+			keywordSb.append("userIntro:").append(keyword);
+			keywordSb.append(")");
+			
+			if(querySb.length() > 0){
+				querySb.append(" and ").append(keywordSb);
+			} else {
+				querySb.append(keywordSb.substring(1, keywordSb.length() -1 ));
+			}
+		}
+		
+		query.setQuery(querySb.toString());
+		
+		if(StringUtils.isBlank(orderBy)){
+			query.setSortField("updateTime", ORDER.desc);
+		} else {
+			query.setSortField(orderBy, orderDesc ?ORDER.desc:ORDER.asc);
+		}
+		
+		List<UserInfo> userInfoList = null;
+		Integer totalCount = 0;
+		
+		try {
+			QueryResponse resp = this.getLryPlannerServers()[0].query(query);
+			SolrDocumentList docList = resp.getResults();
+			totalCount = (int) docList.getNumFound();	// 命中个数
+			Iterator<SolrDocument> docIter = docList.iterator();
+			userInfoList = new ArrayList<UserInfo>();
+			while(docIter.hasNext()){
+				SolrDocument doc = docIter.next();
+				Integer uid = (Integer) doc.getFieldValue("uid");
+				String name = (String) doc.getFieldValue("name");
+				String nickname = (String) doc.getFieldValue("nickname");
+				String email = (String) doc.getFieldValue("email");
+				String weiboName = (String) doc.getFieldValue("weiboName");
+				String wechatName = (String) doc.getFieldValue("wechatName");
+				String presentAddress = (String) doc.getFieldValue("presentAddress");
+				String previousAddress = (String) doc.getFieldValue("previousAddress");
+				String intro = (String) doc.getFieldValue("userIntro");
+				String avatar = (String) doc.getFieldValue("avatar");
+				UserInfo userInfo = new UserInfo();
+				userInfo.setId(uid);
+				userInfo.setName(name);
+				userInfo.setEmail(email);
+				userInfo.setNickname(nickname);
+				userInfo.setPresentAddress(presentAddress);
+				userInfo.setPreviousAddress(previousAddress);
+				userInfo.setUserIntro(intro);
+				userInfo.setWeiboName(weiboName);
+				userInfo.setWechatName(wechatName);
+				userInfo.setAvatar(avatar);
+				userInfoList.add(userInfo);
+			}
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		}
+		PageIterator<UserInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(userInfoList);
 		return pageIterator;
 	}
 	

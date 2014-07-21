@@ -1,4 +1,4 @@
-<@page  title="找规划师-懒人游" description=""  keywords="" 
+<@page  title="找游记-懒人游" description=""  keywords="" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/js/waper.js"
@@ -11,7 +11,7 @@
     
     <ul class="warper_tab clearfix">
         <li class="cur">游记</li>
-        <li><a href="javascript:;">规划师</a></li>
+        <li><a href="/user/search">规划师</a></li>
     </ul>
 
 	<#if travelInfoList?? && travelInfoList?size gt 0>

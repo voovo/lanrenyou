@@ -74,56 +74,55 @@
                 <!-- detail_author -->
                 <div id="detail_author" class="clearfix">
                     <div class="left author_img">
-                        <img src="imgs/user_face.jpg" alt="">
+                        <img src="${userInfo.avatar!''}" alt="">
                     </div>
                     <div class="left authot_info">
-                        <h2 class="vip_b_ico"><a href="#">shell_corona</a></h2>
+                        <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
                         <p>
                             <a href="javascript:;" class="btn_s msg_btn right"></a>
                             <a href="javascript:;" class="btn_s add_btn right"></a>
                         </p>
                     </div>
                 </div>
-                <p id="author_produ">文艺小女子一枚，十九岁之前常和母亲一起旅行，曾去过十七个国家，十九岁赴美留学之后开始独自旅行，旅行途中导游摄影翻译搬行李皆自己负责，喜欢记录旅行途中的小故事，希望与大家分享更多关于爱，关于十九岁独旅，关于温暖，关于这个诺大世界我们所不知道的人和事。去旅行，为了带着爱回来。让我为你策划一场关于爱的旅程，不论是独旅或是和朋友家人一起，和我一起，带着初心走世界吧。</p>
+                <p id="author_produ">${userInfo.intro!''}</p>
                 
                 <!-- 策划地区 -->
+                <#if userPlanner?? >
                 <dl class="plan_area clearfix">
                     <dt>可策划地区：</dt>
                     <dd>
                         <ul>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
-                            <li><a href="javascript:;">美国纽约</a></li>
+                        	<#list plannCities as city >
+	                            <li><a href="/travel/search?city=${city!''}">${city!''}</a></li>
+                            </#list>
                         </ul>
                     </dd>
                 </dl>
+                </#if>
 
                 <!-- 居住地区 -->
                 <dl class="plan_area clearfix">
                     <dt>住过的地方：</dt>
                     <dd>
                         <ul>
-                            <li>美国纽约、美国纽约、美国纽约、美国纽约</li>
+                            <li>${userInfo.previousAddress!''}</li>
                         </ul>
                     </dd>
                 </dl>
 
 
                 <!-- TA的游记 -->
+                <#if userTravelList?? && userTravelList?size gt 0>
                 <div id="my_youji_list" class="detail_right_list">
                     <h3>Ta的游记</h3>
                     <ul>
-                        <li><a href="#" title="美国西海岸一号公路外加一小段66号公路野马自驾15天">美国西海岸一号公路外加一小段66号公路野马自驾15天</a></li>
-                        <li><a href="#" title="周扒皮西游第三季：骑行美国66号公路">周扒皮西游第三季：骑行美国66号公路</a></li>
-                        <li><a href="#" title="好想去66号公路的寻梦">好想去66号公路的寻梦</a></li>
-                        <li class="yj_more"><a href="#" title="查看Ta的全部游记">查看Ta的全部游记>></a></li>
+                    	<#list userTravelList as userTravel>
+	                        <li><a href="/travel/${userTravel.id!''}" title="${userTravel.title!''}">${userTravel.title!''}</a></li>
+                        </#list>
+                        <li class="yj_more"><a href="/user/${userInfo.id!''}/travelList" title="查看Ta的全部游记">查看Ta的全部游记>></a></li>
                     </ul>
                 </div>
+                </#if>
 
                 <!-- 相关游记 -->
                 <div id="other_youji_list" class="detail_right_list">
