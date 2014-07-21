@@ -137,7 +137,7 @@ public class TravelSearchController  extends BaseController {
 			contentMap.put(travelInfo.getId(), travelInfo.getContent());
 		}
 		
-		Map<Integer, Map<String, String>> infoMap = TravelShowUtil.getShowInfoForTravel(contentMap);
+		Map<Integer, Map<String, String>> infoMap = TravelShowUtil.getShowInfoForTravelSearch(contentMap);
 		mav.addObject("infoMap", infoMap);
 		
 		List<Integer> uidList = new ArrayList<Integer>(uidSet);

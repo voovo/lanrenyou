@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.lanrenyou.travel.dao.ITravelVisitLogDao;
 import com.lanrenyou.travel.model.TravelVisitLog;
+import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
 import mybatis.framework.core.service.BaseVOService;
-import mybatis.framework.core.support.PageIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,15 @@ import org.springframework.stereotype.Service;
 public class TravelVisitLogServiceImpl extends BaseVOService<TravelVisitLog> implements ITravelVisitLogService {
     @Autowired
     private ITravelVisitLogDao travelVisitLogDao;
+    
+    @Autowired
+    private ITravelInfoStatService travelInfoStatService;
 
 	@Override
 	public int addTravelVisitLog(TravelVisitLog visitLog) {
-		return travelVisitLogDao.insert(visitLog);
+		int result = travelVisitLogDao.insert(visitLog);
+		travelInfoStatService.addTravelViewCnt(visitLog.getTid());
+		return result;
 	}
 
 	@Override

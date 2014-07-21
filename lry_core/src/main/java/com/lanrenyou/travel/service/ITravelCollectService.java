@@ -46,4 +46,13 @@ public interface ITravelCollectService extends IValueObjectService<TravelCollect
 	 * @exception 
 	*/
 	public PageIterator<TravelCollect> pageQueryTravelCollectByTid(int tid, int pageNo, int pageSize);
+	
+	/**
+	 * getCollectCntByTid	获取某篇游记的收藏数
+	 * 
+	 * @param tid
+	 * @return int
+	 * @exception 
+	*/
+	public int getCollectCntByTid(int tid);
 }

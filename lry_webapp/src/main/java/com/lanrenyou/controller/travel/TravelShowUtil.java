@@ -13,10 +13,19 @@ public class TravelShowUtil {
 	
 	private static Gson gson = new Gson();
 	
+	public static List<Map<String, String>> getShowInfoForTravelDetail(String content){
+		if(StringUtils.isBlank(content)){
+			return null;
+		}
+		
+		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		return list;
+	}
+	
 	/*
 	 * 取出单个游记内容中的封面与头条信息
 	 */
-	public static Map<String, String> getShowInfoForTravel(String content){
+	public static Map<String, String> getShowInfoForTravelSearch(String content){
 		if(StringUtils.isBlank(content)){
 			return null;
 		}
@@ -31,7 +40,7 @@ public class TravelShowUtil {
 	/*
 	 * 批量取出多个游记内容中的封面与头条信息
 	 */
-	public static Map<Integer, Map<String, String>> getShowInfoForTravel(Map<Integer, String> contentMap){
+	public static Map<Integer, Map<String, String>> getShowInfoForTravelSearch(Map<Integer, String> contentMap){
 		if(null == contentMap || contentMap.size() <= 0){
 			return null;
 		}
@@ -52,7 +61,7 @@ public class TravelShowUtil {
 	public static void main(String[] args){
 		String content = "[{\"src\":\"http://img.lanrenyou.com/2014/07/16/1_s.jpg\" , \"info\" : \"11111111111\"},{\"src\":\"http://img.lanrenyou.com/2014/07/16/2_s.jpg\" , \"info\" : \"22222222222\"},{\"src\":\"http://img.lanrenyou.com/2014/07/16/3_s.jpg\" , \"info\" : \"333333333333\"}]";
 //		String content = "[{\"src\":\"http://img.lanrenyou.com/2014/07/16/181526206_s.jpg\" , \"info\" : \"asas\"}]";
-		Map<String, String> map = getShowInfoForTravel(content);
+		Map<String, String> map = getShowInfoForTravelSearch(content);
 		System.out.println(map.get("src"));
 		System.out.println(map.get("info"));
 	}
