@@ -63,7 +63,7 @@ public class TravelSearchController  extends BaseController {
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, pageNo, pageSize, "updateTime", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, null, pageNo, pageSize, "updateTime", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;
@@ -93,7 +93,7 @@ public class TravelSearchController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/travel/travel_hot");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, pageNo, pageSize, "viewCnt", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "viewCnt", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;
@@ -113,7 +113,7 @@ public class TravelSearchController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/travel/travel_latest");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, pageNo, pageSize, "updateTime", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "updateTime", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;

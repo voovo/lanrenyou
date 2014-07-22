@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mybatis.framework.core.support.PageIterator;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.controller.base.BaseController;
+import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.travel.service.ITravelCollectService;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoStatService;
@@ -19,8 +23,16 @@ import com.lanrenyou.travel.service.ITravelVisitLogService;
 import com.lanrenyou.travel.service.impl.TravelInfoStatServiceImpl;
 import com.lanrenyou.travel.model.TravelCollect;
 import com.lanrenyou.travel.model.TravelContent;
+<<<<<<< HEAD
 import com.lanrenyou.travel.model.TravelInfoStat;
+=======
+import com.lanrenyou.travel.model.TravelInfo;
+>>>>>>> 1bf0874cfd4056c094a89c7e62e6b8ab79c78906
 import com.lanrenyou.travel.model.TravelVisitLog;
+import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.user.service.IUserPlannerService;
 
 @Controller
 @RequestMapping("/travel/{tid:[\\d]+}")
@@ -36,7 +48,17 @@ public class TravelIndexController  extends BaseController {
 	private ITravelCollectService travelCollectService;
 	
 	@Autowired
+<<<<<<< HEAD
 	private ITravelInfoStatService travelInfoStatService;
+=======
+	private IUserInfoService userInfoService;
+	
+	@Autowired
+	private IUserPlannerService userPlannerService;
+	
+	@Autowired
+	private SolrUtil solrUtil;
+>>>>>>> 1bf0874cfd4056c094a89c7e62e6b8ab79c78906
 	
 	@RequestMapping(value="/visit", method=RequestMethod.GET)
 	@ResponseBody
@@ -83,6 +105,20 @@ public class TravelIndexController  extends BaseController {
 		
 		int collectCnt = travelCollectService.getCollectCntByTid(this.getCurrentTravel().getId());
 		mav.addObject("collectCnt", collectCnt);
+		
+		UserInfo userInfo = userInfoService.getUserInfoByUid(this.getCurrentTravel().getUid());
+		mav.addObject("userInfo", userInfo);
+		
+		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(this.getCurrentTravel().getUid());
+		if(null != userPlanner && StringUtils.isNotBlank(userPlanner.getTargetCity())){
+			String[] plannCities = userPlanner.getTargetCity().split(",");
+			mav.addObject("plannCities", plannCities);
+		}
+		
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getCurrentTravel().getUid(), 1, 3, "updateTime", true);
+		if(null != pageIter && null != pageIter.getData()){
+			mav.addObject("userTravelList", pageIter.getData());
+		}
 		
 		return mav;
 	}
