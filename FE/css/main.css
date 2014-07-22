@@ -4,13 +4,16 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
 .g9{ color: #999 !important;}
 .btn{ font-size: 18px; color: #fff !important; padding: 8px 25px; text-align: center; border-radius: 3px; border:0;}
-.blue_btn{ background: #364758;}
+.btn_s{ font-size: 14px; color: #fff !important; padding: 8px 15px; text-align: center; border-radius: 3px; border:0;}
+.blue_btn{ background: #364758;  border: 1px solid #364758;}
 .blue_btn:hover{ background:#1f2f3e;}
+.gray_btn{ background: #ededed; color: #364758 !important; border: 1px solid #cecece;}
+.gray_btn:hover{ background: #d8d8d8;}
 .big_btn{ padding:12px 25px;}
 
 .rq{ color: #e20000; margin-right: 5px;}
@@ -41,6 +44,21 @@
 .up_ico{ display:block; width:12px; height: 12px; background-position: -7px -370px;}
 .vip_ico{ padding-right: 20px;  background-position: right -492px;}
 .vip_b_ico{ padding-right: 30px;  background-position: right -865px;}
+.icon_edit{ background-position: 1px -669px; display: block; width: 12px; height: 15px; line-height: 0; font-size: 0; position: absolute; left:0; top:0;}
+.icon_del{ background-position: 1px -694px; display: block; width: 12px; height: 15px; line-height: 0; font-size: 0; position: absolute; left:0; top:0;}
+.delete_ico{background-position: -711px -455px;}
+.edit_icon{background-position: -713px -482px;}
+
+.yj_icon{ background-position: -833px -55px;}
+.fav_icon{ background-position: -833px -283px;}
+.fans_icon{ background-position: -839px -896px;}
+.msg_icon{ background-position: -832px -144px;}
+
+.add_icon{background-position: -715px -379px; padding-left: 18px;}
+.added_icon{background-position: -713px -428px; padding-left: 18px;  color: #666 !important; cursor: default !important; margin-right: 0;}
+.addeach_icon{background-position: -713px -403px; padding-left: 20px; color: #666 !important; cursor: default !important; margin-right: 0;}
+
+
 .add_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -404px;}
 .msg_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -437px;}
 

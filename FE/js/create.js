@@ -178,7 +178,7 @@ $(function(){
                 
             },
             'onUploadError':function(file, errorCode, errorMsg, errorString){
-                console.log(file, errorCode, errorMsg, errorString)
+                //console.log(file, errorCode, errorMsg, errorString)
             }
         });
         
@@ -191,15 +191,16 @@ $(function(){
             var c_title = $("#c_title").val(),
                 c_area = $(".label_box").find("li").text() || $("#last_home").val(),
                 c_len = $(".album_block:visible").length,
-                c_yj = new Array();
+                c_yj = "[";
 
             if($(".album_block:visible").length > 0){
                 $(".album_block:visible").each(function(){
                     var img_src = $(this).find(".img_left img").attr("src"),
                         img_info = $(this).find(".right textarea").val();
-                    c_yj.push('{"src":"'+img_src+'" , "info" : "'+img_info+'"}');
+                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"}';
                 }); 
             }
+            c_yj+= "]";
             //console.log(c_title , c_area , c_yj);
 
             //return;
@@ -238,6 +239,11 @@ $(function(){
             }
         });
     }
+
+    // 继续发游记
+    $(".suc_link .close_d").click(function(){
+         location.reload();
+    });
 
 
     // 弹层
