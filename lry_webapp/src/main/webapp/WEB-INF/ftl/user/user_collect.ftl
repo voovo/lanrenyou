@@ -42,7 +42,7 @@
             <div class="u_yj_info">
                 <span class="ico icon_time">${travelInfoMap.get(tid).createTime?string('yyyy-MM-dd')!''}</span>
                 <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.uid)??>${travelVisitCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
-                <a href="/user/${author.id}/unCollect?tid=${tid!''}"><i class="ico icon_del"></i>删除</a>
+                <a href="/travel/${tid!''}/uncollect"><i class="ico icon_del"></i>删除</a>
             </div>
         </li>
         </#if>
