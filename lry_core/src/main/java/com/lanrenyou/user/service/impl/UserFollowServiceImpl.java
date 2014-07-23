@@ -73,4 +73,9 @@ public class UserFollowServiceImpl extends BaseVOService<UserFollow> implements 
 		return userFollowDao.getStarCountMapByUidList(uidList);
 	}
 
+	@Override
+	public boolean isFollowed(int fansUid, int starUid) {
+		return userFollowDao.getByFansUidStarUid(fansUid, starUid);
+	}
+
 }

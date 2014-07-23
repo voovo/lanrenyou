@@ -63,4 +63,12 @@ public interface IUserFollowService extends IValueObjectService<UserFollow> {
 	 * @return
 	 */
 	public Map<Integer, Integer> getStarCountMapByUidList(List<Integer> uidList);
+	
+	/**
+	 * 判断是否已经关注某人
+	 * @param fansUid
+	 * @param starUid
+	 * @return
+	 */
+	public boolean isFollowed(int fansUid, int starUid);
 }

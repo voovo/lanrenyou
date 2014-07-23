@@ -11,7 +11,7 @@
     
     <ul class="warper_tab clearfix">
         <li><a href="/user/${userInfo.id!''}/detail">个人设置</a></li>
-        <li><a href="/user/${userInfo.id!''}/travelList">我的游记</a></li>
+        <li><a href="/user/${userInfo.id!''}/travelList/list">我的游记</a></li>
         <li><a href="/user/${userInfo.id!''}/msg">消息中心 (<i>12</i>)</a></li>
         <li><a href="/user/${userInfo.id!''}/fans">粉丝管理</a></li>
         <li class="cur">我的收藏</li>
@@ -41,7 +41,7 @@
             </div>
             <div class="u_yj_info">
                 <span class="ico icon_time">${travelInfoMap.get(tid).createTime?string('yyyy-MM-dd')!''}</span>
-                <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.uid)??>${travelVisitCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
+                <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if></span>
                 <a href="/travel/${tid!''}/uncollect"><i class="ico icon_del"></i>删除</a>
             </div>
         </li>
@@ -49,25 +49,15 @@
         </#list>
         <!-- 我的收藏列表循环结束 -->
     </ul>
+    <#if pageIter.totalPages?? && pageIter.totalPages gt 100>
+        <#assign totalPageCount = 100>
+    <#else>
+        <#assign totalPageCount = pageIter.totalPages!0>
+    </#if>
+    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/${userInfo.id!''}/collect/list?pageNo=%d"/>
     <#else>
     	<div class="no_result">还没有收藏游记</div>
     </#if>
-
-
-    <div id="page" class="page">
-        <ul class="clearfix">
-            <li><a class="cur" href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li><a href="">6</a></li>
-            <li>...</li>
-            <li><a href="">15</a></li>
-            <li><a href="">16</a></li>
-        </ul>
-    </div>
-
 
 </div>
 </@page>

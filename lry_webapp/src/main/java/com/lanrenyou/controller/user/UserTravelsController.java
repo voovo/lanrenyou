@@ -69,7 +69,7 @@ public class UserTravelsController  extends BaseController {
 		if(null == pageSize){
 			pageSize = 10;
 		}
-		ModelAndView mav = new ModelAndView("/user/user_collect");
+		ModelAndView mav = new ModelAndView("/user/user_travels");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
 		mav.addObject("userInfo", this.getLoginUser());
@@ -77,10 +77,12 @@ public class UserTravelsController  extends BaseController {
 		List<Integer> tidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
+			mav.addObject("pageIter", pageIter);
 			for(TravelInfo travelInfo : pageIter.getData()){
 				tidList.add(travelInfo.getId());
 			}
 			mav.addObject("tidList", tidList);
+			mav.addObject("travelInfoList", pageIter.getData());
 		}
 		
 		List<TravelContent> travelContentList = travelContentService.getTravelContentListByTidList(tidList);

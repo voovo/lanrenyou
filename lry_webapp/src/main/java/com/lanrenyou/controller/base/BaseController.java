@@ -20,7 +20,11 @@ public abstract class BaseController extends AbstractCommonController {
 	}
 	
 	public TravelInfo getCurrentTravel(){
-		return (TravelInfo) request.getAttribute(LRYConstant.LOGIN_USER);
+		return (TravelInfo) request.getAttribute(LRYConstant.CURRENT_TRAVEL);
+	}
+	
+	public UserInfo getCurrentUser(){
+		return(UserInfo) request.getAttribute(LRYConstant.CURRENT_USER);
 	}
 	
 	/**

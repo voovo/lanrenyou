@@ -18,8 +18,8 @@
     </ul>
     
     <ul id="u_fans_tabs" class="clearfix waper_box">
-        <li><a class="btn_s blue_btn" href="javascript:;">全部关注(1206)</a></li>
-        <li><a class="btn_s gray_btn" href="javascript:;">我关注的人(127)</a></li>
+        <li><a class="btn_s gray_btn" href="javascript:;">全部关注(1206)</a></li>
+        <li><a class="btn_s blue_btn" href="javascript:;">我关注的人(127)</a></li>
     </ul>
 
 	<#if uidList?? && uidList?size gt 0>
@@ -31,10 +31,10 @@
                 <img class="left" src="<#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).avatar!''}</#if>" alt="">
                 <div class="left">
                     <p><span class="vip_ico"><a href="/user/${uid!''}"><#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).name!''}</#if></a></span></p>
-                    <#if starMap?? && starMap.get(uid)??>
+                    <#if fansMap?? && fansMap.get(uid)??>
                     	<p class="u_fans_links"><a href="javascript:;" class="ico addeach_icon">已互听</a> | <a href="#">取消关注</a></p>
                     <#else>
-                    	<p class="u_fans_links"><a href="javascript:;" class="ico add_icon">关注</a></p>
+                    	<p class="u_fans_links"><a href="javascript:;" class="ico added_icon">已关注</a> | <a href="#">取消关注</a></p>
                     </#if>
                 </div>
             </div>
@@ -44,12 +44,13 @@
         <!-- 粉丝管理列表循环结束 -->
     </ul>
 
+
     <#if pageIter.totalPages?? && pageIter.totalPages gt 100>
         <#assign totalPageCount = 100>
     <#else>
         <#assign totalPageCount = pageIter.totalPages!0>
     </#if>
-    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/${userInfo.id!''}/fans/list?pageNo=%d"/>
+    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/${userInfo.id!''}/star/list?pageNo=%d"/>
     <#else>
     	<div class="no_result">还没有关注用户</div>
     </#if>

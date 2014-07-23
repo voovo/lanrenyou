@@ -78,4 +78,11 @@
     from tb_user_follow
     where fans_uid in <foreach collection="uidList" open="(" close=")" item="item" separator=",">#{item, jdbcType=INTEGER}</foreach> group by fans_uid
   </select>
+  
+  <select id="getByFansUidStarUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user_follow
+    where fans_uid = #{fansUid,jdbcType=INTEGER} and star_uid = #{starUid,jdbcType=INTEGER}
+  </select>
 </mapper>

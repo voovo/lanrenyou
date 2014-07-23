@@ -65,5 +65,13 @@ public interface IUserFollowDao extends IValueObjectDao<UserFollow> {
 	public Map<Integer, Integer> getFansCountMapByUidList(List<Integer> uidList);
 
 	public Map<Integer, Integer> getStarCountMapByUidList(List<Integer> uidList);
+
+	/**
+	 * 判断是否关注了某用户
+	 * @param fansUid
+	 * @param starUid
+	 * @return
+	 */
+	public boolean getByFansUidStarUid(int fansUid, int starUid);
 	
 }

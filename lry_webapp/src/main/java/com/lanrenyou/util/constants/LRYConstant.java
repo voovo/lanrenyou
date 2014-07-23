@@ -11,6 +11,10 @@ public interface LRYConstant {
 	 */
 	public static final String CURRENT_TRAVEL = "current_travel";
 	
+	/**
+	 * URL REST 中请求的用户
+	 */
+	public static final String CURRENT_USER = "current_user";
 
 	/**
 	 * 密码类常量－－－－start

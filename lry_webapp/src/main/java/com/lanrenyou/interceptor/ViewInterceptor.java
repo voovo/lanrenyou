@@ -73,6 +73,26 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 				request.setAttribute("current_travel", travelInfo);
 			}
 		}
+		if(StringUtils.isNotBlank(uri) && uri.matches("/user/\\d+(/.*)?")){
+			String uidStr = uri.substring(5);
+			int i = uidStr.indexOf('/');
+			int uid = 0;
+			try{
+				if(i == -1){
+					uid = Integer.parseInt(uidStr);
+				} else {
+					uidStr = uidStr.substring(0, i);
+					uid = Integer.parseInt(uidStr);
+				}
+			}catch(Exception e){
+				logger.warn("非用户ID：{}", uidStr);
+			}
+			
+			UserInfo current_UserInfo = userInfoService.getUserInfoByUid(uid);
+			if(null != current_UserInfo){
+				request.setAttribute("current_user", current_UserInfo);
+			}
+		}
 		
 		return true;
 	}
