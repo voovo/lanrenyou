@@ -34,8 +34,8 @@ import com.lanrenyou.user.service.IUserFollowService;
 import com.lanrenyou.user.service.IUserInfoService;
 
 @Controller
-@RequestMapping("/user/{uid:[\\d]+}/collect")
-public class UserCollectController  extends BaseController {
+@RequestMapping("/user/{uid:[\\d]+}/travelList")
+public class UserTravelsController  extends BaseController {
 	
 	@Autowired
 	private ITravelInfoService travelInfoService;
@@ -51,6 +51,9 @@ public class UserCollectController  extends BaseController {
 	
 	@Autowired
 	private ITravelVisitLogService travelVisitLogService;
+	
+	@Autowired
+	private SolrUtil solrUtil;
 	
 	@RequestMapping("/list")
 	public ModelAndView list(
@@ -70,24 +73,14 @@ public class UserCollectController  extends BaseController {
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
 		mav.addObject("userInfo", this.getLoginUser());
-		PageIterator<TravelCollect> pageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), pageNo, pageSize);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getLoginUser().getId(), pageNo, pageSize, "updateTime", true);
 		List<Integer> tidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
-			for(TravelCollect travelCollect : pageIter.getData()){
-				tidList.add(travelCollect.getTid());
-				uidSet.add(travelCollect.getUid());
+			for(TravelInfo travelInfo : pageIter.getData()){
+				tidList.add(travelInfo.getId());
 			}
 			mav.addObject("tidList", tidList);
-		}
-		
-		List<TravelInfo> travelInfoList = travelInfoService.getTravelInfoByIdList(tidList);
-		Map<Integer, TravelInfo> travelInfoMap = new HashMap<Integer, TravelInfo>();
-		if(null != travelInfoList && travelInfoList.size() > 0){
-			for(TravelInfo travelInfo : travelInfoList){
-				travelInfoMap.put(travelInfo.getId(), travelInfo);
-			}
-			mav.addObject("travelInfoMap",travelInfoMap);
 		}
 		
 		List<TravelContent> travelContentList = travelContentService.getTravelContentListByTidList(tidList);
