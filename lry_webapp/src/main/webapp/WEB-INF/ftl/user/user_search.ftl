@@ -71,7 +71,6 @@
         </li>
         </#list>
     </ul>
-    </#if>
     <#if pageIter.totalPages?? && pageIter.totalPages gt 100>
         <#assign totalPageCount = 100>
     <#else>
