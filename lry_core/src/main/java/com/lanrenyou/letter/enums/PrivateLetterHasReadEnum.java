@@ -1,6 +1,6 @@
 package com.lanrenyou.letter.enums;
 
-public enum PrivateLetterStatusEnum {
+public enum PrivateLetterHasReadEnum {
     /**
      * UN_READ:未读
      */
@@ -9,21 +9,11 @@ public enum PrivateLetterStatusEnum {
     /**
      * HAS_READ:已读
      */
-    HAS_READ(1),
-
-    /**
-     * HAS_REPLY:已回复
-     */
-    HAS_REPLY(2),
-
-    /**
-     * DELETE:删除
-     */
-    DELETE(-1);
+    HAS_READ(1);
 
     private int value;
 
-    private PrivateLetterStatusEnum(int _value) {
+    private PrivateLetterHasReadEnum(int _value) {
         this.value = _value;
     }
 

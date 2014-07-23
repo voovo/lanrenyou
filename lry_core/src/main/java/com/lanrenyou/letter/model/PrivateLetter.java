@@ -1,5 +1,7 @@
 package com.lanrenyou.letter.model;
 
+import java.util.Date;
+
 import mybatis.framework.core.model.BaseValueObject;
 
 public class PrivateLetter extends BaseValueObject {
@@ -35,7 +37,19 @@ public class PrivateLetter extends BaseValueObject {
      * 是否回复[0:未回复; 1:已回复]
      */
     private int hasReply = 0;
-
+    
+    /**
+     * 发送者删除[0:否; 1:是]
+     */
+    private int    senderDeleted;
+    
+    /**
+     * 接收者删除[0:否; 1:是]
+     */
+    private int receiverDeleted;
+    
+    private Date updateTime;
+    
     public Integer getId() {
         return id;
     }
@@ -83,4 +97,29 @@ public class PrivateLetter extends BaseValueObject {
     public void setHasReply(int hasReply) {
         this.hasReply = hasReply;
     }
+
+	public int getSenderDeleted() {
+		return senderDeleted;
+	}
+
+	public void setSenderDeleted(int senderDeleted) {
+		this.senderDeleted = senderDeleted;
+	}
+
+	public int getReceiverDeleted() {
+		return receiverDeleted;
+	}
+
+	public void setReceiverDeleted(int receiverDeleted) {
+		this.receiverDeleted = receiverDeleted;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+    
 }

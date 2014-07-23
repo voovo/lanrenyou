@@ -41,6 +41,9 @@ public class UserStarController  extends BaseController {
 		if(null == this.getLoginUser()){
 			return to404();
 		}
+		if(this.getLoginUser().getId().intValue() != this.getCurrentUser().getId().intValue()){
+			return toError("没有权限访问此页面");
+		}
 		if(null == pageNo){
 			pageNo = 1;
 		}

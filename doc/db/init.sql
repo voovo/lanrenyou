@@ -153,7 +153,8 @@ create table tb_private_letter
    context              varchar(512) not null comment '内容',
    has_read             tinyint(6) default 0 comment '是否已读[0:未读; 1:已读]',
    has_reply            tinyint(6) default 0 comment '是否回复[0:未回复; 1:已回复]',
-   is_deleted           tinyint(6) default 0 comment '是否删除[0:否; 1:是]',
+   sender_deleted       tinyint(6) default 0 comment '发送者删除[0:否; 1:是]',
+   receiver_deleted     tinyint(6) default 0 comment '接收者删除[0:否; 1:是]',
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    primary key (id)
 );
