@@ -51,7 +51,7 @@
 
             <!-- 规划师游记 -->
             <div class="planner_yj_list">
-                <p class="more_yj"><a href="#">查看全部游记</a></p>
+                <p class="more_yj"><a href="/user/${userInfo.id!''}/travelList/list">查看全部游记</a></p>
                 <div class="planner_yj_detail clearfix">
                     <div class="left">
                         <a href="#">

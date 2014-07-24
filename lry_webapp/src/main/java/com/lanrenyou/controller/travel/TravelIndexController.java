@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -114,6 +115,23 @@ public class TravelIndexController  extends BaseController {
 		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getCurrentTravel().getUid(), 1, 3, "updateTime", true);
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("userTravelList", pageIter.getData());
+		}
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/similarTravel", method=RequestMethod.GET)
+	public ModelAndView similarTravel(){
+		if(null == this.getCurrentTravel()){
+			return to404();
+		}
+		
+		ModelAndView mav = new ModelAndView("/travel/travel_detail_similar");
+		mav.addObject("travelInfo", this.getCurrentTravel());
+		mav.addObject("city", this.getCurrentTravel().getCity());
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, this.getCurrentTravel().getCity(), null, 1, 6, "updateTime", true);
+		if(null != pageIter && null != pageIter.getData() && pageIter.getData().size() > 0){
+			mav.addObject("travelInfoList", pageIter.getData());
 		}
 		
 		return mav;
