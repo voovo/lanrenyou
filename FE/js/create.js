@@ -136,6 +136,8 @@ $(function(){
         setDisable();
     }
 
+    setDisable();
+
 
     // 上传组件
     if($(".file_upload") && $(".file_upload").length > 0){

@@ -85,7 +85,7 @@
 .add_photo_form_box table{ margin: 15px 0;}
 .add_photo_form_box table tr{ height: 50px; line-height: 50px;}
 .add_photo_form_box table tr td{ font-size: 14px;}
-#add_photo_box{ width: 100%; background: #ebebeb; border-radius: 4px; padding: 20px 30px;}
+#add_photo_box{ width: 90%; background: #ebebeb; border-radius: 4px; padding: 20px 30px;}
 
 
 /*个人中心*/

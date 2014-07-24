@@ -373,7 +373,7 @@
 .album_block .a_title .right .g9:hover{text-decoration: none;color:#999;cursor: default}
 .a_title{border:1px solid #DCDCDC;background: #fafafa;padding:15px ;clear:both;overflow: hidden;zoom:1;}
 .a_title .left{width:300px;float: left; }
-.a_title .right{width:850px;float: right; position: relative;}
+.a_title .right{width:730px;float: right; position: relative;}
 .a_title .right textarea{ width: 98%;  height: 165px; padding: 10px;}
 
 .a_title .right a{position: absolute; display: block; height: 22px; width: 22px; text-indent: -2000px; }
@@ -396,7 +396,7 @@
 .moveBox {
     position: absolute;
     top: 0;
-    width: 728px;
+    width: 100%;
 }
 
 #create_youji_btn{ margin: 30px; display: inline-block;}
