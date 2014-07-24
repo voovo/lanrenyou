@@ -1,5 +1,6 @@
 package com.lanrenyou.controller.travel;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,9 +20,13 @@ import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.travel.service.ITravelCollectService;
 import com.lanrenyou.travel.service.ITravelContentService;
+import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
 import com.lanrenyou.travel.service.impl.TravelInfoStatServiceImpl;
+import com.lanrenyou.travel.enums.TravelInfoIsEliteEnum;
+import com.lanrenyou.travel.enums.TravelInfoIsTopEnum;
+import com.lanrenyou.travel.enums.TravelInfoStatusEnum;
 import com.lanrenyou.travel.model.TravelCollect;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfoStat;
@@ -47,6 +52,9 @@ public class TravelIndexController  extends BaseController {
 	
 	@Autowired
 	private ITravelInfoStatService travelInfoStatService;
+	
+	@Autowired
+	private ITravelInfoService travelInfoService;
 
 	@Autowired
 	private IUserInfoService userInfoService;
@@ -187,6 +195,72 @@ public class TravelIndexController  extends BaseController {
 			map.put("status", "n");
 			map.put("info", "系统正忙，请稍后再试");
 		}
+		return gson.toJson(map);
+	}
+	
+	@RequestMapping(value={"toEdit"}, method=RequestMethod.GET)
+	public ModelAndView toEdit(){
+		if(null == this.getCurrentTravel()){
+			return to404();
+		}
+		
+		ModelAndView mav = new ModelAndView("/travel/travel_edit");
+		mav.addObject("travelInfo", this.getCurrentTravel());
+		TravelContent travelContent = travelContentService.getTravelContentByTid(this.getCurrentTravel().getId());
+		List<Map<String, String>> contentList = TravelShowUtil.getShowInfoForTravelDetail(travelContent.getContent());
+		mav.addObject("contentList", contentList);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value={"edit"}, method=RequestMethod.GET)
+	@ResponseBody
+	public String doEdit(
+			@RequestParam(value = "tid", required=true, defaultValue="") Integer tid,
+			@RequestParam(value = "title", required=true, defaultValue="") String title,
+			@RequestParam(value = "area", required=true, defaultValue="") String area,
+			@RequestParam(value = "imgs", required=true, defaultValue="") String imgs
+		){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(null == this.getCurrentTravel()){
+			map.put("status", "n");
+			map.put("info", "找不到当前游记信息");
+			return gson.toJson(map);
+		}
+		
+		if(null == tid || tid != this.getCurrentTravel().getId().intValue()){
+			map.put("status", "n");
+			map.put("info", "编辑的不是当前游记");
+			return gson.toJson(map);
+		}
+		
+		TravelInfo travelInfo = travelInfoService.getTravelInfoById(tid);
+		travelInfo.setTitle(title.trim());
+		travelInfo.setCity(area.trim());
+		travelInfo.setIsElite(TravelInfoIsEliteEnum.NO.getValue());
+		travelInfo.setIsTop(TravelInfoIsTopEnum.NO.getValue());
+		travelInfo.setStatus(TravelInfoStatusEnum.NORMAL.getValue());
+		travelInfo.setUpdateUid(this.getLoginUser().getId());
+		travelInfo.setUpdateIp(this.getRemoteAddr());
+		int result = travelInfoService.updateTravelInfo(travelInfo);
+		if(result < 1){
+			map.put("status", "n");
+			map.put("info", "更新数据失败");
+			return gson.toJson(map);
+		}
+		
+		TravelContent travelContent = travelContentService.getTravelContentByTid(tid);
+		travelContent.setContent(imgs);
+		result = travelContentService.addTravelContent(travelContent);
+		
+		if(result < 1){
+			map.put("status", "n");
+			map.put("info", "更新游记内容失败，请稍后重试");
+			return gson.toJson(map);
+		}
+		
+		map.put("status", "y");
+		map.put("info", "更新游记成功");
 		return gson.toJson(map);
 	}
 }

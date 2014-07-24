@@ -51,22 +51,7 @@
 
             <!-- 规划师游记 -->
             <div class="planner_yj_list">
-                <p class="more_yj"><a href="/user/${userInfo.id!''}/travelList/list">查看全部游记</a></p>
-                <div class="planner_yj_detail clearfix">
-                    <div class="left">
-                        <a href="#">
-                            <img src="imgs/yj_detail_img.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="right">
-                        <ul>
-                            <li><a href="#">【美国66号公路自驾全攻略】翻滚吧，青春！</a><span>2014-01-01</span></li>
-                            <li><a href="#">美国梦东西海岸的浮光掠影</a><span>2014-01-01</span></li>
-                            <li><a href="#">【美国66号公路自驾全攻略】翻滚吧，青春！</a><span>2014-01-01</span></li>
-                            <li><a href="#">美国梦东西海岸的浮光掠影</a><span>2014-01-01</span></li>
-                        </ul>
-                    </div>
-                </div>
+                <!-- ajax -->
             </div>
         </li>
         </#list>
