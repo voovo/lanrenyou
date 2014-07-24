@@ -4,13 +4,13 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon , .icon_fav{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
 .g9{ color: #999 !important;}
 .btn{ font-size: 18px; color: #fff !important; padding: 8px 25px; text-align: center; border-radius: 3px; border:0;}
-.btn_s{ font-size: 14px; color: #fff !important; padding: 8px 15px; text-align: center; border-radius: 3px; border:0;}
-.blue_btn{ background: #364758;  border: 1px solid #364758;}
+.btn_s{ font-size: 14px; color: #fff !important;/* padding: 8px 15px;*/ text-align: center; border-radius: 3px; border:0;}
+.blue_btn{ background: #364758;  border: 1px solid #364758; padding: 8px 15px;}
 .blue_btn:hover{ background:#1f2f3e;}
 .gray_btn{ background: #ededed; color: #364758 !important; border: 1px solid #cecece;}
 .gray_btn:hover{ background: #d8d8d8;}
@@ -23,6 +23,7 @@
 .error{ color: #d60a30 !important; font-size: 12px;}
 
 .gray{ color: #bcbcbc;}
+.green , .success{ color: #236513;}
 
 .ft_14{ font-size: 14px; color: #666 !important;}
 .form_notice{ font-size: 12px; color:#a6a6a6 !important;}
@@ -53,6 +54,9 @@
 .fav_icon{ background-position: -833px -283px;}
 .fans_icon{ background-position: -839px -896px;}
 .msg_icon{ background-position: -832px -144px;}
+.icon_fav{ background-position: -852px -630px; margin-right: 2px;}
+.icon_faved{ background-position: -852px -658px; margin-right: 2px;}
+
 
 .add_icon{background-position: -715px -379px; padding-left: 18px;}
 .added_icon{background-position: -713px -428px; padding-left: 18px;  color: #666 !important; cursor: default !important; margin-right: 0;}
@@ -404,3 +408,33 @@
 #create_success{ height: 150px; padding-top: 60px;}
 #create_success h2{ width: 400px; height: 55px; line-height: 55px; text-align: center; margin: 20px auto 5px; font-size: 24px; color: #333; background-position: -793px -805px;}
 #create_success .suc_link{ margin-left: 145px;}
+
+
+
+/*发私信*/
+.msgForm{ border:1px solid #ccc; width: 330px; height: 140px; position: absolute; top:35px; right: 0; background: #eee; border-radius: 3px; padding: 10px; text-align: left; z-index: 50;}
+.msgForm .msgTo{ font-size: 12px; color: #666;}
+.msgForm .msgTo i{ font-weight: bold; color: #333;}
+.msgForm textarea{ width: 310px; height: 60px; border:0; background: #fff; padding: 10px; margin: 5px auto;}
+.msgForm .sendMsgBtn ,.msgForm .closeMsgBtn{ background: #364758; padding:5px 20px; color: #fff !important; cursor: pointer; font-size: 14px; margin:5px !important;}
+.msgForm .closeMsgBtn{ background: #ccc; color: #333 !important;}
+.msgForm .msgBot{ margin-top: 5px;}
+.msgForm #msgNotice{ font-size: 14px; font-weight: bold;}
+.msgForm .arrow_up {
+  width:0px; 
+  height:0px; 
+  border-left:12px solid transparent;  /* left arrow slant */
+  border-right:12px solid transparent; /* right arrow slant */
+  border-bottom:12px solid #ccc; /* bottom, add background color here */
+  font-size:0px;
+  line-height:0px;
+  position: absolute;
+  top:-12px;
+  right:20px;
+}
+
+
+
+
+
+

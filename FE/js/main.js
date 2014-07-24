@@ -72,6 +72,35 @@
     }
 
 
+    // 全站发送私信
+    if($(".msg_btn") && $(".msg_btn").length > 0){
+        var _msgBtn = $(".msg_btn"),
+            _msgForm = '<div class="msgForm"><div class="arrow_up"></div><div class="msgTo">给 <i>shell_corona</i> 发私信</div><textarea name="" id="" cols="30" rows="10"></textarea><div class="msgBot clearfix"><div id="msgNotice" class="left green hide">发送成功!</div><div class="right"><span class="sendMsgBtn">发送</span><span class="closeMsgBtn">关闭</span></div></div></div>';
+
+        _msgBtn.click(function(){
+            if($(this).parent().find(".msgForm").length > 0){
+                $(this).parent().find(".msgForm").show();
+            }else{
+                $(this).parent().append(_msgForm);
+            }
+
+            $(".msgForm").find("textarea").focus();
+            
+            var sb = $(".sendMsgBtn");
+            sb.click(function(){
+                // 发送私信
+                $("#msgNotice").show();
+            });
+
+
+            // 关闭浮层
+            $(".closeMsgBtn").click(function(){
+                $(".msgForm").hide();
+            });
+        });
+    }
+
+
 
 
 
