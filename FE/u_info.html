@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改基本资料-懒人游</title>
+    <!-- 全站通用 -->
+    <link rel="shortcut icon" type="image/ico" href="imgs/favicon.ico">
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
+    <!-- 全站通用 -->
+
+    <!-- 页面自用 -->
+    <link rel="stylesheet" href="css/waper.css">
+    <!-- 页面自用 -->
+
+
+</head>
+<body>
+
+
+<!-- top_nav -->
+<div id="top_nav" class="clearfix">
+    
+    <!-- logo -->
+    <div id="logo" class="left">
+        <a href="/" title="返回首页"></a>
+    </div>
+
+    <!-- search -->
+    <div id="search" class="left">
+        <div id="city" class="show_more">城市
+            <div id="more_city" class="hide more_item">
+                <i class="tag_ico"></i>
+                <ul class="clearfix">
+                    <li><a href="javascript:;" title="芝加哥Chicago及周边">芝加哥Chicago及周边</a></li>
+                    <li><a href="javascript:;" title="纽约NYC及周边">纽约NYC及周边</a></li>
+                    <li><a href="javascript:;" title="洛杉矶LA及周边">洛杉矶LA及周边</a></li>
+                    <li><a href="javascript:;" title="圣地亚哥San Diego及周边">圣地亚哥San Diego及周边</a></li>
+                    <li><a href="javascript:;" title="旧金山San Francisco及周边">旧金山San Francisco及周边</a></li>
+                    <li><a href="javascript:;" title="美国国家公园National Parks">美国国家公园National Parks</a></li>
+                    <li><a href="javascript:;" title="西雅图Seattle及周边">西雅图Seattle及周边</a></li>
+                    <li><a href="javascript:;" title="阿拉斯加Alaska">阿拉斯加Alaska</a></li>
+                    <li><a href="javascript:;" title="游轮旅行Cruise">游轮旅行Cruise</a></li>
+                    <li><a href="javascript:;" title="奥兰多Orlando及周边">奥兰多Orlando及周边</a></li>
+                    <li><a href="javascript:;" title="大佛罗里达Florida">大佛罗里达Florida</a></li>
+                    <li><a href="javascript:;" title="风情小镇Small Towns">风情小镇Small Towns</a></li>
+                    <li><a href="javascript:;" title="加州湾区Bay Area及周边">加州湾区Bay Area及周边</a></li>
+                    <li><a href="javascript:;" title="波士顿Boston及周边">波士顿Boston及周边</a></li>
+                    <li><a href="javascript:;" title="加州一号公路Pacific Coast Highway">加州一号公路Pacific Coast Highway</a></li>
+                    <li><a href="javascript:;" title="波多黎各Puerto Rico">波多黎各Puerto Rico</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <input type="text" id="search_input" placeholder="请输入旅游城市或国家" />
+        <a id="search_btn" href="javascript:;" title="搜索"></a>
+    </div>
+    
+    <!-- nav -->
+    <div id="nav" class="left">
+        <ul class="clearfix">
+            <li><a href="javascript:;">找游记</a></li>
+            <li><a href="javascript:;">找规划师</a></li>
+        </ul>
+    </div>
+
+    <!-- user -->
+    <div id="user" class="right">
+        <ul class="clearfix hide">
+            <li class="bd_right"><a href="javascript:;">登陆</a></li>
+            <li><a href="javascript:;">注册</a></li>
+        </ul>
+        <ul class="clearfix">
+            <li>
+                <img src="imgs/user_face.jpg" width="20" height="20" alt="" />
+            </li>
+            <li class="wap_show bd_right">sheak</li>
+            <li class="wap_show bd_right"><a href="javascript:;">发布游记</a></li>
+            <li id="msg" class="wap_show bd_right show_more">
+                消息中心(5)
+                <div id="more_msg" class="more_item hide">
+                    <i class="tag_ico_r"></i>
+                    <ul class="msg_tab clearfix">
+                        <li class="cur"><a href="javascript:;">通知(2)</a></li>
+                        <li><a href="javascript:;">私信(3)</a></li>
+                    </ul>
+                    <div class="msg_item">
+                        <p>
+                            Hi~，欢迎加入懒人游，现在就开始享受你的旅程吧！在这里，...
+                        </p>
+                        <p>
+                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
+                        </p>
+                    </div>
+                    <div class="msg_item hide">
+                        <p>
+                            Hi~，欢迎加入懒人游，现在就开始享受你的旅程吧！在这里，...
+                        </p>
+                        <p>
+                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
+                        </p>
+                        <p>
+                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
+                        </p>
+                    </div>
+                    <div class="msg_bottom"><a href="javascript:;">全部通知</a></div>
+                </div>
+            </li>
+            <li>
+                <div class="user_more show_more">
+                    <div class="hide more_item">
+                        <i class="tag_ico"></i>
+                        <ul>
+                            <li class="wap_hide hide">sheak</li>
+                            <li class="wap_hide hide"><a href="javascript:;">发布游记</a></li>
+                            <li class="wap_hide hide"><a href="javascript:;">消息中心(5)</a></li>
+                            <li><a href="javascript:;" title="个人设置">个人设置</a></li>
+                            <li><a href="javascript:;" title="我的游记">我的游记</a></li>
+                            <li><a href="javascript:;" title="粉丝管理">粉丝管理</a></li>
+                            <li><a href="javascript:;" title="我的收藏">我的收藏</a></li>
+                            <li><a href="javascript:;" title="退出">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- waper_box -->
+<div class="waper_box">
+    <h1 class="warper_tt msg_icon">消息中心</h1>
+    
+    <ul class="warper_tab clearfix">
+        <li class="cur">个人设置</li>
+        <li><a href="#">我的游记</a></li>
+        <li><a href="#">消息中心 (<i>22</i>)</a></li>
+        <li><a href="#">粉丝管理</a></li>
+        <li><a href="#">我的收藏</a></li>
+    </ul>
+  
+
+    <!-- 个人信息修改 -->
+    <div id="u_profile_box" class="clearfix">
+        <ul class="u_info_tab left">
+            <li class="cur">基本资料</li>
+            <li><a href="#">更换头像</a></li>
+            <li><a href="#">修改密码</a></li>
+        </ul>
+        <div class="left u_info_form_box">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td width="20%" align="right"><span class="ft_14">昵称：</span></td>
+                    <td><input type="text" class="input_220"></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">邮箱：</span></td>
+                    <td><i>mr.sheak@gmail.com</i></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">自我介绍：</span></td>
+                    <td><textarea class="textarea" name="" id="" cols="30" rows="10" placeholder="请输入自我介绍 不超过200字"></textarea></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">现居住地：</span></td>
+                    <td>
+                        <select name="" id="" class="select">
+                            <option value="0">城市</option>
+                            <option value="1">加州</option>
+                            <option value="2">旧金山</option>
+                            <option value="3">纽约</option>
+                        </select>
+
+                        <select name="" id="" class="select">
+                            <option value="0">地区</option>
+                            <option value="1">加州</option>
+                            <option value="2">旧金山</option>
+                            <option value="3">纽约</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
+                    <td><input type="text" class="input_100"></td>
+                </tr>
+                <tr>
+                    <td width="18%" align="right"></td>
+                    <td>
+                        <input type="checkbox" id="be_planner">
+                        <label for="be_planner" class="planner_tt">我想成为规划师<span>( 高质量的游记能更快通过申请，现在就去<a href="javascript:;" target="_blank">写游记</a> )</span></label>
+                    </td>
+                </tr>
+                <tr id="planner_box" class="hide">
+                    <td width="18%" align="right"><span class="ft_14">可策划地区：</span></td>
+                    <td>
+                    <div class="label_box hide"><ul class="label clearfix"></ul></div>
+                    <input id="last_home" type="text" class="input_100" placeholder="用分号分隔多个地区"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a href="javascript:;" class="btn blue_btn">提交修改</a></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<!-- footer -->
+<div id="footer">
+    <div class="box">
+        <ul id="min_share" class="clearfix">
+            <li class="wx">
+                <a href="javascript:;">微信</a>
+                <div id="erweima" class="hide"></div>
+            </li>
+            <li class="wb"><a href="javascript:;">新浪微博</a></li>
+            <li class="tt"><a href="javascript:;">腾讯微博</a></li>
+            <li class="qq"><a href="javascript:;">QQ</a></li>
+        </ul>
+        <p>
+            <a href="javascript:;">关于我们</a> | 
+            <a href="javascript:;">联系我们</a> | 
+            <a href="javascript:;">人才招聘</a> | 
+            <a href="javascript:;">商务合作</a> | 
+            <a href="javascript:;">网站地图</a>
+        </p>
+
+        <p class="copyright">Copyright @lanrenyou. 2014 All Right Reserved.</p>
+    </div>
+</div>
+
+
+
+
+    
+</body>
+</html>

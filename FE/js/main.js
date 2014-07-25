@@ -5,6 +5,15 @@
 
 ;$(function(){
 /*********************************************************/
+    // 成为规划师
+    $("#be_planner").change(function(){
+        if($(this).attr("checked")){
+            $("#planner_box").fadeIn();
+        }else{
+            $("#planner_box").fadeOut();
+        }
+    });
+    
     // 更多
     $(".show_more").mouseenter( function(){
         $(this).find(".more_item").stop(true , true).fadeIn();

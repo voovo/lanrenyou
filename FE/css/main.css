@@ -182,7 +182,7 @@
 
 
 #search_input{ width: 175px; height: 32px; line-height: 32px; background:#fff; border: 1px solid #19242e; border-radius: 3px; padding: 0 30px 0 5px; position: absolute; top:35px; left:70px; }
-#search_btn{ display: block; width: 24px; height: 24px;  background-position: 0 -25px; position: absolute; top:38px; left:250px;}
+#search_btn{ display: block; width: 24px; height: 24px;  background-position: 0 -25px; position: absolute; top:38px; left:250px; border:0; background-color: #fff; cursor: pointer;}
 
 /*nav*/
 #nav{height: 102px;}
