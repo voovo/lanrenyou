@@ -12,7 +12,7 @@
 .btn_s{ font-size: 14px; color: #fff !important;/* padding: 8px 15px;*/ text-align: center; border-radius: 3px; border:0;}
 .blue_btn{ background: #364758;  border: 1px solid #364758; padding: 8px 15px;}
 .blue_btn:hover{ background:#1f2f3e;}
-.gray_btn{ background: #ededed; color: #364758 !important; border: 1px solid #cecece;}
+.gray_btn{ background: #ededed; color: #364758 !important; border: 1px solid #cecece; padding: 8px 15px;}
 .gray_btn:hover{ background: #d8d8d8;}
 .big_btn{ padding:12px 25px;}
 

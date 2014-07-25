@@ -54,7 +54,7 @@
 .search_btn{background-color: #efefef; text-align: center; color: #000 !important; display: block; width: 66px; height: 34px; line-height: 34px; position: absolute; top:0px; left:221px; border: 1px solid #ddd;}
 .planner_list{width: 1240px;}
 .planner_item{float: left; margin:0 20px 20px 0; background: #fff; padding:10px; box-shadow: 0 0 7px #c7c7c7; height: 235px;  width: 570px; }
-.planner_item > dl{ position: relative;overflow: hidden;}
+.planner_item > dl{ position: relative;}
 .planner_item > dl > dt{ float: left;}
 .planner_item > dl > dd{}
 .planner_item > dl > dd.planner_name{ float: left; margin: 15px 0 0 20px;}
@@ -107,6 +107,9 @@
 #u_fans_tabs li{ float: left; margin-right: 15px;}
 #u_fans_tabs li a{}
 .u_fans_search{}
+#u_fans_tabs li.msgToName{ font-size: 14px;}
+#u_fans_tabs li.msgToName span{ font-size: 16px; font-weight: bold;}
+
 
 #u_fans_list{margin-top: 25px; overflow: hidden; width: 1260px;}
 #u_fans_list li{ float: left; width: 225px; height: 115px; background: #ededed; padding: 15px; border:3px solid #d6d6d6; margin:0 51px 30px 0;}
@@ -117,15 +120,17 @@
 
 /*消息中心*/
 #u_msg_list{ margin-top: 10px;}
-#u_msg_list li{ padding: 25px 20px 25px 120px; background: #fff; position: relative; margin-bottom: 20px;}
+#u_msg_list li{ padding: 25px 20px 35px 120px; background: #fff; position: relative; margin-bottom: 20px;}
 #u_msg_list li.unread{background: #e4e9ef;}
+#u_msg_list li.replay{background: #f0f0f0;}
 #u_msg_list li input[type=checkbox]{ position: absolute; top:50px; left:20px;}
 #u_msg_list li img{ display: block; width: 60px; height: 60px;  position: absolute; top:25px; left:40px;}
 #u_msg_list li h2{ font-size: 18px; color: #333; font-weight: bold; float: left;}
 #u_msg_list li h3{ font-size: 12px; color: #333; float: left;}
 #u_msg_list li p span{ margin-right: 20px;}
 #u_msg_list li p span a{ font-weight: bold;}
-
+#u_msg_list #msg_replay{padding-left: 20px !important;}
+#u_msg_list #msg_replay textarea{ width: 98%; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px;}
 
 .u_msg_details{ font-size: 14px; color: #333; line-height: 22px; margin-top: 10px; width: 80%;}
 
