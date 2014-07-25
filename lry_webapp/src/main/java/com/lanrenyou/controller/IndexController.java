@@ -10,7 +10,7 @@ import com.lanrenyou.controller.base.BaseController;
 @RequestMapping("")
 public class IndexController  extends BaseController {
 	
-	@RequestMapping("/index")
+	@RequestMapping(value={"/index", "/", ""})
 	public ModelAndView toAddPage(){
 		return new ModelAndView("/index");
 	}

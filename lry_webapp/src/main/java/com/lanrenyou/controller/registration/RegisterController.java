@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.lanrenyou.common.PasswordUtil;
 import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.user.enums.UserInfoStatusEnum;
@@ -137,7 +138,7 @@ public class RegisterController extends BaseController {
 		
 		UserInfo newUserInfo = new UserInfo();
 		newUserInfo.setEmail(submitEmail);
-		newUserInfo.setUserPass(submitPassword);
+		newUserInfo.setUserPass(PasswordUtil.convertToMd5(submitPassword));
 		newUserInfo.setStatus(UserInfoStatusEnum.WAIT_VERIFY_EMAIL.getValue());
 		newUserInfo.setUserType(UserInfoTypeEnum.NOMAL.getValue());
 		newUserInfo.setCreateUid(0);
@@ -350,7 +351,7 @@ public class RegisterController extends BaseController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/info");
+		mav.setViewName("/user/user_setting_info");
 		return mav;
 	}
 	

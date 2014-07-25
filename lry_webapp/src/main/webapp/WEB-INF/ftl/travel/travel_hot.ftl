@@ -11,7 +11,7 @@
     
     <ul class="warper_tab clearfix">
         <li class="cur">热门游记</li>
-        <li><a href="javascript:;">最新游记</a></li>
+        <li><a href="/travel/search/latest">最新游记</a></li>
     </ul>
 
     <#if travelInfoList?? && travelInfoList?size gt 0>
@@ -78,7 +78,7 @@
     <#else>
         <#assign totalPageCount = pageIter.totalPages!0>
     </#if>
-    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/travel/search?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
+    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/travel/search/hot?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
     <#else>
     <div class="no_result">对不起，未找到匹配内容，请更换搜索条件</div>
 	</#if>

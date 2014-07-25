@@ -54,7 +54,7 @@ public class UserSearchController  extends BaseController {
 	@Autowired
 	private SolrUtil solrUtil;
 	
-	@RequestMapping("/submit")
+	@RequestMapping("/list")
 	public ModelAndView search(
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
 			@RequestParam(value = "city", required = false, defaultValue = "") String city,

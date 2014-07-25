@@ -12,28 +12,30 @@
             <div id="more_city" class="hide more_item">
                 <i class="tag_ico"></i>
                 <ul class="clearfix">
-                    <li><a href="javascript:;" title="芝加哥Chicago及周边">芝加哥Chicago及周边</a></li>
-                    <li><a href="javascript:;" title="纽约NYC及周边">纽约NYC及周边</a></li>
-                    <li><a href="javascript:;" title="洛杉矶LA及周边">洛杉矶LA及周边</a></li>
-                    <li><a href="javascript:;" title="圣地亚哥San Diego及周边">圣地亚哥San Diego及周边</a></li>
-                    <li><a href="javascript:;" title="旧金山San Francisco及周边">旧金山San Francisco及周边</a></li>
-                    <li><a href="javascript:;" title="美国国家公园National Parks">美国国家公园National Parks</a></li>
-                    <li><a href="javascript:;" title="西雅图Seattle及周边">西雅图Seattle及周边</a></li>
-                    <li><a href="javascript:;" title="阿拉斯加Alaska">阿拉斯加Alaska</a></li>
-                    <li><a href="javascript:;" title="游轮旅行Cruise">游轮旅行Cruise</a></li>
-                    <li><a href="javascript:;" title="奥兰多Orlando及周边">奥兰多Orlando及周边</a></li>
-                    <li><a href="javascript:;" title="大佛罗里达Florida">大佛罗里达Florida</a></li>
-                    <li><a href="javascript:;" title="风情小镇Small Towns">风情小镇Small Towns</a></li>
-                    <li><a href="javascript:;" title="加州湾区Bay Area及周边">加州湾区Bay Area及周边</a></li>
-                    <li><a href="javascript:;" title="波士顿Boston及周边">波士顿Boston及周边</a></li>
-                    <li><a href="javascript:;" title="加州一号公路Pacific Coast Highway">加州一号公路Pacific Coast Highway</a></li>
-                    <li><a href="javascript:;" title="波多黎各Puerto Rico">波多黎各Puerto Rico</a></li>
+                    <li><a href="/travel/search/list?city=芝加哥 Chicago" title="芝加哥Chicago及周边">芝加哥Chicago及周边</a></li>
+                    <li><a href="/travel/search/list?city=纽约 NYC" title="纽约NYC及周边">纽约NYC及周边</a></li>
+                    <li><a href="/travel/search/list?city=洛杉矶 LA" title="洛杉矶LA及周边">洛杉矶LA及周边</a></li>
+                    <li><a href="/travel/search/list?city=圣地亚哥 San Diego" title="圣地亚哥San Diego及周边">圣地亚哥San Diego及周边</a></li>
+                    <li><a href="/travel/search/list?city=旧金山 San Francisco" title="旧金山San Francisco及周边">旧金山San Francisco及周边</a></li>
+                    <li><a href="/travel/search/list?city=美国国家公园 National Parks" title="美国国家公园National Parks">美国国家公园National Parks</a></li>
+                    <li><a href="/travel/search/list?city=西雅图 Seattle" title="西雅图Seattle及周边">西雅图Seattle及周边</a></li>
+                    <li><a href="/travel/search/list?city=阿拉斯加 Alaska" title="阿拉斯加Alaska">阿拉斯加Alaska</a></li>
+                    <li><a href="/travel/search/list?city=游轮旅行 Cruise" title="游轮旅行Cruise">游轮旅行Cruise</a></li>
+                    <li><a href="/travel/search/list?city=奥兰多 Orlando" title="奥兰多Orlando及周边">奥兰多Orlando及周边</a></li>
+                    <li><a href="/travel/search/list?city=大佛罗里达 Florida" title="大佛罗里达Florida">大佛罗里达Florida</a></li>
+                    <li><a href="/travel/search/list?city=风情小镇 Small Towns" title="风情小镇Small Towns">风情小镇Small Towns</a></li>
+                    <li><a href="/travel/search/list?city=加州湾区 Bay Area" title="加州湾区Bay Area及周边">加州湾区Bay Area及周边</a></li>
+                    <li><a href="/travel/search/list?city=波士顿 Boston" title="波士顿Boston及周边">波士顿Boston及周边</a></li>
+                    <li><a href="/travel/search/list?city=加州一号公路 Pacific Coast Highway" title="加州一号公路Pacific Coast Highway">加州一号公路Pacific Coast Highway</a></li>
+                    <li><a href="/travel/search/list?city=波多黎各 Puerto Rico" title="波多黎各Puerto Rico">波多黎各Puerto Rico</a></li>
                 </ul>
             </div>
         </div>
-        
-        <input type="text" id="search_input" placeholder="请输入旅游城市或国家" />
+        <form action="" method="">
+        <input type="text" id="search_input" placeholder="请输入旅游城市或国家" name="keyword"  />
+        <input type="submit" id="search_btn" />
         <a id="search_btn" href="javascript:;" title="搜索"></a>
+        </form>
     </div>
     
     <!-- nav -->

@@ -3,17 +3,15 @@
  * mr.sheak@gmail.com
  * 20140705
  */
-.waper_box{ max-width: 1200px; min-width: 960px; margin: 30px auto;}
+.waper_box{ max-width: 1200px; min-width: 960px; margin: 20px auto; overflow: hidden;}
 .waper_box h1.warper_tt{ font-size: 30px; color: #333; padding-left: 40px; margin-bottom: 30px; position: relative;}
 
 .warper_tab{ height: 40px; line-height: 40px; border-bottom: 1px solid #d3d3d3; margin-bottom: 20px;}
 .warper_tab li{height: 39px; line-height: 39px; float: left; font-size: 14px; color: #333; padding: 0 30px; border-radius: 3px;}
-.warper_tab li.cur{border: 1px solid #d3d3d3; border-bottom: 3px solid #fff;}
+.warper_tab li.cur{border: 1px solid #d3d3d3; border-bottom: 3px solid #f6f6f6;}
 .warper_tab li a{ color: #305d8a; padding: 8px 10px;}
 
 /*找游记*/
-.yj_icon{ background-position: -833px -55px;}
-
 .yj_list{ width: 1240px;}
 .yj_list .yj_item{ float: left; width: 570px; margin:0 20px 20px 0; background: #fff; padding:10px; box-shadow: 0 0 7px #c7c7c7;}
 .yj_list .yj_item > dl{ position: relative; width: 570px; height: 370px; overflow: hidden;}
@@ -87,10 +85,60 @@
 .add_photo_form_box table{ margin: 15px 0;}
 .add_photo_form_box table tr{ height: 50px; line-height: 50px;}
 .add_photo_form_box table tr td{ font-size: 14px;}
-#add_photo_box{ width: 100%; background: #ebebeb; border-radius: 4px; padding: 20px 30px;}
+#add_photo_box{ width: 90%; background: #ebebeb; border-radius: 4px; padding: 20px 30px;}
 
 
+/*个人中心*/
+#u_yj_list{ margin-top: 25px;}
+#u_yj_list > li{ padding:10px; background: #eee; position: relative; padding-left: 320px;  height: 190px; margin-bottom: 20px;}
+.u_yj_imgDetail{ display: block; width: 285px; height: 190px; position: absolute; left:10px; top:10px;}
+.u_yj_txtDetail{ padding-top: 10px;}
+.u_yj_txtDetail h2 a{ font-size: 16px; display: inline-block; color: #364758; font-weight: bold; height: 36px; line-height: 36px;}
+.u_yj_txtDetail p{ font-size: 12px; color: #333; line-height: 20px;}
+.u_yj_author{ position: relative; margin-top: 20px; padding-top: 1px;}
+.u_yj_author img{ display: block; width: 26px; height: 26px; position: absolute; top:0 ; left:0;}
+.u_yj_author a{ margin-left: 35px; color: #305d8a; font-size: 14px; text-decoration: underline;}
+
+.u_yj_info{ height: 40px; line-height: 40px; position: absolute; left:320px; bottom:10px;}
+.u_yj_info a{ position: relative; padding-left: 20px; margin-right: 10px;}
+
+/*粉丝管理*/
+#u_fans_tabs{ height: 30px; padding-top: 20px;}
+#u_fans_tabs li{ float: left; margin-right: 15px;}
+#u_fans_tabs li a{}
+.u_fans_search{}
+
+#u_fans_list{margin-top: 25px; overflow: hidden; width: 1260px;}
+#u_fans_list li{ float: left; width: 225px; height: 115px; background: #ededed; padding: 15px; border:3px solid #d6d6d6; margin:0 51px 30px 0;}
+.u_fans_box img{ display: block; width: 80px; height: 80px; margin-right: 10px;}
+.u_fans_links{ margin:15px 0;}
+.u_fans_author_info{ margin-top: 10px;  height: 35px; overflow: hidden; font-size: 12px; color: #666;}
 
 
+/*消息中心*/
+#u_msg_list{ margin-top: 10px;}
+#u_msg_list li{ padding: 25px 20px 25px 120px; background: #fff; position: relative; margin-bottom: 20px;}
+#u_msg_list li.unread{background: #e4e9ef;}
+#u_msg_list li input[type=checkbox]{ position: absolute; top:50px; left:20px;}
+#u_msg_list li img{ display: block; width: 60px; height: 60px;  position: absolute; top:25px; left:40px;}
+#u_msg_list li h2{ font-size: 18px; color: #333; font-weight: bold; float: left;}
+#u_msg_list li h3{ font-size: 12px; color: #333; float: left;}
+#u_msg_list li p span{ margin-right: 20px;}
+#u_msg_list li p span a{ font-weight: bold;}
 
 
+.u_msg_details{ font-size: 14px; color: #333; line-height: 22px; margin-top: 10px; width: 80%;}
+
+/*个人主页*/
+#my_box{ position: relative; padding: 10px 0 0 180px; margin-bottom: 20px;}
+#my_box .author_img{ position: absolute; left:0; top:0; padding: 3px; border: 1px solid #ccc; background: #fff;}
+#my_box .author_img img{ display: block; width: 140px; height: 140px;}
+#my_box .authot_info h2.vip_b_ico{ display: inline-block; height: 40px; background-position: right -855px;}
+#my_box .authot_info h2 a{ font-size: 30px; line-height: 40px; color: #333 !important;}
+#my_box .authot_info .my_add{ position: absolute; top:20px; right:10px;}
+#my_box .authot_info .my_add span{ font-weight: bold; color: #364758; margin: 2px 15px 0 0;}
+#my_box #author_produ{ color: #999; line-height: 22px;}
+#my_box .plan_area dt{ font-weight: bold; font-size: 12px; color: #333;}
+#my_box .btn_s{ margin-left: 10px;}
+#my_box .msg_btn{ position: relative; cursor: default;}
+#my_box .msg_btn .msgForm{ top:30px;}

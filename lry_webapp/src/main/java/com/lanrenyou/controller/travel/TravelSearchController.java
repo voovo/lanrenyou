@@ -45,7 +45,7 @@ public class TravelSearchController  extends BaseController {
 	@Autowired
 	private SolrUtil solrUtil;
 	
-	@RequestMapping("/submit")
+	@RequestMapping("/list")
 	public ModelAndView search(
 			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
 			@RequestParam(value = "city", required = false, defaultValue = "") String city,
@@ -60,6 +60,7 @@ public class TravelSearchController  extends BaseController {
 		}
 		ModelAndView mav = new ModelAndView("/travel/travel_search");
 		mav.addObject("keyword", keyword);
+		logger.info("####### TravelSearch City:{}", city);
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);

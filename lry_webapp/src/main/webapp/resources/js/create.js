@@ -12,7 +12,7 @@ $(function(){
                arryAlbumOrder.push($('.clone').eq(i).attr('album_id'));
            }
          };
-         console.log(arryAlbumOrder)
+         //console.log(arryAlbumOrder)
 
         arryAlbumOrder = [];
     };
@@ -101,6 +101,30 @@ $(function(){
         that.closest(".album_block").fadeOut();
     });
 
+    // 获取指定规格图片
+    var getResizeImg = function(src , tag){
+        var srcLen = src.length,
+            srcName = src.substr(0 , srcLen-4),
+            srcType = src.substr(-4 , 4),
+            newSrc = srcName+"_"+tag+srcType;
+
+        return newSrc;
+    }
+
+
+    // placeholder
+    var placeholder = function(nodes,pcolor) {
+        if(nodes.length > 0 && !('placeholder' in document.createElement('input'))){
+            nodes.each(function(){
+                var holder = $(this).attr("placeholder");
+                console.log(holder)
+            });
+        }
+
+        
+    }
+    //placeholder($(".placeholder") , "#ccc");
+
     // 图片上传成功后重新渲染页面，创建图片列表
     var setPhotoList = function(imgSrc){
         var newSrc = getResizeImg(imgSrc , "s")
@@ -111,6 +135,8 @@ $(function(){
 
         setDisable();
     }
+
+    setDisable();
 
 
     // 上传组件
@@ -154,7 +180,7 @@ $(function(){
                 
             },
             'onUploadError':function(file, errorCode, errorMsg, errorString){
-                console.log(file, errorCode, errorMsg, errorString)
+                //console.log(file, errorCode, errorMsg, errorString)
             }
         });
         
@@ -167,15 +193,16 @@ $(function(){
             var c_title = $("#c_title").val(),
                 c_area = $(".label_box").find("li").text() || $("#last_home").val(),
                 c_len = $(".album_block:visible").length,
-                c_yj = new Array();
+                c_yj = "[";
 
             if($(".album_block:visible").length > 0){
                 $(".album_block:visible").each(function(){
                     var img_src = $(this).find(".img_left img").attr("src"),
                         img_info = $(this).find(".right textarea").val();
-                    c_yj.push('{"src":"'+img_src+'" , "info" : "'+img_info+'"}');
+                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"}';
                 }); 
             }
+            c_yj+= "]";
             //console.log(c_title , c_area , c_yj);
 
             //return;
@@ -198,7 +225,12 @@ $(function(){
                     success : function(r){
                         var _d = jQuery.parseJSON(r);
                         if(_d.status == "y"){
-                            alert("ok");
+                            // 显示弹层
+                            //e.preventDefault();
+                            //var modalLocation = $(this).attr('data-reveal-id');
+                            var t_url = _d.info;
+                            $('#create_success .suc_link a').eq(0).attr("href" , t_url);
+                            $('#create_success').reveal($(this).data());
                         }else{
                             alert(_d.info);
                         }
@@ -210,13 +242,18 @@ $(function(){
         });
     }
 
+    // 继续发游记
+    $(".suc_link .close_d").click(function(){
+         location.reload();
+    });
+
 
     // 弹层
-    $('a[data-reveal-id]').live('click', function(e) {
-        e.preventDefault();
-        var modalLocation = $(this).attr('data-reveal-id');
-        $('#'+modalLocation).reveal($(this).data());
-    });
+    // $('a[data-reveal-id]').live('click', function(e) {
+    //     e.preventDefault();
+    //     var modalLocation = $(this).attr('data-reveal-id');
+    //     $('#'+modalLocation).reveal($(this).data());
+    // });
 
 
 

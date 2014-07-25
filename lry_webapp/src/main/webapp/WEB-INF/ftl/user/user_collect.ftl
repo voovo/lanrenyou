@@ -12,8 +12,8 @@
     <ul class="warper_tab clearfix">
         <li><a href="/user/${userInfo.id!''}/detail">个人设置</a></li>
         <li><a href="/user/${userInfo.id!''}/travelList/list">我的游记</a></li>
-        <li><a href="/user/${userInfo.id!''}/msg">消息中心 (<i>12</i>)</a></li>
-        <li><a href="/user/${userInfo.id!''}/fans">粉丝管理</a></li>
+        <li><a href="/user/${userInfo.id!''}/msg/list">消息中心 (<i>12</i>)</a></li>
+        <li><a href="/user/${userInfo.id!''}/fans/list">粉丝管理</a></li>
         <li class="cur">我的收藏</li>
     </ul>
 	

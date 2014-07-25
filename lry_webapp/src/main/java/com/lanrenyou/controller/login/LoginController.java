@@ -154,16 +154,5 @@ public class LoginController extends BaseController {
 		mav.setViewName("login/login");
 		return mav;
 	}
-	
-	
-	@RequestMapping(value="/submitChangePassword")
-	@ResponseBody
-	public String submitChangePassword(
-			@RequestParam(value = "oldPassword", required = true) String oldPassword,
-			@RequestParam(value = "newPassword", required = true) String newPassword,
-			HttpServletRequest request,
-            HttpServletResponse response) {
-		return "/login";
-	}
 }
 

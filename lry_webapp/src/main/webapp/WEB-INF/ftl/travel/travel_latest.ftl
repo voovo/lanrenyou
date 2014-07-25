@@ -10,8 +10,8 @@
     <h1 class="warper_tt yj_icon">找游记</h1>
     
     <ul class="warper_tab clearfix">
-        <li class="cur">热门游记</li>
-        <li><a href="javascript:;">最新游记</a></li>
+        <li><a href="/travel/search/hot">热门游记</a></li>
+        <li class="cur">最新游记</li>
     </ul>
 
     <#if travelInfoList?? && travelInfoList?size gt 0>
@@ -78,7 +78,7 @@
     <#else>
         <#assign totalPageCount = pageIter.totalPages!0>
     </#if>
-    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/travel/search?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
+    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/travel/search/latest?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
     <#else>
     <div class="no_result">对不起，未找到匹配内容，请更换搜索条件</div>
 	</#if>

@@ -7,10 +7,10 @@
 	
 <!-- waper_box -->
 <div class="waper_box">
-    <h1 class="warper_tt search_icon">搜索“${keyword!''}”的相关结果</h1>
+    <h1 class="warper_tt search_icon">搜索“${city!''} ${keyword!''}”的相关结果</h1>
     
     <ul class="warper_tab clearfix">
-        <li><a href="javascript:;">游记</a></li>
+        <li><a href="/travel/search/list?keyword=${keyword!''}&city=${city!''}">游记</a></li>
         <li class="cur">规划师</li>
     </ul>
 
@@ -61,7 +61,7 @@
     <#else>
         <#assign totalPageCount = pageIter.totalPages!0>
     </#if>
-    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/search?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
+    <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/search/list?pageNo=%d&keyword=${keyword!''}&city=${city!''}"/>
     <#else>
     <div class="no_result">对不起，未找到匹配内容，请更换搜索条件</div>
 	</#if>
