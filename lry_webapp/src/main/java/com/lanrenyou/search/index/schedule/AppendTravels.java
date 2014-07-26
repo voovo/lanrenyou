@@ -17,8 +17,8 @@ import com.lanrenyou.search.index.ExportTravels;
 
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.travel.model.TravelContent;
+import com.lanrenyou.travel.service.ITravelContentService;
 /**
  * 游记增量索引
  */
@@ -26,7 +26,7 @@ import com.lanrenyou.travel.service.ITravelInfoService;
 public class AppendTravels  {
 	
 	@Autowired
-	private ITravelInfoService travelInfoService;
+	private ITravelContentService travelContentService;
 	
 	@Autowired
 	private ExportTravels exp;
@@ -69,7 +69,7 @@ public class AppendTravels  {
 
 	private void exportWishVos() {
 		int startID = 0, batchSize = 1000;
-		List<TravelInfo> list = null;
+		List<TravelContent> list = null;
 		Date[] lastRunning=getLastRunningDate();
 		Date endTime = new Date();
 		if(endTime==null) return;
@@ -85,8 +85,8 @@ public class AppendTravels  {
 		//==查询是否有需要更新的记录
 		do {
 			try {
-				list = travelInfoService.getTravelInfoListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
-	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
+				list = travelContentService.getTravelContentListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
+	            List<List<TravelContent>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
 					if(lists.get(i).size()==0){
@@ -110,13 +110,13 @@ public class AppendTravels  {
 		}
 	}
 
-	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,int size){
-		ArrayList<List<TravelInfo>> lists=new ArrayList<List<TravelInfo>>(size);
+	private List<List<TravelContent>> assignServer(List<TravelContent> list,int size){
+		ArrayList<List<TravelContent>> lists=new ArrayList<List<TravelContent>>(size);
 		for(int i=0;i<size;i++){
-			lists.add(new ArrayList<TravelInfo>());
+			lists.add(new ArrayList<TravelContent>());
 		}
 		
-		for(TravelInfo t: list){
+		for(TravelContent t: list){
 			for(int i=0;i<size;i++){
 				if(t.getId()%size==i){
 					lists.get(i).add(t);

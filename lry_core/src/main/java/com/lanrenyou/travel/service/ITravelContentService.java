@@ -1,9 +1,11 @@
 package com.lanrenyou.travel.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.lanrenyou.travel.model.TravelContent;
+
 import mybatis.framework.core.service.IValueObjectService;
 
 public interface ITravelContentService extends IValueObjectService<TravelContent> {
@@ -52,5 +54,23 @@ public interface ITravelContentService extends IValueObjectService<TravelContent
 	 * @exception 
 	*/
 	public Map<Integer, TravelContent> getTravelContentMapByTidList(List<Integer> tidList);
-	
+
+	/**
+	 * 增加同步索引使用接口
+	 * @param startTime
+	 * @param endTime
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	public List<TravelContent> getTravelContentListForSearchIndex(Date startTime, Date endTime, int offset, int limit);
+
+	/**
+	 * 全量同步索引使用接口
+	 * @param endTime
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	public List<TravelContent> getTravelContentListForSearchIndex(Date endTime, int offset, int limit);
 }

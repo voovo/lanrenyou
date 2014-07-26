@@ -15,6 +15,7 @@ import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.model.TravelInfoStat;
 import com.lanrenyou.travel.service.ITravelContentService;
+import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
@@ -31,7 +32,7 @@ public class ExportTravels {
 	private Log log = LogFactory.getLog(ExportTravels.class);
 	
 	@Autowired
-	private ITravelContentService travelContentService;
+	private ITravelInfoService travelInfoService;
 	
 	@Autowired
 	private ITravelInfoStatService travelInfoStatService;
@@ -46,14 +47,14 @@ public class ExportTravels {
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-	public void export(SolrServer server,List<TravelInfo> list) {
+	public void export(SolrServer server,List<TravelContent> list) {
 		if (isRunning) {
 			log.info("export Travel is running.....");
 			return;
 		}
 		try {
 			isRunning = true;
-			for (TravelInfo t : list) {
+			for (TravelContent t : list) {
 				SolrInputDocument doc = convertDoc(t);
 				if (doc == null)
 					continue;
@@ -74,8 +75,12 @@ public class ExportTravels {
 		}
 	}
 
-	private SolrInputDocument convertDoc(TravelInfo vo) {
+	private SolrInputDocument convertDoc(TravelContent travelContent) {
 		SolrInputDocument doc = new SolrInputDocument();
+		if(null == travelContent){
+			return null;
+		}
+		TravelInfo vo = travelInfoService.getTravelInfoById(travelContent.getTid());
 		try {
 			//游记表信息
 			doc.addField("tid", vo.getId());//游记ID
@@ -96,7 +101,6 @@ public class ExportTravels {
 				doc.addField("updateTime", sdf.format(vo.getUpdateTime()));//更新时间
 			}
 			
-			TravelContent travelContent = travelContentService.getTravelContentByTid(vo.getId());
 			if(null != travelContent){
 				if(null != travelContent.getTravelDate()){
 					doc.addField("travelDate", sdf.format(travelContent.getTravelDate()));//旅行时间

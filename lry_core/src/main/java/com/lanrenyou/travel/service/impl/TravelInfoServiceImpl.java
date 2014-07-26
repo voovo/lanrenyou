@@ -72,18 +72,6 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 	}
 
 	@Override
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date startTime,
-			Date endTime, int offset, int limit) {
-		return travelInfoDao.getTravelInfoListForSearchIndex(startTime, endTime, offset, limit);
-	}
-
-	@Override
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime,
-			int offset, int limit) {
-		return travelInfoDao.getTravelInfoListForSearchIndex(endTime, offset, limit);
-	}
-
-	@Override
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(
 			List<Integer> uidList) {
 		if(null == uidList || uidList.size() <= 0){

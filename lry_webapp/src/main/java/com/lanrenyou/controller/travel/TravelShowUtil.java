@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +14,8 @@ import com.google.gson.reflect.TypeToken;
 public class TravelShowUtil {
 	
 	private static Gson gson = new Gson();
+	
+	protected static Logger logger = LoggerFactory.getLogger(TravelShowUtil.class);
 	
 	public static List<Map<String, String>> getShowInfoForTravelDetail(String content){
 		if(StringUtils.isBlank(content)){
@@ -50,6 +54,7 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
+			logger.info("#########################\n{}", content);
 			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 			if(null != list && list.size() >= 1){
 				returnMap.put(key, list.get(0));

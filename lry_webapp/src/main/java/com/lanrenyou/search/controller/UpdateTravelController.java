@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.travel.model.TravelContent;
+import com.lanrenyou.travel.service.ITravelContentService;
 
 /**
  * 更新索引文件
@@ -37,7 +37,7 @@ public class UpdateTravelController {
 	private ExportTravels exportTravels;
 	
 	@Autowired
-	private ITravelInfoService travelInfoService;
+	private ITravelContentService travelContentService;
 
 	@RequestMapping("/update")
 	public void update(HttpServletResponse response,
@@ -56,19 +56,19 @@ public class UpdateTravelController {
 			return;
 		}
 		if (StringUtils.isNotBlank(tids)) {
-			List<TravelInfo> travls = new ArrayList<TravelInfo>();
 			String[] idArr = tids.split(",");
+			List<TravelContent> travls = new ArrayList<TravelContent>();
 			for (int i = 0; i < idArr.length; i++) {
 				Integer tid = Integer.parseInt(idArr[i]);
-				TravelInfo travelInfo = travelInfoService.getTravelInfoById(tid);
-				if (null != travelInfo) {
-					travls.add(travelInfo);
+				TravelContent travelContent = travelContentService.getTravelContentByTid(tid);
+				if (null != travelContent) {
+					travls.add(travelContent);
 				} else {
 					logger.info("不存在这个id=[" + idArr[i] + "]的游记");
 					return;
 				}
 			}
-			List<List<TravelInfo>> lists = assignServer(travls, servers.length);
+			List<List<TravelContent>> lists = assignServer(travls, servers.length);
 
 			for (int i = 0; i < servers.length; i++) {
 				exportTravels.export(servers[i], lists.get(i));
@@ -83,15 +83,14 @@ public class UpdateTravelController {
 		}
 	}
 
-	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,
+	private List<List<TravelContent>> assignServer(List<TravelContent> list,
 			int size) {
-		ArrayList<List<TravelInfo>> lists = new ArrayList<List<TravelInfo>>(
-				size);
+		ArrayList<List<TravelContent>> lists = new ArrayList<List<TravelContent>>(size);
 		for (int i = 0; i < size; i++) {
-			lists.add(new ArrayList<TravelInfo>());
+			lists.add(new ArrayList<TravelContent>());
 		}
 
-		for (TravelInfo travel : list) {
+		for (TravelContent travel : list) {
 			for (int i = 0; i < size; i++) {
 				if (travel.getId() % size == i) {
 					lists.get(i).add(travel);

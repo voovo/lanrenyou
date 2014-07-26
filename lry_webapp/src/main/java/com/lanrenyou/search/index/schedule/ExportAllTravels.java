@@ -16,8 +16,8 @@ import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.search.index.ExportTravels;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.travel.model.TravelContent;
+import com.lanrenyou.travel.service.ITravelContentService;
 
 /**
  * 全量创建索引
@@ -26,7 +26,7 @@ import com.lanrenyou.travel.service.ITravelInfoService;
 public class ExportAllTravels  {
 	
 	@Autowired
-	private ITravelInfoService travelInfoService;
+	private ITravelContentService travelContentService;
 	
 	@Autowired
 	private ExportTravels exp;
@@ -66,14 +66,14 @@ public class ExportAllTravels  {
 
 	private void exportTravelVos() {
 		int startID = 0, batchSize = 1000;
-		List<TravelInfo> list = null;
+		List<TravelContent> list = null;
 		Date endTime = new Date();
 		if(endTime==null) return;
 		do {
 			try {
-				list = travelInfoService.getTravelInfoListForSearchIndex(endTime, startID, batchSize);
+				list = travelContentService.getTravelContentListForSearchIndex(endTime, startID, batchSize);
 				log.info(" Travel Size:" + list.size());
-	            List<List<TravelInfo>> lists=assignServer(list, servers.length);
+	            List<List<TravelContent>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
 					if(lists.get(i).size()==0){
@@ -98,13 +98,13 @@ public class ExportAllTravels  {
 		}
 	}
 
-	private List<List<TravelInfo>> assignServer(List<TravelInfo> list,int size){
-		ArrayList<List<TravelInfo>> lists=new ArrayList<List<TravelInfo>>(size);
+	private List<List<TravelContent>> assignServer(List<TravelContent> list,int size){
+		ArrayList<List<TravelContent>> lists=new ArrayList<List<TravelContent>>(size);
 		for(int i=0;i<size;i++){
-			lists.add(new ArrayList<TravelInfo>());
+			lists.add(new ArrayList<TravelContent>());
 		}
 		
-		for(TravelInfo wish: list){
+		for(TravelContent wish: list){
 			for(int i=0;i<size;i++){
 				if(wish.getId()%size==i){
 					lists.get(i).add(wish);
