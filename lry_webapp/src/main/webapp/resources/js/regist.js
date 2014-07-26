@@ -6,15 +6,6 @@ var lablId = -1 , ele;
 ;$(function(){
 /*********************************************************/
 
-    // 成为规划师
-    $("#be_planner").change(function(){
-        if($(this).attr("checked")){
-            $("#planner_box").fadeIn();
-        }else{
-            $("#planner_box").fadeOut();
-        }
-    });
-
     //验证码
     var Captcha = function(){
         // 设置验证码

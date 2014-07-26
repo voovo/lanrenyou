@@ -64,11 +64,11 @@
     from tb_private_letter
     where receiver_uid = #{receiverUid,jdbcType=INTEGER} and sender_uid = #{senderUid,jdbcType=INTEGER}
   </select>
-  <select id="getPrivateLetterByReceiverUidAndSenderUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <select id="getPrivateLetterOfTwoManForUidA" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     from tb_private_letter
-    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and sender_uid = #{senderUid,jdbcType=INTEGER} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
+    where (sender_uid = #{uidA,jdbcType=INTEGER} and receiver_uid = #{uidB,jdbcType=INTEGER} and sender_deleted=0) or ( sender_uid= #{uidB,jdbcType=INTEGER} and receiver_uid = #{uidA,jdbcType=INTEGER} and receiver_deleted=0) order by update_time desc  
   </select>
   
   	<update id="updateHasReadById" parameterType="java.util.Map" >

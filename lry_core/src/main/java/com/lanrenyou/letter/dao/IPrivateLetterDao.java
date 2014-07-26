@@ -35,15 +35,15 @@ public interface IPrivateLetterDao extends IValueObjectDao<PrivateLetter> {
 	public int getPrivateLetterCountByReceiverUidAndSenderUid(int senderUid, int receiverUid);
 
 	/**
-	 * getPrivateLetterByReceiverUidAndSenderUid	查询receiverUid收到的和senderUid的私信
-	 * @param senderUid		发信人UID
-	 * @param receiverUid	收信人UID
+	 * getPrivateLetterOfTwoManForUidA	查询receiverUid收到的和senderUid的私信
+	 * @param uidA		A
+	 * @param uidB	B
 	 * @param offset
 	 * @param limit
 	 * @return List<PrivateLetter>
 	 * @exception 
 	*/
-	public List<PrivateLetter> getPrivateLetterByReceiverUidAndSenderUid(int senderUid, int receiverUid, int offset, int limit);
+	public List<PrivateLetter> getPrivateLetterOfTwoManForUidA(int uidA, int uidB);
 
 	/**
 	 * addPrivateLetter	创建一条私信

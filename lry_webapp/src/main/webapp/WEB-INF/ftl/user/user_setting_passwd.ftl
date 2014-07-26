@@ -10,7 +10,7 @@
 
 <!-- waper_box -->
 <div class="waper_box">
-    <h1 class="warper_tt msg_icon">消息中心</h1>
+    <h1 class="warper_tt">个人设置</h1>
     
     <ul class="warper_tab clearfix">
         <li class="cur">个人设置</li>

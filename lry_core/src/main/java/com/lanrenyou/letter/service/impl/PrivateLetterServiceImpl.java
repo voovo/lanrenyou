@@ -31,16 +31,9 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 	}
 
 	@Override
-	public PageIterator<PrivateLetter> pageQueryPrivateLetter(int senderUid,
-			int receiverUid, int pageNo, int pageSize) {
-		int totalCount = privateLetterDao.getPrivateLetterCountByReceiverUidAndSenderUid(senderUid, receiverUid);
-		List<PrivateLetter> list = null;
-		if(totalCount > 0){
-			 list = privateLetterDao.getPrivateLetterByReceiverUidAndSenderUid(senderUid, receiverUid, (pageNo - 1) * pageSize, pageSize);
-		}
-		PageIterator<PrivateLetter> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
-		pageIterator.setData(list);
-		return pageIterator;
+	public List<PrivateLetter> getPrivateLetterOfTwoManForUidA(int uidA, int uidB) {
+		List<PrivateLetter> list = privateLetterDao.getPrivateLetterOfTwoManForUidA(uidA, uidB);
+		return list;
 	}
 
 	@Override

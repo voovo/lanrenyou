@@ -12,7 +12,7 @@
 .btn_s{ font-size: 14px; color: #fff !important;/* padding: 8px 15px;*/ text-align: center; border-radius: 3px; border:0;}
 .blue_btn{ background: #364758;  border: 1px solid #364758; padding: 8px 15px;}
 .blue_btn:hover{ background:#1f2f3e;}
-.gray_btn{ background: #ededed; color: #364758 !important; border: 1px solid #cecece;}
+.gray_btn{ background: #ededed; color: #364758 !important; border: 1px solid #cecece; padding: 8px 15px;}
 .gray_btn:hover{ background: #d8d8d8;}
 .big_btn{ padding:12px 25px;}
 
@@ -182,7 +182,7 @@
 
 
 #search_input{ width: 175px; height: 32px; line-height: 32px; background:#fff; border: 1px solid #19242e; border-radius: 3px; padding: 0 30px 0 5px; position: absolute; top:35px; left:70px; }
-#search_btn{ display: block; width: 24px; height: 24px;  background-position: 0 -25px; position: absolute; top:38px; left:250px;}
+#search_btn{ display: block; width: 24px; height: 24px;  background-position: 0 -25px; position: absolute; top:38px; left:250px; border:0; background-color: #fff; cursor: pointer;}
 
 /*nav*/
 #nav{height: 102px;}

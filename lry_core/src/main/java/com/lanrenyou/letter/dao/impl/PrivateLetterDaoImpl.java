@@ -51,20 +51,12 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 	}
 
 	@Override
-	public List<PrivateLetter> getPrivateLetterByReceiverUidAndSenderUid(
-			int senderUid, int receiverUid, int offset, int limit) {
-		if(offset < 0){
-			offset = 0;
-		}
-		if(limit <= 0 || limit >= 500){
-			limit = 10;
-		}
+	public List<PrivateLetter> getPrivateLetterOfTwoManForUidA(
+			int uidA, int uidB) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
-		params.put("senderUid", senderUid);
-		params.put("receiverUid", receiverUid);
-		params.put("offset", offset);
-		params.put("limit", limit);
-		return this.findList("getPrivateLetterByReceiverUidAndSenderUid", params);
+		params.put("uidA", uidA);
+		params.put("uidB", uidB);
+		return this.findList("getPrivateLetterOfTwoManForUidA", params);
 	}
 
 	@Override

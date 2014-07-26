@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.controller.travel.TravelShowUtil;
@@ -67,7 +68,7 @@ public class UserMsgController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/user/user_msg");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		mav.addObject("userInfo", this.getLoginUser());
+		mav.addObject("userInfo", this.getCurrentUser());
 		PageIterator<PrivateLetter> pageIter = privateLetterService.pageQueryPrivateLetter(this.getLoginUser().getId(), pageNo, pageSize);
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
@@ -138,6 +139,60 @@ public class UserMsgController  extends BaseController {
 			map.put("status", "n");
 			map.put("info", "系统忙，请稍后重试");
 			return gson.toJson(map);
+		}
+	}
+	
+	@RequestMapping("/toReply")
+	public ModelAndView toReply(
+			@RequestParam(value = "receiverUid", required = true) Integer receiverUid
+			){
+		ModelAndView mav = new ModelAndView("/user/user_msg_reply");
+		if(null == receiverUid){
+			return toError("请选择回复对象");
+		}
+		UserInfo receiver = userInfoService.getUserInfoByUid(receiverUid);
+		if(null == receiver){
+			return toError("被回复人不存在");
+		}
+		mav.addObject("receiver", receiver);
+		List<PrivateLetter> letterList = privateLetterService.getPrivateLetterOfTwoManForUidA(this.getLoginUser().getId(), receiverUid);
+		mav.addObject("letterList", letterList);
+		mav.addObject("userInfo", this.getCurrentUser());
+		
+		Map<Integer, UserInfo> userMap = new HashMap<Integer, UserInfo>();
+		userMap.put(receiverUid, receiver);
+		userMap.put(this.getLoginUser().getId(), this.getLoginUser());
+		mav.addObject("userMap", userMap);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value= "/reply", method=RequestMethod.POST)
+	public ModelAndView reply(
+			@RequestParam(value = "receiverUid", required = true) Integer receiverUid,
+			@RequestParam(value = "context", required = true) String context
+			){
+		if(null == receiverUid){
+			return toError("请选择回复对象");
+		}
+		UserInfo receiver = userInfoService.getUserInfoByUid(receiverUid);
+		if(null == receiver){
+			return toError("被回复人不存在");
+		}
+		PrivateLetter letter = new PrivateLetter();
+		letter.setSenderUid(this.getLoginUser().getId());
+		letter.setReceiverUid(receiverUid);
+		letter.setContext(context);
+		letter.setHasRead(PrivateLetterHasReadEnum.UN_READ.getValue());
+		letter.setHasReply(PrivateLetterHasReplyEnum.UN_REPLY.getValue());
+		letter.setReceiverDeleted(0);
+		letter.setSenderDeleted(0);
+		int result = privateLetterService.addPrivateLetter(letter);
+		if(result > 0) {
+			ModelAndView mav = new ModelAndView(new RedirectView("/user/"+ this.getLoginUser().getId()+"/msg/list"));
+			return mav;
+		} else {
+			return toError("系统忙，请稍后重试");
 		}
 	}
 }

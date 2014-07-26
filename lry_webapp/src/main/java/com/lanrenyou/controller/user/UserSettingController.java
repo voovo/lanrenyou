@@ -1,5 +1,8 @@
 package com.lanrenyou.controller.user;
 
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mybatis.framework.core.support.PageIterator;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,8 +23,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import com.lanrenyou.common.PasswordUtil;
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.controller.travel.TravelShowUtil;
 import com.lanrenyou.search.index.util.SolrUtil;
@@ -50,6 +58,9 @@ public class UserSettingController  extends BaseController {
 	
 	@Autowired
 	private IUserPlannerService userPlannerService;
+	
+	private static DateFormat fileNameFormat = new SimpleDateFormat("HHmmssSSS");
+	private static DateFormat format = new SimpleDateFormat("yyyyMMdd");
 	
 	@RequestMapping("/info")
 	public ModelAndView toInfoPage() {
@@ -110,7 +121,7 @@ public class UserSettingController  extends BaseController {
 			userPlanner.setUpdateIp(this.getRemoteAddr());
 			userPlannerService.updateUserPlanner(userPlanner);
 		}
-		ModelAndView mav = new ModelAndView("/user/user_setting_info");
+		ModelAndView mav = new ModelAndView(new RedirectView("/user/setting/info"));
 		return mav;
 	}
 	
@@ -120,6 +131,7 @@ public class UserSettingController  extends BaseController {
 			return to404();
 		}
 		ModelAndView mav = new ModelAndView("/user/user_setting_passwd");
+		mav.addObject("userInfo", this.getLoginUser());
 		return mav;
 	}
 	
@@ -134,12 +146,92 @@ public class UserSettingController  extends BaseController {
 			return to404();
 		}
 		
+		if(!PasswordUtil.convertToMd5(oldPasswd).equals(this.getLoginUser().getUserPass())){
+			return toError("用户密码错误");
+		}
 		
+		if(!newPasswd.equals(newRepasswd)){
+			return toError("两次输入密码不一致");
+		}
 		
+		this.getLoginUser().setUserPass(PasswordUtil.convertToMd5(newPasswd));
+		this.getLoginUser().setHistoryPasswd(oldPasswd);
+		this.getLoginUser().setUpdateUid(this.getLoginUser().getId());
+		this.getLoginUser().setUpdateIp(this.getRemoteAddr());
+		int result = userInfoService.updateUserInfo(this.getLoginUser());
 		
-		ServletUtil.deleteCookie(request, response, LRYConstant.AUTH_COOKIE_KEY);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("login/login");
+		if(result > 0){
+			ServletUtil.deleteCookie(request, response, LRYConstant.AUTH_COOKIE_KEY);
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/login/login");
+			return mav;
+		} else {
+			return toError("系统忙，请稍后重试");
+		}
+	}
+	
+	@RequestMapping("/avatar")
+	public ModelAndView toSetAVatarPage() {
+		if(null == this.getLoginUser()){
+			return to404();
+		}
+		ModelAndView mav = new ModelAndView("/user/user_setting_avatar");
+		mav.addObject("userInfo", this.getLoginUser());
 		return mav;
 	}
+	
+	@RequestMapping(value="/avatarSubmit", method=RequestMethod.POST)
+	public ModelAndView avatarSubmit(@RequestParam(value="uploadFile") MultipartFile uploadFile) throws Exception {
+        if(uploadFile.isEmpty()){
+        	return toError("文件未上传");
+        }else{
+        	Date date = new Date();
+            String dateStr = format.format(date);
+            String year = dateStr.substring(0, 4);
+            String month = dateStr.substring(4,6);
+            String day = dateStr.substring(6);
+            final String fileName = fileNameFormat.format(date) + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf('.'));
+            final String realPath = (AppConfigs.getInstance().get("upload.path")+year+"/"+month+"/"+day);
+            File dir = new File(realPath);
+            if(!dir.exists() || !dir.isDirectory()){
+            	dir.mkdirs();
+            }
+            FileUtils.copyInputStreamToFile(uploadFile.getInputStream(), new File(realPath, fileName));
+            
+            this.getLoginUser().setAvatar("http://img.lanrenyou.com/"+year+"/"+month+"/"+day+"/"+fileName);
+            this.getLoginUser().setUpdateUid(this.getLoginUser().getId());
+            this.getLoginUser().setUpdateIp(this.getRemoteAddr());
+            int result = userInfoService.doUpdateById(getLoginUser());
+            if(result > 0){
+    			ModelAndView mav = new ModelAndView(new RedirectView("/user/setting/info"));
+    			return mav;
+    		} else {
+    			return toError("系统忙，请稍后重试");
+    		}
+        } 
+	}
+	
+//	@RequestMapping(value="/avatarSubmit", method=RequestMethod.POST)
+//	@ResponseBody
+//	public String upload(@RequestParam(value="myfiles") MultipartFile myfilest) throws Exception {
+//		//如果只是上传一个文件，则只需要MultipartFile类型接收文件即可，而且无需显式指定@RequestParam注解 
+//        //如果想上传多个文件，那么这里就要用MultipartFile[]类型来接收文件，并且还要指定@RequestParam注解 
+//        //并且上传多个文件时，前台表单中的所有<input type="file"/>的name都应该是myfiles，否则参数里的myfiles无法获取到所有上传的文件 
+//        for(MultipartFile myfile : myfiles){ 
+//            if(myfile.isEmpty()){ 
+//                System.out.println("文件未上传"); 
+//            }else{ 
+//                System.out.println("文件长度: " + myfile.getSize()); 
+//                System.out.println("文件类型: " + myfile.getContentType()); 
+//                System.out.println("文件名称: " + myfile.getName()); 
+//                System.out.println("文件原名: " + myfile.getOriginalFilename()); 
+//                System.out.println("========================================"); 
+//                //如果用的是Tomcat服务器，则文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\WEB-INF\\upload\\文件夹中 
+//                String realPath = request.getSession().getServletContext().getRealPath("/WEB-INF/upload"); 
+//                //这里不必处理IO流关闭的问题，因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉，我是看它的源码才知道的 
+//                FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(realPath, myfile.getOriginalFilename())); 
+//            } 
+//        }
+//        return "1";
+//	}
 }

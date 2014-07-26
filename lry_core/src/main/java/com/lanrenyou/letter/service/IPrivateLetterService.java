@@ -1,5 +1,7 @@
 package com.lanrenyou.letter.service;
 
+import java.util.List;
+
 import com.lanrenyou.letter.enums.PrivateLetterHasReadEnum;
 import com.lanrenyou.letter.model.PrivateLetter;
 import mybatis.framework.core.service.IValueObjectService;
@@ -18,15 +20,13 @@ public interface IPrivateLetterService extends IValueObjectService<PrivateLetter
 	public PageIterator<PrivateLetter> pageQueryPrivateLetter(int uid, int pageNo, int pageSize);
 	
 	/**
-	 * pageQueryPrivateLetter	分页查询某人与某人之间的私信
-	 * @param senderUid		发信人
-	 * @param receiverUid	收信人
-	 * @param pageNo
-	 * @param pageSize
-	 * @return PageIterator<PrivateLetter>
+	 * getPrivateLetterOfTwoManForUidA	为A用户查询A与B之间的私信，过滤掉了UidA删除掉的私信
+	 * @param uidA		A
+	 * @param uidB	B
+	 * @return List<PrivateLetter>
 	 * @exception 
 	*/
-	public PageIterator<PrivateLetter> pageQueryPrivateLetter(int senderUid, int receiverUid, int pageNo, int pageSize);
+	public List<PrivateLetter> getPrivateLetterOfTwoManForUidA(int uidA, int uidB);
 	
 	/**
 	 * senderDelete	发送者删除私信

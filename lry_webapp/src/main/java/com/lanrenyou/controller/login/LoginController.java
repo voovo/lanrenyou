@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lanrenyou.common.PasswordUtil;
 import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.user.enums.UserInfoStatusEnum;
@@ -82,7 +83,7 @@ public class LoginController extends BaseController {
 			map.put("info", "邮箱错误");
 			return gson.toJson(map);
 		}
-		if(!password.equals(userInfo.getUserPass())){
+		if(!PasswordUtil.convertToMd5(password).equals(userInfo.getUserPass())){
 			map.put("status", "n");
 			map.put("info", "密码错误");
 			return gson.toJson(map);
