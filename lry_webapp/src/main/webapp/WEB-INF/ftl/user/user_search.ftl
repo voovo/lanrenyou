@@ -29,7 +29,7 @@
                 <dd class="planner_info">
                 	<span>关注 <#if starCntMap?? && starCntMap.get(userInfo.id)??>${starCntMap.get(userInfo.id)!''}<#else>0</#if></span>
                     <span>粉丝 <#if fansCntMap?? && fansCntMap.get(userInfo.id)??>${fansCntMap.get(userInfo.id)!''}<#else>0</#if></span>
-                    <span>游记 <a href="/user/${travelInfo.uid!''}/travelList"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(userInfo.id)??>${userPublishedTravelCntMap.get(userInfo.id)!''}<#else>0</#if></a></span>
+                    <span>游记 <a href="/user/${travelInfo.uid!''}"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(userInfo.id)??>${userPublishedTravelCntMap.get(userInfo.id)!''}<#else>0</#if></a></span>
 
                     <a href="javascript:;" class="btn_s add_btn"></a>
                     <a href="javascript:;" class="btn_s msg_btn"></a>

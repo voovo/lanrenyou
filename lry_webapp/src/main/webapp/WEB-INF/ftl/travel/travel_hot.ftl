@@ -44,7 +44,7 @@
                                             <p>
                                                 <span>关注 <#if starCntMap?? && starCntMap.get(travelInfo.uid)??>${starCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
                                                 <span>粉丝 <#if fansCntMap?? && fansCntMap.get(travelInfo.uid)??>${fansCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
-                                                <span>游记 <a href="/user/${travelInfo.uid!''}/travelList"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(travelInfo.uid)??>${userPublishedTravelCntMap.get(travelInfo.uid)!''}<#else>0</#if></a></span>
+                                                <span>游记 <a href="/user/${travelInfo.uid!''}"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(travelInfo.uid)??>${userPublishedTravelCntMap.get(travelInfo.uid)!''}<#else>0</#if></a></span>
                                             </p>
                                             
                                         </dd>
