@@ -38,6 +38,9 @@ public class UserStarController  extends BaseController {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			) {
+		if(null == this.getLoginUser() || this.getLoginUser().getId().intValue() != this.getCurrentUser().getId()){
+			return to404();
+		}
 		if(null == pageNo){
 			pageNo = 1;
 		}
