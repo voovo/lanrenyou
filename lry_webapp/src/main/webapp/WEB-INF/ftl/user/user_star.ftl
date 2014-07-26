@@ -18,8 +18,8 @@
     </ul>
     
     <ul id="u_fans_tabs" class="clearfix waper_box">
-        <li><a class="btn_s gray_btn" href="javascript:;">全部关注(1206)</a></li>
-        <li><a class="btn_s blue_btn" href="javascript:;">我关注的人(127)</a></li>
+        <li><a class="btn_s gray_btn" href="/user/${userInfo.id!''}/fans/list">全部关注(${fansCnt!'0'})</a></li>
+        <li><a class="btn_s blue_btn" href="javascript:;">我关注的人(${starCnt!'0'})</a></li>
     </ul>
 
 	<#if uidList?? && uidList?size gt 0>

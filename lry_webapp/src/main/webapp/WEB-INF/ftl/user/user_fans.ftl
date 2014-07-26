@@ -18,8 +18,8 @@
     </ul>
     
     <ul id="u_fans_tabs" class="clearfix waper_box">
-        <li><a class="btn_s blue_btn" href="javascript:;">全部关注(1206)</a></li>
-        <li><a class="btn_s gray_btn" href="javascript:;">我关注的人(127)</a></li>
+        <li><a class="btn_s blue_btn" href="javascript:;">全部关注(${fansCnt!'0'})</a></li>
+        <li><a class="btn_s gray_btn" href="/user/${userInfo.id!''}/star/list">我关注的人(${starCnt!'0'})</a></li>
     </ul>
 
 	<#if uidList?? && uidList?size gt 0>
@@ -51,7 +51,7 @@
     </#if>
     <@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/${userInfo.id!''}/fans/list?pageNo=%d"/>
     <#else>
-    	<div class="no_result">还没有关注用户</div>
+    	<div class="no_result">还没有被关注</div>
     </#if>
 
 </div>

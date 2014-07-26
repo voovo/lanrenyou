@@ -61,6 +61,7 @@ public class UserStarController  extends BaseController {
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("pageIter", pageIter);
+			mav.addObject("starCnt", pageIter.getTotalCount());
 			for(UserFollow userFollow : pageIter.getData()){
 				uidSet.add(userFollow.getFansUid());
 			}
@@ -73,6 +74,7 @@ public class UserStarController  extends BaseController {
 		
 		PageIterator<UserFollow> fansPageIter = userFollowService.pageQueryFansByUid(this.getLoginUser().getId(), 1, 100);
 		if(null != fansPageIter && null != fansPageIter.getData()){
+			mav.addObject("fansCnt", fansPageIter.getTotalCount());
 			Map<Integer, Integer> fansMap = new HashMap<Integer, Integer>();
 			for(UserFollow uf : fansPageIter.getData()){
 				fansMap.put(uf.getFansUid(), 1);

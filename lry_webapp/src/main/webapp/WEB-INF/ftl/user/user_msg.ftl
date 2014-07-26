@@ -25,13 +25,13 @@
     </ul>
      -->
      
+	<#if letterList?? && letterList?size() gt 0>
     <p>
         <input id="sel_all" type="checkbox"> <label for="sel_all">全选</label>
         <a href="javascript:;">删除</a>
         <a href="javascript:;">标记为已读</a>
     </p>
 
-	<#if letterList?? && letterList?size() gt 0>
     <ul id="u_msg_list">
         <!-- 小心中心列表循环开始 -->
         <#list letterList as letter>
