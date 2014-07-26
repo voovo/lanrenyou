@@ -121,7 +121,7 @@ public class UserSettingController  extends BaseController {
 			userPlanner.setUpdateIp(this.getRemoteAddr());
 			userPlannerService.updateUserPlanner(userPlanner);
 		}
-		ModelAndView mav = new ModelAndView(new RedirectView("/user/setting/info"));
+		ModelAndView mav = new ModelAndView(new RedirectView("/user/"+this.getLoginUser().getId()));
 		return mav;
 	}
 	
@@ -203,7 +203,7 @@ public class UserSettingController  extends BaseController {
             this.getLoginUser().setUpdateIp(this.getRemoteAddr());
             int result = userInfoService.doUpdateById(getLoginUser());
             if(result > 0){
-    			ModelAndView mav = new ModelAndView(new RedirectView("/user/setting/info"));
+    			ModelAndView mav = new ModelAndView(new RedirectView("/user/"+this.getLoginUser().getId()));
     			return mav;
     		} else {
     			return toError("系统忙，请稍后重试");

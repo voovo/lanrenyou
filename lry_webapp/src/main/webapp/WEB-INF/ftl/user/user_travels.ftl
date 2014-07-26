@@ -10,10 +10,10 @@
     <h1 class="warper_tt yj_icon">我的游记</h1>
     
     <ul class="warper_tab clearfix">
-    	<li><a href="/user/${userInfo.id!''}/detail">个人设置</a></li>
+    	<li><a href="/user/${userInfo.id!''}/info">个人设置</a></li>
         <li class="cur">我的游记</li>
-        <li><a href="/user/${userInfo.id!''}/msg">消息中心 (<i>12</i>)</a></li>
-        <li><a href="/user/${userInfo.id!''}/fans">粉丝管理</a></li>
+        <li><a href="/user/${userInfo.id!''}/msg/list">消息中心 (<i>12</i>)</a></li>
+        <li><a href="/user/${userInfo.id!''}/fans/list">粉丝管理</a></li>
         <li><a href="/user/${userInfo.id!''}/collect/list">我的收藏</a></li>
     </ul>
 

@@ -1,4 +1,4 @@
-<@page  title="我的收藏-懒人游" description=""  keywords="" 
+<@page  title="个人主页-懒人游" description=""  keywords="" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/js/waper.js"

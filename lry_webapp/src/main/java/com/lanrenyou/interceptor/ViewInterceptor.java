@@ -12,12 +12,16 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mybatis.framework.core.support.PageIterator;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.lanrenyou.letter.model.PrivateLetter;
+import com.lanrenyou.letter.service.IPrivateLetterService;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.user.model.UserInfo;
@@ -41,6 +45,9 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	protected IUserInfoService userInfoService;
 	
+	@Autowired
+	protected IPrivateLetterService privateLetterService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
@@ -48,6 +55,11 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 
 		if (userInfo != null) {
 			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
+			PageIterator<PrivateLetter> letterPage = privateLetterService.pageQueryPrivateLetter(userInfo.getId(), 1, 2);
+			if(null != letterPage){
+				request.setAttribute("headerLetterList", letterPage.getData());
+				request.setAttribute("headerLetterCnt", letterPage.getTotalCount());
+			}
 		} else {
 			ServletUtil.clearUserCookie(request, response);
 		}

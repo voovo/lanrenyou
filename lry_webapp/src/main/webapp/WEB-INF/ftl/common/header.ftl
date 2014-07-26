@@ -31,18 +31,17 @@
                 </ul>
             </div>
         </div>
-        <form action="" method="">
+        <form action="/travel/search/list" method="GET">
         <input type="text" id="search_input" placeholder="请输入旅游城市或国家" name="keyword"  />
-        <input type="submit" id="search_btn" />
-        <a id="search_btn" href="javascript:;" title="搜索"></a>
+        <input type="submit" id="search_btn" value=""/>
         </form>
     </div>
     
     <!-- nav -->
     <div id="nav" class="left">
         <ul class="clearfix">
-            <li><a href="javascript:;">找游记</a></li>
-            <li><a href="javascript:;">找规划师</a></li>
+            <li><a href="/travel/search/hot">找游记</a></li>
+            <li><a href="/user/search/list">找规划师</a></li>
         </ul>
     </div>
 
@@ -51,53 +50,44 @@
     	<#if loginUser??>
     		<ul class="clearfix">
 	            <li>
-	                <img src="/resources/imgs/user_face.jpg" width="20" height="20" alt="" />
+	                <img src="${loginUser.avatar!''}" width="20" height="20" alt="" />
 	            </li>
-	            <li class="wap_show bd_right">sheak</li>
-	            <li class="wap_show bd_right"><a href="javascript:;">发布游记</a></li>
+	            <li class="wap_show bd_right">${loginUser.name!''}</li>
+	            <li class="wap_show bd_right"><a href="/travel/toAddPage">发布游记</a></li>
 	            <li id="msg" class="wap_show bd_right show_more">
-	                消息中心(5)
+	                消息中心(${headerLetterCnt!'0'})
+	                <#if headerLetterCnt?? && headerLetterCnt gt 0>
 	                <div id="more_msg" class="more_item hide">
 	                    <i class="tag_ico_r"></i>
 	                    <ul class="msg_tab clearfix">
-	                        <li class="cur"><a href="javascript:;">通知(2)</a></li>
-	                        <li><a href="javascript:;">私信(3)</a></li>
+	                        <li class="cur"><a href="javascript:;">私信(${headerLetterCnt!'0'})</a></li>
 	                    </ul>
 	                    <div class="msg_item">
+	                    	<#if headerLetterList?? && headerLetterList.size() gt 0>
+	                    	<#list headerLetterList as letter>
 	                        <p>
-	                            Hi~，欢迎加入懒人游，现在就开始享受你的旅程吧！在这里，...
+	                            <@truncateChars value="${letter.context!''}" length="30"/>
 	                        </p>
-	                        <p>
-	                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
-	                        </p>
+	                        </#list>
+	                        </#if>
 	                    </div>
-	                    <div class="msg_item hide">
-	                        <p>
-	                            Hi~，欢迎加入懒人游，现在就开始享受你的旅程吧！在这里，...
-	                        </p>
-	                        <p>
-	                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
-	                        </p>
-	                        <p>
-	                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
-	                        </p>
-	                    </div>
-	                    <div class="msg_bottom"><a href="javascript:;">全部通知</a></div>
+	                    <div class="msg_bottom"><a href="/user/${loginUser.id!''}/msg/list">全部私信</a></div>
 	                </div>
+	                </#if>
 	            </li>
 	            <li>
 	                <div class="user_more show_more">
 	                    <div class="hide more_item">
 	                        <i class="tag_ico"></i>
 	                        <ul>
-	                            <li class="wap_hide hide">sheak</li>
-	                            <li class="wap_hide hide"><a href="javascript:;">发布游记</a></li>
-	                            <li class="wap_hide hide"><a href="javascript:;">消息中心(5)</a></li>
-	                            <li><a href="javascript:;" title="个人设置">个人设置</a></li>
-	                            <li><a href="javascript:;" title="我的游记">我的游记</a></li>
-	                            <li><a href="javascript:;" title="粉丝管理">粉丝管理</a></li>
-	                            <li><a href="javascript:;" title="我的收藏">我的收藏</a></li>
-	                            <li><a href="javascript:;" title="退出">退出</a></li>
+	                            <li class="wap_hide hide">${loginUser.name!''}</li>
+	                            <li class="wap_hide hide"><a href="/travel/toAddPage">发布游记</a></li>
+	                            <li class="wap_hide hide"><a href="/user/${loginUser.id!''}/msg/list">消息中心(${headerLetterCnt!'0'})</a></li>
+	                            <li><a href="/user/${loginUser.id!''}/info" title="个人设置">个人设置</a></li>
+	                            <li><a href="/user/${loginUser.id!''}/travelList/list" title="我的游记">我的游记</a></li>
+	                            <li><a href="/user/${loginUser.id!''}/fans/list" title="粉丝管理">粉丝管理</a></li>
+	                            <li><a href="/user/${loginUser.id!''}/collect/list" title="我的收藏">我的收藏</a></li>
+	                            <li><a href="/logout" title="退出">退出</a></li>
 	                        </ul>
 	                    </div>
 	                </div>
@@ -105,8 +95,8 @@
 	        </ul>
     	<#else>
     		<ul class="clearfix">
-	            <li class="bd_right"><a href="javascript:;">登陆</a></li>
-	            <li><a href="javascript:;">注册</a></li>
+	            <li class="bd_right"><a href="/regist/toPage">登陆</a></li>
+	            <li><a href="/login">注册</a></li>
         	</ul>
     	</#if>
     </div>
