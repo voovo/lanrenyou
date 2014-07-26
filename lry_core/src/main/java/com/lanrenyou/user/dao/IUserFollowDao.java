@@ -1,6 +1,7 @@
 package com.lanrenyou.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lanrenyou.user.model.UserFollow;
 import mybatis.framework.core.dao.IValueObjectDao;
@@ -60,5 +61,17 @@ public interface IUserFollowDao extends IValueObjectDao<UserFollow> {
 	 * @exception 
 	*/
 	public int deleteByFansUidAndStartUid(int fansUid, int starUid);
+
+	public Map<Integer, Integer> getFansCountMapByUidList(List<Integer> uidList);
+
+	public Map<Integer, Integer> getStarCountMapByUidList(List<Integer> uidList);
+
+	/**
+	 * 判断是否关注了某用户
+	 * @param fansUid
+	 * @param starUid
+	 * @return
+	 */
+	public boolean getByFansUidStarUid(int fansUid, int starUid);
 	
 }

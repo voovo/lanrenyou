@@ -51,4 +51,9 @@ public class TravelCollectServiceImpl extends BaseVOService<TravelCollect> imple
 		page.setData(list);
 		return page;
 	}
+
+	@Override
+	public int getCollectCntByTid(int tid) {
+		return travelCollectDao.getTravelCollectCountByTid(tid);
+	}
 }

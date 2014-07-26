@@ -7,8 +7,12 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.controller.base.BaseController;
@@ -16,6 +20,8 @@ import com.lanrenyou.controller.base.BaseController;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/captcha")
@@ -48,11 +54,11 @@ public class CaptchaController extends BaseController {
         '3', '4', '5', '6', '7', '8'}; //i,1,l,o,0,q,9因为不易辨识，V,W连在一起时不易辨识;
 
     @RequestMapping("/getCaptcha")
-    public ModelAndView getCaptcha(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws IOException {
+    public ModelAndView getCaptcha(HttpServletResponse httpResponse) throws IOException {
         //自定义设置字体颜色和大小 最简单的效果 多种字体随机显示
         WordRenderer wordRenderer = new TextCaptchaRender(Arrays.asList(DEFAULT_COLOR_LIST), Arrays.asList(DEFAULT_FONT_LIST));
         //自定义验证码背景
-        CaptchaBackgroundProducer captchaBackground = new CaptchaBackgroundProducer(httpRequest);
+        CaptchaBackgroundProducer captchaBackground = new CaptchaBackgroundProducer(request);
 
         Captcha.Builder builder = new Captcha.Builder(DEFAULT_CAPTCHA_IMAGE_WIDTH, DEFAULT_CAPTCHA_IMAGE_HEIGHT);
 
@@ -60,8 +66,9 @@ public class CaptchaController extends BaseController {
         builder.addText(new CaptchaTextProducer(DEFAULT_CAPTCHA_LENGTH, DEFAULT_CAPTCHA_CHAR_SET), wordRenderer); //设置文本
         //当通过firebug之类的工具首次查看验证码图片的url时，请求会重新加载，导致cache中存的数据与实际呈现给用户的数据不一样
         //此类问题可以不予理会，因为真实情况下很少有人会去用firebug查看url
-        String captchaValue = captcha.getAnswer();
-        httpRequest.getSession().setAttribute("captchaValue", captchaValue + "|"+System.currentTimeMillis());
+        String captchaValue = captcha.getAnswer().toUpperCase();
+        request.getSession().setAttribute("captchaValue", captchaValue + "#"+System.currentTimeMillis());
+        logger.debug("Create Captcha:{} | sessionId:{}", captchaValue, request.getSession().getId());
         try {
             httpResponse.setHeader("Cache-Control", "private,no-cache,no-store");
             httpResponse.setContentType("image/png");
@@ -71,5 +78,43 @@ public class CaptchaController extends BaseController {
         }
         return null;
     }
+    
+    @RequestMapping(value="/checkCaptcha", method=RequestMethod.POST)
+	@ResponseBody
+	public String checkCaptcha(@RequestParam(value = "captcha") String captcha){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(StringUtils.isBlank(captcha)){
+			map.put("status", "n");
+			map.put("info", "验证码不得为空");
+			return gson.toJson(map);
+		}
+		String sessionCaptcha = (String) request.getSession().getAttribute("captchaValue");
+		if(null == sessionCaptcha){
+			map.put("status", "n");
+			map.put("info", "验证码验证失败");
+			return gson.toJson(map);
+		}
+		String[] arr = sessionCaptcha.split("#");
+		if(arr.length != 2){
+			map.put("status", "n");
+			map.put("info", "验证码验证失败");
+			return gson.toJson(map);
+		}
+		long startTime = Long.parseLong(arr[1]);
+		if(System.currentTimeMillis() - startTime > 600000){
+			map.put("status", "n");
+			map.put("info", "验证码失效");
+			return gson.toJson(map);
+		}
+		logger.debug("Check Captcha:{}| session captcha:{} | sessionId:{}", captcha, arr[0], request.getSession().getId());
+		if(!captcha.toUpperCase().equals(arr[0])){
+			map.put("status", "n");
+			map.put("info", "验证码不正确");
+			return gson.toJson(map);
+		}
+		map.put("status", "y");
+		map.put("info", "验证码校验成功");
+		return gson.toJson(map);
+	}
     
 }

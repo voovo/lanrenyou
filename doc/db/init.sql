@@ -153,7 +153,8 @@ create table tb_private_letter
    context              varchar(512) not null comment '内容',
    has_read             tinyint(6) default 0 comment '是否已读[0:未读; 1:已读]',
    has_reply            tinyint(6) default 0 comment '是否回复[0:未回复; 1:已回复]',
-   is_deleted           tinyint(6) default 0 comment '是否删除[0:否; 1:是]',
+   sender_deleted       tinyint(6) default 0 comment '发送者删除[0:否; 1:是]',
+   receiver_deleted     tinyint(6) default 0 comment '接收者删除[0:否; 1:是]',
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    primary key (id)
 );
@@ -182,7 +183,7 @@ create table tb_travel_content
    id                   int(11) not null auto_increment comment '主键ID',
    tid                  int(11) not null comment '游记ID',
    travel_date          datetime,
-   content              text not null comment '详细内容',
+   content              MEDIUMTEXT not null comment '详细内容',
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    primary key (id)
 );
@@ -195,7 +196,7 @@ alter table tb_travel_content comment '游记详情表';
 create table tb_travel_info
 (
    id                   int(11) not null auto_increment comment '主键ID',
-   city                 int(11) not null comment '城市',
+   city                 varchar(256) not null comment '城市',
    uid                  int(11) not null comment '发布者ID',
    title                varchar(128) not null comment '标题',
    is_elite             tinyint(6) default 0 comment '是否精华[0:不是; 1:是]',
@@ -290,7 +291,7 @@ alter table tb_user_follow comment '关注表';
 create table tb_user_info
 (
    id                   int(11) not null auto_increment comment '主键ID',
-   name                 varchar(128) not null default '' comment '登录用户名',
+   name                 varchar(128) default '' comment '登录用户名',
    email                varchar(128) comment '邮箱',
    user_pass            varchar(128) not null default '' comment '密码',
    history_passwd       varchar(128) comment '历史密码',
@@ -322,8 +323,8 @@ create table tb_user_planner
 (
    id                   int(11) not null auto_increment comment '主键ID',
    uid                  int(11) not null comment '用户ID',
-   target_city          varchar(256) comment '可策划地区',
-   price                numeric(10,2) comment '策划价格',
+   target_city          varchar(256) comment '可规划地区',
+   price                numeric(10,2) comment '规划价格',
    charge_mode          tinyint(6) comment '收费模式[1:按天; 2:按周; 3:按次;]',
    status               tinyint(6) comment '状态',
    create_uid           int(11),
@@ -335,7 +336,8 @@ create table tb_user_planner
    primary key (id)
 );
 
-alter table tb_user_planner comment '策划师';
+alter table tb_user_planner comment '规划师';
+
 
 
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1001,'纽约NYC及周边');

@@ -22,7 +22,7 @@ public interface IUserInfoService extends IValueObjectService<UserInfo> {
 	 * @return Map<Integer,UserInfo>
 	 * @exception 
 	*/
-	public Map<Integer, UserInfo> getUserInfoListByUidList(List<Integer> uidList);
+	public Map<Integer, UserInfo> getUserInfoMapByUidList(List<Integer> uidList);
 	
 	/**
 	 * getUserInfoByName	根据用户名查询用户信息

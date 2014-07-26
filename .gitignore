@@ -39,7 +39,9 @@ target/
 classes/
 .class
 .project
+zhangpj_gitignore.bat
 settings/
+lry_webapp/src/main/resources/encrypt_keys.properties
 lry_webapp/.project
 *.project
 lry_core/.classpath

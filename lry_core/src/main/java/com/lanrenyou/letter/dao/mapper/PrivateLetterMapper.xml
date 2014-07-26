@@ -8,10 +8,12 @@
     <result column="context" property="context" jdbcType="VARCHAR" />
     <result column="has_read" property="hasRead" jdbcType="TINYINT" />
     <result column="has_reply" property="hasReply" jdbcType="TINYINT" />
-    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+    <result column="sender_deleted" property="senderDeleted" jdbcType="TINYINT" />
+    <result column="receiver_deleted" property="receiverDeleted" jdbcType="TINYINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, sender_uid, receiver_uid, context, has_read, has_reply, is_deleted
+    id, sender_uid, receiver_uid, context, has_read, has_reply, sender_deleted, receiver_deleted, update_time
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_private_letter
@@ -48,25 +50,25 @@
     select
     count(1)
     from tb_private_letter
-    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and is_deleted = 0
+    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and receiver_deleted = 0
   </select>
   <select id="getPrivateLetterByReceiverUid" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     from tb_private_letter
-    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and is_deleted = 0 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
+    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and receiver_deleted = 0 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
   </select>
   <select id="getPrivateLetterCountByReceiverUidAndSenderUid" resultType="java.lang.Integer" parameterType="java.util.Map">
     select
     count(1)
     from tb_private_letter
-    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and sender_uid = #{senderUid,jdbcType=INTEGER} and is_deleted = 0
+    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and sender_uid = #{senderUid,jdbcType=INTEGER}
   </select>
-  <select id="getPrivateLetterByReceiverUidAndSenderUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+  <select id="getPrivateLetterOfTwoManForUidA" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     from tb_private_letter
-    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and sender_uid = #{senderUid,jdbcType=INTEGER} and is_deleted = 0 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
+    where (sender_uid = #{uidA,jdbcType=INTEGER} and receiver_uid = #{uidB,jdbcType=INTEGER} and sender_deleted=0) or ( sender_uid= #{uidB,jdbcType=INTEGER} and receiver_uid = #{uidA,jdbcType=INTEGER} and receiver_deleted=0) order by update_time desc  
   </select>
   
   	<update id="updateHasReadById" parameterType="java.util.Map" >
@@ -81,10 +83,17 @@
 	   		has_reply = 1
 	   	where id = #{id,jdbcType=INTEGER}
 	</update>
-    <update id="updateIsDeletedById" parameterType="java.util.Map" >
+    <update id="senderDeletedById" parameterType="java.util.Map" >
 	    update tb_private_letter
 	    set
-	    	is_deleted = 1
+	    	sender_deleted = 1
+	    where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="receiverDeletedById" parameterType="java.util.Map" >
+	    update tb_private_letter
+	    set
+	    	receiver_deleted = 1
 	    where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

@@ -13,7 +13,9 @@
 
     <!-- 页面自用 -->
     <link rel="stylesheet" href="css/regist.css">
-
+    <link rel="stylesheet" href="css/plug/style.css">
+    <script src="js/plug/Validform_v5.3.2_min.js"></script>
+    <script src="js/regist.js"></script>
     <!-- 页面自用 -->
 
 
@@ -144,21 +146,18 @@
                 <tr>
                     <td width="18%" align="right"><span class="ft_14">电子邮件：</span></td>
                     <td width="40%"><input type="text" class="input_220"></td>
-                    <td><span class="form_notice"></span></td>
                 </tr>
                 <tr>
                     <td align="right"><span class="ft_14">密码：</span></td>
                     <td><input type="password" class="input_220"></td>
-                    <td><span class="form_notice"></span></td>
                 </tr>
-                <tr>
+                <tr class="login_code_tr">
                     <td align="right"><span class="ft_14">验证码：</span></td>
-                    <td colspan="2"><input type="text" class="input_70" maxlength="4"> <div id="form_code"><img src="imgs/code.jpg" alt=""> </div><span id="changeCode">看不清，<a href="javascript:;">换一张</a></span></td>
+                    <td><input type="text" class="input_70" maxlength="4"> <div id="form_code"><img src="imgs/code.jpg" alt=""> </div><span id="changeCode">看不清，<a href="javascript:;">换一张</a></span></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td><a href="javascript:;" class="btn blue_btn">登&nbsp;&nbsp;录</a>  <a id="get_pwd" href="">忘记密码?</a></td>
-                    <td></td>
                 </tr>
             </table>
         </div>

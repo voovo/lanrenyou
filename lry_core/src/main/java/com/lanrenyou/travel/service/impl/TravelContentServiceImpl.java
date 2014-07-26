@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,5 +50,17 @@ public class TravelContentServiceImpl extends BaseVOService<TravelContent> imple
 			travelContentMap.put(tc.getTid(), tc);
 		}
 		return travelContentMap;
+	}
+	
+	@Override
+	public List<TravelContent> getTravelContentListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit) {
+		return travelContentDao.getTravelContentListForSearchIndex(startTime, endTime, offset, limit);
+	}
+
+	@Override
+	public List<TravelContent> getTravelContentListForSearchIndex(Date endTime,
+			int offset, int limit) {
+		return travelContentDao.getTravelContentListForSearchIndex(endTime, offset, limit);
 	}
 }

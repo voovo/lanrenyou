@@ -12,6 +12,7 @@
         <span class="gray">为了更好的体验懒人游，请先完善自己的基本资料！</span>
 
         <div class="form_table">
+        	<form action="/regist/submitInfo" method="POST">
             <table cellpadding="0" cellspacing="0" border="0">
             	<input type="hidden" name="uid" value="${loginUser.id!''}" />
                 <tr>
@@ -42,17 +43,18 @@
                     </td>
                 </tr>
                 <tr id="planner_box" class="hide">
-                    <td width="18%" align="right"><span class="ft_14">可策划地区：</span></td>
+                    <td width="18%" align="right"><span class="ft_14">可规划地区：</span></td>
                     <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
                     <input id="last_home" type="text" name="targetCity" class="input_100" placeholder="用分号分隔多个地区"></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><a href="javascript:;" class="btn blue_btn">提交修改</a></td>
+                    <td><input type="submit" class="btn blue_btn" value="提交修改" /></td>
                     <td></td>
                 </tr>
             </table>
+            </form>
         </div>
     </div>
 </div>

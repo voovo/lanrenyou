@@ -1,6 +1,5 @@
 package com.lanrenyou.travel.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -76,22 +75,10 @@ public interface ITravelInfoService extends IValueObjectService<TravelInfo> {
 	public PageIterator<TravelInfo> pageQueryTravelInfoByUid(int uid, int pageNo, int pageSize);
 
 	/**
-	 * 增加同步索引使用接口
-	 * @param startTime
-	 * @param endTime
-	 * @param offset
-	 * @param limit
+	 * 批量获取某些人发布过的游记数量
+	 * @param uidList
 	 * @return
 	 */
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date startTime, Date endTime, int offset, int limit);
-
-	/**
-	 * 全量同步索引使用接口
-	 * @param endTime
-	 * @param offset
-	 * @param limit
-	 * @return
-	 */
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime, int offset, int limit);
+	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(List<Integer> uidList);
 	
 }

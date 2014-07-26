@@ -20,6 +20,8 @@ textarea{resize:none}
 
 fieldset, img {
     border: 0;
+    font-size: 0;
+    line-height: 0;
 }
 
 address, caption, cite, code, dfn, em, strong, th, var, i {
@@ -54,7 +56,7 @@ abbr, acronym {
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, address, caption, cite, code, dfn, em, strong, th, var {
     font: 400 12px "微软雅黑", "Microsoft YaHei", "Tahoma", "宋体";
 }
-body{background-color:#fff;}
+body{background-color:#f6f6f6;}
 html{overflow-y:scroll; overflow-x:hidden;}
 
 /*
@@ -114,7 +116,7 @@ html{overflow-y:scroll; overflow-x:hidden;}
 }
 
 .box {
-    width: 960px;
+    width: 1200px;
     margin: 0 auto;
     overflow: hidden;
 }

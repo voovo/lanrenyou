@@ -2,6 +2,7 @@ package com.lanrenyou.travel.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.lanrenyou.travel.model.TravelInfo;
 import mybatis.framework.core.dao.IValueObjectDao;
@@ -73,24 +74,5 @@ public interface ITravelInfoDao extends IValueObjectDao<TravelInfo> {
 	*/
 	public List<TravelInfo> getTravelInfoListByUid(int uid, int offset, int limit);
 
-	/**
-	 * 增量创建索引使用
-	 * @param startTime
-	 * @param endTime
-	 * @param offset
-	 * @param limit
-	 * @return
-	 */
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date startTime,
-			Date endTime, int offset, int limit);
-
-	/**
-	 * 全量创建索引使用
-	 * @param endTime
-	 * @param offset
-	 * @param limit
-	 * @return
-	 */
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime,
-			int offset, int limit);
+	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(List<Integer> uidList);
 }

@@ -23,7 +23,7 @@ public class UserInfoServiceImpl extends BaseVOService<UserInfo> implements IUse
 	}
 
 	@Override
-	public Map<Integer, UserInfo> getUserInfoListByUidList(List<Integer> uidList) {
+	public Map<Integer, UserInfo> getUserInfoMapByUidList(List<Integer> uidList) {
 		List<UserInfo> userInfoList = userInfoDao.getListByUidList(uidList);
 		if(null == userInfoList || userInfoList.size() <= 0){
 			return null;

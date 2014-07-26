@@ -18,12 +18,12 @@ public class UserPlanner extends BaseValueObject {
     private Integer uid;
 
     /**
-     * 可策划地区
+     * 可规划地区
      */
     private String targetCity;
 
     /**
-     * 策划价格
+     * 规划价格
      */
     private Double price;
 
@@ -46,6 +46,8 @@ public class UserPlanner extends BaseValueObject {
     private Integer updateUid;
 
     private String updateIp;
+    
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -126,8 +128,16 @@ public class UserPlanner extends BaseValueObject {
     public void setUpdateUid(Integer updateUid) {
         this.updateUid = updateUid;
     }
+    
+    public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public String getUpdateIp() {
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getUpdateIp() {
         return updateIp;
     }
 

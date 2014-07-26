@@ -55,4 +55,12 @@
             #{item, jdbcType=INTEGER}
         </foreach>
   </select>
+  
+  <select id="getListForAddIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_content where update_time &gt;= #{startTime, jdbcType=TIMESTAMP} and update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getListForFullIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_content where update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
 </mapper>

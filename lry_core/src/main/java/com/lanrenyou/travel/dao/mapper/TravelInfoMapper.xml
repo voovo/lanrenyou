@@ -3,8 +3,8 @@
 <mapper namespace="com.lanrenyou.travel.dao.ITravelInfoDao" >
   <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.TravelInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="city" property="city" jdbcType="INTEGER" />
-    <result column="uid" property="plannerUid" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="is_elite" property="isElite" jdbcType="TINYINT" />
     <result column="is_top" property="isTop" jdbcType="TINYINT" />
@@ -29,15 +29,15 @@
       is_elite, is_top, status, 
       create_uid, create_time, create_ip, 
       update_uid, update_ip)
-    values (#{city,jdbcType=INTEGER}, #{plannerUid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+    values (#{city,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
       #{isElite,jdbcType=TINYINT}, #{isTop,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
       #{createUid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, 
       #{updateUid,jdbcType=INTEGER}, #{updateIp,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelInfo" >
     update tb_travel_info
-    set city = #{city,jdbcType=INTEGER},
-      uid = #{plannerUid,jdbcType=INTEGER},
+    set city = #{city,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
       is_elite = #{isElite,jdbcType=TINYINT},
       is_top = #{isTop,jdbcType=TINYINT},
@@ -79,12 +79,10 @@
     select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status = 1 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
-  <select id="getListForAddIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
-    select <include refid="Base_Column_List" /> from tb_travel_info where update_time &gt;= #{startTime, jdbcType=TIMESTAMP} and update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  <select id="getPublishedTravelCntMapByUidList" resultType="java.util.Map" parameterType="java.lang.Integer" >
+    select
+    	uid, count(1) as cnt
+    from tb_travel_info
+    where uid in <foreach collection="uidList" open="(" close=")" item="item" separator=",">#{item, jdbcType=INTEGER}</foreach> group by uid
   </select>
-  
-  <select id="getListForFullIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
-    select <include refid="Base_Column_List" /> from tb_travel_info where update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
-  </select>
-  
 </mapper>

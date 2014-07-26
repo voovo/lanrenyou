@@ -1,12 +1,12 @@
 package com.lanrenyou.travel.dao.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.lanrenyou.travel.dao.ITravelContentDao;
 import com.lanrenyou.travel.model.TravelContent;
-import com.sun.jmx.trace.Trace;
 
 import mybatis.framework.core.dao.BaseDao;
 import org.springframework.stereotype.Repository;
@@ -43,8 +43,32 @@ public class TravelContentDaoImpl extends BaseDao<TravelContent> implements ITra
 
 	@Override
 	public List<TravelContent> getByTidList(List<Integer> tidList) {
+		if(null == tidList || tidList.size() <= 0){
+			return null;
+		}
 		Map<String, Object> params = new HashMap<String, Object>(1);
 		params.put("tidList", tidList);
 		return this.findList("getByTidList", params);
+	}
+	
+	@Override
+	public List<TravelContent> getTravelContentListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("startTime", startTime);
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListForAddIndex", params);
+	}
+
+	@Override
+	public List<TravelContent> getTravelContentListForSearchIndex(Date endTime,
+			int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListForFullIndex", params);
 	}
 }

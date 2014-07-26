@@ -18,7 +18,7 @@
     where uid = #{uid,jdbcType=INTEGER} and tid = #{tid, jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelCollect" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_travel_collect (uid, tid)
+    insert ignore into tb_travel_collect (uid, tid)
     values (#{uid,jdbcType=INTEGER}, #{tid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.TravelCollect" >

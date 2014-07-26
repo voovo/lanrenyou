@@ -3,7 +3,7 @@ package com.lanrenyou.letter.service.impl;
 import java.util.List;
 
 import com.lanrenyou.letter.dao.IPrivateLetterDao;
-import com.lanrenyou.letter.enums.PrivateLetterStatusEnum;
+import com.lanrenyou.letter.enums.PrivateLetterHasReadEnum;
 import com.lanrenyou.letter.model.PrivateLetter;
 import com.lanrenyou.letter.service.IPrivateLetterService;
 import mybatis.framework.core.service.BaseVOService;
@@ -31,30 +31,33 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 	}
 
 	@Override
-	public PageIterator<PrivateLetter> pageQueryPrivateLetter(int senderUid,
-			int receiverUid, int pageNo, int pageSize) {
-		int totalCount = privateLetterDao.getPrivateLetterCountByReceiverUidAndSenderUid(senderUid, receiverUid);
-		List<PrivateLetter> list = null;
-		if(totalCount > 0){
-			 list = privateLetterDao.getPrivateLetterByReceiverUidAndSenderUid(senderUid, receiverUid, (pageNo - 1) * pageSize, pageSize);
-		}
-		PageIterator<PrivateLetter> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
-		pageIterator.setData(list);
-		return pageIterator;
+	public List<PrivateLetter> getPrivateLetterOfTwoManForUidA(int uidA, int uidB) {
+		List<PrivateLetter> list = privateLetterDao.getPrivateLetterOfTwoManForUidA(uidA, uidB);
+		return list;
 	}
 
 	@Override
-	public int deletePrivateLetter(int privateLetterId) {
-		return privateLetterDao.updatePrivateLetterStatus(privateLetterId, PrivateLetterStatusEnum.DELETE.getValue());
+	public int updateHasRead(int privateLetterId) {
+		return privateLetterDao.updateHasRead(privateLetterId);
 	}
-
+	
 	@Override
-	public int updatePrivateLetterStatus(int privateLetterId, PrivateLetterStatusEnum statusEnum) {
-		return privateLetterDao.updatePrivateLetterStatus(privateLetterId, statusEnum.getValue());
+	public int updateHasReply(int privateLetterId) {
+		return privateLetterDao.updateHasReply(privateLetterId);
 	}
-
+	
 	@Override
 	public int addPrivateLetter(PrivateLetter privateLetter) {
 		return privateLetterDao.addPrivateLetter(privateLetter);
+	}
+
+	@Override
+	public int senderDelete(int privateLetterId) {
+		return privateLetterDao.senderDelete(privateLetterId);
+	}
+
+	@Override
+	public int receiverDelete(int privateLetterId) {
+		return privateLetterDao.receiverDelete(privateLetterId);
 	}
 }

@@ -1,5 +1,6 @@
 package com.lanrenyou.user.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,4 +44,27 @@ public interface IUserPlannerService extends IValueObjectService<UserPlanner> {
 	 * @exception 
 	*/
 	public int updateUserPlanner(UserPlanner userPlanner);
+
+	/**
+	 * getUserPlannerListForSearchIndex	增量索引使用
+	 * 
+	 * @param date
+	 * @param endTime
+	 * @param offset
+	 * @param limit
+	 * @return List<UserPlanner>
+	 * @exception
+	 */
+	public List<UserPlanner> getUserPlannerListForSearchIndex(Date date, Date endTime, int offset, int limit);
+
+	/**
+	 * getUserPlannerListForSearchIndex	全量索引使用
+	 * 
+	 * @param endTime
+	 * @param offset
+	 * @param limit
+	 * @return List<UserPlanner>
+	 * @exception 
+	*/
+	public List<UserPlanner> getUserPlannerListForSearchIndex(Date endTime, int offset, int limit);
 }

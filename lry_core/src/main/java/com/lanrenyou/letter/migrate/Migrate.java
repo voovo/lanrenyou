@@ -1,18 +1,28 @@
 package com.lanrenyou.letter.migrate;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+<<<<<<< HEAD
+=======
+import org.apache.commons.lang.StringUtils;
+
+import com.google.gson.Gson;
+>>>>>>> 0a1a5a4fea802157170042ebc3010221a9b36f7e
 import com.lanrenyou.user.model.UserInfo;
 
 public class Migrate {
@@ -20,29 +30,169 @@ public class Migrate {
 	public static String driver = "com.mysql.jdbc.Driver";
 
 	UserInfo userInfo = new UserInfo();
+	protected static final Gson gson = new Gson();
 	
 	public static void main(String[] args) {
-		//migrate users
-		//importUsers();
 		
-//		Map<Integer,WpPosts> a = filterposts(getPosts(),getPostmetas(getPosts()));
-//		
-//		WpPosts po = a.get(6440);		
-//		System.out.println("id:"+po.getId()+" content:"+po.getPost_content()+" title:"+po.getPost_title()+" autohr:"+po.getPost_author_name()+" author-new-id:"+po.getPost_author_id_new()+" viewcount:"+po.getPost_views_count());
-//		
-//		List<WpPosts> list = po.getChildlists();
-//		if(list!=null&&list.size()>0){
-//			for(int i=0;i<list.size();i++){
-//				WpPosts t = list.get(i);
-//				System.out.println("child-id:"+t.getId()+" child-content:"+t.getPost_content()+" child-title:"+t.getPost_title()+" child-impurl:"+t.getPost_attc_url());					
-//			}			
-//		}		
-//		System.out.println();
+		importUsers();
+		 importTravel(exportPost());
 		
+	}
+	
+	public static void importTravel(Map<Integer,WpPosts> postmap){
+		for(Map.Entry<Integer, WpPosts> entry : postmap.entrySet()){
+			 WpPosts post = entry.getValue();			 
+			 insertPosts(post);
+		 }
+	}
+	
+	
+	
+	public static Map<Integer,WpPosts> exportPost(){
+		List<WpPosts> postslist = getPosts();
 		
+		splitOldPosts(postslist);
+		Map<Integer,WpPosts> postsmap = filterposts(postslist,getPostmetas(postslist));
+		return postsmap;
+	}
+	
+	public static void insertPosts(WpPosts post){
+		Connection conn = getLryConn();
+		ResultSet  rs = null;
+		try{	
+			
+			String infosql = "insert into tb_travel_info (city,planner_uid,title,is_elite,is_top,status,create_uid,create_time,create_ip,update_uid,update_time,update_ip) " +
+					"values(?,?,?,?,?,?,?,?,?,?,?,?)";
+			String contentsql = "insert into tb_travel_content (tid,travel_date,content,update_time) values (?,?,?,?)";
+			String viewsql = "insert into tb_travel_visit_log (tid,uid,update_time) values (?,?,?) ";
+			String statsql = "insert into tb_travel_info_stat (tid,view_cnt,like_cnt,update_time) values (?,?,?,?)";
+			
+			PreparedStatement infop =  conn.prepareStatement(infosql,Statement.RETURN_GENERATED_KEYS);
+			infop.setInt(1, convertCity(getTermByPostid(post.getId())));
+			infop.setInt(2, post.getPost_author_id_new());
+			infop.setString(3, post.getPost_title());
+			infop.setInt(4, 0);
+			infop.setInt(5, 0);
+			infop.setInt(6, 2);
+			infop.setInt(7,  post.getPost_author_id_new());
+			infop.setTimestamp(8, post.getPost_date());
+			infop.setString(9, "0.0.0.0");
+			infop.setInt(10,  post.getPost_author_id_new());
+			infop.setTimestamp(11, post.getPost_modified());
+			infop.setString(12, "0.0.0.0");
+			
+			infop.executeUpdate();
+											
+			rs = infop.getGeneratedKeys();
+			int id = 0;
+			if(rs!=null&&rs.next()){
+				id = rs.getInt(1);
+			}
+			infop.close();
+			
+			PreparedStatement contentp = conn.prepareStatement(contentsql);
+			contentp.setInt(1, id);
+			contentp.setTimestamp(2, post.getPost_date());			
+			contentp.setString(3, filterHtmlTag(convertListToJson(post)));
+			contentp.setTimestamp(4,post.getPost_modified());
+			
+			contentp.executeUpdate();
+			contentp.close();
+			
+			PreparedStatement viewp = conn.prepareStatement(viewsql);
+			viewp.setInt(1, id);
+			viewp.setInt(2, 0);	
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+			viewp.setString(3, df.format(new Date()));
+			viewp.executeUpdate();
+			viewp.close();
+			
+			PreparedStatement statp = conn.prepareStatement(statsql);
+			statp.setInt(1, id);
+			statp.setInt(2, post.getPost_views_count());				
+			statp.setInt(3, 0);
+			statp.setString(4, df.format(new Date()));
+			
+			statp.executeUpdate();
+			statp.close();
+				
+			conn.close();
+		}catch(Exception e){
+				e.printStackTrace();
+		}	
 		
-		splitOldPosts(getPosts());
+	}
 		
+	public static String convertListToJson(WpPosts post){
+		List<WpPosts> list = post.getChildlists();
+		List<Map> clist = new ArrayList<Map>();
+		for(WpPosts c:list){
+			Map<String,String> map = new HashMap<String, String>();
+			map.put("src", c.getPost_attc_url());
+			map.put("info", c.getPost_content());
+			clist.add(map);
+		}
+		
+		return gson.toJson(clist);
+		
+	}
+	
+	public static String filterHtmlTag(String content){
+		System.out.println("转换前："+content);
+		Pattern blankp = Pattern.compile("&nbsp;");		
+		Pattern htmlp = Pattern.compile("<[^>]+>");
+		Pattern rnp = Pattern.compile("\\r\\n");
+		
+		Matcher blankm = blankp.matcher(content);
+		content = blankm.replaceAll("");
+		
+		Matcher htmlm = htmlp.matcher(content);
+		content = htmlm.replaceAll("");
+		
+		Matcher rnm = rnp.matcher(content);
+		content = rnm.replaceAll("");
+		
+		//System.out.println("转换后 ："+content);
+		
+		return content;
+		
+	}
+	
+//	public static String decodeUnicode(String unicodeStr){		
+//		try {
+//			String s = new String(unicodeStr.getBytes("ISO8859-1"),"UTF-8");
+//			return s;
+//		} catch (UnsupportedEncodingException e) {			
+//			e.printStackTrace();
+//		}
+//		return unicodeStr;
+//	}
+	
+	public static String convertGallery(String content){
+		
+			Map<String,String> idsmap = new HashMap<String, String>();
+			Pattern gpattern = Pattern.compile("\\[gallery ids=\"[0-9]{1,5},[0-9]{1,5},[0-9]{1,5},[0-9]{1,5},[0-9]{1,5},[0-9]{1,5}\"\\]");
+			Matcher gmatcher = gpattern.matcher(content);
+			while(gmatcher.find()){
+				String ids = gmatcher.group();			
+				idsmap.put(ids, "");
+			}
+			
+			for(Entry<String, String> entry:idsmap.entrySet()){
+				String key = entry.getKey();
+				
+				String[] postids = key.replaceAll("\\[gallery ids=\"", "").replaceAll("\"\\]", "").split(",");
+				
+				String urls = "";
+				for(int a=0;a<postids.length;a++){
+					urls = urls+"<img src=\""+getWppostById(Integer.parseInt(postids[a])).getPost_attc_url()+"\" />  ";
+				}
+				
+				content = content.replaceAll("\\"+key.substring(0,key.length()-1)+"\\]", urls);
+				
+			}	
+			System.out.println(content);
+		return content;
 	}
 	
 	public static void splitOldPosts(List<WpPosts> postslist){
@@ -52,32 +202,47 @@ public class Migrate {
 			if(po.getId()<=5704){//处理13年的游记
 				List<WpPosts> clist = new ArrayList<WpPosts>();
 				String content = po.getPost_content();
+				//处理[gallery ids="64,65,66,67,68,69"]，替换为<img <img src="http://lanrenyou.com/wp-content/uploads/2013/10/图片130-300x168.jpg"/>
+				if(content.indexOf("[gallery ids=")>0){
+					convertGallery(content);
+				}
+				
 				Pattern p = Pattern.compile("<img[^>]+/>");  
 				Matcher m = p.matcher(content);
 				List<String> imglist = new ArrayList<String>();
+			
+				Pattern p1 = Pattern.compile("http://([\\w-]+\\.)+[\\w-]+(/[\\w- ./?%&=]*)?");			
 
 				while(m.find()){
 					String s0 = m.group();
-					imglist.add(s0);
+					Matcher m1 = p1.matcher(s0);
+					String url = "";
+					while(m1.find()){
+						url = m1.group();						
+					}
+					
+					imglist.add(url);
 				}
-				String s = m.replaceAll("--------");
+				String s = m.replaceAll("-----#####------");
 
-				String[] contents = s.split("--------");			
+				String[] contents = s.split("-----#####------");			
 				Object[] imgs = imglist.toArray();
 				
-				if(contents.length>imgs.length){
-					for(int idx = 0;idx<imgs.length;idx++){
+				if(StringUtils.isEmpty(contents[0].trim())){
+
+					for(int idx = 1;idx<contents.length;idx++){
 						WpPosts cpost = new WpPosts();
-						cpost.setPost_content(contents[idx+1]);
-						cpost.setPost_attc_url(imgs[idx].toString());
+						cpost.setPost_content(filterHtmlTag(contents[idx]));							
+						cpost.setPost_attc_url(imgs[idx-1].toString());						
 						clist.add(cpost);
-					
-					}
+					}					
 				}else{
 					for(int idx = 0;idx<contents.length;idx++){
 						WpPosts cpost = new WpPosts();
-						cpost.setPost_content(contents[idx]);
-						cpost.setPost_attc_url(imgs[idx].toString());
+						cpost.setPost_content(filterHtmlTag(contents[idx]));
+						if(imgs.length>idx){
+							cpost.setPost_attc_url(imgs[idx].toString());
+						}						
 						clist.add(cpost);
 					}
 				}
@@ -100,7 +265,7 @@ public class Migrate {
 		for(int i=0;i<metalist.size();i++){
 			WpPosts post = metalist.get(i);
 			
-			if(post.getPost_parent()>0){
+			if(post.getPost_parent()>5704){
 				map.get(post.getPost_parent()).getChildlists().add(post);
 			}
 		}
@@ -134,7 +299,10 @@ public class Migrate {
 				post.setPost_date(rs.getTimestamp("post_date"));
 				post.setPost_modified(rs.getTimestamp("post_modified"));
 				post.setPost_parent(rs.getInt("post_parent"));
-				post.setPost_attc_url(rs.getString("meta_value"));	
+				if(!StringUtils.isEmpty(rs.getString("meta_value"))){
+					post.setPost_attc_url("http://lanrenyou.com/wp-content/uploads/"+rs.getString("meta_value"));	
+				}
+				
 				metalist.add(post);
 			}
 			
@@ -156,7 +324,7 @@ public class Migrate {
 			Statement stat = conn.createStatement();
 			String postssql = "select b.user_login user_login,a.id id,a.post_date post_date,a.post_author post_author,a.post_content post_content,a.post_title post_title," +
 					"a.post_excerpt post_excerpt,a.post_modified post_modified,a.post_parent post_parent,c.meta_value meta_value from wp_posts a inner join wp_users b on " +
-					"a.post_author=b.id  left join  (select * from wp_postmeta where meta_key='post_views_count')  c on a.id=c.post_id where a.post_status='publish'  ";
+					"a.post_author=b.id  left join  (select * from wp_postmeta where meta_key='post_views_count')  c on a.id=c.post_id where a.post_status='publish' and post_type='post' ";
 			rs = stat.executeQuery(postssql);
 			while(rs.next()){
 				WpPosts post = new WpPosts();
@@ -185,8 +353,148 @@ public class Migrate {
 		return postslist;
 	}
 	
+	public static WpPosts getWppostById(int id){
+		Connection conn = getPressConn();
+		WpPosts post = new WpPosts();		
+		try{
+			ResultSet rs = null;
+			Statement stat = conn.createStatement();
+			String postssql = "select * from wp_posts  where id="+id ;
+			
+			rs = stat.executeQuery(postssql);
+			while(rs.next()){
+				
+				post.setPost_attc_url(rs.getString("guid"));
+				
+			}
+			rs.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return post;
+	}
 	
+	public static int getTermByPostid(int id){
+		Connection conn = getPressConn();
+		int termid  = 1;	
+		try{
+			ResultSet rs = null;
+			Statement stat = conn.createStatement();
+			String sql = "select term_taxonomy_id from wp_term_relationships  where object_id="+id ;
+			
+			rs = stat.executeQuery(sql);
+			while(rs.next()){				
+				termid = rs.getInt("term_taxonomy_id")	;
+			}
+			rs.close();
+			conn.close();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return termid;
+	}
 	
+	public static int convertCity(int termid){
+		int cityid = 13;
+		if(termid==1){
+			cityid = 13;
+		}
+		if(termid==2){
+			cityid = 13;
+		}
+		if(termid==3){
+			cityid = 17;
+		}
+		if(termid==5){
+			cityid = 2;
+		}
+		if(termid==6){
+			cityid = 2;
+		}
+		if(termid==7){
+			cityid = 13;
+		}
+		if(termid==8){
+			cityid = 13;
+		}
+		if(termid==9){
+			cityid = 12;
+		}
+		if(termid==10){
+			cityid = 13;
+		}
+		if(termid==11){
+			cityid = 13;
+		}
+		if(termid==12){
+			cityid = 13;
+		}
+		if(termid==13){
+			cityid = 13;
+		}
+		if(termid==14){
+			cityid = 13;
+		}
+		if(termid==16){
+			cityid = 12;
+		}
+		if(termid==17){
+			cityid = 1;
+		}
+		if(termid==18){
+			cityid = 2;
+		}
+		if(termid==19){
+			cityid = 3;
+		}
+		if(termid==20){
+			cityid = 4;
+		}
+		if(termid==21){
+			cityid = 5;
+		}
+		if(termid==22){
+			cityid = 6;
+		}
+		if(termid==23){
+			cityid = 7;
+		}
+		if(termid==25){
+			cityid = 8;
+		}
+		if(termid==26){
+			cityid = 9;
+		}
+		if(termid==27){
+			cityid = 10;
+		}
+		if(termid==28){
+			cityid = 11;
+		}
+		if(termid==29){
+			cityid = 13;
+		}
+		if(termid==30){
+			cityid = 14;
+		}
+		if(termid==31){
+			cityid = 15;
+		}
+		if(termid==32){
+			cityid = 16;
+		}
+		if(termid==33){
+			cityid = 17;
+		}
+		
+		return cityid;
+		
+	}
 	
 	
 	
@@ -395,45 +703,6 @@ public class Migrate {
 		}
 		return conn;
 	}
-	
-//	private static String areaCodeTrans(String area){
-//		if(StringUtils.isEmpty(area)){
-//			return "";
-//		}
-//		String[] areas  =  area.split(" ");
-//		String areacodes = "";
-//		for(int i=0;i<areas.length;i++){
-//			
-//			if("纽约NYC及周边".equals(area)){
-//				areacodes = areacodes+"1001"+" ";
-//			}
-//			if("洛杉矶LA及周边".equals(area)){
-//				areacodes = areacodes+"1002"+" ";
-//			}
-//			if("旧金山San Francisco及周边".equals(area)){
-//				areacodes = areacodes+"1003"+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			if("".equals(area)){
-//				areacodes = areacodes+""+" ";
-//			}
-//			
-//			
-//		}
-//		
-//		
-//		
-//		return "";
-//		
-//	}
 	
 }
 

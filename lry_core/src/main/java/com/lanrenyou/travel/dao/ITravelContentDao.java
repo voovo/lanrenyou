@@ -1,8 +1,10 @@
 package com.lanrenyou.travel.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.lanrenyou.travel.model.TravelContent;
+
 import mybatis.framework.core.dao.IValueObjectDao;
 
 public interface ITravelContentDao extends IValueObjectDao<TravelContent> {
@@ -42,4 +44,25 @@ public interface ITravelContentDao extends IValueObjectDao<TravelContent> {
 	 * @exception 
 	*/
 	public List<TravelContent> getByTidList(List<Integer> tidList);
+	
+	/**
+	 * 增量创建索引使用
+	 * @param startTime
+	 * @param endTime
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	public List<TravelContent> getTravelContentListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit);
+
+	/**
+	 * 全量创建索引使用
+	 * @param endTime
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	public List<TravelContent> getTravelContentListForSearchIndex(Date endTime,
+			int offset, int limit);
 }

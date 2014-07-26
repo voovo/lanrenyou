@@ -76,23 +76,20 @@ public class TravelInfoDaoImpl extends BaseDao<TravelInfo> implements ITravelInf
 	}
 
 	@Override
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date startTime,
-			Date endTime, int offset, int limit) {
+	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(
+			List<Integer> uidList) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("startTime", startTime);
-		params.put("endTime", endTime);
-		params.put("offset", offset);
-		params.put("limit", limit);
-		return this.findList("getListForAddIndex", params);
-	}
-
-	@Override
-	public List<TravelInfo> getTravelInfoListForSearchIndex(Date endTime,
-			int offset, int limit) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("endTime", endTime);
-		params.put("offset", offset);
-		params.put("limit", limit);
-		return this.findList("getListForFullIndex", params);
+		params.put("uidList", uidList);
+		List<Map<String, Object>> list = (List<Map<String, Object>>) this.findList("getPublishedTravelCntMapByUidList", params);
+		if(null == list){
+			return null;
+		}
+		Map<Integer, Integer> resMap = new HashMap<Integer, Integer>(list.size());
+		for(Map<String, Object> map : list){
+			Integer tid = (Integer)map.get("uid");
+			Long cnt = (Long)map.get("cnt");
+			resMap.put(tid, cnt.intValue());
+		}
+		return resMap;
 	}
 }
