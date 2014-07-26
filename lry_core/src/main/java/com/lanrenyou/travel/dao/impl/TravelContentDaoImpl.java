@@ -43,6 +43,9 @@ public class TravelContentDaoImpl extends BaseDao<TravelContent> implements ITra
 
 	@Override
 	public List<TravelContent> getByTidList(List<Integer> tidList) {
+		if(null == tidList || tidList.size() <= 0){
+			return null;
+		}
 		Map<String, Object> params = new HashMap<String, Object>(1);
 		params.put("tidList", tidList);
 		return this.findList("getByTidList", params);

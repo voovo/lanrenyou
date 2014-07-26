@@ -120,7 +120,9 @@ public class SolrUtil {
 				querySb.append(keywordSb.substring(1, keywordSb.length() -1 ));
 			}
 		}
-		
+		if(querySb.length() <= 0){
+			querySb.append("*:*");
+		}
 		query.setQuery(querySb.toString());
 		
 		if(StringUtils.isBlank(orderBy)){
@@ -195,6 +197,9 @@ public class SolrUtil {
 			}
 		}
 		
+		if(querySb.length() <= 0){
+			querySb.append("*:*");
+		}
 		query.setQuery(querySb.toString());
 		
 		if(StringUtils.isBlank(orderBy)){

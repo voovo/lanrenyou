@@ -86,7 +86,7 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		if(StringUtils.isNotBlank(uri) && uri.matches("/user/\\d+(/.*)?")){
-			String uidStr = uri.substring(5);
+			String uidStr = uri.substring(6);
 			int i = uidStr.indexOf('/');
 			int uid = 0;
 			try{

@@ -95,8 +95,8 @@
 	        </ul>
     	<#else>
     		<ul class="clearfix">
-	            <li class="bd_right"><a href="/regist/toPage">登陆</a></li>
-	            <li><a href="/login">注册</a></li>
+	            <li class="bd_right"><a href="/login">登陆</a></li>
+	            <li><a href="/regist/toPage">注册</a></li>
         	</ul>
     	</#if>
     </div>

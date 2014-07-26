@@ -12,7 +12,7 @@
     <ul class="warper_tab clearfix">
     	<li><a href="/user/${userInfo.id!''}/info">个人设置</a></li>
         <li class="cur">我的游记</li>
-        <li><a href="/user/${userInfo.id!''}/msg/list">消息中心 (<i>12</i>)</a></li>
+        <li><a href="/user/${userInfo.id!''}/msg/list">消息中心 (<i>${headerLetterCnt!'0'}</i>)</a></li>
         <li><a href="/user/${userInfo.id!''}/fans/list">粉丝管理</a></li>
         <li><a href="/user/${userInfo.id!''}/collect/list">我的收藏</a></li>
     </ul>
@@ -48,7 +48,7 @@
 	    </#if>
     	<@pageNav total="${totalPageCount!0}" current="${pageIter.page!0}" urlpattern="/user/${userInfo.id!''}/travelList/list?pageNo=%d"/>
     <#else>
-    	<div class="no_result">还没有收藏游记</div>
+    	<div class="no_result">还没有发布游记</div>
     </#if>
 
 </div>

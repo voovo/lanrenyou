@@ -350,8 +350,7 @@ public class RegisterController extends BaseController {
 			userPlannerService.addUserPlanner(userPlanner);
 		}
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/user/user_setting_info");
+		ModelAndView mav = new ModelAndView(new RedirectView("/user/"+userInfo.getId()));
 		return mav;
 	}
 	
