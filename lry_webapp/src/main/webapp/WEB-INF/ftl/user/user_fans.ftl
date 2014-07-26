@@ -10,7 +10,7 @@
     <h1 class="warper_tt fans_icon">粉丝管理</h1>
     
     <ul class="warper_tab clearfix">
-        <li><a href="/user/${userInfo.id!''}/info">个人设置</a></li>
+        <li><a href="/user/setting/info">个人设置</a></li>
         <li><a href="/user/${userInfo.id!''}/travelList/list">我的游记</a></li>
         <li><a href="/user/${userInfo.id!''}/msg/list">消息中心 (<i>${headerLetterCnt!'0'}</i>)</a></li>
         <li class="cur">粉丝管理</li>

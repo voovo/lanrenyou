@@ -65,6 +65,12 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/travel/add"/>
 			<mvc:mapping path="/user/setting/**"/>
+			<mvc:mapping path="/user/{uid:\d+}/info/**"/>
+			<mvc:mapping path="/user/{uid:\d+}/collect/**"/>
+			<mvc:mapping path="/user/{uid:\d+}/travelList/**"/>
+			<mvc:mapping path="/user/{uid:\d+}/msg/**"/>
+			<mvc:mapping path="/user/{uid:\d+}/fans/**"/>
+			<mvc:mapping path="/user/{uid:\d+}/star/**"/>
 			<bean class="com.lanrenyou.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
 		

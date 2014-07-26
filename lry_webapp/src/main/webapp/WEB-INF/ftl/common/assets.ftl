@@ -2,7 +2,9 @@
 "/resources/css/init.css":1,
 "/resources/css/main.css":1,
 "/resources/js/jquery.js":1,
-"/resources/js/main.js":1
+"/resources/js/main.js":1,
+"/resources/js/plug/jquery.reveal.js":1,
+"/resources/css/plug/reveal.css":1
 } />
 <#function AssetsUrl file="">
 	<#--用macro宏会导致空格的出现，所以换成function-->
