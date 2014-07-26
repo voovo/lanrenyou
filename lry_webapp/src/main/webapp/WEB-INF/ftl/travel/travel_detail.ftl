@@ -122,7 +122,7 @@
                     	<#list userTravelList as userTravel>
 	                        <li><a href="/travel/${userTravel.id!''}" title="${userTravel.title!''}">${userTravel.title!''}</a></li>
                         </#list>
-                        <li class="yj_more"><a href="/user/${userInfo.id!''}/travelList" title="查看Ta的全部游记">查看Ta的全部游记>></a></li>
+                        <li class="yj_more"><a href="/user/${userInfo.id!''}/travelList/list" title="查看Ta的全部游记">查看Ta的全部游记>></a></li>
                     </ul>
                 </div>
                 </#if>

@@ -21,11 +21,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
 	protected static final int DEFAULT_PORT = 80;
 	
-
-<<<<<<< HEAD
-=======
 	@Override
->>>>>>> 0a1a5a4fea802157170042ebc3010221a9b36f7e
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		UserInfo userInfo = (UserInfo)request.getAttribute(LRYConstant.LOGIN_USER);

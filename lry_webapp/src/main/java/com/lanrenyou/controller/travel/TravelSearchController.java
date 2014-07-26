@@ -60,7 +60,6 @@ public class TravelSearchController  extends BaseController {
 		}
 		ModelAndView mav = new ModelAndView("/travel/travel_search");
 		mav.addObject("keyword", keyword);
-		logger.info("####### TravelSearch City:{}", city);
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);

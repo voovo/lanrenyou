@@ -21,9 +21,10 @@
         <#if userInfoMap??>
         	<#assign userInfo = userInfoMap.get(travelInfo.uid) />
         </#if>
-        <li class="yj_item">
+        <li class="yj_item" uid="${userInfo.id!''}">
             <dl>
                 <dt>
+                	<a href="/travel/${travelInfo.id!''}">
                     <h2>${travelInfo.title!''}</h2>
                     <div class="yj_author">
                         <img class="u_sm" src="${userInfo.avatar!''}" alt="" width="24" height="24">
@@ -49,12 +50,7 @@
                                             
                                         </dd>
                                     </dl>
-
-                                    <ul class="author_yj_last">
-                                        <li class="gray">最新游记</li>
-                                        <li><a href="">【美国66号公路自驾全攻略】翻滚吧，青春！</a></li>
-                                        <li><a href="">美国梦东西海岸的浮光掠影</a></li>
-                                    </ul>
+                                    
                                 </div>
                             </div>
                         </i>
@@ -66,6 +62,7 @@
                     <div class="yj_info hide">
                     <@truncateChars value="${travelMsg!''}" length="104"/>
                     </div>
+                    </a>
                 </dt>
                 <dd><a href="#"><img src="<#if infoMap?? && infoMap.get(travelInfo.id)??>${infoMap.get(travelInfo.id).get('src')!''}</#if>" alt=""></a></dd>
             </dl>

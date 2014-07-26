@@ -38,12 +38,6 @@ public class UserFansController  extends BaseController {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			) {
-		if(null == this.getLoginUser()){
-			return to404();
-		}
-		if(this.getLoginUser().getId().intValue() != this.getCurrentUser().getId().intValue()){
-			return toError("没有权限访问此页面");
-		}
 		if(null == pageNo){
 			pageNo = 1;
 		}
@@ -53,9 +47,9 @@ public class UserFansController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/user/user_fans");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		mav.addObject("userInfo", this.getLoginUser());
+		mav.addObject("userInfo", this.getCurrentUser());
 		
-		PageIterator<UserFollow> pageIter = userFollowService.pageQueryFansByUid(this.getLoginUser().getId(), pageNo, pageSize);
+		PageIterator<UserFollow> pageIter = userFollowService.pageQueryFansByUid(this.getCurrentUser().getId(), pageNo, pageSize);
 		
 		List<Integer> uidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
@@ -72,7 +66,7 @@ public class UserFansController  extends BaseController {
 		Map<Integer, UserInfo> userInfoMap = userInfoService.getUserInfoMapByUidList(uidList);
 		mav.addObject("userInfoMap", userInfoMap);
 		
-		PageIterator<UserFollow> starPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), pageNo, pageSize);
+		PageIterator<UserFollow> starPageIter = userFollowService.pageQueryStarByUid(this.getCurrentUser().getId(), pageNo, pageSize);
 		if(null != starPageIter && null != starPageIter.getData()){
 			mav.addObject("starCnt", starPageIter.getTotalCount());
 			Map<Integer, Integer> starMap = new HashMap<Integer, Integer>();

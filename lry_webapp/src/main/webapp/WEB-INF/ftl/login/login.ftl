@@ -31,7 +31,6 @@
         	<form id="" name="" method="POST" action="/login/loginSubmit" class="loginform">
 	            <table cellpadding="0" cellspacing="0" border="0">
 	                <tr>
-<<<<<<< HEAD
 	                    <td width="18%" align="right"><span class="ft_14">电子邮件：</span></td>
 	                    <td width="40%"><input type="text" name="userName" class="input_220" value="${username}"></td>
 	                    <td><span class="form_notice"></span></td>
@@ -40,14 +39,6 @@
 	                    <td align="right"><span class="ft_14">密码：</span></td>
 	                    <td><input type="password"  name="password" class="input_220" value="${password}"></td>
 	                    <td><span class="form_notice"></span></td>
-=======
-	                    <td width="15%" align="right"><span class="ft_14">电子邮件：</span></td>
-	                    <td width="48%"><input type="text" id="login_mail" name="userName" class="input_220"></td>
-	                </tr>
-	                <tr>
-	                    <td align="right"><span class="ft_14">密码：</span></td>
-	                    <td><input type="password" id="login_pwd" name="password" class="input_220"></td>
->>>>>>> 0a1a5a4fea802157170042ebc3010221a9b36f7e
 	                </tr>
 	                <tr class="login_code_tr">
 	                    <td align="right"><span class="ft_14">验证码：</span></td>

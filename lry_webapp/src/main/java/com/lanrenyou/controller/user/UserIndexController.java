@@ -59,6 +59,9 @@ public class UserIndexController  extends BaseController {
 	@Autowired
 	private IUserPlannerService userPlannerService;
 	
+	@Autowired
+	private SolrUtil solrUtil;
+	
 	@RequestMapping("")
 	public ModelAndView index(
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
@@ -144,5 +147,14 @@ public class UserIndexController  extends BaseController {
 		}
 		return travelVisitLogService.getVisitCountMapByTidList(tidList);
 	}
-			
+	
+	@RequestMapping("/lastTravels")
+	public ModelAndView getLastTravles(){
+		ModelAndView mav = new ModelAndView("/user/user_lastTravels");
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getCurrentUser().getId(), 1, 2, "updateTime", true);
+		if(null != pageIter){
+			mav.addObject("travelInfoList", pageIter.getData());
+		}
+		return mav;
+	}
 }

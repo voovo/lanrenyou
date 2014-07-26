@@ -1,6 +1,9 @@
 package com.lanrenyou.user.model;
 
 import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+
 import mybatis.framework.core.model.BaseValueObject;
 
 public class UserInfo extends BaseValueObject {
@@ -133,7 +136,11 @@ public class UserInfo extends BaseValueObject {
     }
 
     public String getAvatar() {
-        return avatar;
+    	if(StringUtils.isNotBlank(avatar)){
+    		return avatar;
+    	} else {
+    		return "/resources/imgs/user/u_face_80-80.jpg";
+    	}
     }
 
     public void setAvatar(String avatar) {

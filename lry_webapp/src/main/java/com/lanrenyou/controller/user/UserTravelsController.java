@@ -60,9 +60,6 @@ public class UserTravelsController  extends BaseController {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			) {
-		if(null == this.getLoginUser()){
-			return to404();
-		}
 		if(null == pageNo){
 			pageNo = 1;
 		}
@@ -72,10 +69,11 @@ public class UserTravelsController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/user/user_travels");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		mav.addObject("userInfo", this.getLoginUser());
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getLoginUser().getId(), pageNo, pageSize, "updateTime", true);
+		mav.addObject("userInfo", this.getCurrentUser());
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getCurrentUser().getId(), pageNo, pageSize, "updateTime", true);
 		List<Integer> tidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
+		uidSet.add(this.getCurrentUser().getId());
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("pageIter", pageIter);
 			for(TravelInfo travelInfo : pageIter.getData()){

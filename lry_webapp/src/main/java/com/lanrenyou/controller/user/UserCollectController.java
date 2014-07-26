@@ -57,12 +57,6 @@ public class UserCollectController  extends BaseController {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			) {
-		if(null == this.getLoginUser()){
-			return to404();
-		}
-		if(this.getLoginUser().getId().intValue() != this.getCurrentUser().getId().intValue()){
-			return toError("没有权限访问此页面");
-		}
 		if(null == pageNo){
 			pageNo = 1;
 		}
@@ -72,8 +66,8 @@ public class UserCollectController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/user/user_collect");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		mav.addObject("userInfo", this.getLoginUser());
-		PageIterator<TravelCollect> pageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), pageNo, pageSize);
+		mav.addObject("userInfo", this.getCurrentUser());
+		PageIterator<TravelCollect> pageIter = travelCollectService.pageQueryTravelCollectByUid(this.getCurrentUser().getId(), pageNo, pageSize);
 		List<Integer> tidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){

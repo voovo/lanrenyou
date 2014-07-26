@@ -63,13 +63,8 @@
 		<bean class="com.lanrenyou.interceptor.ViewInterceptor" />
 
 		<mvc:interceptor>
-<<<<<<< HEAD
-			<mvc:mapping path="/payment/*"/> 
-			<mvc:mapping path="/login/**"/> 
-=======
 			<mvc:mapping path="/travel/add"/>
 			<mvc:mapping path="/user/setting/**"/>
->>>>>>> 0a1a5a4fea802157170042ebc3010221a9b36f7e
 			<bean class="com.lanrenyou.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
 		

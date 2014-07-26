@@ -16,13 +16,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-<<<<<<< HEAD
-=======
 import org.apache.commons.lang.StringUtils;
 
 import com.google.gson.Gson;
->>>>>>> 0a1a5a4fea802157170042ebc3010221a9b36f7e
 import com.lanrenyou.user.model.UserInfo;
 
 public class Migrate {
