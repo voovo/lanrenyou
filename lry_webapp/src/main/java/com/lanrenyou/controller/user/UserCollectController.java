@@ -71,10 +71,10 @@ public class UserCollectController  extends BaseController {
 		mav.addObject("pageSize", pageSize);
 		mav.addObject("userInfo", this.getCurrentUser());
 		PageIterator<TravelCollect> pageIter = travelCollectService.pageQueryTravelCollectByUid(this.getCurrentUser().getId(), pageNo, pageSize);
+		mav.addObject("pageIter", pageIter);
 		List<Integer> tidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
-			mav.addObject("pageIter", pageIter);
 			for(TravelCollect travelCollect : pageIter.getData()){
 				tidList.add(travelCollect.getTid());
 				uidSet.add(travelCollect.getUid());

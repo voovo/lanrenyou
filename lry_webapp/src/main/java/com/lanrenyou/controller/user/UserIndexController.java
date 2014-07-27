@@ -81,9 +81,9 @@ public class UserIndexController  extends BaseController {
 		mav.addObject("pageSize", pageSize);
 		mav.addObject("userInfo", this.getCurrentUser());
 		PageIterator<TravelInfo> pageIter = travelInfoService.pageQueryTravelInfoByUid(this.getCurrentUser().getId(), pageNo, pageSize);
+		mav.addObject("pageIter", pageIter);
 		List<Integer> tidList = new ArrayList<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
-			mav.addObject("pageIter", pageIter);
 			Map<Integer, TravelInfo> travelInfoMap = new HashMap<Integer, TravelInfo>();
 			for(TravelInfo travelInfo : pageIter.getData()){
 				tidList.add(travelInfo.getId());

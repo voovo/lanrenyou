@@ -53,11 +53,11 @@ public class UserStarController  extends BaseController {
 		mav.addObject("userInfo", this.getCurrentUser());
 		
 		PageIterator<UserFollow> pageIter = userFollowService.pageQueryStarByUid(this.getCurrentUser().getId(), pageNo, pageSize);
+		mav.addObject("pageIter", pageIter);
 		
 		List<Integer> uidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
-			mav.addObject("pageIter", pageIter);
 			mav.addObject("starCnt", pageIter.getTotalCount());
 			for(UserFollow userFollow : pageIter.getData()){
 				uidSet.add(userFollow.getFansUid());

@@ -70,9 +70,9 @@ public class UserMsgController  extends BaseController {
 		mav.addObject("pageSize", pageSize);
 		mav.addObject("userInfo", this.getCurrentUser());
 		PageIterator<PrivateLetter> pageIter = privateLetterService.pageQueryPrivateLetter(this.getLoginUser().getId(), pageNo, pageSize);
+		mav.addObject("pageIter", pageIter);
 		Set<Integer> uidSet = new HashSet<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
-			mav.addObject("pageIter", pageIter);
 			for(PrivateLetter letter : pageIter.getData()){
 				uidSet.add(letter.getSenderUid());
 			}

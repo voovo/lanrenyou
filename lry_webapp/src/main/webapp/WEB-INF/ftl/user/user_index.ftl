@@ -55,6 +55,7 @@
 
     <ul id="u_yj_list" class="waper_box">
         <!-- 用户游记列表循环开始 -->
+        <#if tidList??>
         <#list tidList as tid>
         <#if travelInfoMap?? && travelInfoMap.get(tid)??>
         <#if infoMap?? && infoMap.get(tid)??>
@@ -79,6 +80,7 @@
         </li>
         </#if>
         </#list>
+        </#if>
         <!-- 用户游记列表循环结束 -->
     </ul>
 	<#if pageIter.totalPages?? && pageIter.totalPages gt 100>
