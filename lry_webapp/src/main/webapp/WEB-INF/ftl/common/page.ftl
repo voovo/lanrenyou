@@ -32,14 +32,12 @@
     <#if totalInt lte 1>
         <#return />
     </#if>
-<div class="paging">
-    <#if currentInt gt 1>
-        <a class="prev" href="${urlpattern?replace("%d", "" + (currentInt - 1))}"></a>
-    </#if>
+<div id="page" class="page">
+	<ul class="clearfix">
     <#if currentInt == 1>
-        <span class="current">1</span>
+        <li class="cur"><a>1</a></li>
     <#else>
-        <a href="${urlpattern?replace("%d", "1")}">1</a>
+        <li><a href="${urlpattern?replace("%d", "1")}">1</a></li>
     </#if>
     <#assign p1 = 2 />
     <#if currentInt gte 3>
@@ -53,7 +51,7 @@
         <#assign p1 = (totalInt - 4) />
     </#if>
     <#if p1 gt 2>
-        <a class="dot" href="${urlpattern?replace("%d", "" + (currentInt - 3))}" title="第${currentInt - 3}页"></a>
+        <li>....</li>
     </#if>
     <#list p1 .. p2 as i>
         <#if i gte 2>
@@ -61,22 +59,20 @@
                 <#break />
             </#if>
             <#if currentInt == i>
-                <span class="current">${i}</span>
+                <li><a class="cur">${i}</a></li>
             <#else>
-                <a href="${urlpattern?replace("%d", "" + i)}">${i}</a>
+                <li><a href="${urlpattern?replace("%d", "" + i)}">${i}</a></li>
             </#if>
         </#if>
     </#list>
     <#if p2 lt (totalInt - 1)>
-        <a class="dot" href="${urlpattern?replace("%d", "" + (p2 + 1))}" title="第${p2 + 1}页"></a>
+        <li>...</li>
     </#if>
     <#if currentInt == totalInt>
-        <span class="current">${totalInt}</span>
+        <li><a class="cur">${totalInt}</a></li>
     <#else>
-        <a href="${urlpattern?replace("%d", "" + totalInt)}">${totalInt}</a>
+        <li><a href="${urlpattern?replace("%d", "" + totalInt)}">${totalInt}</a></li>
     </#if>
-    <#if currentInt lt totalInt>
-        <a class="next" href="${urlpattern?replace("%d", "" + (currentInt + 1))}"></a>
-    </#if>
+    </ul>
 </div>
 </#macro>
