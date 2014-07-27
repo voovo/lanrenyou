@@ -41,7 +41,7 @@ public class ExportAllPlanners  {
 	
 	private Log log = LogFactory.getLog(ExportAllPlanners.class);
 
-	@Scheduled(cron="0 12 4 * * ?")
+	@Scheduled(cron="0 12 3 * * ?")
 	public void executue() {
 		if (System.getProperty("ALLPlanner")!=null && "start".equals(System.getProperty("ALLPlanner"))) {
 			log.info("export all Planner is running.....");
@@ -51,12 +51,12 @@ public class ExportAllPlanners  {
 		log.info("Export All Planner ...............................");
 		try {
 			System.setProperty("ALLPlanner", "start");
-			servers = solrUtil.getLryTravelServers();
+			servers = solrUtil.getLryPlannerServers();
 			deleteAllIndex();
-			log.info("删除先前的索引文件完成！");
-			exportTravelVos();
+			log.info("Planner删除先前的索引文件完成！");
+			exportPlannerVos();
 			long e = System.currentTimeMillis();
-			log.info("索引重建完成,用时  : "+(e-s)+" 毫秒！");
+			log.info("Planner索引重建完成,用时  : "+(e-s)+" 毫秒！");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -64,7 +64,7 @@ public class ExportAllPlanners  {
 		}
 	}
 
-	private void exportTravelVos() {
+	private void exportPlannerVos() {
 		int startID = 0, batchSize = 1000;
 		List<UserPlanner> list = null;
 		Date endTime = new Date();

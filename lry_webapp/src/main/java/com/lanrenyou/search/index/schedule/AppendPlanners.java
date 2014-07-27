@@ -40,7 +40,7 @@ public class AppendPlanners  {
 	
 	private Log log = LogFactory.getLog(AppendPlanners.class);
 
-	@Scheduled(cron="0 0/60 * * * ?")
+	@Scheduled(cron="0 0/5 * * * ?")
 	public void executue() {
 		
 		if (System.getProperty("AppendPlanner")!=null && "start".equals(System.getProperty("AppendPlanner"))) {
@@ -53,12 +53,12 @@ public class AppendPlanners  {
 			return;
 		}
 		long s = System.currentTimeMillis();
-		log.info("增量索引开始...");
+		log.info("Planner增量索引开始...");
 		try {
 			System.setProperty("AppendPlanner", "start");
-			exportWishVos();
+			exportPlannerVos();
 			long e = System.currentTimeMillis();
-			log.info("索引增量完,用时 :  "+(e-s)+" 毫秒！");
+			log.info("Planner索引增量完,用时 :  "+(e-s)+" 毫秒！");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -66,20 +66,20 @@ public class AppendPlanners  {
 		}
 	}
 
-	private void exportWishVos() {
+	private void exportPlannerVos() {
 		int startID = 0, batchSize = 1000;
 		List<UserPlanner> list = null;
 		Date[] lastRunning=getLastRunningDate();
 		Date endTime = new Date();
 		if(endTime==null) return;
 		if(lastRunning==null){
-			log.error("时间文件出错！");
+			log.error("Planner时间文件出错！");
 			return;
 		}else if(!endTime.after(lastRunning[1])){
-			log.info("本次更新操作记录为  0！");
+			log.info("Planner本次更新操作记录为  0！");
 			return;
 		}else{
-			servers = solrUtil.getLryTravelServers();
+			servers = solrUtil.getLryPlannerServers();
 		}
 		//==查询是否有需要更新的记录
 		do {
@@ -140,7 +140,7 @@ public class AppendPlanners  {
 			darray[1]=sdf.parse(array[1].trim());
 			return darray;
 		} catch (Exception e) {
-			log.error("从时间文件中读取数据出错,异常信息： "+e.toString());
+			log.error("Planner从时间文件中读取数据出错,异常信息： "+e.toString());
 			e.printStackTrace();
 			return null;
 		}

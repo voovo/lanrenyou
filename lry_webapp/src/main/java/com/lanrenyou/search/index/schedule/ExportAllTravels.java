@@ -53,10 +53,10 @@ public class ExportAllTravels  {
 			System.setProperty("ALLTravel", "start");
 			servers = solrUtil.getLryTravelServers();
 			deleteAllIndex();
-			log.info("删除先前的索引文件完成！");
+			log.info("Travel删除先前的索引文件完成！");
 			exportTravelVos();
 			long e = System.currentTimeMillis();
-			log.info("索引重建完成,用时  : "+(e-s)+" 毫秒！");
+			log.info("Travel索引重建完成,用时  : "+(e-s)+" 毫秒！");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{

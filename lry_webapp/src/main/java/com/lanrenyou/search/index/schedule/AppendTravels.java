@@ -54,12 +54,12 @@ public class AppendTravels  {
 			return;
 		}
 		long s = System.currentTimeMillis();
-		log.info("增量索引开始...");
+		log.info("Travel增量索引开始...");
 		try {
 			System.setProperty("AppendTravel", "start");
-			exportWishVos();
+			exportTravelVos();
 			long e = System.currentTimeMillis();
-			log.info("索引增量完,用时 :  "+(e-s)+" 毫秒！");
+			log.info("Travel索引增量完,用时 :  "+(e-s)+" 毫秒！");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -67,17 +67,17 @@ public class AppendTravels  {
 		}
 	}
 
-	private void exportWishVos() {
+	private void exportTravelVos() {
 		int startID = 0, batchSize = 1000;
 		List<TravelContent> list = null;
 		Date[] lastRunning=getLastRunningDate();
 		Date endTime = new Date();
 		if(endTime==null) return;
 		if(lastRunning==null){
-			log.error("时间文件出错！");
+			log.error("Travel时间文件出错！");
 			return;
 		}else if(!endTime.after(lastRunning[1])){
-			log.info("本次更新操作记录为  0！");
+			log.info("Travel本次更新操作记录为  0！");
 			return;
 		}else{
 			servers = solrUtil.getLryTravelServers();
@@ -141,7 +141,7 @@ public class AppendTravels  {
 			darray[1]=sdf.parse(array[1].trim());
 			return darray;
 		} catch (Exception e) {
-			log.error("从时间文件中读取数据出错,异常信息： "+e.toString());
+			log.error("Travel从时间文件中读取数据出错,异常信息： "+e.toString());
 			e.printStackTrace();
 			return null;
 		}
