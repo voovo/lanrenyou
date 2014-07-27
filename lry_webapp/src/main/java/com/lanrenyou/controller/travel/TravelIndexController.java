@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import mybatis.framework.core.support.PageIterator;
 
@@ -62,6 +64,8 @@ public class TravelIndexController  extends BaseController {
 	@Autowired
 	private IUserPlannerService userPlannerService;
 	
+	ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(3);
+	
 	@Autowired
 	private SolrUtil solrUtil;
 	
@@ -97,7 +101,18 @@ public class TravelIndexController  extends BaseController {
 		if(null == this.getCurrentTravel()){
 			return to404();
 		}
-		
+		final int tid = this.getCurrentTravel().getId();
+		int currentUid = null == this.getLoginUser()?0:this.getLoginUser().getId();
+		final int uid = currentUid; 
+		EXECUTOR_SERVICE.submit(new Runnable() {
+            @Override
+            public void run() {
+            	TravelVisitLog visitLog = new TravelVisitLog();
+        		visitLog.setTid(tid);
+       			visitLog.setUid(uid);
+        		travelVisitLogService.addTravelVisitLog(visitLog);
+            }
+		});
 		ModelAndView mav = new ModelAndView("/travel/travel_detail");
 		mav.addObject("travelInfo", this.getCurrentTravel());
 		TravelContent travelContent = travelContentService.getTravelContentByTid(this.getCurrentTravel().getId());
@@ -125,13 +140,15 @@ public class TravelIndexController  extends BaseController {
 			mav.addObject("userTravelList", pageIter.getData());
 		}
 		
-		PageIterator<TravelCollect> collectPageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), 1, 100);
-		if(null != collectPageIter && null != collectPageIter.getData()){
-			Map<Integer, Integer> collectTidMap = new HashMap<Integer, Integer>();
-			for(TravelCollect collect : collectPageIter.getData()){
-				collectTidMap.put(collect.getTid(), 1);
+		if(null != this.getLoginUser()){
+			PageIterator<TravelCollect> collectPageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != collectPageIter && null != collectPageIter.getData()){
+				Map<Integer, Integer> collectTidMap = new HashMap<Integer, Integer>();
+				for(TravelCollect collect : collectPageIter.getData()){
+					collectTidMap.put(collect.getTid(), 1);
+				}
+				mav.addObject("collectTidMap", collectTidMap);
 			}
-			mav.addObject("collectTidMap", collectTidMap);
 		}
 		
 		return mav;

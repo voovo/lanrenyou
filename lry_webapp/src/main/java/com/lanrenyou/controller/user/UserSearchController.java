@@ -126,7 +126,7 @@ public class UserSearchController  extends BaseController {
 	}
 	
 	@RequestMapping("/hot")
-	public ModelAndView hotTravel(
+	public ModelAndView hotUser(
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			){
@@ -136,10 +136,37 @@ public class UserSearchController  extends BaseController {
 		if(null == pageSize){
 			pageSize = 10;
 		}
-		ModelAndView mav = new ModelAndView("/travel/travel_hot");
+		ModelAndView mav = new ModelAndView("/user/user_hot");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "viewCnt", true);
+		PageIterator<UserInfo> pageIter = solrUtil.searchUser(null, null, pageNo, pageSize, "fansCnt", true);
+		List<Integer> uidList = new ArrayList<Integer>();
+		if(null != pageIter && null != pageIter.getData()){
+			mav.addObject("userInfoList", pageIter.getData());
+			for(UserInfo userInfo : pageIter.getData()){
+				uidList.add(userInfo.getId());
+			}
+		}
+		
+		Map<Integer, Integer> fansCntMap = userFollowService.getFansCountMapByUidList(uidList);
+		mav.addObject("fansCntMap", fansCntMap);
+		Map<Integer, Integer> starCntMap = userFollowService.getStarCountMapByUidList(uidList);
+		mav.addObject("starCntMap", starCntMap);
+		
+		Map<Integer, Integer> userPublishedTravelCntMap = travelInfoService.getPublishedTravelCntMapByUidList(uidList);
+		mav.addObject("userPublishedTravelCntMap", userPublishedTravelCntMap);
+		
+		Map<Integer, UserPlanner> userPlannerMap = userPlannerService.getUserPlannerMapByUidList(uidList);
+		if(null != userPlannerMap && userPlannerMap.size() > 0){
+			Map<Integer, String[]> targetCityMap = new HashMap<Integer, String[]>();
+			for(Integer uid : userPlannerMap.keySet()){
+				UserPlanner userPlanner = userPlannerMap.get(uid);
+				if(null != userPlanner && StringUtils.isNotBlank(userPlanner.getTargetCity())){
+					targetCityMap.put(uid, userPlanner.getTargetCity().split(","));
+				}
+			}
+			mav.addObject("targetCityMap", targetCityMap);
+		}
 		
 		return mav;
 	}

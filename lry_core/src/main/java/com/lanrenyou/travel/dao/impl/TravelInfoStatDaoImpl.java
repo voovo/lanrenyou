@@ -48,7 +48,7 @@ public class TravelInfoStatDaoImpl extends BaseDao<TravelInfoStat> implements IT
 
 	@Override
 	public int updateTravelInfoStat(TravelInfoStat infoStat) {
-		if(null == infoStat || (null != infoStat.getId() && infoStat.getId() > 0 )){
+		if(null == infoStat || (null != infoStat.getId() && infoStat.getId() <= 0 )){
 			return 0;
 		}
 		return this.doUpdate("updateByPrimaryKey", infoStat);

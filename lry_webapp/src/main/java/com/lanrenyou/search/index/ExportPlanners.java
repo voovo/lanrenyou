@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserFollowService;
 import com.lanrenyou.user.service.IUserInfoService;
 
 
@@ -24,6 +25,9 @@ public class ExportPlanners {
 	
 	@Autowired
 	private IUserInfoService userInfoService;
+	
+	@Autowired
+	private IUserFollowService userFollowService;
 	
 	private Log log = LogFactory.getLog(ExportPlanners.class);
 	
@@ -79,7 +83,7 @@ public class ExportPlanners {
 				doc.addField("updateTime", sdf.format(vo.getUpdateTime()));//更新时间
 			}
 			
-			UserInfo userInfo = userInfoService.getUserInfoByUid(vo.getId());
+			UserInfo userInfo = userInfoService.getUserInfoByUid(vo.getUid());
 			if(null != userInfo){
 				if(null != userInfo.getName()){
 					doc.addField("name", userInfo.getName());//名称
@@ -107,6 +111,9 @@ public class ExportPlanners {
 					doc.addField("userIntro", userInfo.getUserIntro());//用户简介
 				}
 			}
+			
+			int fansCnt = userFollowService.getFansCountByUid(vo.getUid());
+			doc.addField("fansCnt", fansCnt);
 			
 			return doc;
 		} catch (Exception e) {

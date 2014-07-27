@@ -18,6 +18,7 @@ public class TravelInfoStatServiceImpl extends BaseVOService<TravelInfoStat> imp
 	@Override
 	public int addTravelViewCnt(int tid) {
 		TravelInfoStat stat = travelInfoStatDao.getByTid(tid);
+		logger.info("####################{}", stat==null? 0: stat.getId());
 		if(null == stat){
 			stat = new TravelInfoStat();
 			stat.setTid(tid);
@@ -25,7 +26,8 @@ public class TravelInfoStatServiceImpl extends BaseVOService<TravelInfoStat> imp
 			stat.setLikeCnt(0);
 			return travelInfoStatDao.addTravelInfoStat(stat);
 		} else {
-			stat.setViewCnt(stat.getViewCnt()==null?1:stat.getViewCnt()+1);
+			logger.info("####################ViewCnt{}", stat.getViewCnt());
+			stat.setViewCnt(stat.getViewCnt()==null?1:(stat.getViewCnt()+1));
 			return travelInfoStatDao.updateTravelInfoStat(stat);
 		}
 	}

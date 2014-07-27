@@ -46,7 +46,7 @@
 	                </tr>
 	                <tr>
 	                    <td></td>
-	                    <td><a id="login_btn" href="javascript:;" class="btn blue_btn">登&nbsp;&nbsp;录</a> <a id="get_pwd" href="">忘记密码?</a></td>
+	                    <td><a id="login_btn" href="javascript:;" class="btn blue_btn">登&nbsp;&nbsp;录</a> <a id="get_pwd" href="/login/forgetPasswd">忘记密码?</a></td>
 	                </tr>
 	            </table>
             </form>

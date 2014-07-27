@@ -4,6 +4,7 @@
 "/resources/js/jquery.js":1,
 "/resources/js/main.js":1,
 "/resources/js/plug/jquery.reveal.js":1,
+"/resources/js/search.js":1,
 "/resources/css/plug/reveal.css":1
 } />
 <#function AssetsUrl file="">

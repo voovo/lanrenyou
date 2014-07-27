@@ -71,4 +71,11 @@ public interface IUserFollowService extends IValueObjectService<UserFollow> {
 	 * @return
 	 */
 	public boolean isFollowed(int fansUid, int starUid);
+	
+	/**
+	 * 获取某人的粉丝数
+	 * @param uid
+	 * @return
+	 */
+	public int getFansCountByUid(int uid);
 }

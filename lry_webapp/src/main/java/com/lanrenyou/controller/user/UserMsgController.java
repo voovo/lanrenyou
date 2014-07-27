@@ -125,12 +125,41 @@ public class UserMsgController  extends BaseController {
 			map.put("info", "没有此ID对应的私信");
 			return gson.toJson(map);
 		}
-		if(privateLetter.getSenderUid().intValue() != this.getLoginUser().getId().intValue() && privateLetter.getReceiverUid().intValue() != this.getLoginUser().getId().intValue()){
+		if(privateLetter.getReceiverUid().intValue() != this.getLoginUser().getId().intValue()){
 			map.put("status", "n");
 			map.put("info", "无权进行此操作");
 			return gson.toJson(map);
 		}
 		int result = privateLetterService.receiverDelete(id);
+		if(result > 0){
+			map.put("status", "y");
+			map.put("info", "删除成功");
+			return gson.toJson(map);
+		} else {
+			map.put("status", "n");
+			map.put("info", "系统忙，请稍后重试");
+			return gson.toJson(map);
+		}
+	}
+	
+	@RequestMapping("/senderDel")
+	@ResponseBody
+	public String senderDeleteLetter(
+			@RequestParam(value = "id", required = true) Integer id
+		){
+		Map<String, Object> map = new HashMap<String, Object>();
+		PrivateLetter privateLetter = privateLetterService.findById(id);
+		if(null == privateLetter){
+			map.put("status", "n");
+			map.put("info", "没有此ID对应的私信");
+			return gson.toJson(map);
+		}
+		if(privateLetter.getSenderUid().intValue() != this.getLoginUser().getId().intValue()){
+			map.put("status", "n");
+			map.put("info", "无权进行此操作");
+			return gson.toJson(map);
+		}
+		int result = privateLetterService.senderDelete(id);
 		if(result > 0){
 			map.put("status", "y");
 			map.put("info", "删除成功");
@@ -170,7 +199,7 @@ public class UserMsgController  extends BaseController {
 	@RequestMapping(value= "/reply", method=RequestMethod.POST)
 	public ModelAndView reply(
 			@RequestParam(value = "receiverUid", required = true) Integer receiverUid,
-			@RequestParam(value = "context", required = true) String context
+			@RequestParam(value = "content", required = true) String content
 			){
 		if(null == receiverUid){
 			return toError("请选择回复对象");
@@ -182,7 +211,7 @@ public class UserMsgController  extends BaseController {
 		PrivateLetter letter = new PrivateLetter();
 		letter.setSenderUid(this.getLoginUser().getId());
 		letter.setReceiverUid(receiverUid);
-		letter.setContext(context);
+		letter.setContext(content);
 		letter.setHasRead(PrivateLetterHasReadEnum.UN_READ.getValue());
 		letter.setHasReply(PrivateLetterHasReplyEnum.UN_REPLY.getValue());
 		letter.setReceiverDeleted(0);

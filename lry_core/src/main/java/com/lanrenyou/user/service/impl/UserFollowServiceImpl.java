@@ -78,4 +78,9 @@ public class UserFollowServiceImpl extends BaseVOService<UserFollow> implements 
 		return userFollowDao.getByFansUidStarUid(fansUid, starUid);
 	}
 
+	@Override
+	public int getFansCountByUid(int uid) {
+		return userFollowDao.getFansCountByUid(uid);
+	}
+
 }

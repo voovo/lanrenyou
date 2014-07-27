@@ -67,9 +67,6 @@ public class UserIndexController  extends BaseController {
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			) {
-		if(null == this.getLoginUser()){
-			return to404();
-		}
 		if(null == pageNo){
 			pageNo = 1;
 		}
@@ -126,13 +123,15 @@ public class UserIndexController  extends BaseController {
 			mav.addObject("targetCityMap", targetCityMap);
 		}
 		
-		PageIterator<TravelCollect> collectPageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), 1, 100);
-		if(null != collectPageIter && null != collectPageIter.getData()){
-			Map<Integer, Integer> collectTidMap = new HashMap<Integer, Integer>();
-			for(TravelCollect collect : collectPageIter.getData()){
-				collectTidMap.put(collect.getTid(), 1);
+		if(null != this.getLoginUser()){
+			PageIterator<TravelCollect> collectPageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != collectPageIter && null != collectPageIter.getData()){
+				Map<Integer, Integer> collectTidMap = new HashMap<Integer, Integer>();
+				for(TravelCollect collect : collectPageIter.getData()){
+					collectTidMap.put(collect.getTid(), 1);
+				}
+				mav.addObject("collectTidMap", collectTidMap);
 			}
-			mav.addObject("collectTidMap", collectTidMap);
 		}
 		
 		return mav;

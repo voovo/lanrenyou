@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.lanrenyou.common.PasswordUtil;
 import com.lanrenyou.config.AppConfigs;
@@ -151,12 +152,11 @@ public class LoginController extends BaseController {
 		
 		ServletUtil.deleteCookie(request, response, AppConfigs.getInstance().get("domains.www"), LRYConstant.AUTH_COOKIE_KEY);
 		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/login/login");
+		ModelAndView mav = new ModelAndView(new RedirectView("/login"));
 		return mav;
 	}
 	
-	@RequestMapping({"/forgetPasswd"})
+	@RequestMapping({"/login/forgetPasswd"})
 	public ModelAndView forgetPasswd(HttpServletResponse response){
 		ServletUtil.deleteCookie(request, response, AppConfigs.getInstance().get("domains.www"), LRYConstant.AUTH_COOKIE_KEY);
 		ModelAndView mav = new ModelAndView();
@@ -164,7 +164,7 @@ public class LoginController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping({"/forgetPasswdSubmit"})
+	@RequestMapping({"/login/forgetPasswdSubmit"})
 	public ModelAndView forgetPasswdSubmit(
 			@RequestParam(value = "email") String email,
 			HttpServletResponse response){
@@ -179,6 +179,7 @@ public class LoginController extends BaseController {
 		String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
 		try {
 			int mailResult = MailUtil.sendEmail(email, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号密码重置：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/login/resetPasswd?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/login/resetPasswd?code="+encryptCode+"</a>");
+			logger.info("http://"+AppConfigs.getInstance().get("domains.www")+ "/login/resetPasswd?code="+encryptCode);
 			if(mailResult <= 0){
 				logger.error("Forget Password Send Mail Fail, UID:{} | Email:{} | Verify Code:{}", userInfo.getId(), userInfo.getEmail(), encryptCode);
 				return toError("发送重置密码邮件失败，请稍后重试");
@@ -191,7 +192,7 @@ public class LoginController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping({"/resetPasswd"})
+	@RequestMapping({"/login/resetPasswd"})
 	public ModelAndView resetPasswd(
 			@RequestParam(value = "code", required=true) String code,
 			HttpServletResponse response){
@@ -220,7 +221,7 @@ public class LoginController extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping("/resetPasswdSubmit")
+	@RequestMapping("/login/resetPasswdSubmit")
 	public ModelAndView resetPasswdSubmit(
 			@RequestParam(value = "code", required=true) String code,
             @RequestParam(value = "new_passwd", required = false, defaultValue = "") String newPasswd,
@@ -242,16 +243,15 @@ public class LoginController extends BaseController {
 			return toError("没有此用户信息");
 		}
 		
-		this.getLoginUser().setUserPass(PasswordUtil.convertToMd5(newPasswd));
-		this.getLoginUser().setHistoryPasswd(userInfo.getUserPass());
-		this.getLoginUser().setUpdateUid(userInfo.getId());
-		this.getLoginUser().setUpdateIp(this.getRemoteAddr());
+		userInfo.setUserPass(PasswordUtil.convertToMd5(newPasswd));
+		userInfo.setHistoryPasswd(userInfo.getUserPass());
+		userInfo.setUpdateUid(userInfo.getId());
+		userInfo.setUpdateIp(this.getRemoteAddr());
 		int result = userInfoService.updateUserInfo(userInfo);
 		
 		if(result > 0){
 			ServletUtil.deleteCookie(request, response, AppConfigs.getInstance().get("domains.www"), LRYConstant.AUTH_COOKIE_KEY);
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/login/login");
+			ModelAndView mav = new ModelAndView(new RedirectView("/login"));
 			return mav;
 		} else {
 			return toError("系统忙，请稍后重试");

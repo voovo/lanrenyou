@@ -31,8 +31,11 @@ public class ImageUtils {
 		String operateImgPath = srcPath;
 		if(w > 1000 && h > 661){
 			// 先等比压缩再裁剪
-			float radio = w / 800; 
-			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp" + srcPath.substring(srcPath.lastIndexOf('.'));
+			float radio = w / 640; 
+			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
+			reduceImageEqualProportion(srcPath, tmpPath, radio);
+			radio = w / 800; 
+			tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp" + srcPath.substring(srcPath.lastIndexOf('.'));
 			reduceImageEqualProportion(srcPath, tmpPath, radio);
 			srcFile = new File(tmpPath);
 			srcImage = ImageIO.read(srcFile);
