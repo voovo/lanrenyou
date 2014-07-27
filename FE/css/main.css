@@ -378,7 +378,7 @@
 .album_block{margin-bottom: 15px;}
 .album_block .a_title .right .g9:hover{text-decoration: none;color:#999;cursor: default}
 .a_title{border:1px solid #DCDCDC;background: #fafafa;padding:15px ;clear:both;overflow: hidden;zoom:1;}
-.a_title .left{width:300px;float: left; }
+.a_title .left{width:285px;float: left;height: 185px; overflow: hidden;}
 .a_title .right{width:730px;float: right; position: relative;}
 .a_title .right textarea{ width: 98%;  height: 165px; padding: 10px;}
 
@@ -411,6 +411,11 @@
 #create_success h2{ width: 400px; height: 55px; line-height: 55px; text-align: center; margin: 20px auto 5px; font-size: 24px; color: #333; background-position: -793px -805px;}
 #create_success .suc_link{ margin-left: 145px;}
 
+
+/*登陆弹层*/
+#back_to_login{ text-align: center;}
+#back_to_login h2{ font-size: 24px; margin-bottom: 10px;}
+#back_to_login p{ font-size: 14px;}
 
 
 /*发私信*/

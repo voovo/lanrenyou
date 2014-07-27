@@ -80,10 +80,26 @@
         });
     }
 
+    /*
+     * 返回登陆页弹层
+     * 
+     */
+    var backToLogin = function(url){
+        if(!$("#back_to_login") || $("#back_to_login").length == 0){
+            $("body").append('<div id="back_to_login" class="reveal-modal"><h2>请先登陆懒人游!</h2><p><a class="fromUrl" href="">马上登陆</a> | <a target="_blank" href="http://www.lanrenyou.com/regist/toPage">立即注册</a></p><a class="close-reveal-modal close_d">&#215;</a></div>');
+        }
+
+        $("#back_to_login .fromUrl").attr("href" , "http://www.lanrenyou.com/login?redir="+url);
+        setTimeout(function(){
+            $('#back_to_login').reveal($(this).data());
+        } , 300);
+    }
+
 
     // 全站发送私信
     if($(".msg_btn") && $(".msg_btn").length > 0){
         var _msgBtn = $(".msg_btn"),
+            _uid = _msgBtn.attr("uid"),
             _msgForm = '<div class="msgForm"><div class="arrow_up"></div><div class="msgTo">给 <i>shell_corona</i> 发私信</div><textarea name="" id="" cols="30" rows="10"></textarea><div class="msgBot clearfix"><div id="msgNotice" class="left green hide">发送成功!</div><div class="right"><span class="sendMsgBtn">发送</span><span class="closeMsgBtn">关闭</span></div></div></div>';
 
         _msgBtn.click(function(){
@@ -98,7 +114,26 @@
             var sb = $(".sendMsgBtn");
             sb.click(function(){
                 // 发送私信
-                $("#msgNotice").show();
+                var _cont = $(this).closest(".msgForm").find("textarea").val();
+                if(_cont.length == 0){
+                    $("#msgNotice").show().html('<span class="error">请输入私信内容</span>');
+                }else{
+                    $.ajax({
+                        url : "/user/"+_uid+"/msg/add",
+                        data : {"toUid" : _uid , "content" : _cont},
+                        success : function(r){
+                            var _d = jQuery.parseJSON(r);
+                            console.log(r)
+                            if(_d.status == "y"){
+                                $("#msgNotice").show().html('发送成功');
+                            }else{
+                                $("#msgNotice").show().html('<span class="error">'+_d.info+'</span>');
+                            }
+                        }
+                    });
+                    
+                }
+                
             });
 
 
@@ -119,7 +154,7 @@
             success : function(r){
                 var _d = jQuery.parseJSON(r);
 
-                if(_d.status == "n" && _d.info == "请先登录"){
+                if(_d.status == "n" && _d.info == "请先登陆"){
                     backToLogin(window.location.href);
                 }else {
                     ele.removeClass("add_btn").addClass("added_btn");
@@ -135,7 +170,7 @@
             success : function(r){
                 var _d = jQuery.parseJSON(r);
 
-                if(_d.status == "n" && _d.info == "请先登录"){
+                if(_d.status == "n" && _d.info == "请先登陆"){
                     backToLogin(window.location.href);
                 }else {
                     ele.removeClass("added_btn").addClass("add_btn");
@@ -176,10 +211,15 @@
                     if(_d.status == "y"){
                         _this.removeClass("add_fav").attr("title" , "取消收藏").addClass("added_fav").find("span").text(parseInt(_this.find("span").text())+1);
                         if(_this.find("i")){
-                            _this.find("i").addClass("icon_faved").removeClass("icon_fav").attr("title" , "取消收藏");
+                            _this.html('<i class="ico icon_faved"></i>取消收藏');
                         }
                     }else{
-                        alert(_d.info);
+                        if(_d.info == "没有获取当前用户信息"){
+                            backToLogin(window.location.href);
+                        }else{
+                            alert(_d.info);    
+                        }
+                        
                     }
                 }
             });
@@ -192,60 +232,21 @@
                     if(_d.status == "y"){
                         _this.removeClass("added_fav").attr("title" , "加入收藏").addClass("add_fav").find("span").text(parseInt(_this.find("span").text())-1);
                         if(_this.find("i")){
-                            _this.find("i").addClass("icon_fav").removeClass("icon_faved").attr("title" , "收藏");
+                            _this.html('<i class="ico icon_fav"></i>收藏');
                         }
                     }else{
-                        alert(_d.info);
+                        if(_d.info == "没有获取当前用户信息"){
+                            backToLogin(window.location.href);
+                        }else{
+                            alert(_d.info);    
+                        }
+                        
                     }
                 }
             });
         }
     });
 
-
-
-
-    // $(".add_fav").click(function(){
-    //     var _this = $(this),
-    //         _tid = $(this).attr("tid");
-
-    //     $.ajax({
-    //         url : "/travel/"+_tid+"/collect",
-    //         success : function(r){
-    //             var _d = jQuery.parseJSON(r);
-
-    //             if(_d.status == "y"){
-    //                 _this.removeClass("add_fav").attr("title" , "取消收藏").addClass("added_fav").find("span").text(parseInt(_this.find("span").text())+1);
-    //                 if(_this.find("i")){
-    //                     _this.find("i").addClass("icon_faved").removeClass("icon_fav").attr("title" , "取消收藏");
-    //                 }
-    //             }else{
-    //                 alert(_d.info);
-    //             }
-    //         }
-    //     });
-    // });
-    // // 取消收藏
-    // $(".added_fav").click(function(){
-    //     var _this = $(this),
-    //         _tid = $(this).attr("tid");
- 
-    //     $.ajax({
-    //         url : "/travel/"+_tid+"/uncollect",
-    //         success : function(r){
-    //             var _d = jQuery.parseJSON(r);
-
-    //             if(_d.status == "y"){
-    //                 _this.removeClass("added_fav").attr("title" , "加入收藏").addClass("add_fav").find("span").text(parseInt(_this.find("span").text())-1);
-    //                 if(_this.find("i")){
-    //                     _this.find("i").addClass("icon_fav").removeClass("icon_faved").attr("title" , "收藏");
-    //                 }
-    //             }else{
-    //                 alert(_d.info);
-    //             }
-    //         }
-    //     });
-    // });
 
 
 

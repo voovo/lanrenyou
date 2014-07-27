@@ -60,9 +60,10 @@
 .planner_item > dl > dd{}
 .planner_item > dl > dd.planner_name{ float: left; margin: 15px 0 0 20px;}
 .planner_item > dl > dd.planner_info{ float: right; padding:13px 140px 10px 0;}
+.planner_item > dl > dd.planner_info .msgForm{ top:45px;}
 .planner_item > dl > dd.planner_info span{ margin-right: 10px;}
 .planner_item > dl > dd.planner_info a.btn_s{ position: absolute;}
-.planner_item > dl > dd.planner_info .add_btn{ top:10px; right:60px;}
+.planner_item > dl > dd.planner_info .add_btn , .planner_item > dl > dd.planner_info .added_btn{ top:10px; right:60px;}
 .planner_item > dl > dd.planner_info .msg_btn{ top:10px; right:0px;}
 
 .planner_item .planner_yj_list{ margin-top: 10px;}
@@ -80,9 +81,6 @@
 .search_icon{ background-position: -832px -232px;}
 .no_result{ font-size: 24px; color: #6e6e6e; text-align: center; padding:130px 0;}
 
-#back_to_login{ text-align: center;}
-#back_to_login h2{ font-size: 24px; margin-bottom: 10px;}
-#back_to_login p{ font-size: 14px;}
 
 /*撰写*/
 .create_icon{ background-position: -832px -98px;}
