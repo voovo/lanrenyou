@@ -6,7 +6,7 @@
 .waper_box{ max-width: 1200px; min-width: 960px; margin: 20px auto;}
 .waper_box h1.warper_tt{ font-size: 30px; color: #333; padding-left: 40px; margin-bottom: 30px; position: relative;}
 
-.warper_tab{ height: 40px; line-height: 40px; border-bottom: 1px solid #d3d3d3; margin-bottom: 20px;}
+.warper_tab{ height: 40px; line-height: 40px; border-bottom: 1px solid #d3d3d3; margin: 20px 0;}
 .warper_tab li{height: 39px; line-height: 39px; float: left; font-size: 14px; color: #333; padding: 0 30px; border-radius: 3px;}
 .warper_tab li.cur{border: 1px solid #d3d3d3; border-bottom: 3px solid #f6f6f6;}
 .warper_tab li a{ color: #305d8a; padding: 8px 10px;}
@@ -104,7 +104,7 @@
 .u_yj_author img{ display: block; width: 26px; height: 26px; position: absolute; top:0 ; left:0;}
 .u_yj_author a{ margin-left: 35px; color: #305d8a; font-size: 14px; text-decoration: underline;}
 
-.u_yj_info{ height: 40px; line-height: 40px; position: absolute; left:320px; bottom:10px;}
+.u_yj_info{ height: 40px; line-height: 40px; position: absolute; left:320px; bottom:10px; width: 100%;}
 .u_yj_info a{ position: relative; padding-left: 20px; margin-right: 10px;}
 
 /*粉丝管理*/
@@ -140,7 +140,7 @@
 .u_msg_details{ font-size: 14px; color: #333; line-height: 22px; margin-top: 10px; width: 80%;}
 
 /*个人主页*/
-#my_box{ position: relative; padding: 10px 0 0 180px; margin-bottom: 20px;}
+#my_box{ position: relative; padding: 10px 0 0 180px; margin-bottom: 20px; min-height: 150px;}
 #my_box .author_img{ position: absolute; left:0; top:0; padding: 3px; border: 1px solid #ccc; background: #fff;}
 #my_box .author_img img{ display: block; width: 140px; height: 140px;}
 #my_box .authot_info h2.vip_b_ico{ display: inline-block; height: 40px; background-position: right -855px;}

@@ -36,7 +36,6 @@
         } , 300);
     }
 
-
     // 通用循环游记作者信息浮层
     if($(".yj_list") && $(".yj_list").length > 0){
         var yjItems = $(".yj_list > li");
@@ -54,20 +53,7 @@
 
                     // 加关注按钮
                     _this.find(".add_btn").click(function(){
-                        $.ajax({
-                            url : "/user/"+uid+"/fans/add",
-                            success : function(r){
-                                var _d = jQuery.parseJSON(r);
-
-                                if(_d.status == "n" && _d.info == "请先登录"){
-                                    backToLogin(window.location.href);
-                                }else {
-                                    $(this).attr("class" , "added_btn").unbind("click");
-                                    //console.log("ok");
-                                }
-                                console.log(r);
-                            }
-                        })
+                        addFun(uid);
                     });
                 }
             });

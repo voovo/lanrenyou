@@ -110,6 +110,146 @@
     }
 
 
+    /*
+     * 关注
+     */
+    var addFun = function(uid , ele){
+        $.ajax({
+            url : "/user/"+uid+"/fans/add",
+            success : function(r){
+                var _d = jQuery.parseJSON(r);
+
+                if(_d.status == "n" && _d.info == "请先登录"){
+                    backToLogin(window.location.href);
+                }else {
+                    ele.removeClass("add_btn").addClass("added_btn");
+                    //console.log("ok");
+                }
+                //console.log(r);
+            }
+        });
+    }
+    var delFun = function(uid , ele){
+        $.ajax({
+            url : "/user/"+uid+"/fans/del",
+            success : function(r){
+                var _d = jQuery.parseJSON(r);
+
+                if(_d.status == "n" && _d.info == "请先登录"){
+                    backToLogin(window.location.href);
+                }else {
+                    ele.removeClass("added_btn").addClass("add_btn");
+                    //console.log("ok");
+                }
+                //console.log(r);
+            }
+        });
+    }
+
+    $(".add_btn , .added_btn").click(function(){
+        var _this = $(this),
+            _uid = $(this).attr("uid");
+
+        if(_this.hasClass("add_btn")){
+            addFun(_uid , _this);
+        }else{
+            delFun(_uid , _this);
+        }
+    });
+
+    /*
+     * 游记收藏
+     * 
+     */
+    // 添加收藏
+    $(".add_fav , .added_fav").click(function(){
+        var _this = $(this),
+            _tid = $(this).attr("tid");
+
+
+        if(_this.hasClass("add_fav")){
+            $.ajax({
+                url : "/travel/"+_tid+"/collect",
+                success : function(r){
+                    var _d = jQuery.parseJSON(r);
+
+                    if(_d.status == "y"){
+                        _this.removeClass("add_fav").attr("title" , "取消收藏").addClass("added_fav").find("span").text(parseInt(_this.find("span").text())+1);
+                        if(_this.find("i")){
+                            _this.find("i").addClass("icon_faved").removeClass("icon_fav").attr("title" , "取消收藏");
+                        }
+                    }else{
+                        alert(_d.info);
+                    }
+                }
+            });
+        }else{
+            $.ajax({
+                url : "/travel/"+_tid+"/uncollect",
+                success : function(r){
+                    var _d = jQuery.parseJSON(r);
+
+                    if(_d.status == "y"){
+                        _this.removeClass("added_fav").attr("title" , "加入收藏").addClass("add_fav").find("span").text(parseInt(_this.find("span").text())-1);
+                        if(_this.find("i")){
+                            _this.find("i").addClass("icon_fav").removeClass("icon_faved").attr("title" , "收藏");
+                        }
+                    }else{
+                        alert(_d.info);
+                    }
+                }
+            });
+        }
+    });
+
+
+
+
+    // $(".add_fav").click(function(){
+    //     var _this = $(this),
+    //         _tid = $(this).attr("tid");
+
+    //     $.ajax({
+    //         url : "/travel/"+_tid+"/collect",
+    //         success : function(r){
+    //             var _d = jQuery.parseJSON(r);
+
+    //             if(_d.status == "y"){
+    //                 _this.removeClass("add_fav").attr("title" , "取消收藏").addClass("added_fav").find("span").text(parseInt(_this.find("span").text())+1);
+    //                 if(_this.find("i")){
+    //                     _this.find("i").addClass("icon_faved").removeClass("icon_fav").attr("title" , "取消收藏");
+    //                 }
+    //             }else{
+    //                 alert(_d.info);
+    //             }
+    //         }
+    //     });
+    // });
+    // // 取消收藏
+    // $(".added_fav").click(function(){
+    //     var _this = $(this),
+    //         _tid = $(this).attr("tid");
+ 
+    //     $.ajax({
+    //         url : "/travel/"+_tid+"/uncollect",
+    //         success : function(r){
+    //             var _d = jQuery.parseJSON(r);
+
+    //             if(_d.status == "y"){
+    //                 _this.removeClass("added_fav").attr("title" , "加入收藏").addClass("add_fav").find("span").text(parseInt(_this.find("span").text())-1);
+    //                 if(_this.find("i")){
+    //                     _this.find("i").addClass("icon_fav").removeClass("icon_faved").attr("title" , "收藏");
+    //                 }
+    //             }else{
+    //                 alert(_d.info);
+    //             }
+    //         }
+    //     });
+    // });
+
+
+
+
 
 
 

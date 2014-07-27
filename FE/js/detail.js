@@ -5,17 +5,6 @@
 
 ;$(function(){
 /*********************************************************/
-    // 收藏接口
-    $(".detail_left h2 .right a").one("click" , function(){
-        $(this).removeClass("add_fav").addClass("added_fav").find("span").text(parseInt($(this).find("span").text())+1);
-        
-        $.ajax({
-            url : "",
-            success : function(r){
-                $(this).removeClass("add_fav").addClass("added_fav").find("span").text(parseInt($(this).find("span").text())+1);
-            }
-        });
-    });
 
     // 喜欢
     $(".like_ico").one("click" , function(){
@@ -33,7 +22,9 @@
         var clsN = $(this).attr("class"),
             shareTxt = encodeURIComponent($(this).closest(".detail_item").find(".detail_info p").text()),
             url = window.location.href,
-            pic = $(this).closest(".detail_item").find(".detail_img img").attr("src");;
+            pic = $(this).closest(".detail_item").find(".detail_img img").attr("src");
+
+        if(shareTxt.length == 0) shareTxt = "关注 #懒人游# ， 看当地人如何旅行，让游记作者为你规划行程，死人定制你的专属旅程！";
 
         switch(clsN){
             case "weibo_ico" :
@@ -54,7 +45,7 @@
     if($(".bdsharebuttonbox") && $(".bdsharebuttonbox").length > 0){
         var setShareTips = function(){
             var d_left = $(".detail_left").offset().left;
-            console.log(d_left)
+            //console.log(d_left)
             $(".bdsharebuttonbox").css("left" , d_left+800);
         }
         setShareTips();
