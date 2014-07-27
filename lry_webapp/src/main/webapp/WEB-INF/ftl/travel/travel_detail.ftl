@@ -16,7 +16,7 @@
                 <div class="left">日期：<i><#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if></i> 浏览：<i>${visitCnt!'0'}</i></div>
                 <div class="right">
                 	<#if collectTidMap?? && collectTidMap.get(travelInfo.id)??>
-                    	<a href="javascript:;" class="added_btn" tid="${travelInfo.id!''}"><i></i><span>${collectCnt!'0'}</span></a>
+                    	<a href="javascript:;" class="added_fav button" tid="${travelInfo.id!''}"><i></i><span>${collectCnt!'0'}</span></a>
                     <#else>
                     	<a href="javascript:;" class="add_fav button" tid="${travelInfo.id!''}"><i></i><span>${collectCnt!'0'}</span></a>
                     </#if>

@@ -3,6 +3,7 @@ package com.lanrenyou.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.util.constants.LRYConstant;
 
 import javax.servlet.ServletContext;
@@ -17,8 +18,8 @@ public abstract class ServletUtil {
     public static final int MAX_IP_LENGTH = 15;
 
     public static void clearUserCookie(HttpServletRequest request, HttpServletResponse response) {
-        deleteCookie(request, response, LRYConstant.AUTH_COOKIE_KEY);
-        deleteCookie(request, response, LRYConstant.AUTH_EMAIL_COOKIE_KEY);
+        deleteCookie(request, response, AppConfigs.getInstance().get("domains.www"), LRYConstant.AUTH_COOKIE_KEY);
+        deleteCookie(request, response, AppConfigs.getInstance().get("domains.www"), LRYConstant.AUTH_EMAIL_COOKIE_KEY);
     }
 
     public static void writeUserAuthCookie(HttpServletResponse response, int uid, String password,
