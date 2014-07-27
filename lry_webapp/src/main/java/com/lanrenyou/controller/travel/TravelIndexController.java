@@ -125,6 +125,15 @@ public class TravelIndexController  extends BaseController {
 			mav.addObject("userTravelList", pageIter.getData());
 		}
 		
+		PageIterator<TravelCollect> collectPageIter = travelCollectService.pageQueryTravelCollectByUid(this.getLoginUser().getId(), 1, 100);
+		if(null != collectPageIter && null != collectPageIter.getData()){
+			Map<Integer, Integer> collectTidMap = new HashMap<Integer, Integer>();
+			for(TravelCollect collect : collectPageIter.getData()){
+				collectTidMap.put(collect.getTid(), 1);
+			}
+			mav.addObject("collectTidMap", collectTidMap);
+		}
+		
 		return mav;
 	}
 	
@@ -159,7 +168,14 @@ public class TravelIndexController  extends BaseController {
 			map.put("info", "没有获取当前用户信息");
 			return gson.toJson(map);
 		}
-		TravelCollect travelCollect = new TravelCollect();
+		
+		TravelCollect travelCollect = travelCollectService.getCollectByUidTid(getLoginUser().getId(), this.getCurrentTravel().getId());
+		if(null != travelCollect){
+			map.put("status", "y");
+			map.put("info", "收藏成功");
+			return gson.toJson(map);
+		}
+		travelCollect = new TravelCollect();
 		travelCollect.setUid(getLoginUser().getId());
 		travelCollect.setTid(this.getCurrentTravel().getId());
 		int result = travelCollectService.addTravelCollect(travelCollect);

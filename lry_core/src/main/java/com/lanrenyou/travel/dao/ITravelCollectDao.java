@@ -67,4 +67,6 @@ public interface ITravelCollectDao extends IValueObjectDao<TravelCollect> {
 	*/
 	public List<TravelCollect> getTravelCollectListByTid(int tid, int offset,
 			int limit);
+
+	public TravelCollect getCollectByUidTid(int uid, int tid);
 }

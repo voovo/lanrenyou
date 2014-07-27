@@ -15,8 +15,8 @@
         <div class="authot_info">
             <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
             <div class="my_add">
-                <a href="javascript:;" class="btn_s msg_btn right"></a>
-                <a href="javascript:;" class="btn_s add_btn right"></a>
+                <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}"></a>
+                <a href="javascript:;" class="btn_s add_btn right" uid="${userInfo.id!''}"></a>
                 <span class="right">粉丝：${fansCount!'0'}</span>
             </div>
         </div>
@@ -70,11 +70,11 @@
             </div>
             <div class="u_yj_info">
                 <span class="ico icon_time">${travelInfoMap.get(tid).createTime?string('yyyy-MM-dd')!''}</span>
-                <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if></span>
-                <#if collectTidMap?? && collectTidMap.get(travelInfo.id)??>
+                <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(tid)??>${travelVisitCntMap.get(tid)!''}<#else>0</#if></span>
+                <#if collectTidMap?? && collectTidMap.get(tid)??>
                 	<a href="javascript:;"><i class="ico icon_faved"></i>取消收藏</a>
                 <#else>
-                	<a href="javascript:;"><i class="ico icon_fav"></i>收藏</a>
+                	<a href="javascript:;" class="add_fav" tid="${tid!''}"><i class="ico icon_fav"></i>收藏</a>
                 </#if>
             </div>
         </li>

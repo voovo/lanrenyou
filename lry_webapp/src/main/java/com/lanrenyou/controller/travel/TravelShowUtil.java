@@ -23,6 +23,17 @@ public class TravelShowUtil {
 		}
 		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		if(null != list){
+			for(Map<String, String> map : list){
+				String img = map.get("src");
+				if(StringUtils.isNotBlank(img)){
+					if(img.trim().endsWith("_s.jpg")){
+						img = img.replace("_s.jpg", "_n.jpg");
+						map.put("src", img);
+					}
+				}
+			}
+		}
 		return list;
 	}
 	

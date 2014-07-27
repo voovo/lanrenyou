@@ -39,5 +39,28 @@
     from tb_travel_collect
   </select>
   
+  <select id="getTravelCollectCountByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(1) from tb_travel_collect
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
   
+  <select id="getTravelCollectListByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select <include refid="Base_Column_List" /> from tb_travel_collect
+    where uid = #{uid,jdbcType=INTEGER} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getTravelCollectCountByTid" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(1) from tb_travel_collect
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getTravelCollectListByTid" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select <include refid="Base_Column_List" /> from tb_travel_collect
+    where tid = #{tid,jdbcType=INTEGER} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCollectByUidTid" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select <include refid="Base_Column_List" /> from tb_travel_collect
+    where uid = #{uid,jdbcType=INTEGER} and tid = #{tid,jdbcType=INTEGER}
+  </select>
 </mapper>

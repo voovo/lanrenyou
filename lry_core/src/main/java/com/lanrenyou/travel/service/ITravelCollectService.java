@@ -55,4 +55,6 @@ public interface ITravelCollectService extends IValueObjectService<TravelCollect
 	 * @exception 
 	*/
 	public int getCollectCntByTid(int tid);
+	
+	public TravelCollect getCollectByUidTid(int uid, int tid);
 }

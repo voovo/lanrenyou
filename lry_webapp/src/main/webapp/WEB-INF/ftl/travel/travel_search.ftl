@@ -38,7 +38,7 @@
                                     <dl>
                                         <dt><img src="${userInfo.avatar!''}" alt=""></dt>
                                         <dt class="add_form">
-                                            <a href="javascript:;" class="add_btn"></a>
+                                            <a href="javascript:;" class="add_btn" uid="${userInfo.id!''}"></a>
                                         </dt>
                                         <dd>
                                             <span class="vip_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></span>

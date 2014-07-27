@@ -56,4 +56,9 @@ public class TravelCollectServiceImpl extends BaseVOService<TravelCollect> imple
 	public int getCollectCntByTid(int tid) {
 		return travelCollectDao.getTravelCollectCountByTid(tid);
 	}
+	
+	@Override
+	public TravelCollect getCollectByUidTid(int uid, int tid){
+		return travelCollectDao.getCollectByUidTid(uid, tid);
+	}
 }

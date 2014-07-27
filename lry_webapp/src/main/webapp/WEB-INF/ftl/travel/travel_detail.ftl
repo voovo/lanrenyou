@@ -15,7 +15,11 @@
             <h2 class="clearfix">
                 <div class="left">日期：<i><#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if></i> 浏览：<i>${visitCnt!'0'}</i></div>
                 <div class="right">
-                    <a href="javascript:;" class="add_fav button"><i></i><span>${collectCnt!'0'}</span></a>
+                	<#if collectTidMap?? && collectTidMap.get(travelInfo.id)??>
+                    	<a href="javascript:;" class="added_btn" tid="${travelInfo.id!''}"><i></i><span>${collectCnt!'0'}</span></a>
+                    <#else>
+                    	<a href="javascript:;" class="add_fav button" tid="${travelInfo.id!''}"><i></i><span>${collectCnt!'0'}</span></a>
+                    </#if>
                 </div>         
             </h2>
 
@@ -82,8 +86,8 @@
                     <div class="left authot_info">
                         <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
                         <p>
-                            <a href="javascript:;" class="btn_s msg_btn right"></a>
-                            <a href="javascript:;" class="btn_s add_btn right"></a>
+                            <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}"></a>
+                            <a href="javascript:;" class="btn_s add_btn right" uid="${userInfo.id!''}"></a>
                         </p>
                     </div>
                 </div>

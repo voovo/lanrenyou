@@ -34,27 +34,43 @@ public class TravelCollectDaoImpl extends BaseDao<TravelCollect> implements ITra
 
 	@Override
 	public int getTravelCollectCountByUid(int uid) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		return (Integer) findOne("getTravelCollectCountByUid", params);
 	}
 
 	@Override
 	public List<TravelCollect> getTravelCollectListByUid(int uid, int offset,
 			int limit) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return findList("getTravelCollectListByUid", params);
 	}
 
 	@Override
 	public int getTravelCollectCountByTid(int tid) {
-		// TODO Auto-generated method stub
-		return 0;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tid", tid);
+		return (Integer) findOne("getTravelCollectCountByTid", params);
 	}
 
 	@Override
 	public List<TravelCollect> getTravelCollectListByTid(int tid, int offset,
 			int limit) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tid", tid);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return findList("getTravelCollectListByTid", params);
+	}
+
+	@Override
+	public TravelCollect getCollectByUidTid(int uid, int tid) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("tid", tid);
+		return (TravelCollect) findOne("getCollectByUidTid", params);
 	}
 }

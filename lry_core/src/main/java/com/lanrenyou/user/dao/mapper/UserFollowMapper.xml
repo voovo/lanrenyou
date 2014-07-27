@@ -14,7 +14,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.user.model.UserFollow" useGeneratedKeys="true" keyProperty="id" >
-    insert ingore into tb_user_follow (fans_uid, star_uid)
+    insert ignore into tb_user_follow (fans_uid, star_uid)
     values (#{fansUid,jdbcType=INTEGER}, #{starUid,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.user.model.UserFollow" >
