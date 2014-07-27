@@ -4,7 +4,7 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon , .icon_fav{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .added_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon , .icon_fav{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
 .g9{ color: #999 !important;}
@@ -17,7 +17,7 @@
 .big_btn{ padding:12px 25px;}
 
 .rq{ color: #e20000; margin-right: 5px;}
-
+.mt_20{ margin-top: 20px;}
 .success{ color: #99c700;}
 .suc_ico{ padding-left: 40px; background-position: -832px -8px; height: 35px; line-height: 35px; font-size: 24px;}
 .error{ color: #d60a30 !important; font-size: 12px;}
@@ -63,7 +63,8 @@
 .addeach_icon{background-position: -713px -403px; padding-left: 20px; color: #666 !important; cursor: default !important; margin-right: 0;}
 
 
-.add_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -404px;}
+.add_btn , .added_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -404px;}
+.added_btn{  background-position: -74px -404px;}
 .msg_btn{ display: block; width: 55px; height: 22px; line-height: 22px; color: #fff;  background-position: -4px -437px;}
 
 .like_ico{ color: #666 !important; background-position: 0px -476px;}
