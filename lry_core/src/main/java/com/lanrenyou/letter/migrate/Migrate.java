@@ -57,7 +57,7 @@ public class Migrate {
 		ResultSet  rs = null;
 		try{	
 			
-			String infosql = "insert into tb_travel_info (city,planner_uid,title,is_elite,is_top,status,create_uid,create_time,create_ip,update_uid,update_time,update_ip) " +
+			String infosql = "insert into tb_travel_info (city,uid,title,is_elite,is_top,status,create_uid,create_time,create_ip,update_uid,update_time,update_ip) " +
 					"values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			String contentsql = "insert into tb_travel_content (tid,travel_date,content,update_time) values (?,?,?,?)";
 			String viewsql = "insert into tb_travel_visit_log (tid,uid,update_time) values (?,?,?) ";
