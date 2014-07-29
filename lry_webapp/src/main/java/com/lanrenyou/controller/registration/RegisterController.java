@@ -342,6 +342,7 @@ public class RegisterController extends BaseController {
 				return toError("数据异常，规划师不得进行此操作");
 			}
 			userPlanner = new UserPlanner();
+			userPlanner.setUid(uid);
 			userPlanner.setTargetCity(targetCity);
 			userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
 			userPlanner.setCreateUid(uid);
