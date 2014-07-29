@@ -343,6 +343,8 @@ public class RegisterController extends BaseController {
 			}
 			userPlanner = new UserPlanner();
 			userPlanner.setUid(uid);
+			System.out.println("uid************:"+userPlanner.getUid());
+			
 			userPlanner.setTargetCity(targetCity);
 			userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
 			userPlanner.setCreateUid(uid);
@@ -352,6 +354,10 @@ public class RegisterController extends BaseController {
 		}
 		
 		ModelAndView mav = new ModelAndView(new RedirectView("/user/"+userInfo.getId()));
+		
+		ServletUtil.writeUserAuthCookie(response, userInfo.getId(), userInfo.getUserPass(), AppConfigs.getInstance().get("domains.www"), 2592000);
+		ServletUtil.writeCookie(response, LRYConstant.AUTH_EMAIL_COOKIE_KEY, userInfo.getEmail(), AppConfigs.getInstance().get("domains.www"), -1);
+		
 		return mav;
 	}
 	
