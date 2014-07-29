@@ -283,7 +283,7 @@ public class Migrate {
 			Statement stat = conn.createStatement();
 			String metasql = "	select p.id id,p.post_parent post_parent,p.post_date post_date,p.post_author post_author,p.post_content post_content,p.post_title post_title" +
 					",p.post_excerpt post_excerpt,p.post_modified post_modified,p.post_parent post_parent,f.meta_value meta_value from 	wp_posts  p left join (select * from wp_postmeta where meta_key='_wp_attached_file')  f on p.id=f.post_id " +
-					"where 	p.post_parent in ( "+ids.toString().substring(0, ids.length()-1)+" )";
+					"where 	p.post_parent in ( "+ids.toString().substring(0, ids.length()-1)+" ) and p.post_type='attachment' ";
 			rs = stat.executeQuery(metasql);
 			while(rs.next()){
 				WpPosts post = new WpPosts();
