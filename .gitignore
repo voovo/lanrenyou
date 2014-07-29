@@ -71,3 +71,5 @@ lry_webapp/.classpath
 lry_webapp/bin
 
 lry_search/bin
+
+lry_webapp/src/main/webapp/resources/js/search.js
