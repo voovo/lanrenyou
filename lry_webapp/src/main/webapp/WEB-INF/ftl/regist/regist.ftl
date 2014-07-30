@@ -11,7 +11,7 @@
     <div id="regist_form" class="sign_form">
         <div class="reg_tt clearfix">
             <h1 class="left">注册新账号</h1>
-            <p class="right">已注册账号， 直接[<a href="">登录</a>]</p>
+            <p class="right">已注册账号， 直接[<a href="/login">登录</a>]</p>
         </div>
 
         <div class="form_table registerform">
