@@ -26,15 +26,15 @@
     <ul id="u_fans_list" class="clearfix">
         <!-- 粉丝管理列表循环开始 -->
         <#list uidList as uid>
-        <li>
+        <li id="${uid!''}">
             <div class="u_fans_box clearfix">
                 <img class="left" src="<#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).avatar!''}</#if>" alt="">
                 <div class="left">
                     <p><span class="vip_ico"><a href="/user/${uid!''}"><#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).name!''}</#if></a></span></p>
                     <#if fansMap?? && fansMap.get(uid)??>
-                    	<p class="u_fans_links"><a href="javascript:;" class="ico addeach_icon">已互听</a> | <a href="#">取消关注</a></p>
+                    	<p class="u_fans_links"><a href="javascript:;" class="ico addeach_icon">已互听</a> | <a class="remove_add" href="#">取消关注</a></p>
                     <#else>
-                    	<p class="u_fans_links"><a href="javascript:;" class="ico added_icon">已关注</a> | <a href="#">取消关注</a></p>
+                    	<p class="u_fans_links"><a href="javascript:;" class="ico added_icon">已关注</a> | <a class="remove_add" href="#">取消关注</a></p>
                     </#if>
                 </div>
             </div>

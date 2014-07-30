@@ -98,6 +98,8 @@ public class UserFollowDaoImpl extends BaseDao<UserFollow> implements IUserFollo
 	@Override
 	public boolean getByFansUidStarUid(int fansUid, int starUid) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("fansUid", fansUid);
+		params.put("starUid", starUid);
 		UserFollow userFollow = (UserFollow) this.findOne("getByFansUidStarUid", params);
 		if(null == userFollow){
 			return false;
