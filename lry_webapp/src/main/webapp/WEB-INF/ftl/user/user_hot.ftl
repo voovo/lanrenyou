@@ -38,7 +38,11 @@
                     <span>粉丝 <#if fansCntMap?? && fansCntMap.get(userInfo.id)??>${fansCntMap.get(userInfo.id)!''}<#else>0</#if></span>
                     <span>游记 <a href="/user/${userInfo.id!''}"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(userInfo.id)??>${userPublishedTravelCntMap.get(userInfo.id)!''}<#else>0</#if></a></span>
 
+                    <#if userStarMap?? && userStarMap.get(userInfo.id)??>
+					<a href="javascript:;" class="btn_s added_btn" uid="${userInfo.id!''}"></a>
+					<#else>
                     <a href="javascript:;" class="btn_s add_btn" uid="${userInfo.id!''}"></a>
+					</#if>
                     <a href="javascript:;" class="btn_s msg_btn" uid="${userInfo.id!''}"></a>
                 </dd>
             </dl>

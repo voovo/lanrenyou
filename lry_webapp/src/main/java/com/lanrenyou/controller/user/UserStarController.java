@@ -60,7 +60,7 @@ public class UserStarController  extends BaseController {
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("starCnt", pageIter.getTotalCount());
 			for(UserFollow userFollow : pageIter.getData()){
-				uidSet.add(userFollow.getFansUid());
+				uidSet.add(userFollow.getStarUid());
 			}
 			uidList = new ArrayList<Integer>(uidSet);
 			mav.addObject("uidList", uidList);

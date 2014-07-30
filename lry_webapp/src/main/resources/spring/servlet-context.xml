@@ -63,7 +63,7 @@
 		<bean class="com.lanrenyou.interceptor.ViewInterceptor" />
 
 		<mvc:interceptor>
-			<mvc:mapping path="/travel/add"/>
+			<mvc:mapping path="/travel/add/**"/>
 			<mvc:mapping path="/user/setting/**"/>
 			<mvc:mapping path="/user/{uid:\d+}/info/**"/>
 			<mvc:mapping path="/user/{uid:\d+}/collect/**"/>

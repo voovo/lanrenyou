@@ -26,6 +26,7 @@ import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.user.model.UserFollow;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserFollowService;
@@ -76,6 +77,7 @@ public class UserSearchController  extends BaseController {
 		List<Integer> uidList = new ArrayList<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("userInfoList", pageIter.getData());
+			mav.addObject("pageIter", pageIter);
 			for(UserInfo userInfo : pageIter.getData()){
 				uidList.add(userInfo.getId());
 			}
@@ -85,6 +87,15 @@ public class UserSearchController  extends BaseController {
 		mav.addObject("fansCntMap", fansCntMap);
 		Map<Integer, Integer> starCntMap = userFollowService.getStarCountMapByUidList(uidList);
 		mav.addObject("starCntMap", starCntMap);
+		
+		PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+		if(null != followPageIter && null != followPageIter.getData()){
+			Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+			for(UserFollow uf : followPageIter.getData()){
+				userStarMap.put(uf.getStarUid(), 1);
+			}
+			mav.addObject("userStarMap", userStarMap);
+		}
 		
 		Map<Integer, Integer> userPublishedTravelCntMap = travelInfoService.getPublishedTravelCntMapByUidList(uidList);
 		mav.addObject("userPublishedTravelCntMap", userPublishedTravelCntMap);
@@ -142,6 +153,7 @@ public class UserSearchController  extends BaseController {
 		PageIterator<UserInfo> pageIter = solrUtil.searchUser(null, null, pageNo, pageSize, "fansCnt", true);
 		List<Integer> uidList = new ArrayList<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
+			mav.addObject("pageIter", pageIter);
 			mav.addObject("userInfoList", pageIter.getData());
 			for(UserInfo userInfo : pageIter.getData()){
 				uidList.add(userInfo.getId());
@@ -155,6 +167,15 @@ public class UserSearchController  extends BaseController {
 		
 		Map<Integer, Integer> userPublishedTravelCntMap = travelInfoService.getPublishedTravelCntMapByUidList(uidList);
 		mav.addObject("userPublishedTravelCntMap", userPublishedTravelCntMap);
+		
+		PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+		if(null != followPageIter && null != followPageIter.getData()){
+			Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+			for(UserFollow uf : followPageIter.getData()){
+				userStarMap.put(uf.getStarUid(), 1);
+			}
+			mav.addObject("userStarMap", userStarMap);
+		}
 		
 		Map<Integer, UserPlanner> userPlannerMap = userPlannerService.getUserPlannerMapByUidList(uidList);
 		if(null != userPlannerMap && userPlannerMap.size() > 0){
