@@ -7,7 +7,7 @@
 
 <!-- box -->
 <div class="youji_detail_main box">
-    <div class="bread_box"><a href="/index">首页</a> > <a href="/travel/search/toPage">找游记</a> >${travelInfo.title!''}</div>
+    <div class="bread_box"><a href="/index">首页</a> > <a href="/travel/search/list">找游记</a> >${travelInfo.title!''}</div>
     
     <div class="detail_main_box clearfix">
         <div class="detail_left left">

@@ -34,7 +34,7 @@
             <div class="u_yj_info">
                 <span class="ico icon_time">${travelInfo.createTime?string('yyyy-MM-dd')!''}</span>
                 <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if></span>
-                <a href="/travel/${travelInfo.id!''}/edit"><i class="ico icon_edit"></i>编辑</a>
+                <a href="/travel/${travelInfo.id!''}/toEdit"><i class="ico icon_edit"></i>编辑</a>
                 <a href="javascript:;"><i class="ico icon_del"></i>删除</a>
             </div>
         </li>

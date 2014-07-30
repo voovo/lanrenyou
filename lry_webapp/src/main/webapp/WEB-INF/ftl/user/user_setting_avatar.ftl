@@ -33,9 +33,11 @@
                 <tr>
                     <td width="20%" align="right"><span class="ft_14">当前头像：</span></td>
                     <td class="u_face_img" valign="bottom">
-                        <img id="u_now_face_l" src="imgs/user_face.jpg" alt="">
+                        <img id="u_now_face_l" src="${userInfo.avatar!''}" alt="">
+                        <!--
                         <img id="u_now_face_m" src="imgs/user_face.jpg" alt="">
                         <img id="u_now_face_s" src="imgs/user_face.jpg" alt="">
+                         -->
                     </td>
                 </tr>
                 <tr>

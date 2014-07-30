@@ -26,7 +26,7 @@
             <li><a href="/user/setting/passwd">修改密码</a></li>
         </ul>
         <div class="left u_info_form_box">
-        	<form action="user/setting/infoSubmit" method="post">
+        	<form action="/user/setting/infoSubmit" method="post">
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td width="20%" align="right"><span class="ft_14">昵称：</span></td>
