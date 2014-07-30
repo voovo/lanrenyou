@@ -106,7 +106,7 @@ $(function(){
         var srcLen = src.length,
             srcName = src.substr(0 , srcLen-4),
             srcType = src.substr(-4 , 4),
-            newSrc = srcName+"_"+tag+srcType;
+            newSrc = srcName+"_"+tag+".jpg";
 
         return newSrc;
     }

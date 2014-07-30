@@ -30,7 +30,7 @@
         RegForm.addRule([
             {
                 ele:"#u_pwd",
-                ajaxurl:"/regist/checkPwd",
+                //ajaxurl:"/regist/checkPwd",
                 datatype:"*6-16",
                 nullmsg:"请输入当前密码！",
                 errormsg:"请输入正确的当前密码！"
@@ -44,7 +44,7 @@
             {
                 ele:"#u_rePwd",
                 datatype:"*",
-                recheck:"u_newPwd",
+                recheck:"new_passwd",
                 nullmsg:"请再输入一次密码！",
                 errormsg:"两次输入的密码不一致！"
             }
@@ -81,7 +81,14 @@
             },
             'onUploadSuccess':function(file, data, response){
                 var _d = jQuery.parseJSON(data);
-                //console.log(data)
+
+                if(_d.status == "y"){
+                    var _img = _d.url;
+                    $("#u_now_face_l").attr("src" , _img);
+                    $("#avatar").val(_img);
+                }else{
+                    alert(_d.info);
+                }
                 
             },
             'onUploadError':function(file, errorCode, errorMsg, errorString){
@@ -90,6 +97,9 @@
         });
         
     }
+
+
+    
 
 
 

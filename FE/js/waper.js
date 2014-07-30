@@ -27,7 +27,7 @@
 
         yjItems.each(function(){
             var _this = $(this),
-                uid = $(this).attr("uid");
+                uid = $(this).find(".added_btn , .add_btn").attr("uid");
 
             // 开始获取游记作者信息
             $.ajax({
@@ -45,6 +45,27 @@
         });
 
     }
+
+
+
+    // 删除游记
+    $(".remove_yj").click(function(){
+        var _li = $(this).closest("li"),
+            _yId = _li.attr("id");
+
+        $.ajax({
+            url : "/travel/"+_yId+"/del",
+            success : function(r){
+                var _d = jQuery.parseJSON(r);
+                console.log(_d)
+                if(_d.status == "y"){
+                    _li.fadeOut(function(){
+                        $(this).remove();
+                    });
+                }
+            }
+        })
+    });
 
 
 

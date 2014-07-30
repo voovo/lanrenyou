@@ -100,23 +100,30 @@
     if($(".msg_btn") && $(".msg_btn").length > 0){
         var _msgBtn = $(".msg_btn"),
             _uid = _msgBtn.attr("uid"),
-            _msgForm = '<div class="msgForm"><div class="arrow_up"></div><div class="msgTo">给 <i>shell_corona</i> 发私信</div><textarea name="" id="" cols="30" rows="10"></textarea><div class="msgBot clearfix"><div id="msgNotice" class="left green hide">发送成功!</div><div class="right"><span class="sendMsgBtn">发送</span><span class="closeMsgBtn">关闭</span></div></div></div>';
+            _msgForm = '<div class="msgForm"><div class="arrow_up"></div><div class="msgTo">给 <i></i> 发私信</div><textarea name="" id="" cols="30" rows="10"></textarea><div class="msgBot clearfix"><div class="msgNotice left green hide">发送成功!</div><div class="right"><span class="sendMsgBtn">发送</span><span class="closeMsgBtn">关闭</span></div></div></div>';
 
         _msgBtn.click(function(){
+            $(".msgForm").hide();
+            var _uname = $(this).attr("username");
+
             if($(this).parent().find(".msgForm").length > 0){
                 $(this).parent().find(".msgForm").show();
             }else{
                 $(this).parent().append(_msgForm);
             }
 
+            $(this).parent().find(".msgForm .msgTo i").html(_uname);
+
             $(".msgForm").find("textarea").focus();
+            $(".msgForm").find(".msgNotice").hide();
             
             var sb = $(".sendMsgBtn");
-            sb.click(function(){
+            sb.one("click" , function(){
                 // 发送私信
-                var _cont = $(this).closest(".msgForm").find("textarea").val();
+                var _cont = $(this).closest(".msgForm").find("textarea").val() , 
+                    _notice = $(this).closest(".msgForm").find(".msgNotice");
                 if(_cont.length == 0){
-                    $("#msgNotice").show().html('<span class="error">请输入私信内容</span>');
+                    _notice.show().html('<span class="error">请输入私信内容</span>');
                 }else{
                     $.ajax({
                         url : "/user/"+_uid+"/msg/add",
@@ -125,9 +132,12 @@
                             var _d = jQuery.parseJSON(r);
                             console.log(r)
                             if(_d.status == "y"){
-                                $("#msgNotice").show().html('发送成功');
+                                _notice.show().html('发送成功');
+                                setTimeout(function(){
+                                    $(".msgForm").hide();
+                                } , 500);
                             }else{
-                                $("#msgNotice").show().html('<span class="error">'+_d.info+'</span>');
+                                _notice.show().html('<span class="error">'+_d.info+'</span>');
                             }
                         }
                     });

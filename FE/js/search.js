@@ -8,17 +8,21 @@
 
     // 加载规划师游记
     var getPlannerYj = function(){
-        $(".planner_list").each(function(){
-            var _this = $(this),
-                _uid = $(this).find(".add_btn , .added_btn").attr("uid");
+        $(".planner_list > li").each(function(){
+            var _this = $(this);
 
-            $.ajax({
-                url : "/user/search/publishedTravels" , 
-                data : {"uid" : _uid},
-                success : function(r){
-                    _this.find(".planner_yj_list").html(r);
-                }
-            })
+            setTimeout(function(){
+                var _uid = _this.find(".msg_btn").attr("uid");
+
+                //alert(_uid);
+                $.ajax({
+                    url : "/user/search/publishedTravels" , 
+                    data : {"uid" : _uid},
+                    success : function(r){
+                        _this.find(".planner_yj_list").html(r);
+                    }
+                });
+            } , 500);
         });
     }
     if($(".planner_list") && $(".planner_list").length > 0){

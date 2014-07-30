@@ -426,7 +426,7 @@
 .msgForm .sendMsgBtn ,.msgForm .closeMsgBtn{ background: #364758; padding:5px 20px; color: #fff !important; cursor: pointer; font-size: 14px; margin:5px !important;}
 .msgForm .closeMsgBtn{ background: #ccc; color: #333 !important;}
 .msgForm .msgBot{ margin-top: 5px;}
-.msgForm #msgNotice{ font-size: 14px; font-weight: bold;}
+.msgForm .msgNotice{ font-size: 14px; font-weight: bold; display: none; width: 80px;}
 .msgForm .arrow_up {
   width:0px; 
   height:0px; 
