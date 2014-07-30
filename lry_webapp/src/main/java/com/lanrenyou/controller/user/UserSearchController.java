@@ -88,13 +88,15 @@ public class UserSearchController  extends BaseController {
 		Map<Integer, Integer> starCntMap = userFollowService.getStarCountMapByUidList(uidList);
 		mav.addObject("starCntMap", starCntMap);
 		
-		PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
-		if(null != followPageIter && null != followPageIter.getData()){
-			Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
-			for(UserFollow uf : followPageIter.getData()){
-				userStarMap.put(uf.getStarUid(), 1);
+		if(null != this.getLoginUser()){
+			PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != followPageIter && null != followPageIter.getData()){
+				Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+				for(UserFollow uf : followPageIter.getData()){
+					userStarMap.put(uf.getStarUid(), 1);
+				}
+				mav.addObject("userStarMap", userStarMap);
 			}
-			mav.addObject("userStarMap", userStarMap);
 		}
 		
 		Map<Integer, Integer> userPublishedTravelCntMap = travelInfoService.getPublishedTravelCntMapByUidList(uidList);
@@ -168,13 +170,15 @@ public class UserSearchController  extends BaseController {
 		Map<Integer, Integer> userPublishedTravelCntMap = travelInfoService.getPublishedTravelCntMapByUidList(uidList);
 		mav.addObject("userPublishedTravelCntMap", userPublishedTravelCntMap);
 		
-		PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
-		if(null != followPageIter && null != followPageIter.getData()){
-			Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
-			for(UserFollow uf : followPageIter.getData()){
-				userStarMap.put(uf.getStarUid(), 1);
+		if(null != this.getLoginUser()){
+			PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != followPageIter && null != followPageIter.getData()){
+				Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+				for(UserFollow uf : followPageIter.getData()){
+					userStarMap.put(uf.getStarUid(), 1);
+				}
+				mav.addObject("userStarMap", userStarMap);
 			}
-			mav.addObject("userStarMap", userStarMap);
 		}
 		
 		Map<Integer, UserPlanner> userPlannerMap = userPlannerService.getUserPlannerMapByUidList(uidList);

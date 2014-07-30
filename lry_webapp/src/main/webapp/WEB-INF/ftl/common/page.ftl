@@ -7,7 +7,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=7"/>
     <meta content="${description}" name="description"/>
     <meta content="${keywords}" name="keywords"/>
-    <title>${titile!''}</title>
+    <title>${title!''}</title>
     <!-- 全站通用 -->
     <link rel="icon" type="image/x-icon" href="/resources/imgs/favicon.ico">
     <link rel="shortcut icon" href="/resources/imgs/favicon.ico" type="image/x-icon" />

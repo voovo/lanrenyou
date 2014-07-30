@@ -15,8 +15,18 @@
         <div class="authot_info">
             <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
             <div class="my_add">
-                <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}"></a>
+            	<#assign isShow = true />
+                <#if loginUser?? && loginUser.id == userInfo.id>
+                	<#assign isShow = false />
+                </#if>
+                <#if isShow>
+                <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
+                <#if userStarMap?? && userStarMap.get(userInfo.id)??>
+				<a href="javascript:;" class="btn_s added_btn right" uid="${userInfo.id!''}"></a>
+				<#else>
                 <a href="javascript:;" class="btn_s add_btn right" uid="${userInfo.id!''}"></a>
+				</#if>
+				</#if>
                 <span class="right">粉丝：${fansCount!'0'}</span>
             </div>
         </div>

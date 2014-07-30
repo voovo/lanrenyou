@@ -38,7 +38,17 @@
                                     <dl>
                                         <dt><img src="${userInfo.avatar!''}" alt=""></dt>
                                         <dt class="add_form">
-                                            <a href="javascript:;" class="add_btn" uid="${userInfo.id!''}"></a>
+                                        	<#assign isShow = true />
+						                    <#if loginUser?? && loginUser.id == userInfo.id>
+						                    	<#assign isShow = false />
+						                    </#if>
+						                    <#if isShow>
+                                            <#if userStarMap?? && userStarMap.get(userInfo.id)??>
+											<a href="javascript:;" class="added_btn" uid="${userInfo.id!''}"></a>
+											<#else>
+							                <a href="javascript:;" class="add_btn" uid="${userInfo.id!''}"></a>
+											</#if>
+											</#if>
                                         </dt>
                                         <dd>
                                             <span class="vip_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></span>

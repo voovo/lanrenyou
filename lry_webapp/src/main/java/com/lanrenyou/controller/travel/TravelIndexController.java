@@ -34,8 +34,10 @@ import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfoStat;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.model.TravelVisitLog;
+import com.lanrenyou.user.model.UserFollow;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserFollowService;
 import com.lanrenyou.user.service.IUserInfoService;
 import com.lanrenyou.user.service.IUserPlannerService;
 
@@ -63,6 +65,9 @@ public class TravelIndexController  extends BaseController {
 	
 	@Autowired
 	private IUserPlannerService userPlannerService;
+	
+	@Autowired
+	private IUserFollowService userFollowService;
 	
 	ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(3);
 	
@@ -148,6 +153,17 @@ public class TravelIndexController  extends BaseController {
 					collectTidMap.put(collect.getTid(), 1);
 				}
 				mav.addObject("collectTidMap", collectTidMap);
+			}
+		}
+		
+		if(null != this.getLoginUser()){
+			PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != followPageIter && null != followPageIter.getData()){
+				Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+				for(UserFollow uf : followPageIter.getData()){
+					userStarMap.put(uf.getStarUid(), 1);
+				}
+				mav.addObject("userStarMap", userStarMap);
 			}
 		}
 		
@@ -268,6 +284,17 @@ public class TravelIndexController  extends BaseController {
 		}
 		
 		TravelInfo travelInfo = travelInfoService.getTravelInfoById(tid);
+		if(null == this.getLoginUser()){
+			map.put("status", "n");
+			map.put("info", "用户未登录");
+			return gson.toJson(map);
+		}
+		if(this.getLoginUser().getId().intValue() != travelInfo.getUid().intValue()){
+			map.put("status", "n");
+			map.put("info", "用户不是此游记作者，无权编辑");
+			return gson.toJson(map);
+		}
+		
 		travelInfo.setTitle(title.trim());
 		travelInfo.setCity(area.trim());
 		travelInfo.setIsElite(TravelInfoIsEliteEnum.NO.getValue());
@@ -295,5 +322,42 @@ public class TravelIndexController  extends BaseController {
 		map.put("status", "y");
 		map.put("info", "更新游记成功");
 		return gson.toJson(map);
+	}
+	
+	@RequestMapping(value={"del"}, method=RequestMethod.GET)
+	@ResponseBody
+	public String del(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(null == this.getCurrentTravel()){
+			map.put("status", "n");
+			map.put("info", "找不到当前游记信息");
+			return gson.toJson(map);
+		}
+		
+		if(null == this.getLoginUser()){
+			map.put("status", "n");
+			map.put("info", "用户未登录");
+			return gson.toJson(map);
+		}
+		
+		if(this.getLoginUser().getId().intValue() != this.getCurrentTravel().getUid().intValue()){
+			map.put("status", "n");
+			map.put("info", "用户不是此游记作者，无权编辑");
+			return gson.toJson(map);
+		}
+		
+		this.getCurrentTravel().setStatus(TravelInfoStatusEnum.DELETE.getValue());
+		this.getCurrentTravel().setUpdateUid(this.getLoginUser().getId());
+		this.getCurrentTravel().setUpdateIp(this.getRemoteAddr());
+		int result = travelInfoService.updateTravelInfo(getCurrentTravel());
+		if(result > 0){
+			map.put("status", "y");
+			map.put("info", "删除成功");
+			return gson.toJson(map);
+		} else {
+			map.put("status", "n");
+			map.put("info", "系统忙，请稍后重试");
+			return gson.toJson(map);
+		}
 	}
 }

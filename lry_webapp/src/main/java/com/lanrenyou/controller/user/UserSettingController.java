@@ -181,24 +181,11 @@ public class UserSettingController  extends BaseController {
 	}
 	
 	@RequestMapping(value="/avatarSubmit", method=RequestMethod.POST)
-	public ModelAndView avatarSubmit(@RequestParam(value="uploadFile") MultipartFile uploadFile) throws Exception {
-        if(uploadFile.isEmpty()){
-        	return toError("文件未上传");
-        }else{
-        	Date date = new Date();
-            String dateStr = format.format(date);
-            String year = dateStr.substring(0, 4);
-            String month = dateStr.substring(4,6);
-            String day = dateStr.substring(6);
-            final String fileName = fileNameFormat.format(date) + uploadFile.getOriginalFilename().substring(uploadFile.getOriginalFilename().lastIndexOf('.'));
-            final String realPath = (AppConfigs.getInstance().get("upload.path")+year+"/"+month+"/"+day);
-            File dir = new File(realPath);
-            if(!dir.exists() || !dir.isDirectory()){
-            	dir.mkdirs();
-            }
-            FileUtils.copyInputStreamToFile(uploadFile.getInputStream(), new File(realPath, fileName));
-            
-            this.getLoginUser().setAvatar("http://img.lanrenyou.com/"+year+"/"+month+"/"+day+"/"+fileName);
+	public ModelAndView avatarSubmit(@RequestParam(value="avatar", required=true, defaultValue="") String avatarUrl ) throws Exception {
+        if(StringUtils.isBlank(avatarUrl)){
+        	return toError("请先上传头像");
+        }else {
+            this.getLoginUser().setAvatar(avatarUrl);
             this.getLoginUser().setUpdateUid(this.getLoginUser().getId());
             this.getLoginUser().setUpdateIp(this.getRemoteAddr());
             int result = userInfoService.doUpdateById(getLoginUser());

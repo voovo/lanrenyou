@@ -28,6 +28,7 @@ import com.lanrenyou.travel.service.ITravelCollectService;
 import com.lanrenyou.travel.model.TravelCollect;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.user.model.UserFollow;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserFollowService;
@@ -131,6 +132,17 @@ public class UserIndexController  extends BaseController {
 					collectTidMap.put(collect.getTid(), 1);
 				}
 				mav.addObject("collectTidMap", collectTidMap);
+			}
+		}
+		
+		if(null != this.getLoginUser()){
+			PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != followPageIter && null != followPageIter.getData()){
+				Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+				for(UserFollow uf : followPageIter.getData()){
+					userStarMap.put(uf.getStarUid(), 1);
+				}
+				mav.addObject("userStarMap", userStarMap);
 			}
 		}
 		

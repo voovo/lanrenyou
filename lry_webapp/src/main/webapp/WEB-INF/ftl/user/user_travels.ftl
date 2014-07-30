@@ -24,10 +24,10 @@
         <#if infoMap?? && infoMap.get(travelInfo.id)??>
         	<#assign contentInfo = infoMap.get(travelInfo.id)>
         </#if>
-        <li>
+        <li id="${travelInfo.id!''}">
             <img class="u_yj_imgDetail" src="<#if contentInfo??>${contentInfo.get('src')!''}</#if>" alt="">
             <div class="u_yj_txtDetail">
-                <h2><a href="/travel/${travelInfo.id}">${travelInfoMap.get(travelInfo.id).title!''}</a></h2>
+                <h2><a href="/travel/${travelInfo.id}">${travelInfo.title!''}</a></h2>
                 <#if infoMap?? && infoMap.get(travelInfo.id)??><#assign travelMsg = infoMap.get(travelInfo.id).get('info') /></#if>
                 <p><@truncateChars value="${travelMsg!''}" length="104"/></p>
             </div>
@@ -35,7 +35,7 @@
                 <span class="ico icon_time">${travelInfo.createTime?string('yyyy-MM-dd')!''}</span>
                 <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if></span>
                 <a href="/travel/${travelInfo.id!''}/toEdit"><i class="ico icon_edit"></i>编辑</a>
-                <a href="javascript:;"><i class="ico icon_del"></i>删除</a>
+                <a href="javascript:;" class="remove_yj"><i class="ico icon_del"></i>删除</a>
             </div>
         </li>
         </#list>

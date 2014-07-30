@@ -30,12 +30,18 @@
                 	<span>关注 <#if starCntMap?? && starCntMap.get(userInfo.id)??>${starCntMap.get(userInfo.id)!''}<#else>0</#if></span>
                     <span>粉丝 <#if fansCntMap?? && fansCntMap.get(userInfo.id)??>${fansCntMap.get(userInfo.id)!''}<#else>0</#if></span>
                     <span>游记 <a href="/user/${userInfo.id!''}"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(userInfo.id)??>${userPublishedTravelCntMap.get(userInfo.id)!''}<#else>0</#if></a></span>
+                    <#assign isShow = true />
+                    <#if loginUser?? && loginUser.id == userInfo.id>
+                    	<#assign isShow = false />
+                    </#if>
+                    <#if isShow>
 					<#if userStarMap?? && userStarMap.get(userInfo.id)??>
 					<a href="javascript:;" class="btn_s added_btn" uid="${userInfo.id!''}"></a>
 					<#else>
                     <a href="javascript:;" class="btn_s add_btn" uid="${userInfo.id!''}"></a>
 					</#if>
-                    <a href="javascript:;" class="btn_s msg_btn" uid="${userInfo.id!''}"></a>
+                    <a href="javascript:;" class="btn_s msg_btn" uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
+                    </#if>
                 </dd>
             </dl>
 

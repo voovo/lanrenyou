@@ -38,7 +38,17 @@
                                     <dl>
                                         <dt><img src="${userInfo.avatar!''}" alt=""></dt>
                                         <dt class="add_form">
-                                            <a href="javascript:;" class="add_btn"></a>
+                                        	<#assign isShow = true />
+						                    <#if loginUser?? && loginUser.id == userInfo.id>
+						                    	<#assign isShow = false />
+						                    </#if>
+						                    <#if isShow>
+                                            <#if userStarMap?? && userStarMap.get(userInfo.id)??>
+											<a href="javascript:;" class="added_btn" uid="${userInfo.id!''}"></a>
+											<#else>
+							                <a href="javascript:;" class="add_btn" uid="${userInfo.id!''}"></a>
+											</#if>
+											</#if>
                                         </dt>
                                         <dd>
                                             <span class="vip_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></span>
@@ -51,11 +61,6 @@
                                         </dd>
                                     </dl>
 
-                                    <ul class="author_yj_last">
-                                        <li class="gray">最新游记</li>
-                                        <li><a href="">【美国66号公路自驾全攻略】翻滚吧，青春！</a></li>
-                                        <li><a href="">美国梦东西海岸的浮光掠影</a></li>
-                                    </ul>
                                 </div>
                             </div>
                         </i>

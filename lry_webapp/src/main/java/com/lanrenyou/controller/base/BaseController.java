@@ -44,7 +44,7 @@ public abstract class BaseController extends AbstractCommonController {
 	
 	public ModelAndView toError(String errorMsg){
 		logger.warn("ready forward error page,the request url is [{}]", request.getRequestURL().toString());
-		ModelAndView mav = new ModelAndView("common/error");
+		ModelAndView mav = new ModelAndView("/common/error");
 		mav.addObject("errorMsg", errorMsg);
 		return mav;
 	}

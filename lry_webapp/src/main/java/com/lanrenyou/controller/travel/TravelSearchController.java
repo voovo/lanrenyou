@@ -22,6 +22,7 @@ import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.user.model.UserFollow;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserFollowService;
 import com.lanrenyou.user.service.IUserInfoService;
@@ -154,6 +155,17 @@ public class TravelSearchController  extends BaseController {
 		
 		Map<Integer, Integer> travelVisitCntMap = getTravelVisitCntByTidList(tidList);
 		mav.addObject("travelVisitCntMap", travelVisitCntMap);
+		
+		if(null != this.getLoginUser()){
+			PageIterator<UserFollow> followPageIter = userFollowService.pageQueryStarByUid(this.getLoginUser().getId(), 1, 100);
+			if(null != followPageIter && null != followPageIter.getData()){
+				Map<Integer, Integer> userStarMap = new HashMap<Integer, Integer>();
+				for(UserFollow uf : followPageIter.getData()){
+					userStarMap.put(uf.getStarUid(), 1);
+				}
+				mav.addObject("userStarMap", userStarMap);
+			}
+		}
 	}
 			
 }

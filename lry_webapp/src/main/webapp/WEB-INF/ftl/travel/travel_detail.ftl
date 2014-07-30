@@ -85,10 +85,20 @@
                     </div>
                     <div class="left authot_info">
                         <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
+                        <#assign isShow = true />
+                        <#if loginUser?? && loginUser.id == userInfo.id>
+                        	<#assign isShow = false />
+                        </#if>
+                        <#if isShow>
                         <p>
-                            <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}"></a>
-                            <a href="javascript:;" class="btn_s add_btn right" uid="${userInfo.id!''}"></a>
+                            <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
+                            <#if userStarMap?? && userStarMap.get(userInfo.id)??>
+							<a href="javascript:;" class="btn_s added_btn right" uid="${userInfo.id!''}"></a>
+							<#else>
+			                <a href="javascript:;" class="btn_s add_btn right" uid="${userInfo.id!''}"></a>
+							</#if>
                         </p>
+                        </#if>
                     </div>
                 </div>
                 <p id="author_produ">${userInfo.intro!''}</p>

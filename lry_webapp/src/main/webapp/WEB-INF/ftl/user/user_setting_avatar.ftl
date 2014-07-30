@@ -28,7 +28,7 @@
             <li><a href="/user/setting/passwd">修改密码</a></li>
         </ul>
         <div class="left u_info_form_box">
-        	<form name="Webform" action="/user/setting/avatarSubmit" method="post" enctype="multipart/form-data">
+        	<form name="Webform" action="/user/setting/avatarSubmit" method="post" >
             <table cellpadding="0" cellspacing="0" border="0">
                 <tr>
                     <td width="20%" align="right"><span class="ft_14">当前头像：</span></td>
@@ -46,10 +46,10 @@
                     <input type="file" name="uploadFile" id="u_face" class="file_upload" />
                     </td>
                 </tr>
-
+				<input type="hidden" id="avatar" name="avatar" value="" />
                 <tr>
                     <td></td>
-                    <td><a href="javascript:;" class="btn blue_btn">提交修改</a></td>
+                    <td><input type="submit" class="btn blue_btn" value="提交修改" /></td>
                     <td></td>
                 </tr>
             </table>
