@@ -1,7 +1,7 @@
             <!-- 规划师游记 -->
         <#if travelInfoList?? && travelInfoList?size gt 0>
             <div class="planner_yj_list">
-                <p class="more_yj"><a href="/user/${uid!''}/travelList/list">查看全部游记</a></p>
+                <p class="more_yj"><a href="/user/${uid!''}">查看全部游记</a></p>
                 <div class="planner_yj_detail clearfix">
                     <div class="left">
                         <a href="/travel/${firstTid!''}">

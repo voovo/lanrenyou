@@ -170,7 +170,8 @@ create table tb_travel_collect
    uid                  int(11) not null comment '用户UID',
    tid                  int(11) not null comment '游记ID',
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   primary key (id)
+   primary key (id),
+   UNIQUE KEY uniq_uid_tid (uid,tid)
 );
 
 alter table tb_travel_collect comment '游记收藏表';
@@ -280,7 +281,8 @@ create table tb_user_follow
    fans_uid             int(11) not null comment '关注者ID',
    star_uid             int(11) not null comment '被关注者ID',
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '时间戳',
-   primary key (id)
+   primary key (id),
+   UNIQUE KEY uniq_uid_tid (fans_uid,star_uid)
 );
 
 alter table tb_user_follow comment '关注表';

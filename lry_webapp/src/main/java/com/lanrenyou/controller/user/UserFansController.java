@@ -92,6 +92,12 @@ public class UserFansController  extends BaseController {
 			return gson.toJson(map);
 		}
 		
+		if(this.getLoginUser().getId().intValue() == this.getCurrentUser().getId().intValue()){
+			map.put("status", "n");
+			map.put("info", "不得关注自己");
+			return gson.toJson(map);
+		}
+		
 		boolean isFollowed = userFollowService.isFollowed(this.getLoginUser().getId(), this.getCurrentUser().getId());
 		if(isFollowed){
 			map.put("status", "y");
