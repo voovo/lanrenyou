@@ -48,7 +48,7 @@
     <h2>游记已经发布成功!</h2>
     <p class="suc_link">
         <a href="#">查看该游记</a> | 
-        <a href="#">我的游记</a> | 
+        <a href="/user/${loginUser.id!''}/travelList/list">我的游记</a> | 
         <a href="javascript:;" class="close_d">继续发游记</a>
     </p>
     <a class="close-reveal-modal close_d">&#215;</a>
