@@ -54,6 +54,8 @@ public interface IPrivateLetterService extends IValueObjectService<PrivateLetter
 	
 	public int updateHasRead(int privateLetterId) ;
 	
+	public int updateHasRead(List<Integer> privateLetterIdList) ;
+	
 	public int updateHasReply(int privateLetterId) ;
 	
 }

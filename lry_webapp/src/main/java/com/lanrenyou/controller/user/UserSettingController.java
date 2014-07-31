@@ -136,22 +136,30 @@ public class UserSettingController  extends BaseController {
 	}
 	
 	@RequestMapping("/changePasswd")
-	public ModelAndView changePasswd(
+	@ResponseBody
+	public String changePasswd(
 			HttpServletResponse response,
 			@RequestParam(value = "old_passwd", required = false, defaultValue = "") String oldPasswd,
             @RequestParam(value = "new_passwd", required = false, defaultValue = "") String newPasswd,
             @RequestParam(value = "new_repasswd", required = false, defaultValue = "") String newRepasswd
 			) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == this.getLoginUser()){
-			return to404();
-		}
-		
-		if(!PasswordUtil.convertToMd5(oldPasswd).equals(this.getLoginUser().getUserPass())){
-			return toError("用户密码错误");
+			map.put("status", "n");
+			map.put("info", "请先登录");
+			return gson.toJson(map);
 		}
 		
 		if(!newPasswd.equals(newRepasswd)){
-			return toError("两次输入密码不一致");
+			map.put("status", "n");
+			map.put("info", "两次输入密码不一致");
+			return gson.toJson(map);
+		}
+		
+		if(!PasswordUtil.convertToMd5(oldPasswd).equals(this.getLoginUser().getUserPass())){
+			map.put("status", "n");
+			map.put("info", "用户密码错误");
+			return gson.toJson(map);
 		}
 		
 		this.getLoginUser().setUserPass(PasswordUtil.convertToMd5(newPasswd));
@@ -162,11 +170,13 @@ public class UserSettingController  extends BaseController {
 		
 		if(result > 0){
 			ServletUtil.deleteCookie(request, response, LRYConstant.AUTH_COOKIE_KEY);
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("/login/login");
-			return mav;
+			map.put("status", "y");
+			map.put("url", "/login");
+			return gson.toJson(map);
 		} else {
-			return toError("系统忙，请稍后重试");
+			map.put("status", "n");
+			map.put("info", "系统忙，请稍后重试");
+			return gson.toJson(map);
 		}
 	}
 	

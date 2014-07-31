@@ -77,6 +77,13 @@
 			has_read = 1
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	<update id="updateHasReadByIdList" parameterType="java.util.Map" >
+	    update tb_private_letter
+	    set 
+			has_read = 1
+		where id in <foreach collection="idList" open="(" close=")" item="item" separator=",">#{item, jdbcType=INTEGER}</foreach>
+	</update>
+	
 	<update id="updateHasReplyById" parameterType="java.util.Map" >
 	    update tb_private_letter
 	    set 

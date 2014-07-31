@@ -60,4 +60,9 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 	public int receiverDelete(int privateLetterId) {
 		return privateLetterDao.receiverDelete(privateLetterId);
 	}
+
+	@Override
+	public int updateHasRead(List<Integer> privateLetterIdList) {
+		return privateLetterDao.updateHasRead(privateLetterIdList);
+	}
 }

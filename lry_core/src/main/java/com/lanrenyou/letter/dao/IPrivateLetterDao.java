@@ -61,4 +61,6 @@ public interface IPrivateLetterDao extends IValueObjectDao<PrivateLetter> {
 	public int senderDelete(int privateLetterId);
 
 	public int receiverDelete(int privateLetterId);
+
+	public int updateHasRead(List<Integer> privateLetterIdList);
 }

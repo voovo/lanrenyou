@@ -10,6 +10,7 @@ import java.util.Set;
 import mybatis.framework.core.support.PageIterator;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -222,6 +223,33 @@ public class UserMsgController  extends BaseController {
 			return mav;
 		} else {
 			return toError("系统忙，请稍后重试");
+		}
+	}
+	
+	@RequestMapping("/hasRead")
+	@ResponseBody
+	public String update2HasRead(@RequestParam(value = "ids", required = true) String ids){
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(StringUtils.isBlank(ids)){
+			map.put("status", "n");
+			map.put("info", "没有选择要更新的私信");
+			return gson.toJson(map);
+		}
+		List<Integer> idList = new ArrayList<Integer>();
+		for(String s : ids.split(",")){
+			if(NumberUtils.isNumber(s)){
+				idList.add(Integer.parseInt(s));
+			}
+		}
+		int result = privateLetterService.updateHasRead(idList);
+		if(result > 0){
+			map.put("status", "y");
+			map.put("info", "操作成功");
+			return gson.toJson(map);
+		} else {
+			map.put("status", "n");
+			map.put("info", "系统忙，请稍后重试");
+			return gson.toJson(map);
 		}
 	}
 }

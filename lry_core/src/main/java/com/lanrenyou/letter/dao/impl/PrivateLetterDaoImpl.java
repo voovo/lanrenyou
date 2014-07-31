@@ -94,4 +94,14 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		params.put("id", privateLetterId);
 		return this.doUpdate("receiverDeletedById", params);
 	}
+
+	@Override
+	public int updateHasRead(List<Integer> privateLetterIdList) {
+		if(null == privateLetterIdList || privateLetterIdList.size() <= 0){
+			return 0;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("idList", privateLetterIdList);
+		return this.doUpdate("updateHasReadByIdList", params);
+	}
 }

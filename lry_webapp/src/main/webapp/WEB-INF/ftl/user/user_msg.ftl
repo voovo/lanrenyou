@@ -25,7 +25,7 @@
     </ul>
      -->
      
-	<#if letterList?? && letterList?size() gt 0>
+	<#if letterList?? && letterList?size gt 0>
     <p>
         <input id="sel_all" type="checkbox"> <label for="sel_all">全选</label>
         <a href="javascript:;">删除</a>

@@ -5,7 +5,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
     <title>Error_Page_懒人游</title>
-    <link href="http://www.lanrenyou.com//resources/imgs/favicon.ico" rel="shortcut icon">
+    <link href="http://www.lanrenyou.com/resources/imgs/favicon.ico" rel="shortcut icon">
     
 </head>
 <body>
