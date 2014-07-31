@@ -104,4 +104,24 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		params.put("idList", privateLetterIdList);
 		return this.doUpdate("updateHasReadByIdList", params);
 	}
+
+	@Override
+	public int getUnReadLetterCountByReceiverUid(int uid) {
+		if(uid <= 0){
+			return 0;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("receiverUid", uid);
+		return (Integer) this.findOne("getUnReadLetterCountByReceiverUid", params);
+	}
+
+	@Override
+	public List<PrivateLetter> getUnReadLetterListByReceiverUid(
+			int receiverUid, int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("receiverUid", receiverUid);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getUnReadLetterListByReceiverUid", params);
+	}
 }

@@ -38,14 +38,14 @@
                 </p>
                 <p class="left">${letter.updateTime?string('yyyy-MM-dd')!''}</p>
             </div>
-            <p class="u_msg_details">${letter.context!''}</p>
+            <p class="u_msg_details">${letter.content!''}</p>
         </li>
         </#list>
         </#if>
 		<form action="/user/${userInfo.id!''}/msg/reply" method="POST" >
 		<input type="hidden" name="receiverUid" value=${receiver.id!''} />
         <li id="msg_replay">
-            <textarea name="context" cols="30" rows="10"></textarea>
+            <textarea name="content" cols="30" rows="10"></textarea>
             <input type="submit" class="btn_s blue_btn" value="回复" />
         </li>
         </form>

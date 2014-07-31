@@ -98,7 +98,7 @@ public class UserMsgController  extends BaseController {
 		privateLetter.setReceiverUid(toUid);
 		privateLetter.setHasRead(PrivateLetterHasReadEnum.UN_READ.getValue());
 		privateLetter.setHasReply(PrivateLetterHasReplyEnum.UN_REPLY.getValue());
-		privateLetter.setContext(content);
+		privateLetter.setContent(content);
 		
 		int result = privateLetterService.addPrivateLetter(privateLetter);
 		
@@ -212,7 +212,7 @@ public class UserMsgController  extends BaseController {
 		PrivateLetter letter = new PrivateLetter();
 		letter.setSenderUid(this.getLoginUser().getId());
 		letter.setReceiverUid(receiverUid);
-		letter.setContext(content);
+		letter.setContent(content);
 		letter.setHasRead(PrivateLetterHasReadEnum.UN_READ.getValue());
 		letter.setHasReply(PrivateLetterHasReplyEnum.UN_REPLY.getValue());
 		letter.setReceiverDeleted(0);

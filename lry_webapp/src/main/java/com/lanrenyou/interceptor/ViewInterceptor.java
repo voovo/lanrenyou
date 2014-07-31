@@ -55,7 +55,7 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 
 		if (userInfo != null) {
 			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
-			PageIterator<PrivateLetter> letterPage = privateLetterService.pageQueryPrivateLetter(userInfo.getId(), 1, 2);
+			PageIterator<PrivateLetter> letterPage = privateLetterService.pageQueryUnReadLetterCountByReceiverUid(userInfo.getId(), 1, 2);
 			if(null != letterPage){
 				request.setAttribute("headerLetterList", letterPage.getData());
 				request.setAttribute("headerLetterCnt", letterPage.getTotalCount());

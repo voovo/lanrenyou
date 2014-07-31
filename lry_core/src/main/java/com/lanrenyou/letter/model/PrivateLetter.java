@@ -26,7 +26,7 @@ public class PrivateLetter extends BaseValueObject {
     /**
      * 内容
      */
-    private String context;
+    private String content;
 
     /**
      * 是否已读[0:未读; 1:已读]
@@ -74,12 +74,12 @@ public class PrivateLetter extends BaseValueObject {
         this.receiverUid = receiverUid;
     }
 
-    public String getContext() {
-        return context;
+    public String getContent() {
+        return content;
     }
 
-    public void setContext(String context) {
-        this.context = context == null ? null : context.trim();
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 
     public int getHasRead() {

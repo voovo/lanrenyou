@@ -65,4 +65,16 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 	public int updateHasRead(List<Integer> privateLetterIdList) {
 		return privateLetterDao.updateHasRead(privateLetterIdList);
 	}
+
+	@Override
+	public PageIterator<PrivateLetter> pageQueryUnReadLetterCountByReceiverUid(int receiverUid, int pageNo, int pageSize) {
+		int totalCount = privateLetterDao.getUnReadLetterCountByReceiverUid(receiverUid);
+		List<PrivateLetter> list = null;
+		if(totalCount > 0){
+			 list = privateLetterDao.getUnReadLetterListByReceiverUid(receiverUid, (pageNo - 1) * pageSize, pageSize);
+		}
+		PageIterator<PrivateLetter> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
+	}
 }

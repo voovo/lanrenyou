@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="sender_uid" property="senderUid" jdbcType="INTEGER" />
     <result column="receiver_uid" property="receiverUid" jdbcType="INTEGER" />
-    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="has_read" property="hasRead" jdbcType="TINYINT" />
     <result column="has_reply" property="hasReply" jdbcType="TINYINT" />
     <result column="sender_deleted" property="senderDeleted" jdbcType="TINYINT" />
@@ -13,23 +13,23 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, sender_uid, receiver_uid, context, has_read, has_reply, sender_deleted, receiver_deleted, update_time
+    id, sender_uid, receiver_uid, content, has_read, has_reply, sender_deleted, receiver_deleted, update_time
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_private_letter
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.letter.model.PrivateLetter" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_private_letter (sender_uid, receiver_uid, context, 
+    insert into tb_private_letter (sender_uid, receiver_uid, content, 
       has_read, has_reply)
-    values (#{senderUid,jdbcType=INTEGER}, #{receiverUid,jdbcType=INTEGER}, #{context,jdbcType=VARCHAR}, 
+    values (#{senderUid,jdbcType=INTEGER}, #{receiverUid,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
       #{hasRead,jdbcType=TINYINT}, #{hasReply,jdbcType=TINYINT})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.letter.model.PrivateLetter" >
     update tb_private_letter
     set sender_uid = #{senderUid,jdbcType=INTEGER},
       receiver_uid = #{receiverUid,jdbcType=INTEGER},
-      context = #{context,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       has_read = #{hasRead,jdbcType=TINYINT},
       has_reply = #{hasReply,jdbcType=TINYINT},
       is_deleted = #{isDeleted,jdbcType=TINYINT}
@@ -56,7 +56,7 @@
     select
     <include refid="Base_Column_List" />
     from tb_private_letter
-    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and receiver_deleted = 0 limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
+    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and receiver_deleted = 0 order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER} 
   </select>
   <select id="getPrivateLetterCountByReceiverUidAndSenderUid" resultType="java.lang.Integer" parameterType="java.util.Map">
     select
@@ -68,7 +68,7 @@
     select
     <include refid="Base_Column_List" />
     from tb_private_letter
-    where (sender_uid = #{uidA,jdbcType=INTEGER} and receiver_uid = #{uidB,jdbcType=INTEGER} and sender_deleted=0) or ( sender_uid= #{uidB,jdbcType=INTEGER} and receiver_uid = #{uidA,jdbcType=INTEGER} and receiver_deleted=0) order by update_time desc  
+    where (sender_uid = #{uidA,jdbcType=INTEGER} and receiver_uid = #{uidB,jdbcType=INTEGER} and sender_deleted=0) or ( sender_uid= #{uidB,jdbcType=INTEGER} and receiver_uid = #{uidA,jdbcType=INTEGER} and receiver_deleted=0) order by id desc  
   </select>
   
   	<update id="updateHasReadById" parameterType="java.util.Map" >
@@ -103,4 +103,18 @@
 	    	receiver_deleted = 1
 	    where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<select id="getUnReadLetterCountByReceiverUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(1)
+    from tb_private_letter
+    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and has_read=0 and receiver_deleted=0
+  </select>
+  
+  <select id="getUnReadLetterListByReceiverUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from tb_private_letter
+    where receiver_uid = #{receiverUid,jdbcType=INTEGER} and has_read=0 and receiver_deleted=0 order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
 </mapper>

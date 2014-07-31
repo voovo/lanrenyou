@@ -28,14 +28,15 @@
 	<#if letterList?? && letterList?size gt 0>
     <p>
         <input id="sel_all" type="checkbox"> <label for="sel_all">全选</label>
-        <a href="javascript:;">删除</a>
-        <a href="javascript:;">标记为已读</a>
+        <a href="javascript:;" class="removeAll">删除</a>
+        <a href="javascript:;" class="setRead">标记为已读</a>
     </p>
+    <input type="hidden" name="uid" id="uid" value="${userInfo.id!''}" />
 
     <ul id="u_msg_list">
         <!-- 小心中心列表循环开始 -->
         <#list letterList as letter>
-        <li <#if letter.hasRead==1>class="unread"</#if>>
+        <li <#if letter.hasRead==0>class="unread"</#if> id="${letter.id!''}">
             <input type="checkbox" />
             <img src="<#if userInfoMap?? && userInfoMap.get(letter.senderUid)??>${userInfoMap.get(letter.senderUid).avatar!''}</#if>" alt="" />
             <div class="clearfix">
@@ -45,10 +46,10 @@
                 <p class="left">${letter.updateTime?string('yyyy-MM-dd')!''}</p>
                 <p class="right">
                     <a href="javascript:;" class="ico delete_ico">删除</a>
-                    <a href="javascript:;" class="ico edit_icon">回复</a>
+                    <a href="/user/${userInfo.id}/msg/toReply?receiverUid=${letter.senderUid!''}" class="ico edit_icon">回复</a>
                 </p>
             </div>
-            <p class="u_msg_details">${letter.context!''}</p>
+            <p class="u_msg_details">${letter.content!''}</p>
         </li>
         </#list>
         <!-- 小心中心列表循环结束 -->

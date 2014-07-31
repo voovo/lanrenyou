@@ -58,4 +58,11 @@ public interface IPrivateLetterService extends IValueObjectService<PrivateLetter
 	
 	public int updateHasReply(int privateLetterId) ;
 	
+	/**
+	 * 获取某人所有未读的私信个数
+	 * @param uid
+	 * @return
+	 */
+	public PageIterator<PrivateLetter> pageQueryUnReadLetterCountByReceiverUid(int receiverUid, int pageNo, int pageSize);
+	
 }

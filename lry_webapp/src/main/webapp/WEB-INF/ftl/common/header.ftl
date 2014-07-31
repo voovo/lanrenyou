@@ -66,7 +66,7 @@
 	                    	<#if headerLetterList?? && headerLetterList.size() gt 0>
 	                    	<#list headerLetterList as letter>
 	                        <p>
-	                            <@truncateChars value="${letter.context!''}" length="30"/>
+	                            <@truncateChars value="${letter.content!''}" length="30"/>
 	                        </p>
 	                        </#list>
 	                        </#if>

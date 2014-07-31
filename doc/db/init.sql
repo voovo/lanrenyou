@@ -150,7 +150,7 @@ create table tb_private_letter
    id                   int(11) not null auto_increment comment '主键ID',
    sender_uid           int(11) not null comment '发信人',
    receiver_uid         int(11) not null comment '收信人',
-   context              varchar(512) not null comment '内容',
+   content              varchar(512) not null comment '内容',
    has_read             tinyint(6) default 0 comment '是否已读[0:未读; 1:已读]',
    has_reply            tinyint(6) default 0 comment '是否回复[0:未回复; 1:已回复]',
    sender_deleted       tinyint(6) default 0 comment '发送者删除[0:否; 1:是]',

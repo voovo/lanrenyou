@@ -63,4 +63,9 @@ public interface IPrivateLetterDao extends IValueObjectDao<PrivateLetter> {
 	public int receiverDelete(int privateLetterId);
 
 	public int updateHasRead(List<Integer> privateLetterIdList);
+
+	public int getUnReadLetterCountByReceiverUid(int uid);
+
+	public List<PrivateLetter> getUnReadLetterListByReceiverUid(
+			int receiverUid, int i, int pageSize);
 }
