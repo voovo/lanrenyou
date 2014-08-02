@@ -19,10 +19,14 @@
             ajaxPost:true,
             callback:function(data){
                 if(data.status == "y"){
-                    //$.Hidemsg();
                    // window.location.href = "/regist/waitEmailVerify";
+                    
+                    $("#sb_pwd").closest("td").append(" 密码修改成功，请重新登录");
+                    setTimeout(function(){
+                        window.location.href = data.url;
+                    } , 1000);
                 }else{
-                    //console.log(data.info);
+                    alert(data.info);
                 }
             }
         });

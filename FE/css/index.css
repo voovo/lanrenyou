@@ -18,8 +18,8 @@
 .img_info p a{ color: #fff; padding-left: 80px; font-size: 14px; line-height: 30px;}
 
 
-#index_main .row .h{ width: 25%;}
-#index_main .row .w{ width: 49.9%;}
+#index_main .row .h{ width: 25%; height: 390px; overflow: hidden;}
+#index_main .row .w{ width: 49.9%; height: 390px; overflow: hidden;}
 
 .mg_r{ margin-right: 20px;}
 .mg_b{ margin-bottom: 20px;}
