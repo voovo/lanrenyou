@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.travel.dao.IIndexTravelDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.IndexTravel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tid" property="tid" jdbcType="INTEGER" />
+    <result column="is_top" property="isTop" jdbcType="INTEGER" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tid, is_top, sort, update_time
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_index_travel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByTid" parameterType="java.lang.Integer" >
+    delete from tb_index_travel
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.travel.model.IndexTravel" useGeneratedKeys="true" keyProperty="id" >
+    insert ignore into tb_index_travel (tid, is_top, sort)
+    values (#{tid,jdbcType=INTEGER}, #{isTop, jdbcType=INTEGER}, #{sort, jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.IndexTravel" >
+    update tb_index_travel
+    set tid = #{tid,jdbcType=INTEGER}, is_top=#{isTop, jdbcType=INTEGER}, sort=#{sort, jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_index_travel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_index_travel
+  </select>
+  
+  <select id="getIndexTravelList" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select <include refid="Base_Column_List" /> from tb_index_travel
+    order by is_top desc,sort desc,id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+</mapper>

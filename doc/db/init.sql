@@ -361,3 +361,18 @@ INSERT INTO tb_dict_city (CODE,NAME) VALUES (1016,'波多黎各Puerto Rico');
 INSERT INTO tb_dict_city (CODE,NAME) VALUES (1017,'圣地亚哥San Diego及周边');
 
 create unique index uniq_userinfo_email on tb_user_info (email); 
+
+drop table if exists tb_index_travel;
+
+/*==============================================================*/
+/* Table: tb_index_travel                                      */
+/*==============================================================*/
+create table tb_index_travel
+(
+   id                   int(11) not null auto_increment,
+   tid                  int(11) comment '游记ID',
+   is_top               tinyint(6) default 0 comment '是否置顶[0:是; 1:否]',
+   sort                 tinyint(6) default 0 comment '排序,值越大越靠前',
+   update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   primary key (id)
+);
