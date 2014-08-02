@@ -24,7 +24,7 @@
         <li class="yj_item">
             <dl>
                 <dt>
-                	<a href="/travel/${travelInfo.id!''}">
+                	<a href="/travel/${travelInfo.id!''}" target="_blank">
                     <h2>${travelInfo.title!''}</h2>
                     <div class="yj_author">
                         <img class="u_sm" src="${userInfo.avatar!''}" alt="" width="24" height="24">

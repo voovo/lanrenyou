@@ -24,7 +24,7 @@
                     <img src="${userInfo.avatar!''}" alt="">
                 </dt>
                 <dd class="planner_name">
-                    <span class="vip_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></span>
+                    <span class="vip_ico"><a href="/user/${userInfo.id!''}" target="_blank">${userInfo.name!''}</a></span>
                 </dd>
                 <dd class="planner_info">
                 	<span>关注 <#if starCntMap?? && starCntMap.get(userInfo.id)??>${starCntMap.get(userInfo.id)!''}<#else>0</#if></span>
@@ -51,7 +51,7 @@
                 <dd>
                     <ul>
                     	<#list targetCityMap.get(userInfo.id) as city>
-                        <li><a href="/travel/search?city=${city!''}">${city!''}</a></li>
+                        <li><a href="/travel/search?city=${city!''}" target="_blank">${city!''}</a></li>
                         </#list>
                     </ul>
                 </dd>

@@ -1,9 +1,12 @@
 package com.lanrenyou.controller.registration;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +46,8 @@ public class RegisterController extends BaseController {
 	
 	@Autowired
 	private IUserPlannerService userPlannerService;
+	
+	private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(3);
 	
 	@RequestMapping("/toPage")
 	public ModelAndView toPage(HttpServletResponse response){
@@ -146,19 +151,26 @@ public class RegisterController extends BaseController {
 		newUserInfo.setCreateIp(this.getRemoteAddr());
 		int result = userInfoService.addUserInfo(newUserInfo);
 		if(result > 0){
-			try {
-				StringBuilder code = new StringBuilder();
-				code.append(newUserInfo.getId().intValue()).append("#").append(System.currentTimeMillis());
-				logger.debug("Source Code:{}", code.toString());
-				String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
-				int mailResult = MailUtil.sendEmail(submitEmail, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");
-				logger.info("http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode);
-				if(mailResult <= 0){
-					logger.error("Registion Send Mail Fail, UID:{} | Email:{} | Verify Code:{}", newUserInfo.getId(), newUserInfo.getEmail(), encryptCode);
-				}
-			} catch (UnsupportedEncodingException e) {
-				logger.error("{}", e);
-			}
+			final int uid = newUserInfo.getId();
+			final String email = newUserInfo.getEmail();
+			EXECUTOR_SERVICE.submit(new Runnable() {
+            	@Override
+            	public void run() {
+            		try{
+	            		StringBuilder code = new StringBuilder();
+	            		code.append(uid).append("#").append(System.currentTimeMillis());
+	            		logger.debug("Source Code:{}", code.toString());
+	            		String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
+	            		int mailResult = MailUtil.sendEmail(email, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号激活：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/regist/verifyEmail?code="+encryptCode+"</a>");
+	            		logger.info("http://"+AppConfigs.getInstance().get("domains.www")+ "/regist/verifyEmail?code="+encryptCode);
+	            		if(mailResult <= 0){
+	            			logger.error("Registion Send Mail Fail, UID:{} | Email:{} | Verify Code:{}", uid, email, encryptCode);
+	            		}
+            		}catch(Exception e){
+            			logger.error("{}", e);
+            		}
+            	}
+            });
 			request.setAttribute(LRYConstant.LOGIN_USER, newUserInfo);
 			Cookie cookie = new Cookie(LRYConstant.REGIST_COOKIE_NAME, String.valueOf(newUserInfo.getId()));
 			cookie.setMaxAge(7200);

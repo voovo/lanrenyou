@@ -151,7 +151,11 @@ public class SolrUtil {
 				travelInfo.setId(tid);
 				travelInfo.setTitle(title);
 				travelInfo.setUid(uid);
-				travelInfo.setCreateTime(DateUtil.converUTCDate(sdf2.parse(createTimeS)));
+				if(StringUtils.isNotBlank(createTimeS)){
+					travelInfo.setCreateTime(DateUtil.converUTCDate(sdf2.parse(createTimeS)));
+				} else {
+					travelInfo.setCreateTime(DateUtil.strToDate("1970-01-01"));
+				}
 				travelInfo.setContent(content);
 				travelInfoList.add(travelInfo);
 			}

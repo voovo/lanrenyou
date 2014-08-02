@@ -122,7 +122,7 @@
                     <dt>住过的地方：</dt>
                     <dd>
                         <ul>
-                            <li>${userInfo.previousAddress!''}</li>
+                            <li><@truncateChars value="${userInfo.previousAddress!''}" length="104"/></li>
                         </ul>
                     </dd>
                 </dl>
@@ -147,9 +147,11 @@
             </div>
 
             <!-- 右侧广告 -->
+            <!--
             <a id="detail_right_ad_1" href="#">
                 <img src="imgs/detail/ad.jpg" alt="">
             </a>
+             -->
         </div>
 
     </div>
