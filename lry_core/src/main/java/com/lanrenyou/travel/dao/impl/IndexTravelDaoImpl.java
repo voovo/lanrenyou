@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.lanrenyou.travel.dao.IIndexTravelDao;
-import com.lanrenyou.travel.dao.ITravelCollectDao;
 import com.lanrenyou.travel.model.IndexTravel;
 import mybatis.framework.core.dao.BaseDao;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public class IndexTravelDaoImpl extends BaseDao<IndexTravel> implements IIndexTravelDao {
 
     public IndexTravelDaoImpl() {
-        super(ITravelCollectDao.class.getName());
+        super(IIndexTravelDao.class.getName());
     }
 
 	@Override
@@ -48,6 +47,6 @@ public class IndexTravelDaoImpl extends BaseDao<IndexTravel> implements IIndexTr
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("offset", offset);
 		params.put("limit", limit);
-		return findList("getIndexTravelList", params);
+		return this.findList("getIndexTravelList", params);
 	}
 }

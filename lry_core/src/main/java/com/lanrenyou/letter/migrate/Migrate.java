@@ -673,9 +673,9 @@ public class Migrate {
 	}
 		
 	public static Connection getPressConn(){
-		String pressurl = "jdbc:mysql://127.0.0.1:3306/db_wordpress";
-		String pressuser = "lanrenyou";
-		String presspassword = "111111";
+		String pressurl = "jdbc:mysql://127.0.0.1:3306/db_lanrenyou";
+		String pressuser = "root";
+		String presspassword = "v7DKsuV3yWTh3CTw";
 		Connection conn  = null;
 		try{
 			Class.forName(driver);
@@ -687,7 +687,7 @@ public class Migrate {
 	}
 	
 	public static Connection getLryConn(){
-		String lryurl = "jdbc:mysql://127.0.0.1:3306/DB_LRY";
+		String lryurl = "jdbc:mysql://127.0.0.1:3306/db_lry?autoCommit=true&autoReconnect=true&useUnicode=true&tinyInt1isBit=false&zeroDateTimeBehavior=round&characterEncoding=UTF-8&yearIsDateType=false";
 		String lryuser = "lanrenyou";
 		String lrypassword = "111111";
 		Connection conn  = null;

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.controller.travel.TravelShowUtil;
+import com.lanrenyou.letter.migrate.Migrate;
 import com.lanrenyou.travel.model.IndexTravel;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.IIndexTravelService;

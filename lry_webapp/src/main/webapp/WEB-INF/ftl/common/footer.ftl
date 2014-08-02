@@ -10,7 +10,7 @@
             <li class="tt"><a href="javascript:;">腾讯微博</a></li>
             <li class="qq"><a href="javascript:;">QQ</a></li>
         </ul>
-        <p>
+        <p style="display:none">
             <a href="javascript:;">关于我们</a> | 
             <a href="javascript:;">联系我们</a> | 
             <a href="javascript:;">人才招聘</a> | 

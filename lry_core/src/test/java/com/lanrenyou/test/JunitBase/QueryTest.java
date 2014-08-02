@@ -5,19 +5,19 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.Gson;
+import com.lanrenyou.travel.service.IIndexTravelService;
 
 
 public class QueryTest extends Junit4Base{
 	
-//	@Autowired
-//    private ITest1Service service;
-//	
-//	private Gson gson = new Gson();
-//	
-//	@Test
-//	public void testQueryDB(){
-//		Test1 t = service.findById(1);
-//		logger.info("result:"+gson.toJson(t));
-//	}
+	@Autowired
+    private IIndexTravelService service;
+	
+	private Gson gson = new Gson();
+	
+	@Test
+	public void testQueryDB(){
+		service.getIndexTravel(24);
+	}
 	// test clone commit
 }
