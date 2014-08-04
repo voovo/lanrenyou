@@ -36,7 +36,7 @@
 
     <env-entry>
        <env-entry-name>solr/home</env-entry-name>
-       <env-entry-value>D:/workspace/github/lanrenyou/lry_search/WebRoot/WEB-INF/solr_travel</env-entry-value>
+       <env-entry-value>/ROOT/www/search_8020/WEB-INF/solr_travel</env-entry-value>
        <env-entry-type>java.lang.String</env-entry-type>
     </env-entry>
    

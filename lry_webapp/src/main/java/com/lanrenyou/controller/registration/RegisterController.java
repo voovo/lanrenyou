@@ -350,19 +350,17 @@ public class RegisterController extends BaseController {
 		
 		if(null != toBePlanner && toBePlanner == 1 && StringUtils.isNotBlank(targetCity)){
 			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(uid);
-			if(null != userPlanner){
-				return toError("数据异常，规划师不得进行此操作");
+			if(null == userPlanner){
+				userPlanner = new UserPlanner();
+				userPlanner.setUid(uid);
+				
+				userPlanner.setTargetCity(targetCity);
+				userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
+				userPlanner.setCreateUid(uid);
+				userPlanner.setCreateTime(new Date());
+				userPlanner.setCreateIp(this.getRemoteAddr());
+				userPlannerService.addUserPlanner(userPlanner);
 			}
-			userPlanner = new UserPlanner();
-			userPlanner.setUid(uid);
-			System.out.println("uid************:"+userPlanner.getUid());
-			
-			userPlanner.setTargetCity(targetCity);
-			userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
-			userPlanner.setCreateUid(uid);
-			userPlanner.setCreateTime(new Date());
-			userPlanner.setCreateIp(this.getRemoteAddr());
-			userPlannerService.addUserPlanner(userPlanner);
 		}
 		
 		ModelAndView mav = new ModelAndView(new RedirectView("/user/"+userInfo.getId()));
