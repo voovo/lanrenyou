@@ -22,6 +22,8 @@ public class TravelShowUtil {
 			return null;
 		}
 		
+		content = content.replace("}{", "},{");
+		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		if(null != list){
 			for(Map<String, String> map : list){
@@ -45,6 +47,8 @@ public class TravelShowUtil {
 			return null;
 		}
 		
+		content = content.replace("}{", "},{");
+		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		if(null != list && list.size() >= 1){
 			return list.get(0);
@@ -65,7 +69,8 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			logger.info("#########################\n{}", content);
+			content = content.replace("}{", "},{");
+			logger.debug("#########################\n{}", content);
 			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 			if(null != list && list.size() >= 1){
 				returnMap.put(key, list.get(0));
