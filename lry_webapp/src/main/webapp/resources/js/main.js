@@ -262,7 +262,14 @@
 
 
 
-
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d25d1f37eff48959747a5a9cd62a4d68";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
 
 
 /*********************************************************/
