@@ -106,7 +106,7 @@ $(function(){
         var srcLen = src.length,
             srcName = src.substr(0 , srcLen-4),
             srcType = src.substr(-4 , 4),
-            newSrc = srcName+"_"+tag+srcType;
+            newSrc = srcName+"_"+tag+".jpg";
 
         return newSrc;
     }
@@ -199,10 +199,11 @@ $(function(){
                 $(".album_block:visible").each(function(){
                     var img_src = $(this).find(".img_left img").attr("src"),
                         img_info = $(this).find(".right textarea").val();
-                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"}';
+                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"},';
                 }); 
             }
             c_yj+= "]";
+            c_yj.replace(",]" , "]");
             //console.log(c_title , c_area , c_yj);
 
             //return;
