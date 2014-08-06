@@ -57,4 +57,13 @@
     <include refid="Base_Column_List" />
     from tb_admin_power_item
   </select>
+  
+  <update id="updateToDelById" parameterType="com.lanrenyou.admin.model.AdminPowerItem" >
+    update tb_admin_power_item
+    set 
+      update_uid = #{updateUid,jdbcType=INTEGER},
+      update_ip = #{updateIp,jdbcType=VARCHAR},
+      status = -1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

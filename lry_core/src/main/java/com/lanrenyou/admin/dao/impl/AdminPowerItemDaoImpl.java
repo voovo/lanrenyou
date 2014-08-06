@@ -11,4 +11,13 @@ public class AdminPowerItemDaoImpl extends BaseDao<AdminPowerItem> implements IA
     public AdminPowerItemDaoImpl() {
         super(IAdminPowerItemDao.class.getName());
     }
+    
+    @Override
+	public int deleteByUpdate(AdminPowerItem powerItem) {
+    	if(null == powerItem || null == powerItem.getId()){
+    		return 0;
+    	}
+		int result = super.doUpdate("updateToDelById", powerItem);
+		return result;
+	}
 }

@@ -1,10 +1,13 @@
 package com.lanrenyou.admin.model;
 
 import java.util.Date;
+import java.util.List;
+
 import mybatis.framework.core.model.BaseValueObject;
 
 public class AdminRole extends BaseValueObject {
-	private static final long serialVersionUID = 878243071743421717L;
+
+	private static final long serialVersionUID = 1620437182628172901L;
 
 	private Integer id;
 
@@ -14,9 +17,11 @@ public class AdminRole extends BaseValueObject {
     private String name;
 
     /**
-     * 状态[0:停用, 1:正常]
+     * 状态[-1:删除, 0:停用, 1:正常]
      */
     private int status;
+    
+    private List<Integer> adminPowerItemList;
 
     private Integer createUid;
 
@@ -52,7 +57,15 @@ public class AdminRole extends BaseValueObject {
         this.status = status;
     }
 
-    public Integer getCreateUid() {
+    public List<Integer> getAdminPowerItemList() {
+		return adminPowerItemList;
+	}
+
+	public void setAdminPowerItemList(List<Integer> adminPowerItemList) {
+		this.adminPowerItemList = adminPowerItemList;
+	}
+
+	public Integer getCreateUid() {
         return createUid;
     }
 

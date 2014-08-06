@@ -1,0 +1,162 @@
+body {
+	margin: 0px
+}
+P {
+	margin: 0px
+}
+li { list-style:none outside none; }
+.hide{ display: none;}
+.show{ display: block;}
+.clear { clear:both; height:0; font-size:0; }
+.clr:after , .clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+.clr,.clearfix {
+    zoom: 1
+}
+body {
+	color: #000; background-color: #fff
+}
+body {
+	font-size: 12px; line-height: 150%; font-family: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+table {
+	font-size: 12px; line-height: 150%; font-family: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+input {
+	font-size: 12px; font-family: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+select {
+	font-size: 12px; font-family: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+textarea {
+	font-size: 12px; font-family: "Verdana", "Arial", "Helvetica", "sans-serif"
+}
+A:link {
+	color: #036; text-decoration: none
+}
+A:visited {
+	color: #036; text-decoration: none
+}
+A:hover {
+	color: #f60; text-decoration: underline
+}
+A.menuChild:link {
+	color: #036; text-decoration: none
+}
+A.menuChild:visited {
+	color: #036; text-decoration: none
+}
+A.menuChild:hover {
+	color: #f60; text-decoration: underline
+}
+A.menuParent:link {
+	color: #000; text-decoration: none
+}
+A.menuParent:visited {
+	color: #000; text-decoration: none
+}
+A.menuParent:hover {
+	color: #f60; text-decoration: none
+}
+table.position {
+	width: 100%
+}
+tr.position {
+	height: 25px; background-color: #f4f7fc
+}
+td.position {
+	border-right: #adceff 1px solid; padding-left: 20px; border-bottom: #adceff 1px solid
+}
+table.listTable {
+	width: 98%; background-color: #b1ceee
+}
+tr.listHeaderTr {
+	font-weight: bold; height: 25px; background-color: #ebf4fd; text-align: center
+}
+tr.listTr {
+	height: 25px; background-color: #fff; text-align: center
+}
+tr.listAlternatingTr {
+	height: 25px; background-color: #fffdf0; text-align: center
+}
+tr.listFooterTr {
+	height: 30px; background-color: #ebf4fd; text-align: center
+}
+table.editTable {
+	width: 98%; background-color: #b1ceee
+}
+tr.editHeaderTr {
+	height: 25px; background-color: #ebf4fd
+}
+td.editHeaderTd {
+	padding-left: 50px; font-weight: bold
+}
+tr.editTr {
+	height: 30px
+}
+td.editLeftTd {
+	width: 150px; background-color: #fffdf0; text-align: center
+}
+td.editRightTd {
+	padding-left: 10px; background-color: #fff
+}
+tr.editFooterTr {
+	height: 40px; background-color: #ebf4fd
+}
+td.editFooterTd {
+	padding-left: 150px
+}
+
+
+table{
+    table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+    margin:0 auto;
+}
+table.mytab{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+table.mytab td,table.mytab th{
+    border:1px solid #cad9ea;
+    padding:5px 10px;
+}
+table.mytab th{ padding: 8px 10px; background: url(/imgs/admin/thBg.gif) left top repeat-x;}
+.tb{ background-color: #f5fafe;}
+.tbHover{background-color:#daebff;}
+
+.green , a.green{ color: #00a924;}
+.black , a.black{ color: #000;}
+.red , a.red{ color: #a90000;}
+
+/*main_content*/
+.main_content{ padding:20px;}
+.main_content ul.user_infos li{
+	float: left;
+	width:290px;
+	margin: 0 10px 10px 0;
+}
+
+a.UserInfo{ color: #00f;}
+
+.main_search{ margin-bottom: 20px; border-bottom: 2px solid #ccc; padding-bottom: 10px;}
+.main_search h4{ height: 30px; line-height: 30px; margin: 0; font-size: 18px; border-bottom: 1px solid #ccc; margin-bottom: 10px;}
+.main_search input{ width: 100px; border:1px solid #ccc; height: 28px; line-height: 28px; padding: 0 5px;}
+.main_search input.s_input{ width: 300px;}
+.main_search select{width: 180px; border:1px solid #ccc; height: 28px; line-height: 28px; padding:3px 0 2px;}
+.main_search input.s_btn{ width: 100px; height: 38px; line-height: 38px; background-color: #ddd; border: 0; font-size: 16px; font-family: "微软雅黑"; cursor: pointer;}
+
+.pages{margin: 10px auto; text-align: center;}
+.pages ul{ display: inline-block; }
+.pages ul li{ float: left; margin-right: 5px;height: 24px; line-height: 24px; text-align: center;}
+.pages ul li a{ display: block; width: 24px; height: 24px; line-height: 24px; text-align: center; border:1px solid #ccc;}
+.pages ul li a:hover , .pages ul li.cur a{ border:1px solid #005BAD; background-color: #0f77d4;  color: #fff; text-transform: none;}
+.pages ul li.ots , .pages ul li.ots a{ width: 50px;}
+.pages ul li.dis{ background-color: #ddd; color: #b6b6b6;border:1px solid #ddd; }

@@ -42,4 +42,16 @@
     <include refid="Base_Column_List" />
     from tb_admin_role_power
   </select>
+  
+  <insert id="insertList" parameterType="java.util.Map">
+	insert into tb_admin_role_power(role_id, power_id, create_uid, create_time, create_ip) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.roleId,jdbcType=INTEGER},#{item.powerId,jdbcType=INTEGER},#{item.createUid,jdbcType=INTEGER},#{item.createTime,jdbcType=TIMESTAMP},#{item.createIp,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer" >
+    delete from tb_admin_role_power
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
 </mapper>

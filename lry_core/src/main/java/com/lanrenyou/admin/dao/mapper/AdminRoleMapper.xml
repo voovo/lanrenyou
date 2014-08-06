@@ -48,4 +48,54 @@
     <include refid="Base_Column_List" />
     from tb_admin_role
   </select>
+  
+  <update id="updateToDelById" parameterType="com.lanrenyou.admin.model.AdminRole" >
+    update tb_admin_role
+    set 
+      update_uid = #{updateUser,jdbcType=INTEGER},
+      update_ip = #{updateIp,jdbcType=VARCHAR},
+      status = -1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_admin_role
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="pageQueryCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+    count(1)
+    from tb_admin_role
+    where status >= 0
+    <if test="id != null">
+        and id = #{id, jdbcType=INTEGER}
+    </if>
+    <if test="name != null">
+        and name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status gt 0">
+        and status = #{status, jdbcType=TINYINT}
+    </if>
+  </select>
+  
+  <select id="pageQueryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_admin_role
+    where status = 1 
+    <if test="id != null">
+        and id = #{id, jdbcType=INTEGER}
+    </if>
+    <if test="name != null">
+        and name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status gt 0">
+        and status = #{status, jdbcType=TINYINT}
+    </if>
+    limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+	order by id
+  </select>
 </mapper>

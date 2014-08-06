@@ -5,7 +5,7 @@ import mybatis.framework.core.model.BaseValueObject;
 
 public class AdminUser extends BaseValueObject {
 	
-	private static final long serialVersionUID = -5471413566159300332L;
+	private static final long serialVersionUID = 8125411282453708666L;
 
 	private Integer id;
 
@@ -35,7 +35,7 @@ public class AdminUser extends BaseValueObject {
     private Integer loginNum = 0;
 
     /**
-     * 状态[0:停用, 1:正常]
+     * 状态[-1:删除, 0:停用, 1:正常]
      */
     private int status;
 
@@ -48,6 +48,8 @@ public class AdminUser extends BaseValueObject {
     private Integer updateUid;
 
     private String updateIp;
+    
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -144,4 +146,13 @@ public class AdminUser extends BaseValueObject {
     public void setUpdateIp(String updateIp) {
         this.updateIp = updateIp == null ? null : updateIp.trim();
     }
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+    
 }

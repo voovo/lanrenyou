@@ -59,4 +59,52 @@
     <include refid="Base_Column_List" />
     from tb_admin_user
   </select>
+  
+  <update id="deleteByUpdate" parameterType="com.hadwins.admin.model.Admin" >
+    update tb_admin_user
+    set update_uid = #{updateUid,jdbcType=INTEGER},
+      update_ip = #{updateIp,jdbcType=VARCHAR},
+      status = -1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_admin_user
+    where name = #{name,jdbcType=VARCHAR} and status >= 0
+  </select>
+  
+  <select id="getQueryCount" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select
+    count(1)
+    from tb_admin_user
+    where status >= 0 
+    <if test="name != null">
+        and name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status gt 0">
+        and status = #{status, jdbcType=TINYINT}
+    </if>
+    <if test="roleId != null">
+        and role_id = #{roleId, jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="queryByCondition" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select  
+    <include refid="Base_Column_List" />
+    from tb_admin_user
+    where status >= 0 
+    <if test="name != null">
+        and name = #{name, jdbcType=VARCHAR}
+    </if>
+    <if test="status != null and status gt 0">
+        and status = #{status, jdbcType=TINYINT}
+    </if>
+    <if test="roleId != null">
+        and role_id = #{roleId, jdbcType=INTEGER}
+    </if>
+    limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+	order by id
+  </select>
 </mapper>

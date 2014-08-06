@@ -4,6 +4,7 @@ import java.util.Date;
 import mybatis.framework.core.model.BaseValueObject;
 
 public class AdminPowerItem extends BaseValueObject {
+
 	private static final long serialVersionUID = 7272463501571273589L;
 
 	private Integer id;
@@ -29,7 +30,7 @@ public class AdminPowerItem extends BaseValueObject {
     private String url;
 
     /**
-     * 状态[0:停用, 1:正常]
+     * 状态[-1:删除, 0:停用, 1:正常]
      */
     private int status;
 
