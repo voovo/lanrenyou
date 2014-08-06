@@ -199,11 +199,10 @@ $(function(){
                 $(".album_block:visible").each(function(){
                     var img_src = $(this).find(".img_left img").attr("src"),
                         img_info = $(this).find(".right textarea").val();
-                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"},';
+                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"}';
                 }); 
             }
             c_yj+= "]";
-            c_yj.replace(",]" , "]");
             //console.log(c_title , c_area , c_yj);
 
             //return;
