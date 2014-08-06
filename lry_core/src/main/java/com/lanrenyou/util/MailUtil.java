@@ -25,7 +25,7 @@ public class MailUtil {
     String emailPort = "587";// gmail's smtp port
     String fromUser = "info@lanrenyou.com";// just the id alone without
     String from = "LanRenYou";
-    String fromUserEmailPassword = "password";
+    String fromUserEmailPassword = "lanrenyoutour";
     
     public static int sendEmail(String email, String subject, String body) throws UnsupportedEncodingException{
     	if(null == instance){

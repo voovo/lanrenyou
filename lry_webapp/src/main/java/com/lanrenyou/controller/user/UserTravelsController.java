@@ -23,11 +23,13 @@ import com.lanrenyou.controller.travel.TravelShowUtil;
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.travel.service.ITravelVisitLogService;
 import com.lanrenyou.travel.service.ITravelCollectService;
 import com.lanrenyou.travel.model.TravelCollect;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.travel.model.TravelInfoStat;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserFollowService;
@@ -51,6 +53,9 @@ public class UserTravelsController  extends BaseController {
 	
 	@Autowired
 	private ITravelVisitLogService travelVisitLogService;
+	
+	@Autowired
+	private ITravelInfoStatService travelInfoStatService;
 	
 	@Autowired
 	private SolrUtil solrUtil;
@@ -114,7 +119,17 @@ public class UserTravelsController  extends BaseController {
 		if(null == tidList || tidList.size() <= 0){
 			return null;
 		}
-		return travelVisitLogService.getVisitCountMapByTidList(tidList);
+		Map<Integer, TravelInfoStat> statMap = travelInfoStatService.getTravelInfoStatMapByTidList(tidList);
+		Map<Integer, Integer> visitCntMap = new HashMap<Integer, Integer>();
+		for(Integer tid : statMap.keySet()){
+			TravelInfoStat stat = statMap.get(tid);
+			if(null != stat){
+				visitCntMap.put(tid, stat.getViewCnt()==null?0:stat.getViewCnt());
+			} else {
+				visitCntMap.put(tid, 0);
+			}
+		}
+		return visitCntMap;
 	}
 			
 }

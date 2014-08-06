@@ -27,6 +27,7 @@ public class TravelInfoStatDaoImpl extends BaseDao<TravelInfoStat> implements IT
 			return null;
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tidList", tidList);
 		List<TravelInfoStat> statList = this.findList("getByTidList", params);
 		if(null == statList || statList.size() <= 0){
 			return null;

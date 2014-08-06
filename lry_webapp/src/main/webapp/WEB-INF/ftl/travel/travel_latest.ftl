@@ -65,7 +65,7 @@
                             </div>
                         </i>
                         <span class="ico icon_time"><#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if></span>
-                        <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.uid)??>${travelVisitCntMap.get(travelInfo.uid)!''}<#else>0</#if></span>
+                        <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if></span>
                     </div>
 
 					<#if infoMap?? && infoMap.get(travelInfo.id)??><#assign travelMsg = infoMap.get(travelInfo.id).get('info') /></#if>
