@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -43,4 +44,6 @@ public interface ITravelInfoStatService extends IValueObjectService<TravelInfoSt
 	 * @exception 
 	*/
 	public Map<Integer, TravelInfoStat> getTravelInfoStatMapByTidList(List<Integer> tidList);
+
+	public List<Integer> getUpdatedTidListForSearchIndex(Date startTime, Date endTime, int offset, int limit);
 }

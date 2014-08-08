@@ -6,9 +6,10 @@
     <result column="tid" property="tid" jdbcType="INTEGER" />
     <result column="view_cnt" property="viewCnt" jdbcType="INTEGER" />
     <result column="like_cnt" property="likeCnt" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, tid, view_cnt, like_cnt
+    id, tid, view_cnt, like_cnt, update_time
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_travel_info_stat
@@ -54,5 +55,9 @@
     	<foreach collection="tidList" item="item" index="index" open="(" separator="," close=")">
             #{item, jdbcType=INTEGER}
         </foreach>
+  </select>
+  
+  <select id="getUpdateTidListForSearchIndex" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select tid from tb_travel_info_stat where update_time &gt;= #{startTime, jdbcType=TIMESTAMP} and update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
 </mapper>

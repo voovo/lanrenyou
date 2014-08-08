@@ -92,4 +92,25 @@ public class TravelInfoDaoImpl extends BaseDao<TravelInfo> implements ITravelInf
 		}
 		return resMap;
 	}
+
+	@Override
+	public int getViewCntSumByUid(Integer uid) {
+		if(null == uid || uid <= 0){
+			return 0;
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		return (Integer) this.findOne("getViewCntSumByUid", params);
+	}
+
+	@Override
+	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime,
+			int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("startTime", startTime);
+		params.put("endTime", endTime);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getViewTravelAuthorId", params);
+	}
 }

@@ -29,10 +29,9 @@ public class MainTest{
 //		String content = "[{\"src\":\"http://img.lanrenyou.com/2014/08/04/100619081_s.jpg\" , \"info\" : \"位于加勒比海的大安的列斯群岛东部，包括波多黎各岛及别克斯、库莱布拉等小岛。Castillo San Cristobal是老城圣胡安的一座古堡，红色城墙衬着蓝天碧海。\"},{\"src\":\"http://img.lanrenyou.com/2014/08/04/101031895_s.jpg\" , \"info\" : \"五彩斑斓的各种房屋是圣胡安老城的特色，徜徉其中，仿佛走在油画里一样。联合国于1981年将圣胡安列入世界文化与自然遗产的名录。\"}]";
 //		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		
-		String s="http://lanrenyou.com/wp-content/uploads/2013/12/large_5Jqu_319b0000de511191-300x198.jpg";
+		String s="http://lanrenyou.com/wp-content/uploads/2013/12/large_5Jqu_319b0000de511191-300x198jpg";
 		String s2="http://lanrenyou.com/wp-content/uploads/2013/12/large_6k6v_4429000106d1125d-300x133.jpg";
 		
-		s2 = s2.replaceAll("-\\d+x\\d+", "");
-		System.out.println(s2);
+		System.out.println(s.substring(0, s.length()-3)+".jpg");
 	}
 }

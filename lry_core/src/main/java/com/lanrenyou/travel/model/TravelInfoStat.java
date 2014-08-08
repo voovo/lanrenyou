@@ -1,5 +1,7 @@
 package com.lanrenyou.travel.model;
 
+import java.util.Date;
+
 import mybatis.framework.core.model.BaseValueObject;
 
 public class TravelInfoStat extends BaseValueObject {
@@ -25,6 +27,8 @@ public class TravelInfoStat extends BaseValueObject {
      * 喜欢数
      */
     private Integer likeCnt = 0;
+    
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -57,4 +61,13 @@ public class TravelInfoStat extends BaseValueObject {
     public void setLikeCnt(Integer likeCnt) {
         this.likeCnt = likeCnt;
     }
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+    
 }

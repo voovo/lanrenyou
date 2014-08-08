@@ -130,7 +130,7 @@ public class TravelSearchController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/travel/travel_latest");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "updateTime", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "createTime", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;

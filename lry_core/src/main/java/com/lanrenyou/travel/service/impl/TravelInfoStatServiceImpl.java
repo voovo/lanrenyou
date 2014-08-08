@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class TravelInfoStatServiceImpl extends BaseVOService<TravelInfoStat> imp
 	@Override
 	public int addTravelViewCnt(int tid) {
 		TravelInfoStat stat = travelInfoStatDao.getByTid(tid);
-		logger.info("####################{}", stat==null? 0: stat.getId());
+		logger.debug("####################{}", stat==null? 0: stat.getId());
 		if(null == stat){
 			stat = new TravelInfoStat();
 			stat.setTid(tid);
@@ -26,7 +27,7 @@ public class TravelInfoStatServiceImpl extends BaseVOService<TravelInfoStat> imp
 			stat.setLikeCnt(0);
 			return travelInfoStatDao.addTravelInfoStat(stat);
 		} else {
-			logger.info("####################ViewCnt{}", stat.getViewCnt());
+			logger.debug("####################ViewCnt{}", stat.getViewCnt());
 			stat.setViewCnt(stat.getViewCnt()==null?1:(stat.getViewCnt()+1));
 			return travelInfoStatDao.updateTravelInfoStat(stat);
 		}
@@ -56,6 +57,12 @@ public class TravelInfoStatServiceImpl extends BaseVOService<TravelInfoStat> imp
 	public Map<Integer, TravelInfoStat> getTravelInfoStatMapByTidList(
 			List<Integer> tidList) {
 		return travelInfoStatDao.getByTidList(tidList);
+	}
+
+	@Override
+	public List<Integer> getUpdatedTidListForSearchIndex(Date startTime,
+			Date endTime, int offset, int limit) {
+		return travelInfoStatDao.getUpdateTidListForSearchIndex(startTime, endTime, offset, limit);
 	}
     
 }

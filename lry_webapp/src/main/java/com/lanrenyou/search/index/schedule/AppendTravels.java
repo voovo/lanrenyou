@@ -3,7 +3,9 @@ package com.lanrenyou.search.index.schedule;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,6 +21,7 @@ import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.service.ITravelContentService;
+import com.lanrenyou.travel.service.ITravelInfoStatService;
 /**
  * 游记增量索引
  */
@@ -27,6 +30,9 @@ public class AppendTravels  {
 	
 	@Autowired
 	private ITravelContentService travelContentService;
+	
+	@Autowired
+	private ITravelInfoStatService travelInfoStatService;
 	
 	@Autowired
 	private ExportTravels exp;
@@ -83,16 +89,22 @@ public class AppendTravels  {
 			servers = solrUtil.getLryTravelServers();
 		}
 		//==查询是否有需要更新的记录
+		Map<Integer, Integer> tidMap = new HashMap<Integer, Integer>();
 		do {
 			try {
 				list = travelContentService.getTravelContentListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
-	            List<List<TravelContent>> lists=assignServer(list, servers.length);
-				
-				for(int i=0;i<servers.length;i++){
-					if(lists.get(i).size()==0){
-						continue;
+				if(null != list && list.size() > 0){
+					for(TravelContent tc : list){
+						tidMap.put(tc.getTid(), 1);
 					}
-					exp.export(servers[i], lists.get(i));
+					List<List<TravelContent>> lists=assignServer(list, servers.length);
+					
+					for(int i=0;i<servers.length;i++){
+						if(lists.get(i).size()==0){
+							continue;
+						}
+						exp.export(servers[i], lists.get(i));
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -100,6 +112,30 @@ public class AppendTravels  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
+		
+		startID = 0;
+		batchSize = 1000;
+		List<Integer> tidList = null;
+		do {
+			try {
+				tidList = travelInfoStatService.getUpdatedTidListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
+				if(null != tidList){
+					list = travelContentService.getTravelContentListByTidList(tidList);
+		            List<List<TravelContent>> lists=assignServer(list, servers.length);
+					
+					for(int i=0;i<servers.length;i++){
+						if(lists.get(i).size()==0){
+							continue;
+						}
+						exp.export(servers[i], lists.get(i));
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			startID = startID + batchSize;
+		} while (tidList.size() == batchSize);
 		StringTool.WriteContentToTextFile(AppConfigs.getInstance().get("search_index_export_record_travel"), sdf.format(lastRunning[1])+"#"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
@@ -115,7 +151,7 @@ public class AppendTravels  {
 		for(int i=0;i<size;i++){
 			lists.add(new ArrayList<TravelContent>());
 		}
-		
+		if(null != list){
 		for(TravelContent t: list){
 			for(int i=0;i<size;i++){
 				if(t.getId()%size==i){
@@ -124,7 +160,7 @@ public class AppendTravels  {
 				}
 			}
 		}
-		
+		}
 		return lists;
 	}
 	

@@ -11,6 +11,8 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.travel.service.ITravelInfoStatService;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserFollowService;
@@ -28,6 +30,12 @@ public class ExportPlanners {
 	
 	@Autowired
 	private IUserFollowService userFollowService;
+	
+	@Autowired
+	private ITravelInfoService travelInfoService;
+	
+	@Autowired
+	private ITravelInfoStatService travelInfoStatService;
 	
 	private Log log = LogFactory.getLog(ExportPlanners.class);
 	
@@ -114,6 +122,9 @@ public class ExportPlanners {
 			
 			int fansCnt = userFollowService.getFansCountByUid(vo.getUid());
 			doc.addField("fansCnt", fansCnt);
+			
+			int viewCntSum = travelInfoService.getViewCntSumByUid(vo.getUid());
+			doc.addField("viewCntSum", viewCntSum);
 			
 			return doc;
 		} catch (Exception e) {

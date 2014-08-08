@@ -75,4 +75,9 @@ public interface ITravelInfoDao extends IValueObjectDao<TravelInfo> {
 	public List<TravelInfo> getTravelInfoListByUid(int uid, int offset, int limit);
 
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(List<Integer> uidList);
+
+	public int getViewCntSumByUid(Integer uid);
+
+	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime,
+			int offset, int limit);
 }

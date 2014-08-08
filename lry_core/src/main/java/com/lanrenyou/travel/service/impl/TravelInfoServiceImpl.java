@@ -79,4 +79,15 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 		}
 		return travelInfoDao.getPublishedTravelCntMapByUidList(uidList);
 	}
+
+	@Override
+	public int getViewCntSumByUid(Integer uid) {
+		return travelInfoDao.getViewCntSumByUid(uid);
+	}
+
+	@Override
+	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime,
+			int offset, int limit) {
+		return travelInfoDao.getViewTravelAuthorId(startTime, endTime, offset, limit);
+	}
 }

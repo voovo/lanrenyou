@@ -85,6 +85,8 @@
      <field name="updateTime" type="tdate" indexed="true" stored="true" omitNorms="true"  />
      <!-- 粉丝个数 -->
      <field name="fansCnt" type="int" indexed="true" stored="true" omitNorms="true"  />   
+     <!-- 其发布游记总浏览量 -->
+     <field name="viewCntSum" type="int" indexed="true" stored="true" omitNorms="true"  />  
     <!-- ###########全文检索单值 ###########--> 
 	<!-- 用户简介 -->
     <field name="userIntro" type="text" indexed="true" stored="true" omitNorms="true"  /> 

@@ -85,4 +85,12 @@
     from tb_travel_info
     where status in (1,2) and uid in <foreach collection="uidList" open="(" close=")" item="item" separator=",">#{item, jdbcType=INTEGER}</foreach> group by uid
   </select>
+  
+  <select id="getViewCntSumByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select ifnull(sum(tis.view_cnt), 0) as view_cnt from tb_travel_info_stat tis, tb_travel_info ti where ti.id=tis.tid and ti.status >= 0 and uid=#{uid, jdbcType=INTEGER} 
+  </select>
+  
+  <select id="getViewTravelAuthorId" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select ti.uid from tb_travel_info ti, tb_travel_info_stat tis where ti.id=tis.tid and tis.update_time &gt;= #{startTime, jdbcType=TIMESTAMP} and tis.update_time &lt;=#{endTime, jdbcType=TIMESTAMP} order by tis.tid limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
 </mapper>

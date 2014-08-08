@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -80,5 +81,14 @@ public interface ITravelInfoService extends IValueObjectService<TravelInfo> {
 	 * @return
 	 */
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(List<Integer> uidList);
+
+	/**
+	 * 获取某人所有游记的总浏览量
+	 * @param uid
+	 * @return
+	 */
+	public int getViewCntSumByUid(Integer uid);
+
+	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime, int offset, int limit);
 	
 }

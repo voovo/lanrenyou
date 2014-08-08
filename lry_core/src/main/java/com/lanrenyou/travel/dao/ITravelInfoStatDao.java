@@ -1,5 +1,6 @@
 package com.lanrenyou.travel.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +16,7 @@ public interface ITravelInfoStatDao extends IValueObjectDao<TravelInfoStat> {
 	public int addTravelInfoStat(TravelInfoStat infoStat);
 	
 	public int updateTravelInfoStat(TravelInfoStat infoStat);
+
+	public List<Integer> getUpdateTidListForSearchIndex(Date startTime,	Date endTime, int offset, int limit);
 	
 }

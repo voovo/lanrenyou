@@ -3,7 +3,9 @@ package com.lanrenyou.search.index.schedule;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -17,6 +19,7 @@ import com.lanrenyou.search.index.ExportPlanners;
 
 import com.lanrenyou.search.index.util.SolrUtil;
 import com.lanrenyou.search.index.util.StringTool;
+import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserPlannerService;
 /**
@@ -27,6 +30,9 @@ public class AppendPlanners  {
 	
 	@Autowired
 	private IUserPlannerService userPlannerService;
+	
+	@Autowired
+	private ITravelInfoService travelInfoService;
 	
 	@Autowired
 	private ExportPlanners exp;
@@ -82,9 +88,13 @@ public class AppendPlanners  {
 			servers = solrUtil.getLryPlannerServers();
 		}
 		//==查询是否有需要更新的记录
+		Map<Integer, Integer> haveUpdatedUid = new HashMap<Integer, Integer>();
 		do {
 			try {
 				list = userPlannerService.getUserPlannerListForSearchIndex(lastRunning[1], endTime, startID, batchSize);
+				for(UserPlanner up : list){
+					haveUpdatedUid.put(up.getUid(), 1);
+				}
 	            List<List<UserPlanner>> lists=assignServer(list, servers.length);
 				
 				for(int i=0;i<servers.length;i++){
@@ -99,6 +109,35 @@ public class AppendPlanners  {
 			
 			startID = startID + batchSize;
 		} while (list.size() == batchSize);
+		
+		startID = 0;
+		batchSize = 1000;
+		List<Integer> uidList = null;
+		do {
+			try {
+				uidList = travelInfoService.getViewTravelAuthorId(lastRunning[1], endTime, startID, batchSize);
+				List<UserPlanner> newList = new ArrayList<UserPlanner>();
+				Map<Integer, UserPlanner> map = userPlannerService.getUserPlannerMapByUidList(uidList);
+				if(null != map){
+					for(Integer uid : map.keySet()){
+						newList.add(map.get(uid));
+					}
+				}
+	            List<List<UserPlanner>> lists=assignServer(newList, servers.length);
+				
+				for(int i=0;i<servers.length;i++){
+					if(lists.get(i).size()==0){
+						continue;
+					}
+					exp.export(servers[i], lists.get(i));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			startID = startID + batchSize;
+		} while (uidList.size() == batchSize);
+		
 		StringTool.WriteContentToTextFile(AppConfigs.getInstance().get("search_index_export_record_planner"), sdf.format(lastRunning[1])+"#"+sdf.format(endTime));
 		try {
 			for(SolrServer server:servers){
