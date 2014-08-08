@@ -3,12 +3,15 @@ package com.lanrenyou.util;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
@@ -26,13 +29,25 @@ public class ImageUtils {
 	public static void cropImageForTravel(String srcPath) throws IOException{
 		File srcFile = new File(srcPath);
 		Image srcImage = ImageIO.read(srcFile);
+		if(null == srcImage){
+			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
+			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+			ImageUtils.copyFile(new File(srcPath), new File(dJPGPath));
+			ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
+			ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
+			return;
+		}
 		int w = srcImage.getWidth(null);
 		int h = srcImage.getHeight(null);
 		String operateImgPath = srcPath;
 		if(w > 1000 && h > 661){
 			// 先等比压缩再裁剪
-			float radio = w / 800; 
-			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp" + srcPath.substring(srcPath.lastIndexOf('.'));
+			float radio = w / 640; 
+			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
+			reduceImageEqualProportion(srcPath, tmpPath, radio);
+			radio = w / 800; 
+			tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp.jpg";
 			reduceImageEqualProportion(srcPath, tmpPath, radio);
 			srcFile = new File(tmpPath);
 			srcImage = ImageIO.read(srcFile);
@@ -49,31 +64,33 @@ public class ImageUtils {
 			int y = 0;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath590x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath590x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
 			cropImage(operateImgPath, toPath590x390, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
 			toWidth = 590;
 			toHeight = 185;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath590x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath590x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
 			cropImage(operateImgPath, toPath590x185, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			toWidth = 285;
-			toHeight = 185;
-			x = (w - toWidth)/2;
-			y = (h - toHeight)/2;
-			String toPath285x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s" + srcPath.substring(srcPath.lastIndexOf('.'));
-			cropImage(operateImgPath, toPath285x185, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+			String toPath285x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+			reduceImageEqualProportion(toPath590x390, toPath285x185, 2);
 			
 			toWidth = 285;
 			toHeight = 390;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath285x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath285x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v.jpg";
 			cropImage(operateImgPath, toPath285x390, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		} else {
 			// 不做处理
+			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
+			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+			copyFile(new File(srcPath), new File(dJPGPath));
+			copyFile(new File(srcPath), new File(sJPGPath));
+			copyFile(new File(srcPath), new File(lJPGPath));
 		}
 	}
 	
@@ -120,6 +137,9 @@ public class ImageUtils {
 			BufferedImage bi = reader.read(0, param);
 			// 保存新图片
 			ImageIO.write(bi, writeImageFormat, new File(toPath));
+		} catch(IIOException e) {	
+//			e.printStackTrace();
+			copyFile(new File(srcPath), new File(toPath));
 		} finally {
 			if (fis != null)
 				fis.close();
@@ -207,5 +227,36 @@ public class ImageUtils {
 			}
 		}
 	}
+	
+	// 复制文件
+    public static void copyFile(File sourceFile, File targetFile) throws IOException {
+    	if(targetFile.exists()){
+    		return;
+    	}
+        BufferedInputStream inBuff = null;
+        BufferedOutputStream outBuff = null;
+        try {
+            // 新建文件输入流并对它进行缓冲
+            inBuff = new BufferedInputStream(new FileInputStream(sourceFile));
+
+            // 新建文件输出流并对它进行缓冲
+            outBuff = new BufferedOutputStream(new FileOutputStream(targetFile));
+
+            // 缓冲数组
+            byte[] b = new byte[1024 * 5];
+            int len;
+            while ((len = inBuff.read(b)) != -1) {
+                outBuff.write(b, 0, len);
+            }
+            // 刷新此缓冲的输出流
+            outBuff.flush();
+        } finally {
+            // 关闭流
+            if (inBuff != null)
+                inBuff.close();
+            if (outBuff != null)
+                outBuff.close();
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
@@ -37,7 +38,7 @@ public class ImageUtils {
 			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
 			reduceImageEqualProportion(srcPath, tmpPath, radio);
 			radio = w / 800; 
-			tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp" + srcPath.substring(srcPath.lastIndexOf('.'));
+			tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp.jpg";
 			reduceImageEqualProportion(srcPath, tmpPath, radio);
 			srcFile = new File(tmpPath);
 			srcImage = ImageIO.read(srcFile);
@@ -54,31 +55,33 @@ public class ImageUtils {
 			int y = 0;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath590x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath590x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
 			cropImage(operateImgPath, toPath590x390, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
 			toWidth = 590;
 			toHeight = 185;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath590x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath590x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
 			cropImage(operateImgPath, toPath590x185, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			String toPath285x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath285x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
 			reduceImageEqualProportion(toPath590x390, toPath285x185, 2);
 			
 			toWidth = 285;
 			toHeight = 390;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath285x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v" + srcPath.substring(srcPath.lastIndexOf('.'));
+			String toPath285x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v.jpg";
 			cropImage(operateImgPath, toPath285x390, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		} else {
 			// 不做处理
 			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
 			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
 			copyFile(new File(srcPath), new File(dJPGPath));
 			copyFile(new File(srcPath), new File(sJPGPath));
+			copyFile(new File(srcPath), new File(lJPGPath));
 		}
 	}
 	
@@ -125,6 +128,9 @@ public class ImageUtils {
 			BufferedImage bi = reader.read(0, param);
 			// 保存新图片
 			ImageIO.write(bi, writeImageFormat, new File(toPath));
+		} catch(IIOException e) {	
+			e.printStackTrace();
+			copyFile(new File(srcPath), new File(toPath));
 		} finally {
 			if (fis != null)
 				fis.close();
@@ -215,6 +221,9 @@ public class ImageUtils {
 	
 	// 复制文件
     public static void copyFile(File sourceFile, File targetFile) throws IOException {
+    	if(targetFile.exists()){
+    		return;
+    	}
         BufferedInputStream inBuff = null;
         BufferedOutputStream outBuff = null;
         try {

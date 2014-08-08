@@ -58,7 +58,7 @@
                 <dd>
                     <ul>
                     	<#list targetCityMap.get(userInfo.id) as city>
-                        <li><a href="/travel/search?city=${city!''}" target="_blank">${city!''}</a></li>
+                        <li><a href="/travel/search/list?city=${city!''}" target="_blank">${city!''}</a></li>
                         </#list>
                     </ul>
                 </dd>

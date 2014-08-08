@@ -1,5 +1,6 @@
 package com.lanrenyou.controller.travel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,15 +24,18 @@ public class TravelShowUtil {
 		}
 		
 		content = content.replace("}{", "},{");
+		content = content.replace("},]", "}]");
 		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		if(null != list){
 			for(Map<String, String> map : list){
-				String img = map.get("src");
-				if(StringUtils.isNotBlank(img)){
-					if(img.trim().endsWith("_s.jpg")){
-						img = img.replace("_s.jpg", "_n.jpg");
-						map.put("src", img);
+				if(null != map){
+					String img = map.get("src");
+					if(StringUtils.isNotBlank(img)){
+						if(!img.endsWith("_s.jpg")){
+							img = img.replace(".jpg", "_l.jpg");
+							map.put("src", img);
+						}
 					}
 				}
 			}
@@ -51,7 +55,20 @@ public class TravelShowUtil {
 		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		if(null != list && list.size() >= 1){
-			return list.get(0);
+			Map<String, String> map = list.get(0);
+			if(null != map){
+				String img = map.get("src");
+				if(StringUtils.isNotBlank(img)){
+					if(!img.endsWith("_s.jpg")){
+						img = img.replace(".jpg", "_s.jpg");
+						map.put("src", img);
+					} else {
+						img = img.replace("_s.jpg", "_l.jpg");
+						map.put("src", img);
+					}
+				}
+			}
+			return map;
 		}
 		return null;
 	}
@@ -73,7 +90,20 @@ public class TravelShowUtil {
 			logger.debug("#########################\n{}", content);
 			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 			if(null != list && list.size() >= 1){
-				returnMap.put(key, list.get(0));
+				Map<String, String> map = list.get(0);
+				if(null != map){
+					String img = map.get("src");
+					if(StringUtils.isNotBlank(img)){
+						if(!img.endsWith("_s.jpg")){
+							img = img.replace(".jpg", "_l.jpg");
+							map.put("src", img);
+						} else {
+							img = img.replace("_s.jpg", "_l.jpg");
+							map.put("src", img);
+						}
+					}
+				}
+				returnMap.put(key, map);
 			}
 		}
 		return returnMap;

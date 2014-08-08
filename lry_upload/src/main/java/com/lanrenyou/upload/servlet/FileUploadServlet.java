@@ -68,7 +68,14 @@ public class FileUploadServlet extends HttpServlet {
                 String year = dateStr.substring(0, 4);
                 String month = dateStr.substring(4,6);
                 String day = dateStr.substring(6);
-                final String fileName = fileNameFormat.format(date) + filename.substring(filename.lastIndexOf('.'));
+                String fileSuffix = filename.substring(filename.lastIndexOf('.')).toLowerCase();
+                boolean picDeal = true;
+                if(fileSuffix.trim().equals(".jpg") || fileSuffix.trim().equals(".jpeg")){
+                	fileSuffix = ".jpg";
+                } else {
+                	picDeal = false;
+                }
+                final String fileName = fileNameFormat.format(date) + fileSuffix;
                 final String realPath = (FileUploadConfigProperties.getProperty("upload.path")+year+"/"+month+"/"+day); 
                 File file = new File(realPath);
                 if(!file.exists()){
@@ -82,16 +89,35 @@ public class FileUploadServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 urlList.add("http://img.lanrenyou.com/"+year+"/"+month+"/"+day+"/"+fileName);
-                EXECUTOR_SERVICE.submit(new Runnable() {
-                	@Override
-                	public void run() {
-                		try {
-                			ImageUtils.cropImageForTravel(realPath + "/" + fileName);
-                		} catch (IOException e) {
-                			e.printStackTrace();
+                if(picDeal){
+                	EXECUTOR_SERVICE.submit(new Runnable() {
+                		@Override
+                		public void run() {
+                			try {
+                				ImageUtils.cropImageForTravel(realPath + "/" + fileName);
+                			} catch (IOException e) {
+                				e.printStackTrace();
+                			}
                 		}
-                	}
-                });
+                	});
+                } else {
+                	EXECUTOR_SERVICE.submit(new Runnable() {
+                		@Override
+                		public void run() {
+                			String srcPath = realPath + "/" + fileName;
+                			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
+                			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+                			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+                			try {
+								ImageUtils.copyFile(new File(srcPath), new File(dJPGPath));
+								ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
+								ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+                		}
+                	});
+                }
             }
         }
         map.put("status", "y");

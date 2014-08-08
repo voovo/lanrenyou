@@ -30,7 +30,7 @@
             	<div class="detail_item">
                     <div class="detail_img">
                         <i class="img_memb"></i>
-                        <img src="${contentMap.get('src')!''}" alt="">
+                        <img src="${contentMap.get('src')!''}" alt="" width="640">
                     </div>
                     <div class="clearfix detail_info">
                         <p class="detail_img_info">${contentMap.get('info')!''}</p>

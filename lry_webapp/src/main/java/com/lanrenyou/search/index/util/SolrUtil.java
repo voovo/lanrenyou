@@ -94,7 +94,25 @@ public class SolrUtil {
 		query.setRows(pageSize);
 		StringBuilder querySb = new StringBuilder();
 		if(StringUtils.isNotBlank(city)){
-			querySb.append("city:").append(city);
+			city = city.replace(" ", ",");
+			city = city.replace("、", ",");
+			city = city.replace("，", ",");
+			city = city.replace("。", ",");
+			city = city.replace("……", ",");
+			String[] cityArray = city.split(",");
+			if(cityArray.length == 1){
+				querySb.append("city:").append(city);
+			} else {
+				querySb.append("( city:").append(cityArray[0]);
+				for(int i=1; i<=cityArray.length-1; i++){
+					if(StringUtils.isNotBlank(cityArray[i])){
+						querySb.append(" or ").append("city:").append(cityArray[i]);
+					}
+					if(i == cityArray.length -1){
+						querySb.append(")");
+					}
+				}
+			}
 		}
 		if(null != createUid && createUid > 0){
 			if(querySb.length() > 0){
