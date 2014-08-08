@@ -350,6 +350,8 @@ public class TravelIndexController  extends BaseController {
 		this.getCurrentTravel().setUpdateUid(this.getLoginUser().getId());
 		this.getCurrentTravel().setUpdateIp(this.getRemoteAddr());
 		int result = travelInfoService.updateTravelInfo(getCurrentTravel());
+		
+		solrUtil.delTravelByTid(this.getCurrentTravel().getId());
 		if(result > 0){
 			map.put("status", "y");
 			map.put("info", "删除成功");

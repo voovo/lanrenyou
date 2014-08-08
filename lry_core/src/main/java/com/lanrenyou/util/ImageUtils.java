@@ -56,33 +56,33 @@ public class ImageUtils {
 			operateImgPath = tmpPath;
 		}
 			
-		if(w >= 590 && h >= 390){
-			int toWidth = 590;
-			int toHeight = 390;
+		if(w >= 696 && h >= 468){
+			int toWidth = 696;
+			int toHeight = 468;
 			
 			int x = 0;
 			int y = 0;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath590x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
-			cropImage(operateImgPath, toPath590x390, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+			String toPath696x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+			cropImage(operateImgPath, toPath696x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			toWidth = 590;
-			toHeight = 185;
+			toWidth = 696;
+			toHeight = 222;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath590x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
-			cropImage(operateImgPath, toPath590x185, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
+			cropImage(operateImgPath, toPath696x222, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			String toPath285x185 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
-			reduceImageEqualProportion(toPath590x390, toPath285x185, 2);
+			String toPath336x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+			reduceImageEqualProportion(toPath696x468, toPath336x222, 2);
 			
-			toWidth = 285;
-			toHeight = 390;
+			toWidth = 336;
+			toHeight = 468;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath285x390 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v.jpg";
-			cropImage(operateImgPath, toPath285x390, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v.jpg";
+			cropImage(operateImgPath, toPath336x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		} else {
 			// 不做处理
 			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";

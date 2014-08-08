@@ -48,22 +48,24 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
+//	@RequestMapping("/dealPic")
 	public ModelAndView dealPic() throws IOException {
 		String[] dirPath = {
-				"/ROOT/www/www_8000/wp-content/uploads/2013/12",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/01",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/02",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/03",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/04",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/05",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/06",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/07",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/08",
-				"/ROOT/www/img_8010/2014/08/04",
-				"/ROOT/www/img_8010/2014/08/05",
-				"/ROOT/www/img_8010/2014/08/06",
-				"/ROOT/www/img_8010/2014/08/07",
-				"/ROOT/www/img_8010/2014/08/08"};
+				"/ROOT/www/www_8000/wp-content/upload/2013/06",
+				"/ROOT/www/www_8000/wp-content/upload/2013/07",
+				"/ROOT/www/www_8000/wp-content/upload/2013/08",
+				"/ROOT/www/www_8000/wp-content/upload/2013/09",
+				"/ROOT/www/www_8000/wp-content/upload/2013/10",
+				"/ROOT/www/www_8000/wp-content/upload/2013/11",
+				"/ROOT/www/www_8000/wp-content/upload/2013/12",
+				"/ROOT/www/www_8000/wp-content/upload/2014/01",
+				"/ROOT/www/www_8000/wp-content/upload/2014/02",
+				"/ROOT/www/www_8000/wp-content/upload/2014/03",
+				"/ROOT/www/www_8000/wp-content/upload/2014/04",
+				"/ROOT/www/www_8000/wp-content/upload/2014/05",
+				"/ROOT/www/www_8000/wp-content/upload/2014/06",
+				"/ROOT/www/www_8000/wp-content/upload/2014/07",
+				"/ROOT/www/www_8000/wp-content/upload/2014/08"};
 		for(String dir : dirPath){
 			File file = new File(dir);
 			String[] fileNames = file.list();
@@ -97,13 +99,14 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
+	@RequestMapping("/dealTravel")
 	public ModelAndView dealTravelInfo() throws IOException {
 		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 800);
 		for(TravelContent travelContent : list){
 			if(null != travelContent.getTid() && travelContent.getTid() > 0){
 				TravelInfo travelInfo = travelInfoService.getTravelInfoById(travelContent.getTid());
 				String title = travelInfo.getTitle();
-				title = title.replace("&quto;", "\"");
+				title = title.replace("&quot;", "\"");
 				title = title.replace("&amp;", "&");
 				title = title.replace("&nbsp;", " ");
 				title = title.replace("&lt;", "<");
@@ -126,22 +129,26 @@ public class OldDataController extends BaseController {
 					if(null != map){
 						String img = map.get("src");
 						if(StringUtils.isNotBlank(img)){
-							img = img.toLowerCase();
-							if(img.endsWith("_s.jpg")){
-								img = img.replace("_s.jpg", ".jpg");
-								map.put("src", img);
-							}
-							if(img.contains("wp-content")){
-								img = img.replaceAll("-\\d+x\\d+", "");
-								map.put("src", img);
-							}
-							if(!img.endsWith(".jpg")){
-								img = img.substring(0, img.lastIndexOf(".")) + "jpg";
+							if(img.contains("lanrenyou")){
+								img = img.toLowerCase();
+								if(img.endsWith("_s.jpg")){
+									img = img.replace("_s.jpg", ".jpg");
+									map.put("src", img);
+								}
+								if(img.contains("wp-content")){
+									img = img.replaceAll("-\\d+x\\d+", "");
+									map.put("src", img);
+								}
+								if(!img.endsWith(".jpg")){
+									img = img.substring(0, img.lastIndexOf(".")) + ".jpg";
+									map.put("src", img);
+								}
+							}else{
 								map.put("src", img);
 							}
 						}
 						String info = map.get("info");
-						info = info.replace("&quto;", "\"");
+						info = info.replace("&quot;", "\"");
 						info = info.replace("&amp;", "&");
 						info = info.replace("&nbsp;", " ");
 						info = info.replace("&lt;", "<");

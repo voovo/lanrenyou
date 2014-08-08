@@ -81,6 +81,31 @@ public class SolrUtil {
 		}
 		return servers;
 	}
+	
+	public void delTravelByTid(int tid){
+		try {
+			this.getLryTravelServers()[0].deleteById(String.valueOf(tid));
+			this.getLryTravelServers()[0].commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("删除索引文件[id=" + tid + "]出错了！");
+		}
+	}
+	
+	public void delTravelByTidList(List<Integer> tidList){
+		if(null == tidList || tidList.size() <= 0){
+			return ;
+		}
+		for(Integer tid :tidList){
+			try {
+				this.getLryTravelServers()[0].deleteById(String.valueOf(tid));
+				this.getLryTravelServers()[0].commit();
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error("删除索引文件[id=" + tid + "]出错了！");
+			}
+		}
+	}
 
 	public PageIterator<TravelInfo> searchTravel(String keyword, String city, Integer createUid, int pageNo, int pageSize, String orderBy, boolean orderDesc){
 		SolrQuery query = new SolrQuery();
