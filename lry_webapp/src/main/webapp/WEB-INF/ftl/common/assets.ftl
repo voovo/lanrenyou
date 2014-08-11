@@ -9,7 +9,7 @@
 } />
 <#function AssetsUrl file="">
 	<#--用macro宏会导致空格的出现，所以换成function-->
-    <#assign assetsDomain = "www.lanrenyou.com"/>
+    <#assign assetsDomain = "${configs.get('domains.ui')}"/>
     <#if file?index_of("/") == 0><#return "http://${assetsDomain}${file}"/><#else><#return "http://${assetsDomain}/${file}"/></#if>
 </#function>
 <#macro csselement file="">

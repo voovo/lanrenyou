@@ -5,7 +5,7 @@
     <meta content="" name="description">
     <meta content="" name="keywords">
     <title>Error_Page_懒人游</title>
-    <link href="http://www.lanrenyou.com/resources/imgs/favicon.ico" rel="shortcut icon">
+    <link href="http://${configs.get('domains.www')}/resources/imgs/favicon.ico" rel="shortcut icon">
     
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="content">
             <div class="text">${errorMsg}</div>
             <div class="buttonwrap">
-                <a class="button guest" id="guest" title="" href="http://www.lanrenyou.com"><b>View Lanrenyou</b></a>
+                <a class="button guest" id="guest" title="" href="http://${configs.get('domains.www')}"><b>View Lanrenyou</b></a>
                 <a class="button report" id="report" title="" href="mailto:service@lanrenyou.com"><b>Report</b></a>
             </div>
         </div>

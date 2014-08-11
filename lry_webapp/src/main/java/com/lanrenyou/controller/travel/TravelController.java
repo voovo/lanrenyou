@@ -20,7 +20,10 @@ import com.lanrenyou.travel.enums.TravelInfoIsTopEnum;
 import com.lanrenyou.travel.enums.TravelInfoStatusEnum;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.user.enums.UserPlannerStatusEnum;
 import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.model.UserPlanner;
+import com.lanrenyou.user.service.IUserPlannerService;
 
 @Controller
 @RequestMapping("/travel")
@@ -32,11 +35,24 @@ public class TravelController  extends BaseController {
 	@Autowired
 	private ITravelContentService travelContentService;
 	
+	@Autowired
+	private IUserPlannerService userPlannerService;
+	
 	@RequestMapping("/toAddPage")
 	public ModelAndView toAddPage(){
 		UserInfo userInfo = getLoginUser();
 		if(null == userInfo){
 			return toError("请先登录");
+		}
+		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(userInfo.getId());
+		if(null == userPlanner){
+			return toError("只有规划师才能发表游记");
+		}
+		if(userPlanner.getStatus() == UserPlannerStatusEnum.WAIT_AUDIT.getValue()){
+			return toError("该用户处于待审核状态");
+		}
+		if(userPlanner.getStatus() == UserPlannerStatusEnum.DELETE.getValue()){
+			return toError("该规划师已被删除，请重新请求认证");
 		}
 		return new ModelAndView("/travel/travel_add");
 	}
@@ -53,6 +69,22 @@ public class TravelController  extends BaseController {
 		if(null == userInfo){
 			map.put("status", "n");
 			map.put("info", "请先登录");
+			return gson.toJson(map);
+		}
+		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(userInfo.getId());
+		if(null == userPlanner){
+			map.put("status", "n");
+			map.put("info", "只有规划师才能发表游记");
+			return gson.toJson(map);
+		}
+		if(userPlanner.getStatus() == UserPlannerStatusEnum.WAIT_AUDIT.getValue()){
+			map.put("status", "n");
+			map.put("info", "该用户处于待审核状态");
+			return gson.toJson(map);
+		}
+		if(userPlanner.getStatus() == UserPlannerStatusEnum.DELETE.getValue()){
+			map.put("status", "n");
+			map.put("info", "该规划师已被删除，请重新请求认证");
 			return gson.toJson(map);
 		}
 		TravelInfo travelInfo = new TravelInfo();

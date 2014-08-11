@@ -53,11 +53,11 @@
                 <tr>
                     <td width="18%" align="right"></td>
                     <td>
-                        <input type="checkbox" id="be_planner" name="toBePlanner" value="1">
+                        <input type="checkbox" id="be_planner" name="toBePlanner" <#if userPlanner?? && userPlanner.status == 2>checked="true"</#if> value="1">
                         <label for="be_planner" class="planner_tt">我想成为规划师<span>( 高质量的游记能更快通过申请，现在就去<a href="/travel/toAddPage" target="_blank">写游记</a> )</span></label>
                     </td>
                 </tr>
-                <tr id="planner_box" class="hide">
+                <tr id="planner_box" class="hide" <#if userPlanner?? && userPlanner.status == 2>style="display: table-row;"</#if>>
                     <td width="18%" align="right"><span class="ft_14">可策划地区：</span></td>
                     <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>

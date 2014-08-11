@@ -19,6 +19,9 @@ import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.user.dao.IUserInfoDao;
+import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.service.IUserInfoService;
 import com.lanrenyou.util.ImageUtils;
 
 @Controller
@@ -30,6 +33,9 @@ public class OldDataController extends BaseController {
 
 	@Autowired
 	private ITravelContentService travelContentService;
+	
+	@Autowired
+	private IUserInfoService userInfoService;
 	
 	public ModelAndView dealPicTest() throws IOException {
 		String[] dirPath = {"/ROOT/www/www_8000/wp-content/uploads/2014/test"};
@@ -108,9 +114,12 @@ public class OldDataController extends BaseController {
 						String img = map.get("src");
 						if(StringUtils.isNotBlank(img)){
 							if(img.contains("lanrenyou")){
-								if(img.endsWith("jpg") && !img.endsWith(".jpg")){
-									img = img.substring(0, img.length() -3) + ".jpg";
+								if(img.startsWith("http://lanrenyou.com")){
+									img = img.substring(20);
 								}
+//								if(img.endsWith("jpg") && !img.endsWith(".jpg")){
+//									img = img.substring(0, img.length() -3) + ".jpg";
+//								}
 							}
 						}else{
 							img="";
@@ -126,6 +135,7 @@ public class OldDataController extends BaseController {
 			}
 			logger.info("Have Finish Deal Travel ID:{}", travelContent.getTid());
 		}
+		
 		return toError("Yeah");
 	}
 

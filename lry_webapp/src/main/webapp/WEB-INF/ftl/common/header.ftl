@@ -52,7 +52,7 @@
 	            <li>
 	                <img src="${loginUser.avatar!''}" width="20" height="20" alt="" />
 	            </li>
-	            <li class="wap_show bd_right">${loginUser.name!''}</li>
+	            <li class="wap_show bd_right vip_ico">${loginUser.name!''}</li>
 	            <li class="wap_show bd_right"><a href="/travel/toAddPage">发布游记</a></li>
 	            <li id="msg" class="wap_show bd_right show_more">
 	                消息中心(${headerLetterCnt!'0'})

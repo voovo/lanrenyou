@@ -152,7 +152,7 @@ public class UserSearchController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/user/user_hot");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<UserInfo> pageIter = solrUtil.searchUser(null, null, pageNo, pageSize, "fansCnt", true);
+		PageIterator<UserInfo> pageIter = solrUtil.searchUser(null, null, pageNo, pageSize, "viewCntSum", true);
 		List<Integer> uidList = new ArrayList<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("pageIter", pageIter);
