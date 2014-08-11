@@ -196,6 +196,7 @@
 #user{height: 102px;}
 #user > ul{ margin: 40px 20px 0 0;}
 #user > ul > li{ float: left; color: #fff; margin-right: 8px;}
+#user > ul > li.vip_ico{ padding-right: 24px;}
 #user > ul > li > a{ color: #fff;}
 #user > ul > li > a:hover{ text-decoration: underline;}
 .bd_right{ border-right: 1px solid #fff; padding-right: 8px; height: 16px;}
