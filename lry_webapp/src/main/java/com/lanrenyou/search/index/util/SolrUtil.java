@@ -124,14 +124,21 @@ public class SolrUtil {
 			city = city.replace("，", ",");
 			city = city.replace("。", ",");
 			city = city.replace("……", ",");
+			city = city.replace(".", ",");
 			String[] cityArray = city.split(",");
 			if(cityArray.length == 1){
 				querySb.append("city:").append(city);
+				querySb.append("title:").append(city).append(" or ");
+				querySb.append("content:").append(city);
 			} else {
-				querySb.append("( city:").append(cityArray[0]);
+				querySb.append("( city:").append(cityArray[0]).append(" or ");
+				querySb.append("title:").append(cityArray[0]).append(" or ");
+				querySb.append("content:").append(cityArray[0]);
 				for(int i=1; i<=cityArray.length-1; i++){
 					if(StringUtils.isNotBlank(cityArray[i])){
-						querySb.append(" or ").append("city:").append(cityArray[i]);
+						querySb.append(" or ").append("city:").append(cityArray[i]).append(" or ");
+						querySb.append("title:").append(cityArray[i]).append(" or ");
+						querySb.append("content:").append(cityArray[i]);
 					}
 					if(i == cityArray.length -1){
 						querySb.append(")");
@@ -224,7 +231,36 @@ public class SolrUtil {
 		query.setRows(pageSize);
 		StringBuilder querySb = new StringBuilder();
 		if(StringUtils.isNotBlank(city)){
-			querySb.append("targetCity:").append(city);
+//			querySb.append("targetCity:").append(city);
+			city = city.replace(" ", ",");
+			city = city.replace("、", ",");
+			city = city.replace("，", ",");
+			city = city.replace("。", ",");
+			city = city.replace("……", ",");
+			city = city.replace(".", ",");
+			String[] cityArray = city.split(",");
+			if(cityArray.length == 1){
+				querySb.append("targetCity:").append(city);
+				querySb.append("presentAddress:").append(city).append(" or ");
+				querySb.append("previousAddress:").append(city).append(" or ");
+				querySb.append("userIntro:").append(city);
+			} else {
+				querySb.append("( targetCity:").append(cityArray[0]).append(" or ");
+				querySb.append("presentAddress:").append(city).append(" or ");
+				querySb.append("previousAddress:").append(city).append(" or ");
+				querySb.append("userIntro:").append(city);
+				for(int i=1; i<=cityArray.length-1; i++){
+					if(StringUtils.isNotBlank(cityArray[i])){
+						querySb.append(" or ").append("targetCity:").append(cityArray[i]).append(" or ");
+						querySb.append("presentAddress:").append(city).append(" or ");
+						querySb.append("previousAddress:").append(city).append(" or ");
+						querySb.append("userIntro:").append(city);
+					}
+					if(i == cityArray.length -1){
+						querySb.append(")");
+					}
+				}
+			}
 		}
 		if(StringUtils.isNotBlank(keyword)){
 			StringBuilder keywordSb = new StringBuilder("(");

@@ -24,8 +24,11 @@ import com.lanrenyou.letter.model.PrivateLetter;
 import com.lanrenyou.letter.service.IPrivateLetterService;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.user.enums.UserPlannerStatusEnum;
 import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.user.service.IUserPlannerService;
 import com.lanrenyou.util.AesCryptUtil;
 import com.lanrenyou.util.LRYEncryptKeyProperties;
 import com.lanrenyou.util.ServletUtil;
@@ -48,6 +51,9 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	protected IPrivateLetterService privateLetterService;
 	
+	@Autowired
+	protected IUserPlannerService userPlannerService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		
@@ -55,6 +61,10 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 
 		if (userInfo != null) {
 			request.setAttribute(LRYConstant.LOGIN_USER, userInfo);
+			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(userInfo.getId());
+			if(null != userPlanner && userPlanner.getStatus() == UserPlannerStatusEnum.AUDIT_PASS.getValue()){
+				request.setAttribute("currentUserIsPlanner", true);
+			}
 			PageIterator<PrivateLetter> letterPage = privateLetterService.pageQueryUnReadLetterCountByReceiverUid(userInfo.getId(), 1, 2);
 			if(null != letterPage){
 				request.setAttribute("headerLetterList", letterPage.getData());
