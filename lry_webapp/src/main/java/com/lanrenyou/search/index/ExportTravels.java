@@ -11,6 +11,7 @@ import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.lanrenyou.travel.enums.TravelInfoStatusEnum;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.model.TravelInfoStat;
@@ -81,6 +82,9 @@ public class ExportTravels {
 			return null;
 		}
 		TravelInfo vo = travelInfoService.getTravelInfoById(travelContent.getTid());
+		if(null == vo || vo.getStatus() == TravelInfoStatusEnum.DELETE.getValue()){
+			return null;
+		}
 		try {
 			//游记表信息
 			doc.addField("tid", vo.getId());//游记ID
