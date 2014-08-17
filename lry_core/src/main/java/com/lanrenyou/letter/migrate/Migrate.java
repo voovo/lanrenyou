@@ -134,7 +134,7 @@ public class Migrate {
 	}
 	
 	public static String filterHtmlTag(String content){
-		System.out.println("转换前："+content);
+//		System.out.println("转换前："+content);
 		Pattern blankp = Pattern.compile("&nbsp;");		
 		Pattern htmlp = Pattern.compile("<[^>]+>");
 		Pattern rnp = Pattern.compile("\\r\\n");
@@ -147,6 +147,9 @@ public class Migrate {
 		
 		Matcher rnm = rnp.matcher(content);
 		content = rnm.replaceAll("");
+		
+		content = content.replace("&quot;", "\"");
+		content = content.replace("&amp;", "&");
 		
 		//System.out.println("转换后 ："+content);
 		
@@ -296,7 +299,7 @@ public class Migrate {
 				post.setPost_modified(rs.getTimestamp("post_modified"));
 				post.setPost_parent(rs.getInt("post_parent"));
 				if(!StringUtils.isEmpty(rs.getString("meta_value"))){
-					post.setPost_attc_url("http://lanrenyou.com/wp-content/uploads/"+rs.getString("meta_value"));	
+					post.setPost_attc_url("/wp-content/uploads/"+rs.getString("meta_value"));	
 				}
 				
 				metalist.add(post);
@@ -516,7 +519,7 @@ public class Migrate {
 					stat.setString(2,user.getAreas());
 					stat.setBigDecimal(3, new BigDecimal(0.00));
 					stat.setInt(4,3);
-					stat.setInt(5,1);
+					stat.setInt(5,2);
 					stat.setInt(6,0);
 					stat.setTimestamp(7,user.getUser_registered() );
 					stat.setString(8,"127.0.0.1");
