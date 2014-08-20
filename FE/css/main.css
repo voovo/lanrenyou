@@ -4,7 +4,7 @@
  */
 .box{ max-width: 1200px; min-width: 800px; margin: 0 auto; display: block;}
 /*main_sp*/
-#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .added_btn , .msg_btn , .plan_area li a , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon , .icon_fav{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
+#city , #search_btn , .user_more , .tag_ico , .tag_ico_r , .share_box h3 , .share_box ul li a , #min_share li a , .suc_ico , .label li i.close , .ico , .vip_ico , .vip_b_ico , .add_btn , .added_btn , .msg_btn , .yj_icon , .search_icon , .create_icon , .add_yj_photo , .uploadify-button , .add_fav i , .added_fav i , .J_moveUp , .J_moveDown , .J_delete , #create_success h2 , .like_ico , .share_ico , .liked_ico , .weibo_ico , .qq_t_ico , .rr_ico , .icon_edit , .icon_del , .fav_icon , .fans_icon , .add_icon , .msg_icon , .delete_ico , .edit_icon , .icon_fav{ background-image: url(../imgs/main_sp.png); background-repeat: no-repeat;}
 
 .blue , .blue a{ color: #364758;}
 .g9{ color: #999 !important;}
@@ -77,11 +77,11 @@
 
 
 /*可策划地区*/
-.plan_area{ margin: 10px 0; position: relative; padding-left: 80px; height: 22px;}
+.plan_area{ margin: 10px 0; position: relative; padding-left: 80px; height: 22px; overflow: hidden;}
 .plan_area dt{ position: absolute; top:0; left:0;}
 .plan_area dd{}
 .plan_area li{ float: left; margin-bottom: 5px;}
-.plan_area li a{ padding:0 15px 0 5px; display: block; height: 20px; line-height: 20px; background-position: right -517px; color: #364758 !important; margin-right: 5px; }
+.plan_area li a{ padding:0 15px 0 5px; display: block; height: 20px; line-height: 20px; /*background-position: right -517px;*/ color: #364758 !important; margin-right: 5px; }
 
 
 /*按钮*/
@@ -320,6 +320,7 @@
 
 #tips{ height: 100px;}
 
+.waper_box{ width: 100%;}
 }
 
 @media screen and (min-width: 640px) and (max-width: 800px) {

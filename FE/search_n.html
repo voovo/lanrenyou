@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索游记-懒人游</title>
+    <!-- 全站通用 -->
+    <link rel="shortcut icon" type="image/ico" href="imgs/favicon.ico">
+    <link rel="stylesheet" href="css/init.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/main.js"></script>
+    <!-- 全站通用 -->
+    
+    <!-- 弹层 -->
+    <script type="text/javascript" src="js/plug/jquery.reveal.js"></script>
+    <link rel="stylesheet" href="css/plug/reveal.css">
+
+    <!-- 页面自用 -->
+    <link rel="stylesheet" href="css/waper.css">
+    <script src="js/waper.js"></script>
+    <script src="js/search.js"></script>
+    <!-- 页面自用 -->
+    
+    <!-- 瀑布流 -->
+    <link rel="stylesheet" href="css/plug/float.css">
+    <script src="js/plug/jquery.imagesloaded.js"></script>
+    <script src="js/plug/jquery.wookmark.js"></script>
+
+
+</head>
+<body>
+
+
+<!-- top_nav -->
+<div id="top_nav" class="clearfix">
+    
+    <!-- logo -->
+    <div id="logo" class="left">
+        <a href="/" title="返回首页"></a>
+    </div>
+
+    <!-- search -->
+    <div id="search" class="left">
+        <div id="city" class="show_more">城市
+            <div id="more_city" class="hide more_item">
+                <i class="tag_ico"></i>
+                <ul class="clearfix">
+                    <li><a href="javascript:;" title="芝加哥Chicago及周边">芝加哥Chicago及周边</a></li>
+                    <li><a href="javascript:;" title="纽约NYC及周边">纽约NYC及周边</a></li>
+                    <li><a href="javascript:;" title="洛杉矶LA及周边">洛杉矶LA及周边</a></li>
+                    <li><a href="javascript:;" title="圣地亚哥San Diego及周边">圣地亚哥San Diego及周边</a></li>
+                    <li><a href="javascript:;" title="旧金山San Francisco及周边">旧金山San Francisco及周边</a></li>
+                    <li><a href="javascript:;" title="美国国家公园National Parks">美国国家公园National Parks</a></li>
+                    <li><a href="javascript:;" title="西雅图Seattle及周边">西雅图Seattle及周边</a></li>
+                    <li><a href="javascript:;" title="阿拉斯加Alaska">阿拉斯加Alaska</a></li>
+                    <li><a href="javascript:;" title="游轮旅行Cruise">游轮旅行Cruise</a></li>
+                    <li><a href="javascript:;" title="奥兰多Orlando及周边">奥兰多Orlando及周边</a></li>
+                    <li><a href="javascript:;" title="大佛罗里达Florida">大佛罗里达Florida</a></li>
+                    <li><a href="javascript:;" title="风情小镇Small Towns">风情小镇Small Towns</a></li>
+                    <li><a href="javascript:;" title="加州湾区Bay Area及周边">加州湾区Bay Area及周边</a></li>
+                    <li><a href="javascript:;" title="波士顿Boston及周边">波士顿Boston及周边</a></li>
+                    <li><a href="javascript:;" title="加州一号公路Pacific Coast Highway">加州一号公路Pacific Coast Highway</a></li>
+                    <li><a href="javascript:;" title="波多黎各Puerto Rico">波多黎各Puerto Rico</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <input type="text" id="search_input" placeholder="请输入旅游城市或国家" />
+        <a id="search_btn" href="javascript:;" title="搜索"></a>
+    </div>
+    
+    <!-- nav -->
+    <div id="nav" class="left">
+        <ul class="clearfix">
+            <li><a href="javascript:;">找游记</a></li>
+            <li><a href="javascript:;">找规划师</a></li>
+        </ul>
+    </div>
+
+    <!-- user -->
+    <div id="user" class="right">
+        <ul class="clearfix hide">
+            <li class="bd_right"><a href="javascript:;">登陆</a></li>
+            <li><a href="javascript:;">注册</a></li>
+        </ul>
+        <ul class="clearfix">
+            <li>
+                <img src="imgs/user_face.jpg" width="20" height="20" alt="" />
+            </li>
+            <li class="wap_show bd_right">sheak</li>
+            <li class="wap_show bd_right"><a href="javascript:;">发布游记</a></li>
+            <li id="msg" class="wap_show bd_right show_more">
+                消息中心(5)
+                <div id="more_msg" class="more_item hide">
+                    <i class="tag_ico_r"></i>
+                    <ul class="msg_tab clearfix">
+                        <li class="cur"><a href="javascript:;">通知(2)</a></li>
+                        <li><a href="javascript:;">私信(3)</a></li>
+                    </ul>
+                    <div class="msg_item">
+                        <p>
+                            Hi~，欢迎加入懒人游，现在就开始享受你的旅程吧！在这里，...
+                        </p>
+                        <p>
+                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
+                        </p>
+                    </div>
+                    <div class="msg_item hide">
+                        <p>
+                            Hi~，欢迎加入懒人游，现在就开始享受你的旅程吧！在这里，...
+                        </p>
+                        <p>
+                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
+                        </p>
+                        <p>
+                            您发布的游记《美丽纽约客，美食者的天堂》被评为精彩游记！
+                        </p>
+                    </div>
+                    <div class="msg_bottom"><a href="javascript:;">全部通知</a></div>
+                </div>
+            </li>
+            <li>
+                <div class="user_more show_more">
+                    <div class="hide more_item">
+                        <i class="tag_ico"></i>
+                        <ul>
+                            <li class="wap_hide hide">sheak</li>
+                            <li class="wap_hide hide"><a href="javascript:;">发布游记</a></li>
+                            <li class="wap_hide hide"><a href="javascript:;">消息中心(5)</a></li>
+                            <li><a href="javascript:;" title="个人设置">个人设置</a></li>
+                            <li><a href="javascript:;" title="我的游记">我的游记</a></li>
+                            <li><a href="javascript:;" title="粉丝管理">粉丝管理</a></li>
+                            <li><a href="javascript:;" title="我的收藏">我的收藏</a></li>
+                            <li><a href="javascript:;" title="退出">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- waper_box -->
+<div class="waper_box">
+    <h1 class="warper_tt search_icon">搜索“美国”的相关结果</h1>
+    
+    <ul class="warper_tab clearfix">
+        <li class="cur">游记</li>
+        <li><a href="javascript:;">规划师</a></li>
+    </ul>
+
+
+
+    <div id="container">
+
+    
+    <ol id="sortbys">
+      <!-- <li data-sortby="name">名称</li> -->
+      <li data-sortby="price" class="active">发布时间</li>
+      <li data-sortby="popularity">浏览量</li>
+    </ol>
+
+
+    <div id="float_yj" role="main">
+
+      <ul id="tiles">
+        <!-- These are our grid blocks -->
+        <li data-price="2014-08-20" data-popularity="4" data-name="美国66号公路自驾全攻略,翻滚吧，青春！">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_1.jpg" height="140" width="200">
+            <h3 class="float_img_tt"><span>美国66号公路自驾全攻略,翻滚吧，青春！</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="2014-08-18" data-popularity="3" data-name="一路向南——从波特兰到洛杉矶">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_2.jpg" height="300" width="200">
+            <h3 class="float_img_tt"><span>一路向南——从波特兰到洛杉矶</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="2012-06-06" data-popularity="2" data-name="Namaskar – 恒河上的北印之旅">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_3.jpg" height="252" width="200">
+            <h3 class="float_img_tt"><span>Namaskar – 恒河上的北印之旅</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="2014-09-01" data-popularity="1" data-name="是的Las Vegas无法抑制那跳动的欲望">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_4.jpg" height="158" width="200">
+            <h3 class="float_img_tt"><span>是的Las Vegas无法抑制那跳动的欲望</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="42.12" data-popularity="3" data-name="最美的五十一州，Hola，波多黎各">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_5.jpg" height="300" width="200">
+            <h3 class="float_img_tt"><span>最美的五十一州，Hola，波多黎各</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="15" data-popularity="1" data-name="卡梅尔教堂">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_6.jpg" height="297" width="200">
+            <h3 class="float_img_tt"><span>卡梅尔教堂</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="70" data-popularity="2" data-name="曼岛两岸的日与夜">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_7.jpg" height="200" width="200">
+            <h3 class="float_img_tt"><span>曼岛两岸的日与夜</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="18.99" data-popularity="4" data-name="适合那些独自旅行的">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_8.jpg" height="200" width="200">
+            <h3 class="float_img_tt"><span>适合那些独自旅行的</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="5" data-popularity="2" data-name="最后的嬉皮士Hippie-Slab City">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_9.jpg" height="398" width="200">
+            <h3 class="float_img_tt"><span>最后的嬉皮士Hippie-Slab </span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <li data-price="7" data-popularity="1" data-name="周末短程Hiking好地方—Bear Mountain State Park">
+          <a href="#" target="_blank">
+            <img src="imgs/sample-images/image_10.jpg" height="267" width="200">
+            <h3 class="float_img_tt"><span>周末短程Hiking好地方—Bear</span></h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+        </li>
+        <!-- End of grid blocks -->
+      </ul>
+
+    </div>
+
+  </div>
+
+
+    <div id="page" class="page">
+        <ul class="clearfix">
+            <li><a class="cur" href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="">4</a></li>
+            <li><a href="">5</a></li>
+            <li><a href="">6</a></li>
+            <li>...</li>
+            <li><a href="">15</a></li>
+            <li><a href="">16</a></li>
+        </ul>
+    </div>
+
+
+</div>
+
+
+
+<!-- footer -->
+<div id="footer">
+    <div class="box">
+        <ul id="min_share" class="clearfix">
+            <li class="wx">
+                <a href="javascript:;">微信</a>
+                <div id="erweima" class="hide"></div>
+            </li>
+            <li class="wb"><a href="javascript:;">新浪微博</a></li>
+            <li class="tt"><a href="javascript:;">腾讯微博</a></li>
+            <li class="qq"><a href="javascript:;">QQ</a></li>
+        </ul>
+        <p>
+            <a href="javascript:;">关于我们</a> | 
+            <a href="javascript:;">联系我们</a> | 
+            <a href="javascript:;">人才招聘</a> | 
+            <a href="javascript:;">商务合作</a> | 
+            <a href="javascript:;">网站地图</a>
+        </p>
+
+        <p class="copyright">Copyright @lanrenyou. 2014 All Right Reserved.</p>
+    </div>
+</div>
+
+<a id="test" href="##">asassa</a>
+
+<!-- 返回登陆 -->
+<!-- <div id="back_to_login" class="reveal-modal">
+    <h2>请先登陆懒人游!</h2>
+    <p>
+        <a href="http://www.lanrenyou.com/login?redir=">马上登陆</a> | 
+        <a href="#">立即注册</a>
+    </p>
+    <a class="close-reveal-modal close_d">&#215;</a>
+</div> -->
+
+
+    
+</body>
+</html>
+
+
+
+
+<!-- Once the images are loaded, initalize the Wookmark plug-in. -->
+<script type="text/javascript">
+  (function ($){
+    $('#tiles').imagesLoaded(function() {
+      function comparatorName(a, b) {
+        return $(a).data('name') < $(b).data('name') ? -1 : 1;
+      }
+      function comparatorPopularity(a, b) {
+        return $(a).data('popularity') > $(b).data('popularity') ? -1 : 1;
+      }
+      function comparatorPrice(a, b) {
+        return $(a).data('price') < $(b).data('price') ? -1 : 1;
+      }
+
+      // Prepare layout options.
+      var options = {
+        autoResize: true, // This will auto-update the layout when the browser window is resized.
+        container: $('#tiles'), // Optional, used for some extra CSS styling
+        offset: 10, // Optional, the distance between grid items
+        itemWidth: 240, // Optional, the width of a grid item
+        comparator: comparatorPrice,
+        outerOffset: 10, // Optional the distance from grid to parent
+        flexibleWidth: '50%' // Optional, the maximum width of a grid item
+      };
+
+      // Get a reference to your grid items.
+      var $handler = $('#tiles li'),
+          $sortbys = $('#sortbys li');
+
+      // Call the layout function.
+      $handler.wookmark(options);
+
+      var $window = $(window);
+      $window.resize(function() {
+        var windowWidth = $window.width(),
+            newOptions = { flexibleWidth: '50%' };
+
+        // Breakpoint
+        if (windowWidth < 1024) {
+          newOptions.flexibleWidth = '100%';
+        }
+
+        $handler.wookmark(newOptions);
+      });
+
+      /**
+       * When a filter is clicked, toggle it's active state and refresh.
+       */
+      var onClickSortBy = function(e) {
+        e.preventDefault();
+        $currentSortby = $(this);
+        switch ($currentSortby.data('sortby')) {
+          case 'price':
+            options.comparator = comparatorPrice;
+            break;
+          case 'popularity':
+            options.comparator = comparatorPopularity;
+            break;
+          case 'name':
+          default:
+            options.comparator = comparatorName;
+            break;
+        }
+
+        $sortbys.removeClass('active');
+        $currentSortby.addClass('active');
+
+        $handler.wookmark(options);
+      }
+
+      // Capture filter click events.
+      $sortbys.click(onClickSortBy);
+    });
+  })(jQuery);
+</script>

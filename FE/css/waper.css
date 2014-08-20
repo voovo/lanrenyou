@@ -3,7 +3,7 @@
  * mr.sheak@gmail.com
  * 20140705
  */
-.waper_box{ max-width: 1200px; min-width: 960px; margin: 20px auto;}
+.waper_box{ max-width: 1200px; margin: 20px auto;}
 .waper_box h1.warper_tt{ font-size: 30px; color: #333; padding-left: 40px; margin-bottom: 30px; position: relative;}
 
 .warper_tab{ height: 40px; line-height: 40px; border-bottom: 1px solid #d3d3d3; margin: 20px 0;}
@@ -12,7 +12,7 @@
 .warper_tab li a{ color: #305d8a; padding: 8px 10px;}
 
 /*找游记*/
-.yj_list{ width: 1240px;}
+.yj_list{ width: 1240px; margin: 0 auto; position: relative;}
 .yj_list .yj_item{ float: left; width: 570px; margin:0 20px 20px 0; background: #fff; padding:10px; box-shadow: 0 0 7px #c7c7c7;}
 .yj_list .yj_item > dl{ position: relative; width: 570px; height: 370px; overflow: hidden;}
 .yj_list .yj_item > dl > dd{}
@@ -172,4 +172,60 @@
 .u_info_form_box .uploadify-button{ background: url(../imgs/user/u_face_input.png) left top no-repeat; width: 391px !important;}
 
 
+/*float css*/
+/**
+     * Grid items
+     */
+    #tiles li {
+      -moz-box-sizing: border-box;
+           box-sizing: border-box;
+      -webkit-transition: all 0.3s ease-out;
+         -moz-transition: all 0.3s ease-out;
+           -o-transition: all 0.3s ease-out;
+              transition: all 0.3s ease-out;
+    }
 
+    #tiles li img {
+      width: 100%;
+      height: auto;
+    }
+
+    /**
+     * Sort buttons
+     */
+    #sortbys {
+      list-style-type: none;
+      text-align: center;
+      margin: 0 0 0 10px;
+      height: 28px;
+    }
+
+    #sortbys li {
+      font-size: 12px;
+      float: left;
+      padding: 6px 0 4px 0;
+      cursor: pointer;
+      margin: 0 1% 0 1%;
+      width: 7em;
+      -webkit-transition: all 0.15s ease-out;
+         -moz-transition: all 0.15s ease-out;
+           -o-transition: all 0.15s ease-out;
+              transition: all 0.15s ease-out;
+      -webkit-border-radius: 3px;
+         -moz-border-radius: 3px;
+              border-radius: 3px;
+    }
+
+    #sortbys li:hover {
+      background: #dedede;
+    }
+
+    #sortbys li.active {
+      background: #333333;
+      color: #ffffff;
+    }
+
+#float_yj{}
+#float_yj li a{ position: relative; display: block;}
+#float_yj .float_img_tt{ position: absolute; bottom:0px; left:0px; width: 100%; font-size: 20px; color: #fff; background: #000; opacity: 0.8;}
+#float_yj .float_img_tt span{ padding:10px;}

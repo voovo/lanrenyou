@@ -6,12 +6,10 @@
 ;$(function(){
 /*********************************************************/
     // 成为规划师
-    $("#be_planner").change(function(){
-        if($(this).attr("checked")){
-            $("#planner_box").fadeIn();
-        }else{
-            $("#planner_box").fadeOut();
-        }
+    $("#be_planner").toggle(function(){
+        $(".planner_form_label").fadeIn();
+    }, function(){
+        $(".planner_form_label").fadeOut();
     });
     
     // 更多
