@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/plug/float.css">
     <script src="js/plug/jquery.imagesloaded.js"></script>
     <script src="js/plug/jquery.wookmark.js"></script>
+    <script src="js/float.js"></script>
 
 
 </head>
@@ -157,7 +158,7 @@
     
     <ol id="sortbys">
       <!-- <li data-sortby="name">名称</li> -->
-      <li data-sortby="price" class="active">发布时间</li>
+      <li data-sortby="time" class="active">发布时间</li>
       <li data-sortby="popularity">浏览量</li>
     </ol>
 
@@ -165,108 +166,184 @@
     <div id="float_yj" role="main">
 
       <ul id="tiles">
-        <!-- These are our grid blocks -->
-        <li data-price="2014-08-20" data-popularity="4" data-name="美国66号公路自驾全攻略,翻滚吧，青春！">
+        <!-- 瀑布流开始 -->
+        <li data-time="2014-08-20" data-popularity="4" data-name="美国66号公路自驾全攻略,翻滚吧，青春！">
           <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_1.jpg" height="140" width="200">
-            <h3 class="float_img_tt"><span>美国66号公路自驾全攻略,翻滚吧，青春！</span></h3>
+            <img class="float_img" src="imgs/sample-images/image_1.jpg" height="140" width="200">
+            <h3 class="float_img_tt">
+              <span>美国66号公路自驾全攻略,翻滚吧，青春！</span>
+            </h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
+        </li>
+        <li data-time="2014-08-18" data-popularity="3" data-name="一路向南——从波特兰到洛杉矶">
+          <a href="#" target="_blank">
+            <img class="float_img" src="imgs/sample-images/image_2.jpg" height="300" width="200">
+            <h3 class="float_img_tt">
+              <span>一路向南——从波特兰到洛杉矶</span>
+            </h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
+        </li>
+        <li data-time="2012-06-06" data-popularity="2" data-name="Namaskar – 恒河上的北印之旅">
+          <a href="#" target="_blank">
+            <img class="float_img" src="imgs/sample-images/image_3.jpg" height="252" width="200">
+            <h3 class="float_img_tt">
+              <span>Namaskar – 恒河上的北印之旅</span>
+            </h3>
+          </a>
+          
+          <div class="float_img_info">偶后是难以取舍地做减法，而真正的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
+        </li>
+        <li data-time="2014-09-01" data-popularity="1" data-name="是的Las Vegas无法抑制那跳动的欲望">
+          <a href="#" target="_blank">
+            <img class="float_img" src="imgs/sample-images/image_4.jpg" height="158" width="200">
+            <h3 class="float_img_tt">
+              <span>是的Las Vegas无法抑制那跳动的欲望</span>
+            </h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
+        </li>
+        <li data-time="42.12" data-popularity="3" data-name="最美的五十一州，Hola，波多黎各">
+          <a href="#" target="_blank">
+            <img class="float_img" src="imgs/sample-images/image_5.jpg" height="300" width="200">
+            <h3 class="float_img_tt">
+              <span>最美的五十一州，Hola，波多黎各</span>
+            </h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
+        </li>
+        <li data-time="15" data-popularity="1" data-name="卡梅尔教堂">
+          <a href="#" target="_blank">
+            <img class="float_img" src="imgs/sample-images/image_6.jpg" height="297" width="200">
+            <h3 class="float_img_tt">
+              <span>卡梅尔教堂</span>
+            </h3>
+          </a>
+          
+          <div class="float_img_info">旅途就像人生，起先就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
+        </li>
+        <li data-time="70" data-popularity="2" data-name="曼岛两岸的日与夜">
+          <a href="#" target="_blank">
+            <img class="float_img" src="imgs/sample-images/image_7.jpg" height="200" width="200">
+            <h3 class="float_img_tt">
+              <span>曼岛两岸的日与夜</span>
+            </h3>
           </a>
           
           <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
         </li>
-        <li data-price="2014-08-18" data-popularity="3" data-name="一路向南——从波特兰到洛杉矶">
+        <li data-time="18.99" data-popularity="4" data-name="适合那些独自旅行的">
           <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_2.jpg" height="300" width="200">
-            <h3 class="float_img_tt"><span>一路向南——从波特兰到洛杉矶</span></h3>
+            <img class="float_img" src="imgs/sample-images/image_8.jpg" height="200" width="200">
+            <h3 class="float_img_tt">
+              <span>适合那些独自旅行的</span>
+            </h3>
           </a>
           
           <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
         </li>
-        <li data-price="2012-06-06" data-popularity="2" data-name="Namaskar – 恒河上的北印之旅">
+        <li data-time="5" data-popularity="2" data-name="最后的嬉皮士Hippie-Slab City">
           <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_3.jpg" height="252" width="200">
-            <h3 class="float_img_tt"><span>Namaskar – 恒河上的北印之旅</span></h3>
+            <img class="float_img" src="imgs/sample-images/image_9.jpg" height="398" width="200">
+            <h3 class="float_img_tt">
+              <span>最后的嬉皮士Hippie-Slab </span>
+            </h3>
           </a>
           
           <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
         </li>
-        <li data-price="2014-09-01" data-popularity="1" data-name="是的Las Vegas无法抑制那跳动的欲望">
+        <li data-time="7" data-popularity="1" data-name="周末短程Hiking好地方—Bear Mountain State Park">
           <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_4.jpg" height="158" width="200">
-            <h3 class="float_img_tt"><span>是的Las Vegas无法抑制那跳动的欲望</span></h3>
+            <img class="float_img" src="imgs/sample-images/image_10.jpg" height="267" width="200">
+            <h3 class="float_img_tt">
+              <span>周末短程Hiking好地方—Bear</span>
+            </h3>
           </a>
           
           <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
+
+          <div class="float_img_author clearfix">
+            <img class="u_sm" src="imgs/user_face.jpg" alt="" width="24" height="24">
+            <span><a href="#">shell_corona</a></span>
+            <span class="ico icon_time">2014-05-01</span>
+            <span class="ico icon_eye">2308</span>
+          </div>
         </li>
-        <li data-price="42.12" data-popularity="3" data-name="最美的五十一州，Hola，波多黎各">
-          <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_5.jpg" height="300" width="200">
-            <h3 class="float_img_tt"><span>最美的五十一州，Hola，波多黎各</span></h3>
-          </a>
-          
-          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
-        </li>
-        <li data-price="15" data-popularity="1" data-name="卡梅尔教堂">
-          <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_6.jpg" height="297" width="200">
-            <h3 class="float_img_tt"><span>卡梅尔教堂</span></h3>
-          </a>
-          
-          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
-        </li>
-        <li data-price="70" data-popularity="2" data-name="曼岛两岸的日与夜">
-          <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_7.jpg" height="200" width="200">
-            <h3 class="float_img_tt"><span>曼岛两岸的日与夜</span></h3>
-          </a>
-          
-          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
-        </li>
-        <li data-price="18.99" data-popularity="4" data-name="适合那些独自旅行的">
-          <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_8.jpg" height="200" width="200">
-            <h3 class="float_img_tt"><span>适合那些独自旅行的</span></h3>
-          </a>
-          
-          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
-        </li>
-        <li data-price="5" data-popularity="2" data-name="最后的嬉皮士Hippie-Slab City">
-          <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_9.jpg" height="398" width="200">
-            <h3 class="float_img_tt"><span>最后的嬉皮士Hippie-Slab </span></h3>
-          </a>
-          
-          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
-        </li>
-        <li data-price="7" data-popularity="1" data-name="周末短程Hiking好地方—Bear Mountain State Park">
-          <a href="#" target="_blank">
-            <img src="imgs/sample-images/image_10.jpg" height="267" width="200">
-            <h3 class="float_img_tt"><span>周末短程Hiking好地方—Bear</span></h3>
-          </a>
-          
-          <div class="float_img_info">旅途就像人生，起先是兴奋不已地做加法，偶后是难以取舍地做减法，而真正开始的过程，是不得不忍痛的被减法和被除法。当然，上帝在关上一扇窗的时候也一定会同时打开一扇门，所以，就一定还有意想不到的被加法甚至被乘法...</div>
-        </li>
-        <!-- End of grid blocks -->
+        <!-- 瀑布流结束 -->
       </ul>
 
     </div>
 
   </div>
 
-
-    <div id="page" class="page">
-        <ul class="clearfix">
-            <li><a class="cur" href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li><a href="">6</a></li>
-            <li>...</li>
-            <li><a href="">15</a></li>
-            <li><a href="">16</a></li>
-        </ul>
-    </div>
 
 
 </div>
@@ -297,98 +374,8 @@
     </div>
 </div>
 
-<a id="test" href="##">asassa</a>
-
-<!-- 返回登陆 -->
-<!-- <div id="back_to_login" class="reveal-modal">
-    <h2>请先登陆懒人游!</h2>
-    <p>
-        <a href="http://www.lanrenyou.com/login?redir=">马上登陆</a> | 
-        <a href="#">立即注册</a>
-    </p>
-    <a class="close-reveal-modal close_d">&#215;</a>
-</div> -->
 
 
     
 </body>
 </html>
-
-
-
-
-<!-- Once the images are loaded, initalize the Wookmark plug-in. -->
-<script type="text/javascript">
-  (function ($){
-    $('#tiles').imagesLoaded(function() {
-      function comparatorName(a, b) {
-        return $(a).data('name') < $(b).data('name') ? -1 : 1;
-      }
-      function comparatorPopularity(a, b) {
-        return $(a).data('popularity') > $(b).data('popularity') ? -1 : 1;
-      }
-      function comparatorPrice(a, b) {
-        return $(a).data('price') < $(b).data('price') ? -1 : 1;
-      }
-
-      // Prepare layout options.
-      var options = {
-        autoResize: true, // This will auto-update the layout when the browser window is resized.
-        container: $('#tiles'), // Optional, used for some extra CSS styling
-        offset: 10, // Optional, the distance between grid items
-        itemWidth: 240, // Optional, the width of a grid item
-        comparator: comparatorPrice,
-        outerOffset: 10, // Optional the distance from grid to parent
-        flexibleWidth: '50%' // Optional, the maximum width of a grid item
-      };
-
-      // Get a reference to your grid items.
-      var $handler = $('#tiles li'),
-          $sortbys = $('#sortbys li');
-
-      // Call the layout function.
-      $handler.wookmark(options);
-
-      var $window = $(window);
-      $window.resize(function() {
-        var windowWidth = $window.width(),
-            newOptions = { flexibleWidth: '50%' };
-
-        // Breakpoint
-        if (windowWidth < 1024) {
-          newOptions.flexibleWidth = '100%';
-        }
-
-        $handler.wookmark(newOptions);
-      });
-
-      /**
-       * When a filter is clicked, toggle it's active state and refresh.
-       */
-      var onClickSortBy = function(e) {
-        e.preventDefault();
-        $currentSortby = $(this);
-        switch ($currentSortby.data('sortby')) {
-          case 'price':
-            options.comparator = comparatorPrice;
-            break;
-          case 'popularity':
-            options.comparator = comparatorPopularity;
-            break;
-          case 'name':
-          default:
-            options.comparator = comparatorName;
-            break;
-        }
-
-        $sortbys.removeClass('active');
-        $currentSortby.addClass('active');
-
-        $handler.wookmark(options);
-      }
-
-      // Capture filter click events.
-      $sortbys.click(onClickSortBy);
-    });
-  })(jQuery);
-</script>

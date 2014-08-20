@@ -185,7 +185,7 @@
               transition: all 0.3s ease-out;
     }
 
-    #tiles li img {
+    #tiles li img.float_img {
       width: 100%;
       height: auto;
     }
@@ -227,5 +227,11 @@
 
 #float_yj{}
 #float_yj li a{ position: relative; display: block;}
-#float_yj .float_img_tt{ position: absolute; bottom:0px; left:0px; width: 100%; font-size: 20px; color: #fff; background: #000; opacity: 0.8;}
-#float_yj .float_img_tt span{ padding:10px;}
+#float_yj .float_img_tt{ position: absolute; bottom:0px; left:0px; text-align: center; width: 100%; font-size: 24px; color: #fff; background: url(../imgs/black.png);}
+#float_yj .float_img_tt span{ padding:15px 10px; display: block;}
+#float_yj .float_img_info{ margin: 15px 0; line-height: 22px;}
+#float_yj .float_img_author{ border-top: 1px solid #ccc; position: relative; padding: 10px 0 0 30px;}
+#float_yj .float_img_author img.u_sm{ position: absolute; top:7px; left:0;}
+#float_yj .float_img_author span{ display: inline-block; margin-right: 10px;}
+
+
