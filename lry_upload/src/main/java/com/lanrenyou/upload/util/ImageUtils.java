@@ -29,13 +29,30 @@ public class ImageUtils {
 	public static void cropImageForTravel(String srcPath) throws IOException{
 		File srcFile = new File(srcPath);
 		Image srcImage = ImageIO.read(srcFile);
+		if(null != srcImage){
+			int w = srcImage.getWidth(null);
+			if(w > 800){
+				// 等比压缩
+				float radio = w / 696; 
+				String lPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+				reduceImageEqualProportion(srcPath, lPath, radio);
+				radio = w / 336; 
+				String sPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+				reduceImageEqualProportion(srcPath, sPath, radio);
+				return;
+			} 
+		}
+		String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+		String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+		ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
+		ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
+	}
+	
+	
+	public static void cropImageForIndex(String srcPath) throws IOException{
+		File srcFile = new File(srcPath);
+		Image srcImage = ImageIO.read(srcFile);
 		if(null == srcImage){
-			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
-			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
-			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
-			ImageUtils.copyFile(new File(srcPath), new File(dJPGPath));
-			ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
-			ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
 			return;
 		}
 		int w = srcImage.getWidth(null);
@@ -43,11 +60,8 @@ public class ImageUtils {
 		String operateImgPath = srcPath;
 		if(w > 1000 && h > 661){
 			// 先等比压缩再裁剪
-			float radio = w / 640; 
-			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
-			reduceImageEqualProportion(srcPath, tmpPath, radio);
-			radio = w / 800; 
-			tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp.jpg";
+			float radio = w / 800; 
+			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp.jpg";
 			reduceImageEqualProportion(srcPath, tmpPath, radio);
 			srcFile = new File(tmpPath);
 			srcImage = ImageIO.read(srcFile);
@@ -64,36 +78,27 @@ public class ImageUtils {
 			int y = 0;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath696x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
+			String toPath696x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_il.jpg";
 			cropImage(operateImgPath, toPath696x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
 			toWidth = 696;
 			toHeight = 222;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
+			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_in.jpg";
 			cropImage(operateImgPath, toPath696x222, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			String toPath336x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
+			String toPath336x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_is.jpg";
 			reduceImageEqualProportion(toPath696x468, toPath336x222, 2);
 			
 			toWidth = 336;
 			toHeight = 468;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_v.jpg";
+			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_iv.jpg";
 			cropImage(operateImgPath, toPath336x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
-		} else {
-			// 不做处理
-			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
-			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
-			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
-			copyFile(new File(srcPath), new File(dJPGPath));
-			copyFile(new File(srcPath), new File(sJPGPath));
-			copyFile(new File(srcPath), new File(lJPGPath));
 		}
 	}
-	
 	
 	/**
 	 * 对图片裁剪，并把裁剪新图片保存
