@@ -6,12 +6,10 @@
 ;$(function(){
 /*********************************************************/
     // 成为规划师
-    $("#be_planner").change(function(){
-        if($(this).attr("checked")){
-            $("#planner_box").fadeIn();
-        }else{
-            $("#planner_box").fadeOut();
-        }
+    $("#be_planner").toggle(function(){
+        $(".planner_form_label").fadeIn();
+    }, function(){
+        $(".planner_form_label").fadeOut();
     });
     
     // 更多
@@ -80,25 +78,70 @@
         });
     }
 
+    /*
+     * 返回登陆页弹层
+     * 
+     */
+    var backToLogin = function(url){
+        if(!$("#back_to_login") || $("#back_to_login").length == 0){
+            $("body").append('<div id="back_to_login" class="reveal-modal"><h2>请先登陆懒人游!</h2><p><a class="fromUrl" href="">马上登陆</a> | <a target="_blank" href="http://www.lanrenyou.com/regist/toPage">立即注册</a></p><a class="close-reveal-modal close_d">&#215;</a></div>');
+        }
+
+        $("#back_to_login .fromUrl").attr("href" , "http://www.lanrenyou.com/login?redir="+url);
+        setTimeout(function(){
+            $('#back_to_login').reveal($(this).data());
+        } , 300);
+    }
+
 
     // 全站发送私信
     if($(".msg_btn") && $(".msg_btn").length > 0){
         var _msgBtn = $(".msg_btn"),
-            _msgForm = '<div class="msgForm"><div class="arrow_up"></div><div class="msgTo">给 <i>shell_corona</i> 发私信</div><textarea name="" id="" cols="30" rows="10"></textarea><div class="msgBot clearfix"><div id="msgNotice" class="left green hide">发送成功!</div><div class="right"><span class="sendMsgBtn">发送</span><span class="closeMsgBtn">关闭</span></div></div></div>';
+            _uid = _msgBtn.attr("uid"),
+            _msgForm = '<div class="msgForm"><div class="arrow_up"></div><div class="msgTo">给 <i></i> 发私信</div><textarea name="" id="" cols="30" rows="10"></textarea><div class="msgBot clearfix"><div class="msgNotice left green hide">发送成功!</div><div class="right"><span class="sendMsgBtn">发送</span><span class="closeMsgBtn">关闭</span></div></div></div>';
 
         _msgBtn.click(function(){
+            $(".msgForm").hide();
+            var _uname = $(this).attr("username");
+
             if($(this).parent().find(".msgForm").length > 0){
                 $(this).parent().find(".msgForm").show();
             }else{
                 $(this).parent().append(_msgForm);
             }
 
+            $(this).parent().find(".msgForm .msgTo i").html(_uname);
+
             $(".msgForm").find("textarea").focus();
+            $(".msgForm").find(".msgNotice").hide();
             
             var sb = $(".sendMsgBtn");
-            sb.click(function(){
+            sb.one("click" , function(){
                 // 发送私信
-                $("#msgNotice").show();
+                var _cont = $(this).closest(".msgForm").find("textarea").val() , 
+                    _notice = $(this).closest(".msgForm").find(".msgNotice");
+                if(_cont.length == 0){
+                    _notice.show().html('<span class="error">请输入私信内容</span>');
+                }else{
+                    $.ajax({
+                        url : "/user/"+_uid+"/msg/add",
+                        data : {"toUid" : _uid , "content" : _cont},
+                        success : function(r){
+                            var _d = jQuery.parseJSON(r);
+                            console.log(r)
+                            if(_d.status == "y"){
+                                _notice.show().html('发送成功');
+                                setTimeout(function(){
+                                    $(".msgForm").hide();
+                                } , 500);
+                            }else{
+                                _notice.show().html('<span class="error">'+_d.info+'</span>');
+                            }
+                        }
+                    });
+                    
+                }
+                
             });
 
 
@@ -119,7 +162,7 @@
             success : function(r){
                 var _d = jQuery.parseJSON(r);
 
-                if(_d.status == "n" && _d.info == "请先登录"){
+                if(_d.status == "n" && _d.info == "请先登陆"){
                     backToLogin(window.location.href);
                 }else {
                     ele.removeClass("add_btn").addClass("added_btn");
@@ -135,7 +178,7 @@
             success : function(r){
                 var _d = jQuery.parseJSON(r);
 
-                if(_d.status == "n" && _d.info == "请先登录"){
+                if(_d.status == "n" && _d.info == "请先登陆"){
                     backToLogin(window.location.href);
                 }else {
                     ele.removeClass("added_btn").addClass("add_btn");
@@ -176,10 +219,15 @@
                     if(_d.status == "y"){
                         _this.removeClass("add_fav").attr("title" , "取消收藏").addClass("added_fav").find("span").text(parseInt(_this.find("span").text())+1);
                         if(_this.find("i")){
-                            _this.find("i").addClass("icon_faved").removeClass("icon_fav").attr("title" , "取消收藏");
+                            _this.html('<i class="ico icon_faved"></i>取消收藏');
                         }
                     }else{
-                        alert(_d.info);
+                        if(_d.info == "没有获取当前用户信息"){
+                            backToLogin(window.location.href);
+                        }else{
+                            alert(_d.info);    
+                        }
+                        
                     }
                 }
             });
@@ -192,10 +240,15 @@
                     if(_d.status == "y"){
                         _this.removeClass("added_fav").attr("title" , "加入收藏").addClass("add_fav").find("span").text(parseInt(_this.find("span").text())-1);
                         if(_this.find("i")){
-                            _this.find("i").addClass("icon_fav").removeClass("icon_faved").attr("title" , "收藏");
+                            _this.html('<i class="ico icon_fav"></i>收藏');
                         }
                     }else{
-                        alert(_d.info);
+                        if(_d.info == "没有获取当前用户信息"){
+                            backToLogin(window.location.href);
+                        }else{
+                            alert(_d.info);    
+                        }
+                        
                     }
                 }
             });
@@ -203,49 +256,6 @@
     });
 
 
-
-
-    // $(".add_fav").click(function(){
-    //     var _this = $(this),
-    //         _tid = $(this).attr("tid");
-
-    //     $.ajax({
-    //         url : "/travel/"+_tid+"/collect",
-    //         success : function(r){
-    //             var _d = jQuery.parseJSON(r);
-
-    //             if(_d.status == "y"){
-    //                 _this.removeClass("add_fav").attr("title" , "取消收藏").addClass("added_fav").find("span").text(parseInt(_this.find("span").text())+1);
-    //                 if(_this.find("i")){
-    //                     _this.find("i").addClass("icon_faved").removeClass("icon_fav").attr("title" , "取消收藏");
-    //                 }
-    //             }else{
-    //                 alert(_d.info);
-    //             }
-    //         }
-    //     });
-    // });
-    // // 取消收藏
-    // $(".added_fav").click(function(){
-    //     var _this = $(this),
-    //         _tid = $(this).attr("tid");
- 
-    //     $.ajax({
-    //         url : "/travel/"+_tid+"/uncollect",
-    //         success : function(r){
-    //             var _d = jQuery.parseJSON(r);
-
-    //             if(_d.status == "y"){
-    //                 _this.removeClass("added_fav").attr("title" , "加入收藏").addClass("add_fav").find("span").text(parseInt(_this.find("span").text())-1);
-    //                 if(_this.find("i")){
-    //                     _this.find("i").addClass("icon_fav").removeClass("icon_faved").attr("title" , "收藏");
-    //                 }
-    //             }else{
-    //                 alert(_d.info);
-    //             }
-    //         }
-    //     });
-    // });
 
 
 
@@ -270,7 +280,6 @@
       var s = document.getElementsByTagName("script")[0]; 
       s.parentNode.insertBefore(hm, s);
     })();
-
 
 /*********************************************************/
 });

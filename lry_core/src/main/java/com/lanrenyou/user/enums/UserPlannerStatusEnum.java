@@ -14,7 +14,12 @@ public enum UserPlannerStatusEnum {
     /**
      * 审核通过
      */
-    AUDIT_PASS(2);
+    AUDIT_PASS(2),
+    
+    /**
+     * 审核不通过
+     */
+    AUDIT_REFUSE(3);
     
     private int value;
 

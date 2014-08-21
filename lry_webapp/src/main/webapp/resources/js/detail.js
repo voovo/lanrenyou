@@ -54,6 +54,19 @@
             setShareTips();
         });
     }
+
+    // 右侧加载相关游记
+    var getSimilar = function(){
+        var _tid = $(".add_fav , .added_fav").attr("tid");
+
+        $.ajax({
+            url : "/travel/"+_tid+"/similarTravel" , 
+            success : function(r){
+                $("#other_youji_list").html(r);
+            }
+        });
+    }
+    getSimilar();
     
   
 

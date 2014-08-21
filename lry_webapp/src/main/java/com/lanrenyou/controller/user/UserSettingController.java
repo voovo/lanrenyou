@@ -84,7 +84,8 @@ public class UserSettingController  extends BaseController {
             @RequestParam(value = "presentAddress", required = false, defaultValue = "") String presentAddress,
             @RequestParam(value = "previousAddress", required = false, defaultValue = "") String previousAddress,
             @RequestParam(value = "toBePlanner", required = false) Integer toBePlanner,
-            @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity){
+            @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity,
+            @RequestParam(value = "fees", required = false, defaultValue = "") String fees){
 		UserInfo userInfo = userInfoService.getUserInfoByUid(this.getLoginUser().getId());
 		if(null == userInfo){
 			return toError("用户信息不存在");
@@ -115,7 +116,15 @@ public class UserSettingController  extends BaseController {
 		
 		if(null != toBePlanner && toBePlanner == 1 && StringUtils.isNotBlank(targetCity)){
 			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(this.getLoginUser().getId());
+			if(null == userPlanner){
+				userPlanner = new UserPlanner();
+				userPlanner.setUid(this.getLoginUser().getId());
+				userPlanner.setCreateUid(this.getLoginUser().getId());
+				userPlanner.setCreateIp(this.getRemoteAddr());
+				userPlanner.setCreateTime(new Date());
+			}
 			userPlanner.setTargetCity(targetCity);
+			userPlanner.setFees(fees);
 			userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
 			userPlanner.setUpdateUid(this.getLoginUser().getId());
 			userPlanner.setUpdateIp(this.getRemoteAddr());
@@ -206,6 +215,41 @@ public class UserSettingController  extends BaseController {
     			return toError("系统忙，请稍后重试");
     		}
         } 
+	}
+	
+	@RequestMapping("/applyToPlanner")
+	public ModelAndView applyToPlanner(
+			HttpServletResponse response,
+            @RequestParam(value = "fees", required = false) String fees,
+            @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity){
+		UserInfo userInfo = userInfoService.getUserInfoByUid(this.getLoginUser().getId());
+		if(null == userInfo){
+			return toError("用户信息不存在");
+		}
+		
+		boolean isSave = false;
+		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(this.getLoginUser().getId());
+		if(null == userPlanner){
+			isSave = true;
+			userPlanner = new UserPlanner();
+			userPlanner.setUid(this.getLoginUser().getId());
+			userPlanner.setCreateUid(this.getLoginUser().getId());
+			userPlanner.setCreateIp(this.getRemoteAddr());
+			userPlanner.setCreateTime(new Date());
+		} 
+		userPlanner.setTargetCity(targetCity);
+		userPlanner.setFees(fees);
+		userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
+		userPlanner.setUpdateUid(this.getLoginUser().getId());
+		userPlanner.setUpdateIp(this.getRemoteAddr());
+		if(isSave){
+			userPlannerService.addUserPlanner(userPlanner);
+		} else {
+			userPlannerService.updateUserPlanner(userPlanner);
+		}
+		ModelAndView mav = new ModelAndView("/user/user_applyplanner_prompt"); 
+		mav.addObject("promptMessage", "用户申请已提交，系统管理员将24小时内完成审核，请耐心等待");
+		return mav;
 	}
 	
 //	@RequestMapping(value="/avatarSubmit", method=RequestMethod.POST)

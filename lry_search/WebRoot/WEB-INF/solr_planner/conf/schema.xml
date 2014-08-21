@@ -53,7 +53,9 @@
  	<!-- 用户ID -->
 	<field name="uid" type="int" indexed="true" stored="true" omitNorms="true" /> 
 	<!-- 规划城市 -->
-	<field name="targetCity" type="string" indexed="true" stored="true" omitNorms="true" /> 
+	<field name="targetCity" type="string" indexed="true" stored="true" omitNorms="true" />
+	<!-- 收费标准 -->
+	<field name="fees" type="string" indexed="true" stored="true" omitNorms="true" /> 
      <!-- 规划价格 -->
     <field name="price" type="tdouble" indexed="true" stored="true" omitNorms="true"  /> 
 	<!-- 收费方式 -->

@@ -5,9 +5,11 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="uid" property="uid" jdbcType="INTEGER" />
     <result column="target_city" property="targetCity" jdbcType="VARCHAR" />
+    <result column="fees" property="fees" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="charge_mode" property="chargeMode" jdbcType="TINYINT" />
     <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
     <result column="create_uid" property="createUid" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="create_ip" property="createIp" jdbcType="VARCHAR" />
@@ -16,7 +18,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, uid, target_city, price, charge_mode, status, create_uid, create_time, 
+    id, uid, target_city, fees, price, charge_mode, status, refuse_reason, create_uid, create_time, 
     create_ip, update_uid, update_time, update_ip
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -24,12 +26,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.user.model.UserPlanner" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_user_planner (uid, target_city, price, 
-      charge_mode, status, 
+    insert into tb_user_planner (uid, target_city, fees, price, 
+      charge_mode, status, refuse_reason,
       create_uid, create_time, create_ip, 
       update_uid, update_ip)
-    values (#{uid,jdbcType=INTEGER}, #{targetCity,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{chargeMode,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+    values (#{uid,jdbcType=INTEGER}, #{targetCity,jdbcType=VARCHAR}, #{fees,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+      #{chargeMode,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{refuseReason,jdbcType=VARCHAR},
       #{createUid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createIp,jdbcType=VARCHAR}, 
       #{updateUid,jdbcType=INTEGER}, #{updateIp,jdbcType=VARCHAR})
   </insert>
@@ -37,9 +39,11 @@
     update tb_user_planner
     set uid = #{uid,jdbcType=INTEGER},
       target_city = #{targetCity,jdbcType=VARCHAR},
+      fees = #{fees,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       charge_mode = #{chargeMode,jdbcType=TINYINT},
       status = #{status,jdbcType=TINYINT},
+      refuse_reason = #{refuseReason,jdbcType=VARCHAR},
       update_uid = #{updateUid,jdbcType=INTEGER},
       update_ip = #{updateIp,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

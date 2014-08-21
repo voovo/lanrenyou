@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,13 +47,26 @@ public class TravelController  extends BaseController {
 		}
 		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(userInfo.getId());
 		if(null == userPlanner){
-			return toError("只有规划师才能发表游记");
+			return new ModelAndView("/user/user_apply_toplanner");
 		}
 		if(userPlanner.getStatus() == UserPlannerStatusEnum.WAIT_AUDIT.getValue()){
-			return toError("该用户处于待审核状态");
+			ModelAndView mav = new ModelAndView("/user/user_applyplanner_prompt"); 
+			mav.addObject("promptMessage", "用户申请处于待审核状态，系统管理员将24小时内完成审核，请耐心等待");
+			return mav;
+		}
+		if(userPlanner.getStatus() == UserPlannerStatusEnum.AUDIT_REFUSE.getValue()){
+			ModelAndView mav = new ModelAndView("/user/user_applyplanner_prompt"); 
+			String promptMessage = "";
+			if(StringUtils.isNotBlank(userPlanner.getRefuseReason())){
+				promptMessage = "用户申请被拒绝，拒绝原因：" + userPlanner.getRefuseReason();
+			} else {
+				promptMessage = "用户申请被拒绝，请校验修改信息后重新申请" ;
+			}
+			mav.addObject("promptMessage", promptMessage);
+			return mav;
 		}
 		if(userPlanner.getStatus() == UserPlannerStatusEnum.DELETE.getValue()){
-			return toError("该规划师已被删除，请重新请求认证");
+			return new ModelAndView("/user/user_apply_toplanner");
 		}
 		return new ModelAndView("/travel/travel_add");
 	}

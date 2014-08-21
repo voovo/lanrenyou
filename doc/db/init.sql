@@ -318,6 +318,8 @@ create table tb_user_info
 
 alter table tb_user_info comment '用户信息表';
 
+drop table if exists tb_user_planner;
+
 /*==============================================================*/
 /* Table: tb_user_planner                                       */
 /*==============================================================*/
@@ -326,9 +328,11 @@ create table tb_user_planner
    id                   int(11) not null auto_increment comment '主键ID',
    uid                  int(11) not null comment '用户ID',
    target_city          varchar(256) comment '可规划地区',
+   fees                 varchar(64) default '' comment '收费标准',
    price                numeric(10,2) comment '规划价格',
    charge_mode          tinyint(6) comment '收费模式[1:按天; 2:按周; 3:按次;]',
    status               tinyint(6) comment '状态',
+   refuse_reason        varchar(256) default '' comment '审核拒绝原因',
    create_uid           int(11),
    create_time          datetime,
    create_ip            varchar(64),
@@ -339,6 +343,7 @@ create table tb_user_planner
 );
 
 alter table tb_user_planner comment '规划师';
+
 
 
 

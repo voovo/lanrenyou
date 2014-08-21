@@ -21,6 +21,11 @@ public class UserPlanner extends BaseValueObject {
      * 可规划地区
      */
     private String targetCity;
+    
+    /**
+     * 收费标准
+     */
+    private String fees;
 
     /**
      * 规划价格
@@ -36,6 +41,11 @@ public class UserPlanner extends BaseValueObject {
      * 状态
      */
     private int status;
+    
+    /**
+     * 审核拒绝原因
+     */
+    private String refuseReason;
 
     private Integer createUid;
 
@@ -73,7 +83,15 @@ public class UserPlanner extends BaseValueObject {
         this.targetCity = targetCity == null ? null : targetCity.trim();
     }
 
-    public Double getPrice() {
+    public String getFees() {
+		return fees;
+	}
+
+	public void setFees(String fees) {
+		this.fees = fees;
+	}
+
+	public Double getPrice() {
         return price;
     }
 
@@ -97,7 +115,15 @@ public class UserPlanner extends BaseValueObject {
         this.status = status;
     }
 
-    public Integer getCreateUid() {
+    public String getRefuseReason() {
+		return refuseReason;
+	}
+
+	public void setRefuseReason(String refuseReason) {
+		this.refuseReason = refuseReason;
+	}
+
+	public Integer getCreateUid() {
         return createUid;
     }
 

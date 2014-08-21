@@ -98,7 +98,7 @@ var lablId = -1 , ele;
                     //$.Hidemsg();
                     window.location.href = data.info;
                 }else{
-                    //console.log(data.info);
+                    alert(data.info);
                 }
             }
         });

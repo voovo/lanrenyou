@@ -41,6 +41,7 @@
 .authot_info{ position: absolute; top:5px; left:160px;}
 .authot_info h2{font-size: 20px; color: #333; display: inline-block;}
 .authot_info p{ margin: 10px 0;}
+.authot_info p .msgForm{ top:73px !important;}
 .authot_info .btn_s{ margin-left: 10px;}
 
 #author_produ{ margin-top: 10px; color: #666; line-height: 22px;}

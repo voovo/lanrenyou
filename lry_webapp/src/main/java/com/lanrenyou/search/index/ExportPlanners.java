@@ -78,6 +78,7 @@ public class ExportPlanners {
 			doc.addField("pid", vo.getId());//规划师ID
 			doc.addField("uid", vo.getUid());//用户UID
 			doc.addField("targetCity", vo.getTargetCity());//可规划地市
+			doc.addField("fees", vo.getFees());	//收费标准
 			doc.addField("price", vo.getPrice());//规划价格
 			doc.addField("chargeMode", vo.getChargeMode());//收费模式[1:按天; 2:按周; 3:按次;]
 			doc.addField("createUid", vo.getStatus());//创建者

@@ -110,7 +110,7 @@
                     <dd>
                         <ul>
                         	<#list plannCities as city >
-	                            <li><a href="/travel/search?city=${city!''}">${city!''}</a></li>
+	                            <li><a href="/travel/search/list?city=${city!''}">${city!''}</a></li>
                             </#list>
                         </ul>
                     </dd>
