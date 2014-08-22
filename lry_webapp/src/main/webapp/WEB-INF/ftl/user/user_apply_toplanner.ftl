@@ -26,8 +26,9 @@
                     <td><input id="payfor" name="fees" type="text" class="input_100"></td>
                 </tr>
                 <tr>
-                    <td></td>
+                    <td>
                     <input type="submit" class="btn blue_btn big_btn" value="申请成为规划师" />
+                    </td>
                 </tr>
             </table>
             </form>
