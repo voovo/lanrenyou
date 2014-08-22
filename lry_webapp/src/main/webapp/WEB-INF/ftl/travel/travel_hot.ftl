@@ -1,7 +1,12 @@
 <@page  title="热门游记-懒人游" description=""  keywords="" 
 	assets=[
 	"/resources/css/waper.css",
-	"/resources/js/waper.js"
+	"/resources/js/waper.js",
+	"/resources/js/search.js",
+	"/resources/css/plug/float.css",
+	"/resources/js/plug/jquery.imagesloaded.js",
+	"/resources/js/plug/jquery.wookmark.js",
+	"/resources/js/float.js"
 	]
 	>
 

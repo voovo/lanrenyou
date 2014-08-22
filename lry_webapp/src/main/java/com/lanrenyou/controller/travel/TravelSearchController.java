@@ -116,6 +116,26 @@ public class TravelSearchController  extends BaseController {
 		return mav;
 	}
 	
+	@RequestMapping("/hotData")
+	public ModelAndView hotTravelData(
+			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
+			){
+		if(null == pageNo){
+			pageNo = 1;
+		}
+		if(null == pageSize){
+			pageSize = 10;
+		}
+		ModelAndView mav = new ModelAndView("/travel/travel_search_data");
+		mav.addObject("pageNo", pageNo);
+		mav.addObject("pageSize", pageSize);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "viewCnt", true);
+		prepareSearchData(pageNo, pageSize, pageIter, mav);
+		
+		return mav;
+	}
+	
 	@RequestMapping("/latest")
 	public ModelAndView latestTravel(
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
