@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.reflect.TypeToken;
 import com.lanrenyou.controller.base.BaseController;
+import com.lanrenyou.letter.migrate.Migrate;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.ITravelContentService;
@@ -37,20 +38,11 @@ public class OldDataController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	
-	public ModelAndView dealPicTest() throws IOException {
-		String[] dirPath = {"/ROOT/www/www_8000/wp-content/uploads/2014/test"};
-		for(String dir : dirPath){
-			File file = new File(dir);
-			String[] fileNames = file.list();
-			if(null != fileNames){
-				for(String fileName : fileNames){
-					if(StringUtils.isNotBlank(fileName) && (fileName.toLowerCase().endsWith(".jpg") || fileName.toLowerCase().endsWith(".jpeg"))){
-						ImageUtils.cropImageForTravel(dir+"/"+fileName);
-					}
-				}
-			}
-		}
-
+	@RequestMapping("/dealOldTravel")
+	public ModelAndView dealOldTravel() throws IOException {
+		Migrate m = new Migrate();
+		m.importUsers();
+		m.importTravel(m.exportPost());
 		return toError("执行完毕");
 	}
 	
@@ -71,13 +63,7 @@ public class OldDataController extends BaseController {
 				"/ROOT/www/www_8000/wp-content/uploads/2014/05",
 				"/ROOT/www/www_8000/wp-content/uploads/2014/06",
 				"/ROOT/www/www_8000/wp-content/uploads/2014/07",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/08",
-				"/ROOT/www/img_8010/2014/08/04",
-				"/ROOT/www/img_8010/2014/08/04",
-				"/ROOT/www/img_8010/2014/08/05",
-				"/ROOT/www/img_8010/2014/08/07",
-				"/ROOT/www/img_8010/2014/08/08",
-				"/ROOT/www/img_8010/2014/08/21"};
+				"/ROOT/www/www_8000/wp-content/uploads/2014/08"};
 		for(String dir : dirPath){
 			File file = new File(dir);
 			String[] fileNames = file.list();
@@ -132,9 +118,13 @@ public class OldDataController extends BaseController {
 								if(img.startsWith("http://lanrenyou.com")){
 									img = img.substring(20);
 								}
-//								if(img.endsWith("jpg") && !img.endsWith(".jpg")){
-//									img = img.substring(0, img.length() -3) + ".jpg";
-//								}
+								if(img.contains("wp-content")){
+									img = img.replaceAll("-\\d+x\\d+", "");
+									map.put("src", img);
+								}
+								if(!img.endsWith(".jpg")){
+									img = img.substring(0, img.length() -3) + ".jpg";
+								}
 							}
 						}else{
 							img="";

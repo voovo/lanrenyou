@@ -30,12 +30,12 @@ public class Migrate {
 	
 	public static void main(String[] args) {
 		
-		importUsers();
-		 importTravel(exportPost());
+//		importUsers();
+//		 importTravel(exportPost());
 		
 	}
 	
-	public static void importTravel(Map<Integer,WpPosts> postmap){
+	public void importTravel(Map<Integer,WpPosts> postmap){
 		for(Map.Entry<Integer, WpPosts> entry : postmap.entrySet()){
 			 WpPosts post = entry.getValue();			 
 			 insertPosts(post);
@@ -44,7 +44,7 @@ public class Migrate {
 	
 	
 	
-	public static Map<Integer,WpPosts> exportPost(){
+	public Map<Integer,WpPosts> exportPost(){
 		List<WpPosts> postslist = getPosts();
 		
 		splitOldPosts(postslist);
@@ -52,7 +52,7 @@ public class Migrate {
 		return postsmap;
 	}
 	
-	public static void insertPosts(WpPosts post){
+	public void insertPosts(WpPosts post){
 		Connection conn = getLryConn();
 		ResultSet  rs = null;
 		try{	
@@ -66,7 +66,9 @@ public class Migrate {
 			PreparedStatement infop =  conn.prepareStatement(infosql,Statement.RETURN_GENERATED_KEYS);
 			infop.setInt(1, convertCity(getTermByPostid(post.getId())));
 			infop.setInt(2, post.getPost_author_id_new());
-			infop.setString(3, post.getPost_title());
+			String title = post.getPost_title();
+			title = title.replace("&quot;", "\"").replace("&amp;", "&");
+			infop.setString(3, title);
 			infop.setInt(4, 0);
 			infop.setInt(5, 0);
 			infop.setInt(6, 2);
@@ -124,7 +126,23 @@ public class Migrate {
 		List<Map> clist = new ArrayList<Map>();
 		for(WpPosts c:list){
 			Map<String,String> map = new HashMap<String, String>();
-			map.put("src", c.getPost_attc_url());
+			String img = c.getPost_attc_url();
+			if(StringUtils.isNotBlank(img)){
+				if(img.contains("lanrenyou")){
+					if(img.startsWith("http://lanrenyou.com")){
+						img = img.substring(20);
+					}
+					if(img.contains("wp-content")){
+						img = img.replaceAll("-\\d+x\\d+", "-s");
+					}
+					if(!img.endsWith(".jpg")){
+						img = img.substring(0, img.length() -3) + ".jpg";
+					}
+				}
+			}else{
+				img="";
+			}
+			map.put("src", img);
 			map.put("info", c.getPost_content());
 			clist.add(map);
 		}
@@ -167,7 +185,7 @@ public class Migrate {
 //		return unicodeStr;
 //	}
 	
-	public static String convertGallery(String content){
+	public String convertGallery(String content){
 		
 			Map<String,String> idsmap = new HashMap<String, String>();
 			Pattern gpattern = Pattern.compile("\\[gallery ids=\"[0-9]{1,5},[0-9]{1,5},[0-9]{1,5},[0-9]{1,5},[0-9]{1,5},[0-9]{1,5}\"\\]");
@@ -194,7 +212,7 @@ public class Migrate {
 		return content;
 	}
 	
-	public static void splitOldPosts(List<WpPosts> postslist){
+	public void splitOldPosts(List<WpPosts> postslist){
 		for(int i=0;i<postslist.size();i++){
 			
 			WpPosts po = postslist.get(i);
@@ -272,7 +290,7 @@ public class Migrate {
 		return map;
 	}
 	
-	public static List<WpPosts> getPostmetas(List<WpPosts> postlist){
+	public List<WpPosts> getPostmetas(List<WpPosts> postlist){
 		StringBuffer ids = new StringBuffer();
 		for (int i=0;i<postlist.size();i++){
 			ids.append(postlist.get(i).getId()).append(",");
@@ -313,7 +331,7 @@ public class Migrate {
 		
 	}
 	
-	public static List<WpPosts> getPosts(){
+	public List<WpPosts> getPosts(){
 		Connection conn = getPressConn();
 		List<WpPosts> postslist = new ArrayList<WpPosts>();
 		 Map<String,Integer> map = getUserIdMap();
@@ -352,7 +370,7 @@ public class Migrate {
 		return postslist;
 	}
 	
-	public static WpPosts getWppostById(int id){
+	public WpPosts getWppostById(int id){
 		Connection conn = getPressConn();
 		WpPosts post = new WpPosts();		
 		try{
@@ -376,7 +394,7 @@ public class Migrate {
 		return post;
 	}
 	
-	public static int getTermByPostid(int id){
+	public int getTermByPostid(int id){
 		Connection conn = getPressConn();
 		int termid  = 1;	
 		try{
@@ -497,7 +515,7 @@ public class Migrate {
 	
 	
 	
-	public static void importUsers(){
+	public void importUsers(){
 		List<WpUsers> userlist = getWpUsers();
 		userlist = getWpUsermeta(userlist);
 		
@@ -505,7 +523,7 @@ public class Migrate {
 		importUserPlanners(userlist,getUserIdMap());
 	}
 	
-	public static void importUserPlanners(List<WpUsers> userlist,Map<String,Integer> map){
+	public void importUserPlanners(List<WpUsers> userlist,Map<String,Integer> map){
 		Connection conn = getLryConn();
 		try{	
 			for(int i=0;i<userlist.size();i++){
@@ -537,7 +555,7 @@ public class Migrate {
 		}	
 	}
 	
-	public static void importUserInfos(List<WpUsers> userlist){
+	public void importUserInfos(List<WpUsers> userlist){
 	
 		Connection conn = getLryConn();
 		try{	
@@ -576,7 +594,7 @@ public class Migrate {
 		}	
 	}
 	
-	public static Map<String,Integer> getUserIdMap(){
+	public Map<String,Integer> getUserIdMap(){
 		Map<String,Integer> map = new HashMap<String,Integer>();
 		
 		try{
@@ -598,7 +616,7 @@ public class Migrate {
 		return map;
 	}
 	
-	public static List<WpUsers> getWpUsers(){
+	public  List<WpUsers> getWpUsers(){
 		Connection conn = null;
 		ResultSet rs = null;
 		List<WpUsers> userlist = new ArrayList<WpUsers>();
@@ -620,7 +638,14 @@ public class Migrate {
 				user.setUser_registered(rs.getTimestamp("user_registered"));
 				user.setUser_activation_key(rs.getString("user_activation_key"));
 				user.setUser_status(rs.getInt("user_status"));
-				user.setDisplay_name(rs.getString("display_name"));
+				String avator = rs.getString("display_name");
+				if(null != avator){
+					if(avator.startsWith("http://lanrenyou.com")){
+						user.setDisplay_name(avator.substring(20));
+					}else{
+						user.setDisplay_name(rs.getString("display_name"));
+					}
+				}
 				
 				userlist.add(user);				
 			}
@@ -633,7 +658,7 @@ public class Migrate {
 		return userlist;
 	}
 	
-	public static List<WpUsers> getWpUsermeta(List<WpUsers> userlist){
+	public List<WpUsers> getWpUsermeta(List<WpUsers> userlist){
 		Connection conn = getPressConn();
 		ResultSet rs = null;
 		try{
@@ -675,7 +700,7 @@ public class Migrate {
 		return userlist;
 	}
 		
-	public static Connection getPressConn(){
+	public Connection getPressConn(){
 		String pressurl = "jdbc:mysql://127.0.0.1:3306/db_lanrenyou";
 		String pressuser = "root";
 		String presspassword = "v7DKsuV3yWTh3CTw";
@@ -689,7 +714,7 @@ public class Migrate {
 		return conn;
 	}
 	
-	public static Connection getLryConn(){
+	public Connection getLryConn(){
 		String lryurl = "jdbc:mysql://127.0.0.1:3306/db_lry?autoCommit=true&autoReconnect=true&useUnicode=true&tinyInt1isBit=false&zeroDateTimeBehavior=round&characterEncoding=UTF-8&yearIsDateType=false";
 		String lryuser = "lanrenyou";
 		String lrypassword = "111111";
