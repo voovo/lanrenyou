@@ -54,13 +54,30 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-//	@RequestMapping("/dealPic")
+	@RequestMapping("/dealPic")
 	public ModelAndView dealPic() throws IOException {
 		String[] dirPath = {
-				"/ROOT/www/img_8010/2015/08/04",
-				"/ROOT/www/img_8010/2015/08/05",
-				"/ROOT/www/img_8010/2015/08/07",
-				"/ROOT/www/img_8010/2015/08/08"};
+				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
+				"/ROOT/www/www_8000/wp-content/uploads/2013/07",
+				"/ROOT/www/www_8000/wp-content/uploads/2013/08",
+				"/ROOT/www/www_8000/wp-content/uploads/2013/09",
+				"/ROOT/www/www_8000/wp-content/uploads/2013/10",
+				"/ROOT/www/www_8000/wp-content/uploads/2013/11",
+				"/ROOT/www/www_8000/wp-content/uploads/2013/12",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/01",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/02",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/03",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/04",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/05",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/06",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/07",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/08",
+				"/ROOT/www/img_8010/2014/08/04",
+				"/ROOT/www/img_8010/2014/08/04",
+				"/ROOT/www/img_8010/2014/08/05",
+				"/ROOT/www/img_8010/2014/08/07",
+				"/ROOT/www/img_8010/2014/08/08",
+				"/ROOT/www/img_8010/2014/08/21"};
 		for(String dir : dirPath){
 			File file = new File(dir);
 			String[] fileNames = file.list();
@@ -77,11 +94,9 @@ public class OldDataController extends BaseController {
 						} else {
 							String srcPath = dir + "/" + fileName;
 							String sourceJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + ".jpg";
-                			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
                 			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
                 			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
                				ImageUtils.copyFile(new File(srcPath), new File(sourceJPGPath));
-							ImageUtils.copyFile(new File(srcPath), new File(dJPGPath));
 							ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
 							ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
 						}
@@ -94,7 +109,7 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-	@RequestMapping("/dealTravel")
+//	@RequestMapping("/dealTravel")
 	public ModelAndView dealTravelInfo() throws IOException {
 		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 800);
 		for(TravelContent travelContent : list){

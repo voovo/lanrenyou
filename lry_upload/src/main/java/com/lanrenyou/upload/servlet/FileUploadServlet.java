@@ -43,6 +43,7 @@ public class FileUploadServlet extends HttpServlet {
 	    	 map.put("status", "n");
 	    	 map.put("info", "表单数据格式不是multipart/form-data，或者非法提交");
 	    	 response.getWriter().print(gson.toJson(map));
+	    	 return;
 	    }
 		DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
@@ -55,6 +56,7 @@ public class FileUploadServlet extends HttpServlet {
         	map.put("status", "n");
 	    	map.put("info", "解析上传数据出错");
 	    	response.getWriter().print(gson.toJson(map));
+	    	return;
         }
 
         Iterator<FileItem> it = fileList.iterator();
@@ -73,7 +75,11 @@ public class FileUploadServlet extends HttpServlet {
                 if(fileSuffix.trim().equals(".jpg") || fileSuffix.trim().equals(".jpeg")){
                 	fileSuffix = ".jpg";
                 } else {
-                	picDeal = false;
+                	map.put("status", "n");
+        	    	map.put("info", "请上传JPG格式的图片");
+        	    	response.getWriter().print(gson.toJson(map));
+        	    	return;
+//                	picDeal = false;
                 }
                 final String fileName = fileNameFormat.format(date) + fileSuffix;
                 final String realPath = (FileUploadConfigProperties.getProperty("upload.path")+year+"/"+month+"/"+day); 
