@@ -4,7 +4,7 @@
         <#if userInfoMap??>
         	<#assign userInfo = userInfoMap.get(travelInfo.uid) />
         </#if>
-        <li data-time="<#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if>" data-popularity="4" data-name="${travelInfo.title!''}">
+        <li data-time="<#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if>" data-popularity="<#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if>" data-name="${travelInfo.title!''}">
           <a href="/travel/${travelInfo.id!''}" target="_blank">
             <img class="float_img" src="<#if infoMap?? && infoMap.get(travelInfo.id)??>${infoMap.get(travelInfo.id).get('src')!''}</#if>" height="140" width="200">
             <h3 class="float_img_tt">
@@ -12,7 +12,7 @@
             </h3>
           </a>
           <#if infoMap?? && infoMap.get(travelInfo.id)??><#assign travelMsg = infoMap.get(travelInfo.id).get('info') /></#if>
-          <div class="float_img_info">${travelMsg!''}</div>
+          <div class="float_img_info"><@truncateChars value="${travelMsg!''}" length="116"/></div>
 
           <div class="float_img_author clearfix">
             <img class="u_sm" src="${userInfo.avatar!''}" alt="" width="24" height="24">
