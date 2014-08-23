@@ -40,7 +40,7 @@
     <!-- nav -->
     <div id="nav" class="left">
         <ul class="clearfix">
-            <li><a href="/travel/search/hot">找游记</a></li>
+            <li><a href="/travel/search/hot?">找游记</a></li>
             <li><a href="/user/search/hot">找规划师</a></li>
         </ul>
     </div>

@@ -38,16 +38,8 @@ public class OldDataController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	
-//	@RequestMapping("/dealOldTravel")
-	public ModelAndView dealOldTravel() throws IOException {
-		Migrate m = new Migrate();
-		m.importUsers();
-		m.importTravel(m.exportPost());
-		return toError("执行完毕");
-	}
-	
-//	@RequestMapping("/dealPic")
-	public ModelAndView dealPic() throws IOException {
+	@RequestMapping("/dealPic")
+	public ModelAndView dealPic() throws IOException, InterruptedException {
 		String[] dirPath = {
 				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
 				"/ROOT/www/www_8000/wp-content/uploads/2013/07",
@@ -86,6 +78,7 @@ public class OldDataController extends BaseController {
 							ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
 							ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
 						}
+						Thread.sleep(500);
 					}
 				}
 			}
@@ -95,19 +88,27 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-	@RequestMapping("/dealPlanner")
-	public ModelAndView dealPlanner() throws IOException {
-		List<UserInfo> list = userInfoService.findAll();
-		for(UserInfo userInfo : list){
-			if(null != userInfo && StringUtils.isNotBlank(userInfo.getAvatar())){
-				String img = userInfo.getAvatar();
-				img = img.replace("._s.", "_s.");
-				userInfo.setAvatar(img);
-				userInfoService.updateUserInfo(userInfo);
-			}
-		}
-		return toError("Yeah");
+	@RequestMapping("/dealOldTravel")
+	public ModelAndView dealOldTravel() throws IOException {
+		Migrate m = new Migrate();
+		m.importUsers();
+		m.importTravel(m.exportPost());
+		return toError("执行完毕");
 	}
+	
+//	@RequestMapping("/dealPlanner")
+//	public ModelAndView dealPlanner() throws IOException {
+//		List<UserInfo> list = userInfoService.findAll();
+//		for(UserInfo userInfo : list){
+//			if(null != userInfo && StringUtils.isNotBlank(userInfo.getAvatar())){
+//				String img = userInfo.getAvatar();
+//				img = img.replace("._s.", "_s.");
+//				userInfo.setAvatar(img);
+//				userInfoService.updateUserInfo(userInfo);
+//			}
+//		}
+//		return toError("Yeah");
+//	}
 	public ModelAndView dealTravelInfo() throws IOException {
 		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 800);
 		for(TravelContent travelContent : list){
