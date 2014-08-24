@@ -34,7 +34,7 @@
 
 /*detail_right*/
 .detail_main_box .detail_right{width: 353px;}
-.detail_right_box{padding: 20px; background: #fff; margin-bottom: 20px;}
+.detail_right_box{padding: 20px; background: #fff; margin-bottom: 20px;width: 353px;}
 #detail_author{ position: relative;}
 .author_img{ margin-right: 10px;}
 .author_img img{ display: block; width: 140px; height: 140px; padding: 3px; border: 1px solid #f0f0f0;}

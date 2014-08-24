@@ -132,8 +132,12 @@ public class Migrate {
 					if(img.startsWith("http://lanrenyou.com")){
 						img = img.substring(20);
 					}
+				}
+				if(img.contains("wp-content")){
 					if(!img.startsWith("/wp-content/uploads/default")){
+						img = img.replaceAll("-\\d+x\\d+", "");
 						img = img.substring(0, img.length() -4) + "_s.jpg";
+						map.put("src", img);
 					}
 				}
 			}else{

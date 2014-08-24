@@ -40,7 +40,7 @@
                 <div class="album_block clone">
                     <div class="a_title">
                         <div class="left img_left">
-                            <img src="${contentMap.get('src')!''}" alt="">
+                            <span><img src="${contentMap.get('src')!''}" alt=""><span>
                         </div>
                         <div class="right">
                             <textarea name="" id="" cols="30" rows="10">${contentMap.get('info')!''}</textarea>

@@ -13,7 +13,7 @@
             <img src="${userInfo.avatar!''}" alt="">
         </div>
         <div class="authot_info">
-            <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
+            <h2 <#if currentUserIsPlanner?? && currentUserIsPlanner>class="vip_b_ico"</#if>><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
             <div class="my_add">
             	<#assign isShow = true />
                 <#if loginUser?? && loginUser.id == userInfo.id>
@@ -72,9 +72,11 @@
         	<#assign contentInfo = infoMap.get(tid)>
         </#if>
         <li>
-            <img class="u_yj_imgDetail" src="<#if contentInfo??>${contentInfo.get('src')!''}</#if>" alt="">
+            <div class="u_yj_imgBox">
+				<span><img class="u_yj_imgDetail" src="<#if contentInfo??>${contentInfo.get('src')!''}</#if>" alt=""></span>
+			</div>
             <div class="u_yj_txtDetail">
-                <h2><a href="/travel/${tid}">${travelInfoMap.get(tid).title!''}</a></h2>
+                <h2><a href="/travel/${tid}" target="_blank">${travelInfoMap.get(tid).title!''}</a></h2>
                 <#if infoMap?? && infoMap.get(tid)??><#assign travelMsg = infoMap.get(tid).get('info') /></#if>
                 <p><@truncateChars value="${travelMsg!''}" length="104"/></p>
             </div>

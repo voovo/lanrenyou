@@ -136,6 +136,7 @@ public class TravelIndexController  extends BaseController {
 		
 		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(this.getCurrentTravel().getUid());
 		if(null != userPlanner && StringUtils.isNotBlank(userPlanner.getTargetCity())){
+			mav.addObject("userPlanner", userPlanner);
 			String[] plannCities = userPlanner.getTargetCity().split(",");
 			mav.addObject("plannCities", plannCities);
 		}

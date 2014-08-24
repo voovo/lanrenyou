@@ -35,18 +35,21 @@
                     <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
                     <td><input type="text" name="previousAddress" class="input_100"></td>
                 </tr>
-                <tr>
+               <tr>
                     <td width="18%" align="right"></td>
                     <td>
-                        <input type="checkbox" name="toBePlanner" value="1" id="be_planner">
-                        <label for="be_planner" class="planner_tt">我想成为规划师<span>( 高质量的游记能更快通过申请，现在就去<a href="javascript:;" target="_blank">写游记</a> )</span></label>
+                        <a href="javascript:;" class="btn gray_btn" id="be_planner">申请成为规划师</a>
                     </td>
                 </tr>
-                <tr id="planner_box" class="hide">
+                <tr id="planner_box" class="planner_form_label hide">
                     <td width="18%" align="right"><span class="ft_14">可规划地区：</span></td>
                     <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
                     <input id="last_home" type="text" name="targetCity" class="input_100" placeholder="用分号分隔多个地区"></td>
+                </tr>
+                <tr class="planner_form_label hide">
+                    <td align="right"><span class="ft_14">收费标准：</span></td>
+                    <td><input id="payfor" name="fees" type="text" class="input_100"></td>
                 </tr>
                 <tr>
                     <td></td>

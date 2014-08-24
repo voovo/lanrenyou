@@ -7,7 +7,7 @@
             return $(a).data('popularity') > $(b).data('popularity') ? -1 : 1;
         }
         function comparatorTime(a, b) {
-            return $(a).data('time') < $(b).data('time') ? -1 : 1;
+            return $(a).data('time') > $(b).data('time') ? -1 : 1;
         }
 
         // Prepare layout options.
@@ -20,7 +20,7 @@
             // Optional, the distance between grid items
             itemWidth: 300,
             // Optional, the width of a grid item
-            comparator: comparatorTime,
+            //comparator: comparatorTime,
             outerOffset: 10,
             // Optional the distance from grid to parent
             flexibleWidth: '50%' // Optional, the maximum width of a grid item
@@ -32,7 +32,6 @@
 
         // Call the layout function.
         setTimeout(function(){
-            console.log(2)
             $handler.wookmark(options);
         } , 500);
 
@@ -81,24 +80,40 @@
 
         // 滚动加载
         //定义滚动函数
-        var onScroll = function(event) {
+        var _pageNo = 1,
+            _isLoad = true,
+            onScroll = function(event) {
             //是否到底部（这里是判断离底部还有100px开始载入数据）.
             var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
-            if (closeToBottom) {
-                //这里就是AJAX载入的数据               
+            if (closeToBottom && _isLoad == true) {
+
+                //这里就是AJAX载入的数据     
+                var _location = window.location.href;       
+                _pageNo++;
+
+                _isLoad = false;
                 $.ajax({
-                    url: "data_1.html",
+                    url: _location + "&pageNo=" + _pageNo,
                     dataType: "html",
                     success: function(html) {
-                        //把新数据追加到对象中
-                        $('#tiles').append(html);
-                        //清除原来的定位
-                        //if ($handler) $handler.wookmarkClear();
-                        //创建新的wookmark对象
-                        $handler = $('#tiles li');
-                        $handler.wookmark(options);
+                        
+                        if(html.length < 60){
+                            return false;
+                        }else{
+                            //把新数据追加到对象中
+                            $('#tiles').append(html);
+                            //清除原来的定位
+                            //if ($handler) $handler.wookmarkClear();
+                            //创建新的wookmark对象
+                            setTimeout(function(){
+                                $handler = $('#tiles li');
+                                $handler.wookmark(options);
+                                _isLoad = true;
+                            } , 500);
+                        }
                     }
                 });
+                //console.log(_pageNo);
             }
         };
 

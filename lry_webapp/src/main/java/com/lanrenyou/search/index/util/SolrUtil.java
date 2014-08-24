@@ -127,7 +127,7 @@ public class SolrUtil {
 			city = city.replace(".", ",");
 			String[] cityArray = city.split(",");
 			if(cityArray.length == 1){
-				querySb.append("city:").append(city);
+				querySb.append("city:").append(city).append(" or ");
 				querySb.append("title:").append(city).append(" or ");
 				querySb.append("content:").append(city);
 			} else {
@@ -240,7 +240,7 @@ public class SolrUtil {
 			city = city.replace(".", ",");
 			String[] cityArray = city.split(",");
 			if(cityArray.length == 1){
-				querySb.append("targetCity:").append(city);
+				querySb.append("targetCity:").append(city).append(" or ");
 				querySb.append("presentAddress:").append(city).append(" or ");
 				querySb.append("previousAddress:").append(city).append(" or ");
 				querySb.append("userIntro:").append(city);
@@ -312,6 +312,7 @@ public class SolrUtil {
 				String previousAddress = (String) doc.getFieldValue("previousAddress");
 				String intro = (String) doc.getFieldValue("userIntro");
 				String avatar = (String) doc.getFieldValue("avatar");
+				Integer viewCntSum = (Integer) doc.getFieldValue("viewCntSum");
 				UserInfo userInfo = new UserInfo();
 				userInfo.setId(uid);
 				userInfo.setName(name);
@@ -323,6 +324,7 @@ public class SolrUtil {
 				userInfo.setWeiboName(weiboName);
 				userInfo.setWechatName(wechatName);
 				userInfo.setAvatar(avatar);
+				userInfo.setViewCntSum(null == viewCntSum ? 0 : viewCntSum);
 				userInfoList.add(userInfo);
 			}
 		} catch (SolrServerException e) {

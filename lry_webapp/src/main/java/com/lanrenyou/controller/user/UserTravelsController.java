@@ -120,6 +120,9 @@ public class UserTravelsController  extends BaseController {
 			return null;
 		}
 		Map<Integer, TravelInfoStat> statMap = travelInfoStatService.getTravelInfoStatMapByTidList(tidList);
+		if(null == statMap){
+			return null;
+		}
 		Map<Integer, Integer> visitCntMap = new HashMap<Integer, Integer>();
 		for(Integer tid : statMap.keySet()){
 			TravelInfoStat stat = statMap.get(tid);
