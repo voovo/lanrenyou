@@ -50,6 +50,7 @@
                     <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
                     <td><input type="text" class="input_100" name="previousAddress" value="${userInfo.previousAddress!''}"></td>
                 </tr>
+                <#if !(userPlanner?? && userPlanner.status == 2)>
                 <tr>
                     <td width="18%" align="right"></td>
                     <td>
@@ -57,7 +58,8 @@
                         <span><#if userPlanner?? && userPlanner.status == 1>(系统管理员会在24小时内审核完毕 ，请耐心等待)<#elseif userPlanner?? && userPlanner.status == 3>(审核不通过，拒绝原因：#{userPlanner.refuseReason!'信息不完整'})</#if></span>
                     </td>
                 </tr>
-                <tr id="planner_box" class="hide" <#if userPlanner?? && userPlanner.status == 2>style="display: table-row;"</#if>>
+                </#if>
+                <tr id="planner_box" class="planner_form_label hide" <#if userPlanner?? && userPlanner.status == 2>style="display: table-row;"</#if>>
                     <td width="18%" align="right"><span class="ft_14">可策划地区：</span></td>
                     <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>

@@ -28,9 +28,9 @@ public class TravelShowUtil {
 			for(Map<String, String> map : list){
 				if(null != map){
 					String img = map.get("src");
-					if(StringUtils.isNotBlank(img)){
-						if(img.endsWith("-s.jpg")){
-							img = img.replace("-s.jpg", "_l.jpg");
+					if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+						if(img.endsWith("_s.jpg")){
+							img = img.replace("_s.jpg", "_l.jpg");
 							map.put("src", img);
 						}else if(!img.endsWith("_s.jpg")){
 							img = img.replace(".jpg", "_l.jpg");
@@ -56,7 +56,7 @@ public class TravelShowUtil {
 			Map<String, String> map = list.get(0);
 			if(null != map){
 				String img = map.get("src");
-				if(StringUtils.isNotBlank(img)){
+				if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
 					if(!img.endsWith("_s.jpg")){
 						img = img.replace(".jpg", "_s.jpg");
 						map.put("src", img);
@@ -89,7 +89,7 @@ public class TravelShowUtil {
 				Map<String, String> map = list.get(0);
 				if(null != map){
 					String img = map.get("src");
-					if(StringUtils.isNotBlank(img)){
+					if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
 						if(!img.endsWith("_s.jpg")){
 							img = img.replace(".jpg", "_l.jpg");
 							map.put("src", img);
@@ -99,6 +99,25 @@ public class TravelShowUtil {
 						}
 					}
 				}
+				returnMap.put(key, map);
+			}
+		}
+		return returnMap;
+	}
+	
+	public static Map<Integer, Map<String, String>> getShowInfoForUserIndex(Map<Integer, String> contentMap){
+		if(null == contentMap || contentMap.size() <= 0){
+			return null;
+		}
+		Map<Integer, Map<String, String>> returnMap = new HashMap<Integer, Map<String, String>>();
+		for(Integer key : contentMap.keySet()){
+			String content = contentMap.get(key);
+			if(StringUtils.isBlank(content)){
+				continue;
+			}
+			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			if(null != list && list.size() >= 1){
+				Map<String, String> map = list.get(0);
 				returnMap.put(key, map);
 			}
 		}

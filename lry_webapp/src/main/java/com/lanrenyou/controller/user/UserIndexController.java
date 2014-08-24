@@ -101,7 +101,7 @@ public class UserIndexController  extends BaseController {
 			}
 		}
 		
-		Map<Integer, Map<String, String>> infoMap = TravelShowUtil.getShowInfoForTravelSearch(contentMap);
+		Map<Integer, Map<String, String>> infoMap = TravelShowUtil.getShowInfoForUserIndex(contentMap);
 		mav.addObject("infoMap", infoMap);
 		
 		Map<Integer, Integer> travelVisitCntMap = getTravelVisitCntByTidList(tidList);

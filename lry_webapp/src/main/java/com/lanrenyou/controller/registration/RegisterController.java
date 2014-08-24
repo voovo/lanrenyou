@@ -311,7 +311,8 @@ public class RegisterController extends BaseController {
             @RequestParam(value = "presentAddress", required = false, defaultValue = "") String presentAddress,
             @RequestParam(value = "previousAddress", required = false, defaultValue = "") String previousAddress,
             @RequestParam(value = "toBePlanner", required = false) Integer toBePlanner,
-            @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity){
+            @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity,
+            @RequestParam(value = "fees", required = false, defaultValue = "") String fees){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == uid || uid <= 0){
 			return toError("没有用户ID");
@@ -347,13 +348,14 @@ public class RegisterController extends BaseController {
 			userInfoService.updateUserInfo(userInfo);
 		}
 		
-		if(null != toBePlanner && toBePlanner == 1 && StringUtils.isNotBlank(targetCity)){
+		if(StringUtils.isNotBlank(targetCity)){
 			UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(uid);
 			if(null == userPlanner){
 				userPlanner = new UserPlanner();
 				userPlanner.setUid(uid);
 				
 				userPlanner.setTargetCity(targetCity);
+				userPlanner.setFees(fees);
 				userPlanner.setStatus(UserPlannerStatusEnum.WAIT_AUDIT.getValue());
 				userPlanner.setCreateUid(uid);
 				userPlanner.setCreateTime(new Date());

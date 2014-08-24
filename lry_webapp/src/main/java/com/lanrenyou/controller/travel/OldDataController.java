@@ -109,6 +109,8 @@ public class OldDataController extends BaseController {
 //		}
 //		return toError("Yeah");
 //	}
+	
+	@RequestMapping("dealTravel")
 	public ModelAndView dealTravelInfo() throws IOException {
 		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 800);
 		for(TravelContent travelContent : list){
@@ -125,9 +127,9 @@ public class OldDataController extends BaseController {
 					if(null != map){
 						String img = map.get("src");
 						if(StringUtils.isNotBlank(img)){
-							if(img.endsWith("_l.jpg")){
-								img = img.replace("_l.jpg", "_s.jpg");
-								map.put("src", img);
+							if(img.contains("wp-content")){
+									img = img.replace("._s.jpg", "_s.jpg");
+									logger.info("Image Deal, Content:{}",img);
 							}
 						}else{
 							img="";

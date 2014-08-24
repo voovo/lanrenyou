@@ -34,7 +34,10 @@
                     <span class="vip_ico"><a href="/user/${userInfo.id!''}" target="_blank">${userInfo.name!''}</a></span>
                 </dd>
                 <dd class="planner_info">
+                	<!--
                 	<span>关注 <#if starCntMap?? && starCntMap.get(userInfo.id)??>${starCntMap.get(userInfo.id)!''}<#else>0</#if></span>
+                	 -->
+                	<span>总阅读量 <#if userInfo.viewCntSum??>${userInfo.viewCntSum!''}<#else>0</#if></span>
                     <span>粉丝 <#if fansCntMap?? && fansCntMap.get(userInfo.id)??>${fansCntMap.get(userInfo.id)!''}<#else>0</#if></span>
                     <span>游记 <a href="/user/${userInfo.id!''}"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(userInfo.id)??>${userPublishedTravelCntMap.get(userInfo.id)!''}<#else>0</#if></a></span>
 					<#assign isShow = true />
@@ -57,9 +60,17 @@
                 <dt>可策划地区：</dt>
                 <dd>
                     <ul>
-                    	<#list targetCityMap.get(userInfo.id) as city>
-                        <li><a href="/travel/search/list?city=${city!''}" target="_blank">${city!''}</a></li>
+                    	<#if targetCityMap.get(userInfo.id)?size == 1>
+                        <li><a href="/travel/search/list?city=${targetCityMap.get(userInfo.id)[0]!''}" target="_blank"><@truncateChars value="${targetCityMap.get(userInfo.id)[0]!''}" length="60"/></a></li>
+                        <#else>
+                        <#assign citySize = 0>
+                        <#list targetCityMap.get(userInfo.id) as city>
+                        <#assign citySize = citySize + city?length />
+                                <#if citySize lte 60> 
+                                <li><a href="/travel/search/list?city=${city!''}" target="_blank">${city!''}</a></li>
+                                </#if>
                         </#list>
+                        </#if>
                     </ul>
                 </dd>
             </dl>

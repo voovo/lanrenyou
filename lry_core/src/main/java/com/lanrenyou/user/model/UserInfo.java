@@ -94,6 +94,8 @@ public class UserInfo extends BaseValueObject {
     private Integer updateUid;
 
     private String updateIp;
+    
+    private int viewCntSum;
 
     public Integer getId() {
         return id;
@@ -258,4 +260,13 @@ public class UserInfo extends BaseValueObject {
     public void setUpdateIp(String updateIp) {
         this.updateIp = updateIp == null ? null : updateIp.trim();
     }
+
+	public int getViewCntSum() {
+		return viewCntSum;
+	}
+
+	public void setViewCntSum(int viewCntSum) {
+		this.viewCntSum = viewCntSum;
+	}
+    
 }

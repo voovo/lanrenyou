@@ -84,7 +84,11 @@
 	                            <li class="wap_hide hide"><a href="/travel/toAddPage">发布游记</a></li>
 	                            <li class="wap_hide hide"><a href="/user/${loginUser.id!''}/msg/list">消息中心(${headerLetterCnt!'0'})</a></li>
 	                            <li><a href="/user/setting/info" title="个人设置">个人设置</a></li>
+	                            <#if currentUserIsPlanner?? && currentUserIsPlanner>
 	                            <li><a href="/user/${loginUser.id!''}/travelList/list" title="我的游记">我的游记</a></li>
+	                            <#else>
+	                            <li><a href="/travel/toAddPage" title="申请成为规划师">成为规划师</a></li>
+	                            </#if>
 	                            <li><a href="/user/${loginUser.id!''}/fans/list" title="粉丝管理">粉丝管理</a></li>
 	                            <li><a href="/user/${loginUser.id!''}/collect/list" title="我的收藏">我的收藏</a></li>
 	                            <li><a href="/logout" title="退出">退出</a></li>

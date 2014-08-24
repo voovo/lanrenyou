@@ -101,7 +101,7 @@
                         </#if>
                     </div>
                 </div>
-                <p id="author_produ">${userInfo.intro!''}</p>
+                <p id="author_produ">${userInfo.userIntro!''}</p>
                 
                 <!-- 策划地区 -->
                 <#if userPlanner?? >
