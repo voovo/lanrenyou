@@ -38,7 +38,7 @@ public class OldDataController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	
-	@RequestMapping("/dealPic")
+//	@RequestMapping("/dealPic")
 	public ModelAndView dealPic() throws IOException, InterruptedException {
 		String[] dirPath = {
 				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
@@ -88,7 +88,7 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-	@RequestMapping("/dealOldTravel")
+//	@RequestMapping("/dealOldTravel")
 	public ModelAndView dealOldTravel() throws IOException {
 		Migrate m = new Migrate();
 		m.importUsers();

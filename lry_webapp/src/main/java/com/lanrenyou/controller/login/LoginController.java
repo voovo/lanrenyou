@@ -178,7 +178,7 @@ public class LoginController extends BaseController {
 		logger.debug("Source Code:{}", code.toString());
 		String encryptCode = AesCryptUtil.encrypt(code.toString(), LRYEncryptKeyProperties.getProperty("REGIST_VERIFY_EMAIL_KEY"));
 		try {
-			int mailResult = MailUtil.sendEmail(email, "请您验证懒人游注册邮箱", "请在两小时内点击以下链接完成账号密码重置：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/login/resetPasswd?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/login/resetPasswd?code="+encryptCode+"</a>");
+			int mailResult = MailUtil.sendEmail(email, "请您重置懒人游密码", "请在两小时内点击以下链接完成账号密码重置：\n <a href=\"http://"+AppConfigs.getInstance().get("domains.www")+ "/login/resetPasswd?code="+encryptCode+"\" target=\"_blank\">"+"http://www.lanrenyou.com/login/resetPasswd?code="+encryptCode+"</a>");
 			logger.info("http://"+AppConfigs.getInstance().get("domains.www")+ "/login/resetPasswd?code="+encryptCode);
 			if(mailResult <= 0){
 				logger.error("Forget Password Send Mail Fail, UID:{} | Email:{} | Verify Code:{}", userInfo.getId(), userInfo.getEmail(), encryptCode);
