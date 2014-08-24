@@ -31,7 +31,10 @@
         $sortbys = $('#sortbys li');
 
         // Call the layout function.
-        $handler.wookmark(options);
+        setTimeout(function(){
+            console.log(2)
+            $handler.wookmark(options);
+        } , 500);
 
         var $window = $(window);
         $window.resize(function() {

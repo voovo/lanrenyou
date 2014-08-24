@@ -9,6 +9,7 @@ import java.util.Set;
 
 import mybatis.framework.core.support.PageIterator;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +66,13 @@ public class TravelSearchController  extends BaseController {
 		if(null == pageSize){
 			pageSize = 10;
 		}
-		ModelAndView mav = new ModelAndView("/travel/travel_search");
+		ModelAndView mav = new ModelAndView();
+		String requestType = request.getHeader("X-Requested-With");
+		if(StringUtils.isNotBlank(requestType) && requestType.trim().equals("XMLHttpRequest")){
+			mav.setViewName("/travel/travel_search_data");
+		} else {
+			mav.setViewName("/travel/travel_search");
+		}
 		mav.addObject("keyword", keyword);
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
@@ -107,27 +114,13 @@ public class TravelSearchController  extends BaseController {
 		if(null == pageSize){
 			pageSize = 10;
 		}
-		ModelAndView mav = new ModelAndView("/travel/travel_hot");
-		mav.addObject("pageNo", pageNo);
-		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "viewCnt", true);
-		prepareSearchData(pageNo, pageSize, pageIter, mav);
-		
-		return mav;
-	}
-	
-	@RequestMapping("/hotData")
-	public ModelAndView hotTravelData(
-			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
-			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
-			){
-		if(null == pageNo){
-			pageNo = 1;
+		ModelAndView mav = new ModelAndView();
+		String requestType = request.getHeader("X-Requested-With");
+		if(StringUtils.isNotBlank(requestType) && requestType.trim().equals("XMLHttpRequest")){
+			mav.setViewName("/travel/travel_search_data");
+		} else {
+			mav.setViewName("/travel/travel_hot");
 		}
-		if(null == pageSize){
-			pageSize = 10;
-		}
-		ModelAndView mav = new ModelAndView("/travel/travel_search_data");
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
 		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "viewCnt", true);
@@ -147,7 +140,13 @@ public class TravelSearchController  extends BaseController {
 		if(null == pageSize){
 			pageSize = 10;
 		}
-		ModelAndView mav = new ModelAndView("/travel/travel_latest");
+		ModelAndView mav = new ModelAndView();
+		String requestType = request.getHeader("X-Requested-With");
+		if(StringUtils.isNotBlank(requestType) && requestType.trim().equals("XMLHttpRequest")){
+			mav.setViewName("/travel/travel_search_data");
+		} else {
+			mav.setViewName("/travel/travel_latest");
+		}
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
 		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "createTime", true);

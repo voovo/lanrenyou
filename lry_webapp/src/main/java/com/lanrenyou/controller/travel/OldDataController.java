@@ -38,16 +38,8 @@ public class OldDataController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	
-	@RequestMapping("/dealOldTravel")
-	public ModelAndView dealOldTravel() throws IOException {
-		Migrate m = new Migrate();
-		m.importUsers();
-		m.importTravel(m.exportPost());
-		return toError("执行完毕");
-	}
-	
-	@RequestMapping("/dealPic")
-	public ModelAndView dealPic() throws IOException {
+//	@RequestMapping("/dealPic")
+	public ModelAndView dealPic() throws IOException, InterruptedException {
 		String[] dirPath = {
 				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
 				"/ROOT/www/www_8000/wp-content/uploads/2013/07",
@@ -86,6 +78,7 @@ public class OldDataController extends BaseController {
 							ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
 							ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
 						}
+						Thread.sleep(500);
 					}
 				}
 			}
@@ -95,7 +88,27 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-//	@RequestMapping("/dealTravel")
+//	@RequestMapping("/dealOldTravel")
+	public ModelAndView dealOldTravel() throws IOException {
+		Migrate m = new Migrate();
+		m.importUsers();
+		m.importTravel(m.exportPost());
+		return toError("执行完毕");
+	}
+	
+//	@RequestMapping("/dealPlanner")
+//	public ModelAndView dealPlanner() throws IOException {
+//		List<UserInfo> list = userInfoService.findAll();
+//		for(UserInfo userInfo : list){
+//			if(null != userInfo && StringUtils.isNotBlank(userInfo.getAvatar())){
+//				String img = userInfo.getAvatar();
+//				img = img.replace("._s.", "_s.");
+//				userInfo.setAvatar(img);
+//				userInfoService.updateUserInfo(userInfo);
+//			}
+//		}
+//		return toError("Yeah");
+//	}
 	public ModelAndView dealTravelInfo() throws IOException {
 		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 800);
 		for(TravelContent travelContent : list){
@@ -104,8 +117,6 @@ public class OldDataController extends BaseController {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			content = content.replace("}{", "},{");
-			content = content.replace("},]", "}]");
 			
 			List<Map<String, String>> jsonMapList = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 			List<Map<String, String>> newList = new ArrayList<Map<String, String>>();
@@ -114,17 +125,9 @@ public class OldDataController extends BaseController {
 					if(null != map){
 						String img = map.get("src");
 						if(StringUtils.isNotBlank(img)){
-							if(img.contains("lanrenyou")){
-								if(img.startsWith("http://lanrenyou.com")){
-									img = img.substring(20);
-								}
-								if(img.contains("wp-content")){
-									img = img.replaceAll("-\\d+x\\d+", "");
-									map.put("src", img);
-								}
-								if(!img.endsWith(".jpg")){
-									img = img.substring(0, img.length() -3) + ".jpg";
-								}
+							if(img.endsWith("_l.jpg")){
+								img = img.replace("_l.jpg", "_s.jpg");
+								map.put("src", img);
 							}
 						}else{
 							img="";

@@ -23,16 +23,16 @@ public class TravelShowUtil {
 			return null;
 		}
 		
-		content = content.replace("}{", "},{");
-		content = content.replace("},]", "}]");
-		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		if(null != list){
 			for(Map<String, String> map : list){
 				if(null != map){
 					String img = map.get("src");
 					if(StringUtils.isNotBlank(img)){
-						if(!img.endsWith("_s.jpg")){
+						if(img.endsWith("-s.jpg")){
+							img = img.replace("-s.jpg", "_l.jpg");
+							map.put("src", img);
+						}else if(!img.endsWith("_s.jpg")){
 							img = img.replace(".jpg", "_l.jpg");
 							map.put("src", img);
 						}
@@ -50,8 +50,6 @@ public class TravelShowUtil {
 		if(StringUtils.isBlank(content)){
 			return null;
 		}
-		
-		content = content.replace("}{", "},{");
 		
 		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 		if(null != list && list.size() >= 1){
@@ -86,8 +84,6 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			content = content.replace("}{", "},{");
-			logger.debug("#########################\n{}", content);
 			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
 			if(null != list && list.size() >= 1){
 				Map<String, String> map = list.get(0);
