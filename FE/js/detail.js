@@ -70,14 +70,24 @@
 
     // 右侧悬浮
      $(window).scroll(function(){
-        var _right = $(".detail_right_box") , 
-            _rightTop = _right.offset().top;
+        var _right = $(".detail_right_box"),
+            _rightH = _right.height(),
+            _footer =  $("#footer"),
+            _rightTop = _right.offset().top,
+            _footerTop = _footer.offset().top;
 
-        if ($(window).scrollTop() > 160){
-            _right.css({"position" : "fixed" , "top" : "0"});
+        if(_rightH + $(window).scrollTop() > _footerTop - 60){
+            _right.css({"position" : "fixed" , "bottom" : $(window).scrollTop()-_rightH , "top" : ""});
         }else{
-            _right.css({"position" : "static"});
+            if ($(window).scrollTop() > 160){
+                _right.css({"position" : "fixed" , "top" : "0"});
+            }else{
+                _right.css({"position" : "static"});
+            }
         }
+        
+
+        
     });
     
   

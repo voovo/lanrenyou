@@ -129,7 +129,7 @@ $(function(){
     var setPhotoList = function(imgSrc){
         var newSrc = getResizeImg(imgSrc , "s")
 
-        var imgListStr = '<div class="album_block clone"><div class="a_title"><div class="left img_left"><img src="'+newSrc+'" alt=""></div><div class="right"><textarea name="" id="" cols="30" rows="10"></textarea><a href="javascript:;" class="J_moveUp">向上</a><a href="javascript:;" class="J_moveDown">向下</a><a href="javascript:;" class="J_delete">删除</a></div></div></div>';
+        var imgListStr = '<div class="album_block clone"><div class="a_title"><div class="left img_left"><span><img src="'+newSrc+'" alt=""></span></div><div class="right"><textarea name="" id="" cols="30" rows="10"></textarea><a href="javascript:;" class="J_moveUp">向上</a><a href="javascript:;" class="J_moveDown">向下</a><a href="javascript:;" class="J_delete">删除</a></div></div></div>';
 
         $("#add_photo_box .album_list").append(imgListStr);
 
