@@ -63,9 +63,9 @@
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
                     <input id="last_home" type="text" class="input_100" placeholder="用分号分隔多个地区" name="targetCity" value="<#if userPlanner??>${userPlanner.targetCity!''}</#if>"></td>
                 </tr>
-                <tr class="planner_form_label hide">
+                <tr class="planner_form_label hide" <#if userPlanner?? && userPlanner.status == 2>style="display: table-row;"</#if>>
                     <td align="right"><span class="ft_14">收费标准：</span></td>
-                    <td><input id="payfor" name="fees" type="text" class="input_100"></td>
+                    <td><input id="payfor" name="fees" type="text" class="input_100" value="<#if userPlanner??>${userPlanner.fees!''}</#if>"></td>
                 </tr>
                 <tr>
                     <td></td>

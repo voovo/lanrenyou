@@ -1,9 +1,17 @@
 package com.lanrenyou.controller.travel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lanrenyou.config.AppConfigs;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
@@ -38,6 +47,8 @@ public class TravelController  extends BaseController {
 	
 	@Autowired
 	private IUserPlannerService userPlannerService;
+	
+	private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(3);
 	
 	@RequestMapping("/toAddPage")
 	public ModelAndView toAddPage(){
@@ -130,6 +141,27 @@ public class TravelController  extends BaseController {
 		
 		map.put("status", "y");
 		map.put("info", "/travel/" + travelInfo.getId());
+		final int tid = travelInfo.getId();
+		EXECUTOR_SERVICE.submit(new Runnable() {
+    		@Override
+    		public void run() {
+    			updateTravel(tid);
+    		}
+    	});
 		return gson.toJson(map);
 	}
+	
+	public void updateTravel(int tid) {  
+		HttpClient client = new HttpClient();
+	    HttpMethod method = new GetMethod("http://"+AppConfigs.getInstance().get("domains.www")+"/search_index/travel/update?password=woailanrenyou&tids="+tid);    // 使用 POST 方式提交数据 
+	    try {
+			client.executeMethod(method);
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			method.releaseConnection();  
+		}
+    }  
 }

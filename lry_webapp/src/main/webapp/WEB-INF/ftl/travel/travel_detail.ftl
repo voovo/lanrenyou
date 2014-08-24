@@ -105,6 +105,7 @@
                 
                 <!-- 策划地区 -->
                 <#if userPlanner?? >
+                <#if plannCities??>
                 <dl class="plan_area clearfix">
                     <dt>可策划地区：</dt>
                     <dd>
@@ -116,8 +117,20 @@
                     </dd>
                 </dl>
                 </#if>
+                <#if userPlanner.fees??>
+                <dl class="plan_area clearfix">
+                    <dt>收费标准：</dt>
+                    <dd>
+                        <ul>
+	                        <li>${userPlanner.fees}</li>
+                        </ul>
+                    </dd>
+                </dl>
+                </#if>
+                </#if>
 
                 <!-- 居住地区 -->
+                <#if userInfo.previousAddress??>
                 <dl class="plan_area clearfix">
                     <dt>住过的地方：</dt>
                     <dd>
@@ -126,6 +139,7 @@
                         </ul>
                     </dd>
                 </dl>
+                </#if>
 
 
                 <!-- TA的游记 -->
