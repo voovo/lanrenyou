@@ -67,6 +67,18 @@
         });
     }
     getSimilar();
+
+    // 右侧悬浮
+     $(window).scroll(function(){
+        var _right = $(".detail_right_box") , 
+            _rightTop = _right.offset().top;
+
+        if ($(window).scrollTop() > 160){
+            _right.css({"position" : "fixed" , "top" : "0"});
+        }else{
+            _right.css({"position" : "static"});
+        }
+    });
     
   
 
