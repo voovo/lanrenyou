@@ -16,7 +16,7 @@
     
     <ul class="warper_tab clearfix">
         <li class="cur">游记</li>
-        <li><a href="/user/search/list?keyword=${keyword!''}&city=${city!''}">规划师</a></li>
+        <li><a href="/user/search/hot?keyword=${keyword!''}&city=${city!''}">规划师</a></li>
     </ul>
     
     <div id="container">

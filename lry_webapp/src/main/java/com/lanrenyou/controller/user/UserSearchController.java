@@ -73,7 +73,7 @@ public class UserSearchController  extends BaseController {
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<UserInfo> pageIter = solrUtil.searchUser(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city,pageNo, pageSize, "updateTime", true);
+		PageIterator<UserInfo> pageIter = solrUtil.searchUser(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city,pageNo, pageSize, "viewCntSum", true);
 		List<Integer> uidList = new ArrayList<Integer>();
 		if(null != pageIter && null != pageIter.getData()){
 			mav.addObject("userInfoList", pageIter.getData());

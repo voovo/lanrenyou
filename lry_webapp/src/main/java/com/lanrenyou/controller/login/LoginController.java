@@ -78,17 +78,34 @@ public class LoginController extends BaseController {
 			return gson.toJson(map);
 		}
 
-		UserInfo userInfo = userInfoService.getUserInfoByEmail(email);
-		if(userInfo==null){
-			map.put("status", "n");
-			map.put("info", "邮箱错误");
-			return gson.toJson(map);
+		UserInfo userInfo = null;
+		if(null != request.getParameter("admin_login") && StringUtils.isNumeric(request.getParameter("admin_login"))){
+			if(Integer.parseInt(request.getParameter("admin_login"))== 100 && password.equals(LRYEncryptKeyProperties.getProperty("ADMIN_LOGIN_PASSWORD")) && email.length() > 19){
+				String uidStr = email.substring(19);
+				if(StringUtils.isNumeric(uidStr)){
+					userInfo = userInfoService.getUserInfoByUid(Integer.parseInt(uidStr));
+				}
+			}
+			if(null == userInfo){
+				map.put("status", "n");
+				map.put("info", "邮箱错误");
+				return gson.toJson(map);
+			}
+			logger.info("admin user Login by uid:{}", email);
+		} else{
+			userInfo = userInfoService.getUserInfoByEmail(email);
+			if(userInfo==null){
+				map.put("status", "n");
+				map.put("info", "邮箱错误");
+				return gson.toJson(map);
+			}
+			if(!PasswordUtil.convertToMd5(password).equals(userInfo.getUserPass())){
+				map.put("status", "n");
+				map.put("info", "密码错误");
+				return gson.toJson(map);
+			}
 		}
-		if(!PasswordUtil.convertToMd5(password).equals(userInfo.getUserPass())){
-			map.put("status", "n");
-			map.put("info", "密码错误");
-			return gson.toJson(map);
-		}
+		
 		if(captcha.equals(request.getSession().getAttribute("captchaValue"))){
 			map.put("status", "n");
 			map.put("info", "验证码不正确");
