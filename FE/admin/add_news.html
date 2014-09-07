@@ -1,0 +1,188 @@
+﻿<link href="images/skin.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="text/javascript" charset="utf-8" src="js/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/editor_api.js"></script>
+
+
+
+<style type="text/css">
+<!--
+body {
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+.STYLE1 {font-size: 12px}
+.STYLE3 {font-size: 12px; font-weight: bold; }
+.STYLE4 {
+    color: #03515d;
+    font-size: 12px;
+    position: relative;
+}
+.STYLE4 img{ position: absolute; margin-left: -20px;}
+-->
+</style>
+
+<script>
+var  highlightcolor='#c1ebff';
+//此处clickcolor只能用win系统颜色代码才能成功,如果用#xxxxxx的代码就不行,还没搞清楚为什么:(
+var  clickcolor='#51b2f6';
+function  changeto(){
+source=event.srcElement;
+if  (source.tagName=="TR"||source.tagName=="TABLE")
+return;
+while(source.tagName!="TD")
+source=source.parentElement;
+source=source.parentElement;
+cs  =  source.children;
+//alert(cs.length);
+if  (cs[1].style.backgroundColor!=highlightcolor&&source.id!="nc"&&cs[1].style.backgroundColor!=clickcolor)
+for(i=0;i<cs.length;i++){
+    cs[i].style.backgroundColor=highlightcolor;
+}
+}
+
+function  changeback(){
+if  (event.fromElement.contains(event.toElement)||source.contains(event.toElement)||source.id=="nc")
+return
+if  (event.toElement!=source&&cs[1].style.backgroundColor!=clickcolor)
+//source.style.backgroundColor=originalcolor
+for(i=0;i<cs.length;i++){
+    cs[i].style.backgroundColor="";
+}
+}
+
+function  clickto(){
+source=event.srcElement;
+if  (source.tagName=="TR"||source.tagName=="TABLE")
+return;
+while(source.tagName!="TD")
+source=source.parentElement;
+source=source.parentElement;
+cs  =  source.children;
+//alert(cs.length);
+if  (cs[1].style.backgroundColor!=clickcolor&&source.id!="nc")
+for(i=0;i<cs.length;i++){
+    cs[i].style.backgroundColor=clickcolor;
+}
+else
+for(i=0;i<cs.length;i++){
+    cs[i].style.backgroundColor="";
+}
+}
+</script>
+
+
+<body>
+
+  <div class="right_bg">
+    
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="30" background="img/tab_05.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="30"><img src="img/tab_03.gif" width="12" height="30" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="5%"><div align="center"><img src="img/tb.gif" width="16" height="16" /></div></td>
+                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[资讯管理]-[添加资讯]</td>
+              </tr>
+            </table></td>
+            <td width="54%"><table border="0" align="right" cellpadding="0" cellspacing="0">
+              <tr>
+
+                <td width="60"></td>
+                
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="img/tab_07.gif" width="16" height="30" /></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="8" background="img/tab_12.gif">&nbsp;</td>
+        <td>
+          
+          <table class="admin_table" width="600" border="0" cellspacing="2" cellpadding="2">
+            <tr>
+                <td width="80" align="right">标题：</td>
+                <td width="500"><input type="text"></td>
+            </tr>
+            <tr>
+                <td align="right">所属栏目：</td>
+                <td>
+                  <select name="" id="">
+                    <option value="0">请选择栏目</option>
+                  </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">内容：</td>
+                <td><script type="text/plain" id="myEditor"  style="width:500px;height:200px;"></script></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                  <a class="sb_orange" href="javascript:;">提交</a>
+                </td>
+            </tr>
+        </table>
+
+        <script type="text/javascript">
+          UE.getEditor('myEditor',{
+            //这里可以选择自己需要的工具按钮名称,此处仅选择如下五个
+            toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|',
+                'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+                'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                'directionalityltr', 'directionalityrtl', 'indent', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter']],
+            //focus时自动清空初始化时的内容
+            autoClearinitialContent:true,
+            //关闭字数统计
+            wordCount:false,
+            //关闭elementPath
+            elementPathEnabled:false,
+            //默认的编辑区域高度
+            initialFrameHeight:200
+            //更多其他参数，请参考ueditor.config.js中的配置项
+        });
+
+        </script>
+
+
+
+        </td>
+        <td width="8" background="img/tab_15.gif">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="35" background="img/tab_19.gif"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="12" height="35"><img src="img/tab_18.gif" width="12" height="35" /></td>
+        <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="STYLE4"></td>
+            <td></td>
+          </tr>
+        </table></td>
+        <td width="16"><img src="img/tab_20.gif" width="16" height="35" /></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+  </div>
+
+
+</table>
+</body>
