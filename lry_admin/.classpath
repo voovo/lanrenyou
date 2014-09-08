@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="core-third"/>
+	<classpathentry kind="src" path="core-resources"/>
+	<classpathentry kind="src" path="core-java"/>
 	<classpathentry kind="src" path="src/main/java"/>
-	<classpathentry kind="src" path="third"/>
-	<classpathentry kind="src" path="core_resources"/>
-	<classpathentry kind="src" path="core_java"/>
-	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry excluding="**/*.java" including="**/*.xml|**/*.properties|**/*.ftl" kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/bonecp-0.7.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/cglib-2.2.2.jar"/>

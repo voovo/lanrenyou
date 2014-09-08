@@ -60,7 +60,7 @@
     from tb_admin_user
   </select>
   
-  <update id="deleteByUpdate" parameterType="com.hadwins.admin.model.Admin" >
+  <update id="deleteByUpdate" parameterType="com.lanrenyou.admin.model.AdminUser" >
     update tb_admin_user
     set update_uid = #{updateUid,jdbcType=INTEGER},
       update_ip = #{updateIp,jdbcType=VARCHAR},

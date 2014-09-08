@@ -43,6 +43,7 @@
     			<value>classpath:/com/lanrenyou/dict/dao/mapper/*Mapper.xml</value>
     			<value>classpath:/com/lanrenyou/letter/dao/mapper/*Mapper.xml</value>
     			<value>classpath:/com/lanrenyou/travel/dao/mapper/*Mapper.xml</value>
+    			<value>classpath:/com/lanrenyou/admin/dao/mapper/*Mapper.xml</value>
     		</list>
     	</property>
     </bean>

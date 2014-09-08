@@ -305,8 +305,9 @@ public class PasswordUtil
 	}
 	
 	public static void main(String[] args) {
-		String aa = getPasswordContainsUpperCaseLowerCaseNumber();;
-		System.out.println("aa==>"+aa);
+//		String aa = getPasswordContainsUpperCaseLowerCaseNumber();;
+//		System.out.println("aa==>"+aa);
+		System.out.println(encryptAdminPassword("admin"));
 	}
 	
 }

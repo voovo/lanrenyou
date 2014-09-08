@@ -381,3 +381,30 @@ create table tb_index_travel
    update_time          timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    primary key (id)
 );
+
+
+
+
+
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '审核管理', '/admin/audit/.*?', 0, 0, '2013-12-21 23:18:10.408  ', '127.0.0.1', 0, '2013-12-21 23:18:10.409  ', '127.0.0.1');
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '管理员信息', '/admin/administrator/.*?', 0, 0, '2013-12-21 23:18:12.236  ', '127.0.0.1', 0, '2013-12-21 23:18:12.236  ', '127.0.0.1');
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '角色权限管理', '/admin/role/.*?', 0, 0, '2013-12-21 23:18:12.548  ', '127.0.0.1', 0, '2013-12-21 23:18:12.548  ', '127.0.0.1');
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '用户管理', '/admin/user/.*?', 0, 0, '2013-12-21 23:18:12.778  ', '127.0.0.1', 0, '2013-12-21 23:18:12.778  ', '127.0.0.1');
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '游记管理', '/admin/travel/.*?', 0, 0, '2013-12-21 23:18:13.419  ', '127.0.0.1', 0, '2013-12-21 23:18:13.419  ', '127.0.0.1');
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '私信管理', '/admin/msg/.*?', 0, 0, '2013-12-21 23:18:13.419  ', '127.0.0.1', 0, '2013-12-21 23:18:13.419  ', '127.0.0.1');
+INSERT INTO tb_admin_power_item(p_id,LEVEL,NAME,url,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES (0, 1, '报表管理', '/admin/report/.*?', 0, 0, '2013-12-21 23:18:13.677  ', '127.0.0.1', 0, '2013-12-21 23:18:13.677  ', '127.0.0.1');
+
+INSERT INTO tb_admin_role(NAME,STATUS,create_uid,create_time,create_ip,update_uid,update_time,update_ip) VALUES ('超级管理员', 1, 0, '2013-12-21 23:23:39.55   ', '127.0.0.1', 0, '2013-12-21 23:23:39.55   ', '127.0.0.1');
+
+
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 1, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 2, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 3, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 4, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 5, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 6, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+INSERT INTO tb_admin_role_power(role_id,power_id,create_uid,create_time,create_ip) VALUES (1, 7, 0, '2013-12-21 23:37:43.77   ', '127.0.0.1');
+
+
+
+INSERT INTO tb_admin_user (NAME, PASSWORD, role_id, last_login_time, login_num, STATUS, create_uid, create_time, create_ip, update_uid, update_time, update_ip) VALUES ('root', '87e569f2f77d410d9beffeaa1573d859', 1, '2014-05-23 00:11:56.707  ', 132, 1, 0, '2013-12-21 22:03:12.305  ', '127.0.0.1', 0, '2014-05-23 00:15:14.562  ', '119.9.74.231');
