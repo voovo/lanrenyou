@@ -16,19 +16,19 @@
     <h1 class='signup_title'>用户登陆</h1>
     <img src='/images/people.png' id='admin'/>
     <div id="signup_forms" class="signup_forms clearfix">
-            <form class="signup_form_form" id="signup_form" method="post" action="">
+            <form class="signup_form_form" id="signup_form" method="post" action="/admin/login/submit">
                     <div class="form_row first_row">
                         <label for="signup_email">请输入用户名</label>
-                        <input type="text" name="username" placeholder="请输入用户名"  />
+                        <input type="text" name="userName" placeholder="请输入用户名"  />
                     </div>
                     <div class="form_row">
                         <label for="signup_password">请输入密码</label>
                         <input type="password" name="password" placeholder="请输入密码" id="signup_password" data-required="required" />
                     </div>
+			    <div class="login-btn-set"><input type="submit" class='login-btn' value="登录" /></div>
            </form>
     </div>
 
-    <div class="login-btn-set"><a href='index.html' class='login-btn'></a></div>
 </div>
 
 </body>

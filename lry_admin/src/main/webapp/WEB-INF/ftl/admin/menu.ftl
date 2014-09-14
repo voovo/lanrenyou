@@ -153,13 +153,13 @@ div.type a {
 <table width="100%" height="280" border="0" cellpadding="0" cellspacing="0" bgcolor="#282828">
   <tr>
     <td width="270" valign="top"><div id="container">
-      <div class="type cur"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px 2px; background-repeat: no-repeat;" href="welcome.html" target="main">管理首页</a></div>
-      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -126px; background-repeat: no-repeat;" href="slide.html" target="main">精彩推荐</a></div>
-      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -42px; background-repeat: no-repeat;" href="list.html" target="main">私信管理</a></div>
-      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -84px; background-repeat: no-repeat;" href="news.html" target="main">游记列表</a></div>
-      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -166px; background-repeat: no-repeat;" href="friend.html" target="main">规划师管理</a></div>
-      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -206px; background-repeat: no-repeat;" href="password.html" target="main">修改密码</a></div>
-      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -248px; background-repeat: no-repeat;" href="user.html" target="main">用户管理</a></div>
+      <div class="type cur"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px 2px; background-repeat: no-repeat;" href="/admin/index" target="main">管理首页</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -126px; background-repeat: no-repeat;" href="/audit/index_data" target="main">精彩推荐</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -42px; background-repeat: no-repeat;" href="/msg/list" target="main">私信管理</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -84px; background-repeat: no-repeat;" href="/audit/travel" target="main">游记列表</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -166px; background-repeat: no-repeat;" href="/audit/planner" target="main">规划师管理</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -206px; background-repeat: no-repeat;" href="/admin/login/to_modify_password" target="main">修改密码</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -248px; background-repeat: no-repeat;" href="/user/list" target="main">用户管理</a></div>
       </div>
     </td>
   </tr>

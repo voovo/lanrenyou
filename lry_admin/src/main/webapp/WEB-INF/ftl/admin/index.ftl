@@ -3,7 +3,7 @@
     
     <head>
         <title>
-            管理中心<@spring.message "title"/>
+            管理中心
         </title>
         <meta http-equiv=content-type content="text/html; charset=utf-8">
         <link href="/css/admin.css" type="text/css" rel="stylesheet">

@@ -17,24 +17,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.admin.controller.base.BaseController;
+import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.user.service.IUserPlannerService;
 import com.lanrenyou.util.MailUtil;
 import com.lanrenyou.util.freemarker.FreemarkerUtil;
 
 
 @Controller
-@RequestMapping("/admin/audit")
+@RequestMapping("/audit")
 public class AuditController extends BaseController {
 	
+	@Autowired
+	private IUserPlannerService userPlannerService;
 	
-	@RequestMapping(value="/user_list")
-	public ModelAndView list(
-			@RequestParam(value="querycountry",required=false, defaultValue="-1") int querycountry,
-			@RequestParam(value="querystatus",required=false, defaultValue="-1") int status,
+	@Autowired
+	private IUserInfoService userInfoService;
+	
+	@RequestMapping(value="/planner")
+	public ModelAndView plannerList(
+			@RequestParam(value="queryName",required=false, defaultValue="-1") String queryName,
+			@RequestParam(value="queryStatus",required=false, defaultValue="-1") Integer status,
 			@RequestParam(value="pageNo",required=false, defaultValue="1") int pageNo,
 			@RequestParam(value="pageSize",required=false, defaultValue="10") int pageSize
 		){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/audit/to_audit_user_list");
+		mav.setViewName("/admin/audit/planner_list");
+		
+		if(null == status ){
+			status = -1;
+		}
+		if(status == -1 ){
+		}
 		
 		return mav;
 	}

@@ -1,4 +1,4 @@
-<link href="images/skin.css" rel="stylesheet" type="text/css" />
+<link href="/images/skin.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style type="text/css">
 <!--
 body {
@@ -32,7 +32,7 @@ body {
       <tr style="padding-left:20px;">
         <td colspan="2" valign="top"><span class="left_bt">欢迎来到 懒人游 后台管理系统！</span><br>
               <br>
-            <span class="left_txt">&nbsp;<img src="images/ts.gif" width="16" height="16"> 提示：<br>
+            <span class="left_txt">&nbsp;<img src="/images/ts.gif" width="16" height="16"> 提示：<br>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站目前注册人数</span><a href="#"><span class="left_ts">15683</span></a><span class="left_txt">人</span></td>
         <td width="7%">&nbsp;</td>
         <td width="40%" valign="top"></td>
