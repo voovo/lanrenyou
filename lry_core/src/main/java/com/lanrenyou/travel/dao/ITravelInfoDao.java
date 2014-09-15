@@ -80,4 +80,8 @@ public interface ITravelInfoDao extends IValueObjectDao<TravelInfo> {
 
 	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime,
 			int offset, int limit);
+
+	public int getCountByTidStatus(int tid, int status);
+
+	public List<TravelInfo> getListByTidStatus(int tid, int status, int offset,	int limit);
 }

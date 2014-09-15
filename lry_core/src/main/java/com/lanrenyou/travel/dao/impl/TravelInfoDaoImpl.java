@@ -8,7 +8,9 @@ import java.util.Map;
 import com.lanrenyou.travel.dao.ITravelInfoDao;
 import com.lanrenyou.travel.enums.TravelInfoStatusEnum;
 import com.lanrenyou.travel.model.TravelInfo;
+
 import mybatis.framework.core.dao.BaseDao;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -112,5 +114,24 @@ public class TravelInfoDaoImpl extends BaseDao<TravelInfo> implements ITravelInf
 		params.put("offset", offset);
 		params.put("limit", limit);
 		return this.findList("getViewTravelAuthorId", params);
+	}
+
+	@Override
+	public int getCountByTidStatus(int tid, int status) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tid", tid);
+		params.put("status", status);
+		return (Integer) this.findOne("getCountByTidStatus", params);
+	}
+
+	@Override
+	public List<TravelInfo> getListByTidStatus(int tid, int status, int offset,
+			int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("tid", tid);
+		params.put("status", status);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListByTidStatus", params);
 	}
 }

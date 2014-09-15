@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.lanrenyou.user.model.UserPlanner;
+
 import mybatis.framework.core.service.IValueObjectService;
+import mybatis.framework.core.support.PageIterator;
 
 public interface IUserPlannerService extends IValueObjectService<UserPlanner> {
 	
@@ -44,6 +46,18 @@ public interface IUserPlannerService extends IValueObjectService<UserPlanner> {
 	 * @exception 
 	*/
 	public int updateUserPlanner(UserPlanner userPlanner);
+	
+	/**
+	 * pageQueryByUidStatus	管理后台规划师管理使用接口
+	 * 
+	 * @param uid
+	 * @param status
+	 * @param pageNo
+	 * @param pageSize
+	 * @return PageIterator<UserPlanner>
+	 * @exception 
+	*/
+	public PageIterator<UserPlanner> pageQueryByUidStatus(int uid, int status, int pageNo, int pageSize);
 
 	/**
 	 * getUserPlannerListForSearchIndex	增量索引使用

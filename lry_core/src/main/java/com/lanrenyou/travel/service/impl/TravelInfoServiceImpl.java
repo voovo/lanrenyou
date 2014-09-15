@@ -90,4 +90,23 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 			int offset, int limit) {
 		return travelInfoDao.getViewTravelAuthorId(startTime, endTime, offset, limit);
 	}
+
+	@Override
+	public PageIterator<TravelInfo> pageQueryByTidStatus(int tid, int status,
+			int pageNo, int pageSize) {
+		if(pageNo <= 0){
+			pageNo = 1;
+		}
+		if(pageSize <= 0 || pageSize > 100){
+			pageSize = 10;
+		}
+		int totalCount = travelInfoDao.getCountByTidStatus(tid, status);
+		List<TravelInfo> list = null;
+		if(totalCount > 0){
+			list = travelInfoDao.getListByTidStatus(tid, status, (pageNo - 1) * pageSize, pageSize);
+		}
+		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
+	}
 }

@@ -8,7 +8,10 @@ import java.util.Map;
 import com.lanrenyou.user.dao.IUserPlannerDao;
 import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserPlannerService;
+
 import mybatis.framework.core.service.BaseVOService;
+import mybatis.framework.core.support.PageIterator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +59,24 @@ public class UserPlannerServiceImpl extends BaseVOService<UserPlanner> implement
 	public List<UserPlanner> getUserPlannerListForSearchIndex(Date endTime,
 			int offset, int limit) {
 		return userPlannerDao.getListForSearchIndex(endTime, offset, limit);
+	}
+
+	@Override
+	public PageIterator<UserPlanner> pageQueryByUidStatus(int uid, int status,
+			int pageNo, int pageSize) {
+		if(pageNo <= 0){
+			pageNo = 1;
+		}
+		if(pageSize <= 0 || pageSize > 100){
+			pageSize = 10;
+		}
+		int totalCount = userPlannerDao.getCountByUidStatus(uid, status);
+		List<UserPlanner> list = null;
+		if(totalCount > 0){
+			list = userPlannerDao.getListByUidStatus(uid, status, (pageNo - 1) * pageSize, pageSize);
+		}
+		PageIterator<UserPlanner> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
 	}
 }

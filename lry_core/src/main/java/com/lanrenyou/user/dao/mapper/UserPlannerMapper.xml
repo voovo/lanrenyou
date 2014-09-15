@@ -84,4 +84,21 @@
   <select id="getListForFullIndex" resultMap="BaseResultMap" parameterType="java.util.Map">
     select <include refid="Base_Column_List" /> from tb_user_planner where update_time &lt;=#{endTime, jdbcType=TIMESTAMP} limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
+  
+  <select id="getCountByUidStatus" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(1) from tb_user_planner
+    <where>
+    	<if test="uid != null and uid != -1">uid = #{uid,jdbcType=INTEGER}</if>
+    	<if test="status != null and status gt 0"> and status = #{status,jdbcType=INTEGER}</if>
+    </where>
+  </select>
+  
+  <select id="getListByUidStatus" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select <include refid="Base_Column_List" /> from tb_user_planner
+    <where>
+    	<if test="uid != null and uid != -1">uid = #{uid,jdbcType=INTEGER}</if>
+    	<if test="status != null and status gt 0"> and status = #{status,jdbcType=INTEGER}</if>
+    </where>
+    limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
 </mapper>

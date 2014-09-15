@@ -39,7 +39,7 @@ body {
                 <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[规划师管理]
                 
                 <span style="margin-left:30px;">
-                    <input type="text" placeholder="名称" name="queryName">
+                    <input type="text" placeholder="UID" name="queryUid">
                     <a href="javascript:;">搜索</a>
                   </span>
 
@@ -76,32 +76,27 @@ body {
             <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建时间</span></div></td>
             <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
           </tr>
+          <#if pageIter?? && pageIter.getData()??>
+          <#list pageIter.getData() as userPlanner>
+          <#assign uid = userPlanner.uid />
+          <#if userInfoMap?? && userInfoMap.get(uid)??>
+          <#assign userInfo = userInfoMap.get(uid) />
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <a href="#" target="_blank" title="这里是作者的自我介绍">sheak</a>
+              <a href="#" target="_blank" title="${userInfo.userIntro!''}">${userInfo.name!''}</a>
             </div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <div align="center"><img src="images/user-info.gif" alt="" height="30"></div>
+              <div align="center"><img src="${userInfo.avatar!''}" alt="" height="30"></div>
             </div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">mr.sheak@gmail.com</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">北京，上海，天津，西安，黑龙江</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">80</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">2007-11-16 15:00:20 </span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="/images/pic21.gif" width="16" height="16" /><a href="#">通过</a>&nbsp; &nbsp; &nbsp;<img src="images/pic22.gif" width="16" height="16" /><a href="#">拒绝</a></span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userInfo.email!''}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.targetCity!''}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.fees!''}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.createTime?string('yyyy-MM-dd')}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="/images/pic21.gif" width="16" height="16" /><a href="/audit/planner/pass?uid=${uid}">通过</a>&nbsp; &nbsp; &nbsp;<img src="/images/pic22.gif" width="16" height="16" /><a href="/audit/planner/nopass?uid=${uid}">拒绝</a></span></div></td>
           </tr>
-          <tr>
-            <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <a href="#" target="_blank" title="这里是作者的自我介绍">sheak</a>
-            </div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <div align="center"><img src="/images/user-info.gif" alt="" height="30"></div>
-            </div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">mr.sheak@gmail.com</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">北京，上海，天津，西安，黑龙江</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">80</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">2007-11-16 15:00:20 </span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="/images/pic21.gif" width="16" height="16" /><a href="#">通过</a>&nbsp; &nbsp; &nbsp;<img src="images/pic22.gif" width="16" height="16" /><a href="#">拒绝</a></span></div></td>
-          </tr>
+          </#if>
+          </#list>
+          </#if>
         </table></td>
         <td width="8" background="img/tab_15.gif">&nbsp;</td>
       </tr>

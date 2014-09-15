@@ -91,4 +91,15 @@ public interface ITravelInfoService extends IValueObjectService<TravelInfo> {
 
 	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime, int offset, int limit);
 	
+	/**
+	 * pageQueryByTidStatus	审核后台游记管理页面数据
+	 * 
+	 * @param tid
+	 * @param status
+	 * @param pageNo
+	 * @param pageSize
+	 * @return PageIter<TravelInfo>
+	 * @exception 
+	*/
+	public PageIterator<TravelInfo> pageQueryByTidStatus(int tid, int status, int pageNo, int pageSize);
 }
