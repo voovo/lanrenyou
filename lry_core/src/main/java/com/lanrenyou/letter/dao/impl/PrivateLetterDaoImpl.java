@@ -8,7 +8,9 @@ import com.lanrenyou.letter.dao.IPrivateLetterDao;
 import com.lanrenyou.letter.enums.PrivateLetterHasReadEnum;
 import com.lanrenyou.letter.enums.PrivateLetterHasReplyEnum;
 import com.lanrenyou.letter.model.PrivateLetter;
+
 import mybatis.framework.core.dao.BaseDao;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -123,5 +125,21 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		params.put("offset", offset);
 		params.put("limit", limit);
 		return this.findList("getUnReadLetterListByReceiverUid", params);
+	}
+
+	@Override
+	public int getCountByUid(int uid) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		return (Integer) this.findOne("getCountByUid", params);
+	}
+
+	@Override
+	public List<Map<String, Object>> getListByUid(int uid, int offset, int limitSize) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("offset", offset);
+		params.put("limitSize", limitSize);
+		return this.findList("getListByUid", params);
 	}
 }
