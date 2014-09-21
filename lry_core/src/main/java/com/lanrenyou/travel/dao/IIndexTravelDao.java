@@ -49,6 +49,10 @@ public interface IIndexTravelDao extends IValueObjectDao<IndexTravel> {
 	 * @return List<IndexTravel>
 	 * @exception 
 	*/
-	public List<IndexTravel> getIndexTravelList(int offset, int limit);
+	public List<IndexTravel> getIndexTravelListByTidSrcType(int tid, Character srcType, int offset, int limit);
+
+	public IndexTravel getByTid(int tid);
+
+	public int getCountByTidSrcType(int tid, Character srcType);
 
 }

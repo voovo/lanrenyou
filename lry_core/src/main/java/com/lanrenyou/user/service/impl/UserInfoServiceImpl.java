@@ -60,4 +60,9 @@ public class UserInfoServiceImpl extends BaseVOService<UserInfo> implements IUse
 		userInfo.setStatus(UserInfoStatusEnum.DELETE.getValue());
 		return userInfoDao.updateUserInfo(userInfo);
 	}
+
+	@Override
+	public int getUserCount() {
+		return userInfoDao.getAllCount();
+	}
 }

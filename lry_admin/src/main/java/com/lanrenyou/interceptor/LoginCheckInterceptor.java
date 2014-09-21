@@ -55,7 +55,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
         if (session != null) {
             session.removeAttribute(AdminConstrants.KEY_LOGIN_ADMIN_4_SESSION);
         }
-		response.sendRedirect("http://"+ConfigProperties.getProperty("domain.admin")+"/admin/login");
+		response.sendRedirect("http://"+ConfigProperties.getProperty("domains.admin")+"/admin/login");
 	}
     
 }

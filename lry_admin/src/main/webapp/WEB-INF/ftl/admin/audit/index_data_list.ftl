@@ -36,18 +36,16 @@ body {
             <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="5%"><div align="center"><img src="/img/tb.gif" width="16" height="16" /></div></td>
-                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[规划师管理]
-                
-                <span style="margin-left:30px;">
-                    <input type="text" placeholder="UID" name="queryUid">
-                  </span>
-
+                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[首页设置]
                   <span style="margin-left:30px;">
-                  状态：
-                    <select name="queryStatus" id="news_sort" >
-                      <option value="-1">全部</option>
-                      <option value="1">已审核</option>
-                      <option value="2">待审核</option>
+                    <input type="text" placeholder="游记ID" name="queryTid" value=${queryTid!''}>
+                  </span>
+                
+                  <span style="margin-left:30px;">
+                 类别：
+                    <select name="queryType" id="queryType">
+                      <option value="0">已推荐</option>
+                      <option value="1">未推荐</option>
                     </select>
                   </span>
                   
@@ -58,7 +56,6 @@ body {
                 </td>
               </tr>
             </table></td>
-
           </tr>
         </table></td>
         <td width="16"><img src="/img/tab_07.gif" width="16" height="30" /></td>
@@ -68,50 +65,35 @@ body {
   <tr>
     <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="8" background="/img/tab_12.gif">&nbsp;</td>
+        <td width="8" background="img/tab_12.gif">&nbsp;</td>
         <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6">
           <tr>
-            <td width="10%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">规划师</span></div></td>
-            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">邮箱</span></div></td>
-            <td width="20%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">可策划地</span></div></td>
-            <td width="5%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">价格</span></div></td>
-            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建时间</span></div></td>
-            <td width="5%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">状态</span></div></td>
-            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
+            <td width="20%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">标题</div></td>
+            <td width="15%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">城市</div></td>
+            <td width="5%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">作者</div></td>
+            <td width="14%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">创建时间</div></td>
+            <td width="15%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">缩略图</div></td>
+            <td width="15%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">操作</div></td>
           </tr>
           <#if pageIter?? && pageIter.getData()??>
-          <#list pageIter.getData() as userPlanner>
-          <#assign uid = userPlanner.uid />
-          <#if userInfoMap?? && userInfoMap.get(uid)??>
-          <#assign userInfo = userInfoMap.get(uid) />
+          <#list pageIter.getData() as indexTravel >
+          <#if travelInfoMap?? && travelInfoMap.get(indexTravel.tid)??>
+          <#assign travelInfo = travelInfoMap.get(indexTravel.tid) />
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <a href="#" target="_blank" title="${userInfo.userIntro!''}">${userInfo.name!''}</a>
+              <div align="center"><a href="#" target="_blank">${travelInfo.title!''}</a></div>
             </div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userInfo.email!''}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.targetCity!''}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.fees!''}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.createTime?string('yyyy-MM-dd')}</span></div></td>
-            <#assign plannerStatus='' />
-            <#if userPlanner.status??>
-	            <#if userPlanner.status == 1>
-	            	<#assign plannerStatus = "待审核" />
-	            <#elseif userPlanner.status == 2>
-	            	<#assign plannerStatus = "审核通过" />
-	            <#elseif userPlanner.status == 3>
-	            	<#assign plannerStatus = "审核不通过" />
-	            </#if>
-            <#else>
-            	<#assign plannerStatus = "待审核" />
-            </#if>
-            <td height="22" bgcolor="#FFFFFF"><span class="STYLE1">${plannerStatus!''}</span></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="/images/pic21.gif" width="16" height="16" /><a href="/audit/planner/pass?uid=${uid}">通过</a>&nbsp; &nbsp; &nbsp;<img src="/images/pic22.gif" width="16" height="16" /><a href="/audit/planner/nopass?uid=${uid}">拒绝</a></span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://new.lanrenyou.com/user/${travelInfo.uid}" target="_blank">sheak</a></span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="80" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://new.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img src="/images/pic23.gif" width="16" height="16" /><a href="/audit/index_data/remove?tid=${travelInfo.id}">取消推荐</a></div></td>
           </tr>
           </#if>
           </#list>
           </#if>
         </table></td>
-        <td width="8" background="img/tab_15.gif">&nbsp;</td>
+        <td width="8" background="/img/tab_15.gif">&nbsp;</td>
       </tr>
     </table></td>
   </tr>
@@ -120,7 +102,7 @@ body {
     <#else>
         <#assign totalPageCount = pageIter.totalPages!0>
     </#if>
-    <@pageNav total="${totalPageCount!0}" totalCount="${pageIter.totalCount!0}" current="${pageIter.page!0}" urlpattern="/audit/planner/list?pageNo=%d&queryUid=${queryUid!'-1'}&queryStatus=${queryStatus!-1}"/>
+    <@pageNav total="${totalPageCount!0}" totalCount="<#if pageIter??>${pageIter.totalCount}</#if>" current="${pageIter.page!0}" urlpattern="/audit/msg/list?pageNo=%d&queryTid=${queryTid!'0'}&queryType=${queryType!'0'}"/>
 </table>
   </div>
 
@@ -128,8 +110,7 @@ body {
 </html>
 </body>
 
-
-<#macro pageNav total = "1" totalCount="" current = "1" urlpattern="#">
+<#macro pageNav total = "1" totalCount = "" current = "1" urlpattern="#">
     <#assign totalInt = total?number?int />
     <#assign currentInt = current?number?int />
     <#if totalInt lte 1>

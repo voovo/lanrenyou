@@ -60,4 +60,6 @@ public interface IUserInfoService extends IValueObjectService<UserInfo> {
 	 * @return
 	 */
 	public int deleteUserInfo(UserInfo userInfo);
+
+	public int getUserCount();
 }

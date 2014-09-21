@@ -19,6 +19,8 @@ import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
+import com.lanrenyou.user.model.UserInfo;
+import com.lanrenyou.user.service.IUserInfoService;
 
 
 @Controller
@@ -30,6 +32,9 @@ public class AuditTravelController extends BaseController {
 	
 	@Autowired
 	private ITravelInfoService travelInfoService;
+	
+	@Autowired
+	private IUserInfoService userInfoService;
 	
 	@RequestMapping(value="/list")
 	public ModelAndView travelList(
@@ -50,12 +55,13 @@ public class AuditTravelController extends BaseController {
 		PageIterator<TravelInfo> pageIter = travelInfoService.pageQueryByTidStatus(tid, status, pageNo, pageSize);
 		mav.addObject("pageIter", pageIter);
 		if(null != pageIter && null != pageIter.getData()){
-			List<Integer> tidList = new ArrayList<Integer>();
+			List<Integer> uidList = new ArrayList<Integer>();
 			for(TravelInfo ti : pageIter.getData()){
-				tidList.add(ti.getId());
+				uidList.add(ti.getUid());
 			}
-			if(tidList.size() > 0){
-				List<TravelContent> travelContentList = travelContentService.getTravelContentListByTidList(tidList);
+			if(null != uidList && uidList.size() > 0){
+				Map<Integer, UserInfo> userInfoMap = userInfoService.getUserInfoMapByUidList(uidList);
+				mav.addObject("userInfoMap", userInfoMap);
 			}
 		}
 		return mav;

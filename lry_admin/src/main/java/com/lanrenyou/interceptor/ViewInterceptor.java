@@ -56,6 +56,21 @@ public class ViewInterceptor extends HandlerInterceptorAdapter {
 		}
 		List<String> hasPowerList = (List<String>) request.getSession().getAttribute(AdminConstrants.ADMINISTRATOR_POWER_URL_LIST);
 		String uri = HttpServletUtil.getURI(request);
+		if(uri.startsWith("/css")){
+			return true;
+		}
+		if(uri.startsWith("/images")){
+			return true;
+		}
+		if(uri.startsWith("/img")){
+			return true;
+		}
+		if(uri.startsWith("/js")){
+			return true;
+		}
+		if(uri.startsWith("/src")){
+			return true;
+		}
 		if(uri.startsWith("/admin/login")){
 			return true;
 		}

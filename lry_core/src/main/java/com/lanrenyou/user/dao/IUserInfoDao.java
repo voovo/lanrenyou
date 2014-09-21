@@ -54,4 +54,6 @@ public interface IUserInfoDao extends IValueObjectDao<UserInfo> {
 	 * @exception 
 	*/
 	public int updateUserInfo(UserInfo userInfo);
+
+	public int getAllCount();
 }

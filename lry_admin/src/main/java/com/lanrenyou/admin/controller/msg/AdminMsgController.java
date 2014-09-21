@@ -2,8 +2,10 @@ package com.lanrenyou.admin.controller.msg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import mybatis.framework.core.support.PageIterator;
 
@@ -16,11 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lanrenyou.admin.controller.base.BaseController;
 import com.lanrenyou.letter.model.PrivateLetter;
 import com.lanrenyou.letter.service.IPrivateLetterService;
-import com.lanrenyou.travel.enums.TravelInfoStatusEnum;
-import com.lanrenyou.travel.model.TravelContent;
-import com.lanrenyou.travel.model.TravelInfo;
-import com.lanrenyou.travel.service.ITravelContentService;
-import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
 
@@ -43,12 +40,30 @@ public class AdminMsgController extends BaseController {
 		){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/msg/letter_list");
+		mav.addObject("queryUid", queryUid);
+		mav.addObject("pageNo", pageNo);
 		
 		if(null == queryUid){
 			queryUid = -1;
 		}
 		PageIterator<Map<String, Object>> pageIter = privateLetterService.pageQueryByUid(queryUid, pageNo, pageSize);
 		mav.addObject("pageIter", pageIter);
+		if(null != pageIter && pageIter.getData() != null){
+			Set<Integer> uidSet = new HashSet<Integer>();
+			for(Map<String, Object> map : pageIter.getData()){
+				Integer senderUid = (Integer) map.get("sender_uid");
+				if(null != senderUid){
+					uidSet.add(senderUid);
+				}
+				Integer receiverUid = (Integer) map.get("receiver_uid");
+				if(null != receiverUid){
+					uidSet.add(receiverUid);
+				}
+			}
+			
+			Map<Integer, UserInfo> userInfoMap = userInfoService.getUserInfoMapByUidList(new ArrayList<Integer>(uidSet));
+			mav.addObject("userInfoMap", userInfoMap);
+		}
 		
 		return mav;
 	}

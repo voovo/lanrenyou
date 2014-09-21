@@ -64,4 +64,9 @@ public class UserInfoDaoImpl extends BaseDao<UserInfo> implements IUserInfoDao {
 		}
 		return this.doUpdate("updateByPrimaryKey", userInfo);
 	}
+
+	@Override
+	public int getAllCount() {
+		return (Integer) this.findOne("getAllCount", null);
+	}
 }

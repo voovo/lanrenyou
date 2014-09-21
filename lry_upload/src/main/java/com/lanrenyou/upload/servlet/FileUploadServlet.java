@@ -111,11 +111,9 @@ public class FileUploadServlet extends HttpServlet {
                 		@Override
                 		public void run() {
                 			String srcPath = realPath + "/" + fileName;
-                			String dJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_d.jpg";
                 			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
                 			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
                 			try {
-								ImageUtils.copyFile(new File(srcPath), new File(dJPGPath));
 								ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
 								ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
 							} catch (IOException e) {

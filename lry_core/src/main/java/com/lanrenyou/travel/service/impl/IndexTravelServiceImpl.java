@@ -6,6 +6,7 @@ import com.lanrenyou.travel.dao.IIndexTravelDao;
 import com.lanrenyou.travel.model.IndexTravel;
 import com.lanrenyou.travel.service.IIndexTravelService;
 import mybatis.framework.core.service.BaseVOService;
+import mybatis.framework.core.support.PageIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,9 +37,19 @@ public class IndexTravelServiceImpl extends BaseVOService<IndexTravel> implement
 	}
 
 	@Override
-	public List<IndexTravel> getIndexTravel(int size) {
-		return indexTravelDao.getIndexTravelList(0, size);
+	public IndexTravel getByTid(int tid) {
+		return indexTravelDao.getByTid(tid);
 	}
 
-
+	@Override
+	public PageIterator<IndexTravel> pageQueryByTidSrcType(int tid, Character srcType, int pageNo, int pageSize) {
+		int totalCount = indexTravelDao.getCountByTidSrcType(tid, srcType);
+		List<IndexTravel> list = null;
+		if(totalCount > 0){
+			list = indexTravelDao.getIndexTravelListByTidSrcType(tid, srcType, (pageNo -1) * pageSize, pageSize);
+		}
+		PageIterator<IndexTravel> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
+	}
 }

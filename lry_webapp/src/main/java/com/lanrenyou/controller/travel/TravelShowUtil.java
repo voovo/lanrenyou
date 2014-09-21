@@ -28,7 +28,7 @@ public class TravelShowUtil {
 			for(Map<String, String> map : list){
 				if(null != map){
 					String img = map.get("src");
-					if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+					if(StringUtils.isNotBlank(img) && (img.contains("wp-content/uploads") || img.contains("img.lanrenyou.com"))){
 						if(img.endsWith("_s.jpg")){
 							img = img.replace("_s.jpg", "_l.jpg");
 							map.put("src", img);
@@ -56,7 +56,7 @@ public class TravelShowUtil {
 			Map<String, String> map = list.get(0);
 			if(null != map){
 				String img = map.get("src");
-				if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+				if(StringUtils.isNotBlank(img) && (img.contains("wp-content/uploads") || img.contains("img.lanrenyou.com"))){
 					if(!img.endsWith("_s.jpg")){
 						img = img.replace(".jpg", "_s.jpg");
 						map.put("src", img);
@@ -89,7 +89,7 @@ public class TravelShowUtil {
 				Map<String, String> map = list.get(0);
 				if(null != map){
 					String img = map.get("src");
-					if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+					if(StringUtils.isNotBlank(img) && (img.contains("wp-content/uploads") || img.contains("img.lanrenyou.com"))){
 						if(!img.endsWith("_s.jpg")){
 							img = img.replace(".jpg", "_l.jpg");
 							map.put("src", img);

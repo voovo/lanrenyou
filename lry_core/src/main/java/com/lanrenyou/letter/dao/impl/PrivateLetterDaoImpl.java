@@ -24,7 +24,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 	public int getPrivateLetterCountByReceiverUid(int uid) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("receiverUid", uid);
-		return (Integer) this.findOne("getPrivateLetterCountByReceiverUid", params);
+		Integer count = (Integer) this.findOne("getPrivateLetterCountByReceiverUid", params);
+		if(null == count){
+			count = 0;
+		}
+		return count;
 	}
 
 	@Override
@@ -49,7 +53,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("senderUid", senderUid);
 		params.put("receiverUid", receiverUid);
-		return (Integer) this.findOne("getPrivateLetterCountByReceiverUidAndSenderUid", params);
+		Integer count = (Integer) this.findOne("getPrivateLetterCountByReceiverUidAndSenderUid", params);
+		if(null == count){
+			count = 0;
+		}
+		return count;
 	}
 
 	@Override
@@ -114,7 +122,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("receiverUid", uid);
-		return (Integer) this.findOne("getUnReadLetterCountByReceiverUid", params);
+		Integer count = (Integer) this.findOne("getUnReadLetterCountByReceiverUid", params);
+		if(null == count){
+			return 0;
+		}
+		return count;
 	}
 
 	@Override
@@ -131,7 +143,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 	public int getCountByUid(int uid) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("uid", uid);
-		return (Integer) this.findOne("getCountByUid", params);
+		Integer count = (Integer) this.findOne("getCountByUid", params);
+		if(count == null){
+			return 0;
+		}
+		return count;
 	}
 
 	@Override

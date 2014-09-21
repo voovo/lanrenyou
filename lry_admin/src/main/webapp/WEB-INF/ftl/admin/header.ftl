@@ -18,7 +18,7 @@ function logout(){
     <td width="75%" height="64"><img src="/img/logo.png"> <span class="admin_top_tt">后台管理</span></td>
     <td width="25%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="70%" height="38" class="admin_txt">用户：<b>Administrator</b> 级别：管理员</td>
+        <td width="70%" height="38" class="admin_txt">用户：<b>${loginAdmin.name}</b> 级别：管理员</td>
         <td width="14%"><a href="#" target="_self" onClick="logout();"><img src="/images/out.gif" alt="安全退出" width="46" height="20" border="0"></a></td>
         <td width="8%">&nbsp;</td>
       </tr>

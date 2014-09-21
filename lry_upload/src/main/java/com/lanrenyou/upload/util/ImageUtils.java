@@ -78,24 +78,24 @@ public class ImageUtils {
 			int y = 0;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath696x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_il.jpg";
-			cropImage(operateImgPath, toPath696x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+//			String toPath696x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_il.jpg";
+//			cropImage(operateImgPath, toPath696x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
 			toWidth = 696;
 			toHeight = 222;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_in.jpg";
+			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_f.jpg";
 			cropImage(operateImgPath, toPath696x222, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 			
-			String toPath336x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_is.jpg";
-			reduceImageEqualProportion(toPath696x468, toPath336x222, 2);
+//			String toPath336x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_is.jpg";
+//			reduceImageEqualProportion(toPath696x468, toPath336x222, 2);
 			
 			toWidth = 336;
 			toHeight = 468;
 			x = (w - toWidth)/2;
 			y = (h - toHeight)/2;
-			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_iv.jpg";
+			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
 			cropImage(operateImgPath, toPath336x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		}
 	}

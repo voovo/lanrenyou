@@ -20,11 +20,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.lanrenyou.admin.controller.base.BaseController;
+import com.lanrenyou.user.service.IUserInfoService;
 
 
 @Controller
 @RequestMapping("/admin")
 public class AdminIndexController extends BaseController {
+	
+	@Autowired
+	private IUserInfoService userInfoService;
 	
 	@RequestMapping(value="index")
 	public ModelAndView index(HttpServletRequest request){
@@ -52,30 +56,11 @@ public class AdminIndexController extends BaseController {
 	public ModelAndView main(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/main");
+		int totalCount = userInfoService.getUserCount();
+		mav.addObject("totalCount", totalCount);
 		return mav;
 	}
 	
-	@RequestMapping(value="changelanguage")
-	@ResponseBody
-	public String changelanguage(@RequestParam String new_lang, HttpServletRequest request, HttpServletResponse response){
-		String msg = "";
-		try{
-			LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);  
-			if (localeResolver == null) {  
-			    throw new IllegalStateException("No LocaleResolver found: not in a DispatcherServlet request?");  
-			} 
-			if("en_US".equals(new_lang)){
-				localeResolver.setLocale(request, response, Locale.US);
-			}else if("zh_CN".equals(new_lang)){
-				localeResolver.setLocale(request, response, Locale.CHINA);
-			}
-			msg = "success";
-		 }catch(Exception ex){
-			 ex.printStackTrace();
-			 msg = "fail";
-		 }
-		 return msg;
-	}
 
 }
 
