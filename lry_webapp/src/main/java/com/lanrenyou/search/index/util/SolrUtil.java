@@ -283,7 +283,7 @@ public class SolrUtil {
 		if(querySb.length() <= 0){
 			querySb.append(" *:* ");
 		}
-		querySb.append(" and !uid:1  and !uid:2");
+		querySb.append(" and !uid:221  and !uid:222");
 		query.setQuery(querySb.toString());
 		query.setFilterQueries("status:2");
 		if(StringUtils.isBlank(orderBy)){

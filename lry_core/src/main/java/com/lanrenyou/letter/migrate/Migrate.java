@@ -64,7 +64,7 @@ public class Migrate {
 			String statsql = "insert into tb_travel_info_stat (tid,view_cnt,like_cnt,update_time) values (?,?,?,?)";
 			
 			PreparedStatement infop =  conn.prepareStatement(infosql,Statement.RETURN_GENERATED_KEYS);
-			infop.setInt(1, convertCity(getTermByPostid(post.getId())));
+			infop.setString(1, convertCity(getTermByPostid(post.getId())));
 			infop.setInt(2, post.getPost_author_id_new());
 			String title = post.getPost_title();
 			title = title.replace("&quot;", "\"").replace("&amp;", "&");
@@ -417,97 +417,97 @@ public class Migrate {
 		return termid;
 	}
 	
-	public static int convertCity(int termid){
-		int cityid = 13;
+	public static String convertCity(int termid){
+		String cityid = "其他,Other";
 		if(termid==1){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==2){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==3){
-			cityid = 17;
+			cityid = "圣地亚哥,San Diego";
 		}
 		if(termid==5){
-			cityid = 2;
+			cityid = "洛杉矶,LA";
 		}
 		if(termid==6){
-			cityid = 2;
+			cityid = "洛杉矶,LA";
 		}
 		if(termid==7){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==8){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==9){
-			cityid = 12;
+			cityid = "芝加哥,Chicago";
 		}
 		if(termid==10){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==11){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==12){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==13){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==14){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==16){
-			cityid = 12;
+			cityid = "芝加哥,Chicago";
 		}
 		if(termid==17){
-			cityid = 1;
+			cityid = "纽约,NYC";
 		}
 		if(termid==18){
-			cityid = 2;
+			cityid = "洛杉矶,LA";
 		}
 		if(termid==19){
-			cityid = 3;
+			cityid = "旧金山,San Francisco";
 		}
 		if(termid==20){
-			cityid = 4;
+			cityid = "美国国家公园,National Parks";
 		}
 		if(termid==21){
-			cityid = 5;
+			cityid = "西雅图,Seattle";
 		}
 		if(termid==22){
-			cityid = 6;
+			cityid = "阿拉斯加,Alaska";
 		}
 		if(termid==23){
-			cityid = 7;
+			cityid = "游轮旅行,Cruise";
 		}
 		if(termid==25){
-			cityid = 8;
+			cityid = "奥兰多,Orlando";
 		}
 		if(termid==26){
-			cityid = 9;
+			cityid = "佛罗里达,Florida";
 		}
 		if(termid==27){
-			cityid = 10;
+			cityid = "风情小镇,Small Towns";
 		}
 		if(termid==28){
-			cityid = 11;
+			cityid = "加州湾区,Bay Area";
 		}
 		if(termid==29){
-			cityid = 13;
+			cityid = "其他,Other";
 		}
 		if(termid==30){
-			cityid = 14;
+			cityid = "波士顿,Boston";
 		}
 		if(termid==31){
-			cityid = 15;
+			cityid = "加州一号公路,Pacific Coast Highway";
 		}
 		if(termid==32){
-			cityid = 16;
+			cityid = "波多黎各,Puerto Rico";
 		}
 		if(termid==33){
-			cityid = 17;
+			cityid = "圣地亚哥,San Diego";
 		}
 		
 		return cityid;

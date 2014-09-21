@@ -41,21 +41,22 @@ public class OldDataController extends BaseController {
 //	@RequestMapping("/dealPic")
 	public ModelAndView dealPic() throws IOException, InterruptedException {
 		String[] dirPath = {
-				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
-				"/ROOT/www/www_8000/wp-content/uploads/2013/07",
-				"/ROOT/www/www_8000/wp-content/uploads/2013/08",
-				"/ROOT/www/www_8000/wp-content/uploads/2013/09",
-				"/ROOT/www/www_8000/wp-content/uploads/2013/10",
-				"/ROOT/www/www_8000/wp-content/uploads/2013/11",
-				"/ROOT/www/www_8000/wp-content/uploads/2013/12",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/01",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/02",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/03",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/04",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/05",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/06",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/07",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/08"};
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/07",
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/08",
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/09",
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/10",
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/11",
+//				"/ROOT/www/www_8000/wp-content/uploads/2013/12",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/01",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/02",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/03",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/04",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/05",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/06",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/07",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/08",
+				"/ROOT/www/www_8000/wp-content/uploads/2014/09"};
 		for(String dir : dirPath){
 			File file = new File(dir);
 			String[] fileNames = file.list();
@@ -96,23 +97,9 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-//	@RequestMapping("/dealPlanner")
-//	public ModelAndView dealPlanner() throws IOException {
-//		List<UserInfo> list = userInfoService.findAll();
-//		for(UserInfo userInfo : list){
-//			if(null != userInfo && StringUtils.isNotBlank(userInfo.getAvatar())){
-//				String img = userInfo.getAvatar();
-//				img = img.replace("._s.", "_s.");
-//				userInfo.setAvatar(img);
-//				userInfoService.updateUserInfo(userInfo);
-//			}
-//		}
-//		return toError("Yeah");
-//	}
-	
-	@RequestMapping("dealTravel")
+//	@RequestMapping("dealTravel")
 	public ModelAndView dealTravelInfo() throws IOException {
-		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 800);
+		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 1000);
 		for(TravelContent travelContent : list){
 			
 			String content = travelContent.getContent();
@@ -128,7 +115,7 @@ public class OldDataController extends BaseController {
 						String img = map.get("src");
 						if(StringUtils.isNotBlank(img)){
 							if(img.contains("wp-content")){
-									img = img.replace("._s.jpg", "_s.jpg");
+									img = img.replace(".jpg", "_s.jpg");
 									logger.info("Image Deal, Content:{}",img);
 							}
 						}else{

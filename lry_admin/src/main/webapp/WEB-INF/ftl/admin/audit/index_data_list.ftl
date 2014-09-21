@@ -104,12 +104,12 @@ $(function(){
           <#assign travelInfo = travelInfoMap.get(indexTravel.tid) />
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <div align="center"><a href="http://new.lanrenyou.com/travel/${travelInfo.id}" target="_blank">${travelInfo.title!''}</a></div>
+              <div align="center"><a href="http://www.lanrenyou.com/travel/${travelInfo.id}" target="_blank">${travelInfo.title!''}</a></div>
             </div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://new.lanrenyou.com/user/${travelInfo.uid}" target="_blank">sheak</a></span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://www.lanrenyou.com/user/${travelInfo.uid}" target="_blank">sheak</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="230" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://new.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="230" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://www.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><img src="/images/pic23.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" tid="${travelInfo.id}">取消推荐</a></div></td>
           </tr>
           </#if>
