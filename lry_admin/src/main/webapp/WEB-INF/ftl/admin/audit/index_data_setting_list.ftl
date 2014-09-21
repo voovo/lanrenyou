@@ -32,7 +32,9 @@ $(function(){
 				var _d = jQuery.parseJSON(r);
 				if(_d.status == "y"){
 					alert('操作成功'); 
-				}   
+				} else {
+					alert(_d.info);
+				}
 			}   
 		}); 
 	});
@@ -90,12 +92,12 @@ $(function(){
         <td width="8" background="img/tab_12.gif">&nbsp;</td>
         <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6">
           <tr>
-            <td width="20%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">标题</div></td>
-            <td width="15%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">城市</div></td>
-            <td width="5%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">作者</div></td>
-            <td width="14%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">创建时间</div></td>
-            <td width="15%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">缩略图</div></td>
-            <td width="15%" height="26" background="img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">操作</div></td>
+            <td width="20%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">标题</div></td>
+            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">城市</div></td>
+            <td width="5%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">作者</div></td>
+            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">创建时间</div></td>
+            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">缩略图</div></td>
+            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">操作</div></td>
           </tr>
           <#if pageIter?? && pageIter.getData()??>
           <#list pageIter.getData() as travelInfo >
@@ -106,7 +108,7 @@ $(function(){
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://new.lanrenyou.com/user/${travelInfo.uid}" target="_blank">sheak</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="80" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://new.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="230" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://new.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
             <td height="22" bgcolor="#FFFFFF">
             	<div align="center"><img src="/images/check-out_.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}" srcType="l">大图</a></div>
             	<div align="center"><img src="/images/check-out_.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}" srcType="s">小图</a></div>

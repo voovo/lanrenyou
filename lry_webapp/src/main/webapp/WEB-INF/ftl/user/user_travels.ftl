@@ -25,7 +25,11 @@
         	<#assign contentInfo = infoMap.get(travelInfo.id)>
         </#if>
         <li id="${travelInfo.id!''}">
+        	<div class="u_yj_imgBox">
+        	<span>
             <img class="u_yj_imgDetail" src="<#if contentInfo??>${contentInfo.get('src')!''}</#if>" alt="">
+            </span>
+            </div>
             <div class="u_yj_txtDetail">
                 <h2><a href="/travel/${travelInfo.id}">${travelInfo.title!''}</a></h2>
                 <#if infoMap?? && infoMap.get(travelInfo.id)??><#assign travelMsg = infoMap.get(travelInfo.id).get('info') /></#if>

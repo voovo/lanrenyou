@@ -59,7 +59,9 @@
      <!-- 规划价格 -->
     <field name="price" type="tdouble" indexed="true" stored="true" omitNorms="true"  /> 
 	<!-- 收费方式 -->
-	<field name="chargeMode" type="int" indexed="true" stored="true" omitNorms="true"/> 
+	<field name="chargeMode" type="int" indexed="true" stored="true" omitNorms="true"/>
+	<!-- 状态 -->
+	<field name="status" type="int" indexed="true" stored="true" omitNorms="true"/> 
      <!-- 用户名 -->
     <field name="name" type="string" indexed="true" stored="true" omitNorms="true"  />
     <!-- 登录邮箱 -->

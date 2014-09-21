@@ -15,13 +15,13 @@
             <a href="javascript:;"><img src="/resources/imgs/slide/new_page.jpg" /></a>
         </li>
         <li>
-            <a href="/travel/47" target="_blank"><img src="/resources/imgs/slide/banner_20140802_1.jpg" /></a>
+            <a href="/travel/25" target="_blank"><img src="/resources/imgs/slide/banner_20140802_1.jpg" /></a>
         </li>
         <li>
-            <a href="/travel/66" target="_blank"><img src="/resources/imgs/slide/banner_20140802_2.jpg" /></a>
+            <a href="/travel/34" target="_blank"><img src="/resources/imgs/slide/banner_20140802_2.jpg" /></a>
         </li>
         <li>
-            <a href="/travel/224" target="_blank"><img src="/resources/imgs/slide/banner_20140802_3.jpg" /></a>
+            <a href="/travel/307" target="_blank"><img src="/resources/imgs/slide/banner_20140802_3.jpg" /></a>
         </li>
       </ul>
     </div>

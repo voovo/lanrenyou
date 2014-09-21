@@ -82,7 +82,7 @@ public class ExportTravels {
 			return null;
 		}
 		TravelInfo vo = travelInfoService.getTravelInfoById(travelContent.getTid());
-		if(null == vo || vo.getStatus() == TravelInfoStatusEnum.DELETE.getValue()){
+		if(null == vo || vo.getStatus() == TravelInfoStatusEnum.DELETE.getValue() || vo.getStatus() == TravelInfoStatusEnum.UNPASS.getValue()){
 			return null;
 		}
 		try {

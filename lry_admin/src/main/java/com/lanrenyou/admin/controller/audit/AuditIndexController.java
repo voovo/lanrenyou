@@ -23,6 +23,10 @@ import javax.imageio.stream.ImageInputStream;
 
 import mybatis.framework.core.support.PageIterator;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,16 +45,10 @@ import com.lanrenyou.travel.model.TravelInfo;
 import com.lanrenyou.travel.service.IIndexTravelService;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
-import com.lanrenyou.user.enums.UserInfoStatusEnum;
-import com.lanrenyou.user.enums.UserInfoTypeEnum;
-import com.lanrenyou.user.enums.UserPlannerStatusEnum;
 import com.lanrenyou.user.model.UserInfo;
-import com.lanrenyou.user.model.UserPlanner;
 import com.lanrenyou.user.service.IUserInfoService;
-import com.lanrenyou.user.service.IUserPlannerService;
-import com.lanrenyou.util.MailUtil;
+import com.lanrenyou.util.ConfigProperties;
 import com.lanrenyou.util.StringUtil;
-import com.lanrenyou.util.freemarker.FreemarkerUtil;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
@@ -58,9 +56,6 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 @Controller
 @RequestMapping("/audit/index_data")
 public class AuditIndexController extends BaseController {
-	
-	@Autowired
-	private IUserPlannerService userPlannerService;
 	
 	@Autowired
 	private IUserInfoService userInfoService;
@@ -117,6 +112,7 @@ public class AuditIndexController extends BaseController {
 			}
 		} else {
 			mav.setViewName("/admin/audit/index_data_setting_list");
+			PageIterator<IndexTravel> pageIterIndex = indexTravelService.pageQueryByTidSrcType(-1, null, pageNo, pageSize);
 			PageIterator<TravelInfo> pageIter = travelInfoService.pageQueryByTidStatus(tid, TravelInfoStatusEnum.PASS.getValue(), pageNo, pageSize);
 			if(null != pageIter && null != pageIter.getData()){
 				mav.addObject("pageIter", pageIter);
@@ -273,6 +269,9 @@ public class AuditIndexController extends BaseController {
 		}
 		int result = indexTravelService.deleteByTid(tid);
 		
+		deleteTravel(tid);
+		
+		
 		if(result > 0){
 			map.put("status", "y");
 			map.put("info", "操作成功");
@@ -283,6 +282,20 @@ public class AuditIndexController extends BaseController {
 			return gson.toJson(map);
 		}
 	}
+	
+	private void deleteTravel(int tid) {  
+		HttpClient client = new HttpClient();
+	    HttpMethod method = new GetMethod("http://"+ConfigProperties.getProperty("domains.www")+"/search_index/travel/delete?password=woailanrenyou&id="+tid);    // 使用 POST 方式提交数据 
+	    try {
+			client.executeMethod(method);
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			method.releaseConnection();  
+		}
+    }  
 	
 	public static void cropImageForIndex(String srcPath) throws IOException{
 		File srcFile = new File(srcPath);

@@ -119,7 +119,7 @@ $(function(){
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a target="_blank" href="#">${travelInfo.title!''}</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://new.lanrenyou.com/user/${travelInfo.uid}" target="_blank">${userInfo.name!''}</a></span></div></td>
-            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">2007-11-16 15:00:20</span></div></td>
+            <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
             <#if travelInfo.status??>
             	<#if travelInfo.status == -1 >
             		<#assign travelStatus = "删除" />
@@ -134,7 +134,7 @@ $(function(){
             <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelStatus!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF">
             <#if travelInfo.status?? && travelInfo.status == 1>
-            <div align="center"><img src="/img/del.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}">不通过</a>&nbsp;&nbsp;<img src="/images/pic21.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" tid="${travelInfo.id}">通过</a></div>
+            <div align="center"><img src="/img/del.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" tid="${travelInfo.id}">不通过</a>&nbsp;&nbsp;<img src="/images/pic21.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}">通过</a></div>
             </#if>
             </td>
           </tr>

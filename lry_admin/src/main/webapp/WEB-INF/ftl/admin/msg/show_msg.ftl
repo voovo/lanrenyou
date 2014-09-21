@@ -43,7 +43,7 @@ body {
 
           </tr>
         </table></td>
-        <td width="16"><img src="img/tab_07.gif" width="16" height="30" /></td>
+        <td width="16"><img src="/img/tab_07.gif" width="16" height="30" /></td>
       </tr>
     </table></td>
   </tr>
@@ -63,7 +63,7 @@ body {
 	            <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
 	              <div align="center"><#if userMap.get(letter.senderUid)??>${userMap.get(letter.senderUid).name!''}</#if></div>
 	            </div></td>
-	            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="detail.html">${letter.content!''}</a></span></div></td>
+	            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${letter.content!''}</span></div></td>
 	            <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">${letter.updateTime?string('yyyy-MM-dd HH:mm:ss')}</div></td>
 	          </tr>
           </#list>

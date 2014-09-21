@@ -118,6 +118,7 @@ public class AuditTravelController extends BaseController {
 		travelInfo.setUpdateUid(-100);
 		travelInfo.setUpdateIp(this.getRemoteAddr());
 		int result = travelInfoService.updateTravelInfo(travelInfo);
+		
 		if(result > 0){
 			map.put("status", "y");
 			map.put("info", "操作成功");

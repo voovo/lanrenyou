@@ -73,6 +73,7 @@ body {
 	          <#if userInfoMap?? && userInfoMap.get(receiverUid)??>
 	          	<#assign receiver = userInfoMap.get(receiverUid) />
 	          </#if>
+	          <tr>
           	<td height="22" bgcolor="#FFFFFF">
           		<div align="center" class="STYLE1">
               		<div align="center"><a href="http://new.lanrenyou.com/user/${senderUid}" target="_blank"><#if sender??>${sender.name!''}</#if></a></div>
@@ -84,6 +85,7 @@ body {
             	</div>
             </td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><a href="/msg/showMsg?senderUid=${senderUid}&receiverUid=${receiverUid}">查看</a></span></div></td>
+            	</tr>
           </#list>
           </#if>
         </table></td>
