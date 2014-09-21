@@ -57,7 +57,7 @@ public class IndexController  extends BaseController {
 	@RequestMapping(value="/index_data", method=RequestMethod.GET)
 	@ResponseBody
 	public String indexData(){
-		PageIterator<IndexTravel> pageIter = indexTravelService.pageQueryByTidSrcType(-1, null, 1, 40);
+		PageIterator<IndexTravel> pageIter = indexTravelService.pageQueryByTidSrcType(-1, null, 1, 60);
 		
 		List<Integer> tidList = new ArrayList<Integer>();
 		for(IndexTravel it : pageIter.getData()){

@@ -5,11 +5,8 @@
 <title>懒人游管理后台</title>
 <script src="/js/jquery.js" type="text/javascript" ></script>
 <link rel="stylesheet" type="text/css" href="/css/register.css"/>
-
 </head>
 <body>
-
-
 
 <div class='signup_container'>
 
@@ -25,7 +22,7 @@
                         <label for="signup_password">请输入密码</label>
                         <input type="password" name="password" placeholder="请输入密码" id="signup_password" data-required="required" />
                     </div>
-			    <div class="login-btn-set"><input type="submit" class='login-btn' value="登录" /></div>
+			    <div class="login-btn-set"><input type="submit" class='login-btn' value="" /></div>
            </form>
     </div>
 

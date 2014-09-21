@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.admin.controller.base.BaseController;
@@ -69,7 +70,8 @@ public class AuditPlannerController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping(value="/pass")
+	@RequestMapping(value="/pass", method=RequestMethod.GET)
+	@ResponseBody
 	public String plannerPass(@RequestParam(value="uid", required=true) Integer uid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == uid){
@@ -115,7 +117,8 @@ public class AuditPlannerController extends BaseController {
 		}
 	}
 	
-	@RequestMapping(value="/nopass")
+	@RequestMapping(value="/nopass", method=RequestMethod.GET)
+	@ResponseBody
 	public String plannerNopass(@RequestParam(value="uid", required=true) Integer uid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == uid){

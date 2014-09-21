@@ -1,6 +1,6 @@
 ﻿<link href="/images/skin.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script> 
+<script src="/js/jquery.js" type="text/javascript"></script> 
 
 <style type="text/css">
 <!--
@@ -21,7 +21,35 @@ body {
 -->
 </style>
 
-
+<script type="text/javascript">
+$(function(){
+	$("a[id='passBtn']").click(function(){
+		var _tid = $(this).attr("tid");
+	    $.ajax({
+			url : "/audit/travel/pass?tid="+_uid,
+			success : function(r){
+				var _d = jQuery.parseJSON(r);
+				if(_d.status == "y"){
+					alert('操作成功'); 
+				}   
+			}   
+		}); 
+	});
+	
+	$("a[id='nopassBtn']").click(function(){
+		var _tid = $(this).attr("tid");
+	    $.ajax({
+			url : "/audit/travel/nopass?tid="+_tid,
+			success : function(r){
+				var _d = jQuery.parseJSON(r);
+				if(_d.status == "y"){
+					alert('操作成功'); 
+				}   
+			}   
+		}); 
+	});
+});
+</script>
 
 
 <body>
@@ -106,7 +134,7 @@ body {
             <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelStatus!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF">
             <#if travelInfo.status?? && travelInfo.status == 1>
-            <div align="center"><img src="/img/del.gif" width="16" height="16" /><a href="/audit/travel/nopass?tid=${travelInfo.id!''}">不通过</a>&nbsp;&nbsp;<img src="/images/pic21.gif" width="16" height="16" /><a href="/audit/travel/pass?tid=${travelInfo.id!''}">通过</a></div>
+            <div align="center"><img src="/img/del.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}">不通过</a>&nbsp;&nbsp;<img src="/images/pic21.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" tid="${travelInfo.id}">通过</a></div>
             </#if>
             </td>
           </tr>

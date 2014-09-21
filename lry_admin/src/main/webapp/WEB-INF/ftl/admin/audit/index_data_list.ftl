@@ -20,7 +20,24 @@ body {
 .STYLE4 img{ position: absolute; margin-left: -20px;}
 -->
 </style>
-
+<script src="/js/third-party/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("a[id='nopassBtn']").click(function(){
+		var _tid = $(this).attr("tid");
+	    $.ajax({
+			url : "/audit/index_data/remove?tid="+_tid,
+			success : function(r){
+				var _d = jQuery.parseJSON(r);
+				if(_d.status == "y"){
+					alert('操作成功'); 
+				}   
+			}   
+		}); 
+	});
+});
+</script>
 
 <body>
 
@@ -33,29 +50,33 @@ body {
         <td width="12" height="30"><img src="/img/tab_03.gif" width="12" height="30" /></td>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td width="46%" valign="middle">
+            <form id="search_form" action="/audit/index_data/list" method="get" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="5%"><div align="center"><img src="/img/tb.gif" width="16" height="16" /></div></td>
                 <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[首页设置]
                   <span style="margin-left:30px;">
-                    <input type="text" placeholder="游记ID" name="queryTid" value=${queryTid!''}>
+                    游记ID:<input type="text" placeholder="游记ID" name="queryTid" value=${queryTid!''}>
                   </span>
                 
                   <span style="margin-left:30px;">
                  类别：
                     <select name="queryType" id="queryType">
-                      <option value="0">已推荐</option>
+                      <option value="0" selected="selected">已推荐</option>
                       <option value="1">未推荐</option>
                     </select>
                   </span>
                   
                   <span style="margin-left:30px;">
-                    <a href="javascript:;">搜索</a>
+                    <input type="submit" value="搜索" />
                   </span>
 
                 </td>
               </tr>
-            </table></td>
+            </table>
+            </form>
+            </td>
           </tr>
         </table></td>
         <td width="16"><img src="/img/tab_07.gif" width="16" height="30" /></td>
@@ -81,13 +102,13 @@ body {
           <#assign travelInfo = travelInfoMap.get(indexTravel.tid) />
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <div align="center"><a href="#" target="_blank">${travelInfo.title!''}</a></div>
+              <div align="center"><a href="http://new.lanrenyou.com/travel/${travelInfo.id}" target="_blank">${travelInfo.title!''}</a></div>
             </div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://new.lanrenyou.com/user/${travelInfo.uid}" target="_blank">sheak</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="80" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://new.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><img src="/images/pic23.gif" width="16" height="16" /><a href="/audit/index_data/remove?tid=${travelInfo.id}">取消推荐</a></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img src="/images/pic23.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" tid="${travelInfo.id}">取消推荐</a></div></td>
           </tr>
           </#if>
           </#list>
@@ -102,7 +123,8 @@ body {
     <#else>
         <#assign totalPageCount = pageIter.totalPages!0>
     </#if>
-    <@pageNav total="${totalPageCount!0}" totalCount="<#if pageIter??>${pageIter.totalCount}</#if>" current="${pageIter.page!0}" urlpattern="/audit/msg/list?pageNo=%d&queryTid=${queryTid!'0'}&queryType=${queryType!'0'}"/>
+    <#if pageIter??><#assign totalCount=pageIter.totalCount /></#if>
+    <@pageNav total="${totalPageCount!0}" totalCount="${totalCount!0}" current="${pageIter.page!0}" urlpattern="/audit/index_data/list?pageNo=%d&queryTid=${queryTid!'0'}&queryType=${queryType!'0'}"/>
 </table>
   </div>
 

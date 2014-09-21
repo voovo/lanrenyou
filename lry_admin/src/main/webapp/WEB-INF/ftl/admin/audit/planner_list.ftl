@@ -20,7 +20,36 @@ body {
 .STYLE4 img{ position: absolute; margin-left: -20px;}
 -->
 </style>
-
+<script src="/js/third-party/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$("a[id='passBtn']").click(function(){
+		var _uid = $(this).attr("uid");
+	    $.ajax({
+			url : "/audit/planner/pass?uid="+_uid,
+			success : function(r){
+				var _d = jQuery.parseJSON(r);
+				if(_d.status == "y"){
+					alert('操作成功'); 
+				}   
+			}   
+		}); 
+	});
+	
+	$("a[id='nopassBtn']").click(function(){
+		var _uid = $(this).attr("uid");
+	    $.ajax({
+			url : "/audit/planner/nopass?uid="+_uid,
+			success : function(r){
+				var _d = jQuery.parseJSON(r);
+				if(_d.status == "y"){
+					alert('操作成功'); 
+				}   
+			}   
+		}); 
+	});
+});
+</script>
 
 <body>
 
@@ -105,13 +134,13 @@ body {
             	<#assign plannerStatus = "待审核" />
             </#if>
             <td height="22" bgcolor="#FFFFFF"><span class="STYLE1">${plannerStatus!''}</span></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><img src="/images/pic21.gif" width="16" height="16" /><a href="/audit/planner/pass?uid=${uid}">通过</a>&nbsp; &nbsp; &nbsp;<img src="/images/pic22.gif" width="16" height="16" /><a href="/audit/planner/nopass?uid=${uid}">拒绝</a></span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><a href="javascript:;" id="passBtn" uid="${uid}"><img src="/images/pic21.gif" width="16" height="16" />通过</a>&nbsp; &nbsp; &nbsp;<a href="javascript:;" id="nopassBtn" uid="${uid}"><img src="/images/pic22.gif" width="16" height="16" />拒绝</a></span></div></td>
           </tr>
           </#if>
           </#list>
           </#if>
         </table></td>
-        <td width="8" background="img/tab_15.gif">&nbsp;</td>
+        <td width="8" background="/img/tab_15.gif">&nbsp;</td>
       </tr>
     </table></td>
   </tr>

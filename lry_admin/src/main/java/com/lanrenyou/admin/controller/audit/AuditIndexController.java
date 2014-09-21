@@ -29,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.reflect.TypeToken;
@@ -175,7 +176,8 @@ public class AuditIndexController extends BaseController {
 		return srcSourceUrlMap;
 	}
 
-	@RequestMapping(value="/add")
+	@RequestMapping(value="/add", method=RequestMethod.GET)
+	@ResponseBody
 	public String add(@RequestParam(value="tid", required=true) Integer tid, @RequestParam(value="srcType", required=true) Character srcType){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == tid){
@@ -254,7 +256,8 @@ public class AuditIndexController extends BaseController {
 		}
 	}
 	
-	@RequestMapping(value="/remove")
+	@RequestMapping(value="/remove", method=RequestMethod.GET)
+	@ResponseBody
 	public String remove(@RequestParam(value="tid", required=true) Integer tid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == tid){

@@ -3,8 +3,8 @@
 <title>管理页面</title>
 <script type="text/javascript">
 function logout(){
-	if (confirm("您确定要退出控制面板吗？"))
-	top.location = "../index.html";
+	if (confirm("您确定要退出管理后台吗？"))
+	top.location = "/admin/login/logout";
 	return false;
 }
 </script>
@@ -19,7 +19,7 @@ function logout(){
     <td width="25%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td width="70%" height="38" class="admin_txt">用户：<b>${loginAdmin.name}</b> 级别：管理员</td>
-        <td width="14%"><a href="#" target="_self" onClick="logout();"><img src="/images/out.gif" alt="安全退出" width="46" height="20" border="0"></a></td>
+        <td width="14%"><a href="/admin/login/logout" target="_self" onClick="logout();"><img src="/images/out.gif" alt="安全退出" width="46" height="20" border="0"></a></td>
         <td width="8%">&nbsp;</td>
       </tr>
 

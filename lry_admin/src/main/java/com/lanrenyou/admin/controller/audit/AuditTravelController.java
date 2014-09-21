@@ -10,7 +10,9 @@ import mybatis.framework.core.support.PageIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lanrenyou.admin.controller.base.BaseController;
@@ -67,7 +69,8 @@ public class AuditTravelController extends BaseController {
 		return mav;
 	}
 
-	@RequestMapping(value="/pass")
+	@RequestMapping(value="/pass", method=RequestMethod.GET)
+	@ResponseBody
 	public String travelPass(@RequestParam(value="tid", required=true) Integer tid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == tid){
@@ -96,7 +99,8 @@ public class AuditTravelController extends BaseController {
 		}
 	}
 	
-	@RequestMapping(value="/nopass")
+	@RequestMapping(value="/nopass", method=RequestMethod.GET)
+	@ResponseBody
 	public String travelNopass(@RequestParam(value="tid", required=true) Integer tid){
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(null == tid){
