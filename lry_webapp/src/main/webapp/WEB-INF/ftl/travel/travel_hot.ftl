@@ -23,7 +23,7 @@
     
     <ol id="sortbys">
       <!-- <li data-sortby="name">名称</li> -->
-      <li data-sortby="time">发布时间</li>
+      <a href="/travel/search/latest?" ><li data-sortby="time">发布时间</li></a>
       <li data-sortby="popularity" class="active">浏览量</li>
     </ol>
 

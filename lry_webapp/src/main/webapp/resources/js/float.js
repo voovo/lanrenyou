@@ -76,7 +76,7 @@
         }
 
         // Capture filter click events.
-        $sortbys.click(onClickSortBy);
+        // $sortbys.click(onClickSortBy);
 
         // 滚动加载
         //定义滚动函数

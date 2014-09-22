@@ -76,7 +76,7 @@
   </select>
   
   <select id="getTravelInfoListByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
-    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2) limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2) order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
   <select id="getPublishedTravelCntMapByUidList" resultType="java.util.Map" parameterType="java.lang.Integer" >

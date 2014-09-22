@@ -123,7 +123,7 @@ public class IndexController  extends BaseController {
 		returnMap.put("f", flatPicList);
 		
 		String json = gson.toJson(returnMap);
-		logger.info("##########################\n{}", json);
+//		logger.info("##########################\n{}", json);
 		return json;
 		
 	}
