@@ -269,9 +269,6 @@ public class AuditIndexController extends BaseController {
 		}
 		int result = indexTravelService.deleteByTid(tid);
 		
-		deleteTravel(tid);
-		
-		
 		if(result > 0){
 			map.put("status", "y");
 			map.put("info", "操作成功");
@@ -282,20 +279,6 @@ public class AuditIndexController extends BaseController {
 			return gson.toJson(map);
 		}
 	}
-	
-	private void deleteTravel(int tid) {  
-		HttpClient client = new HttpClient();
-	    HttpMethod method = new GetMethod("http://"+ConfigProperties.getProperty("domains.www")+"/search_index/travel/delete?password=woailanrenyou&id="+tid);    // 使用 POST 方式提交数据 
-	    try {
-			client.executeMethod(method);
-		} catch (HttpException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally{
-			method.releaseConnection();  
-		}
-    }  
 	
 	public static void cropImageForIndex(String srcPath) throws IOException{
 		File srcFile = new File(srcPath);

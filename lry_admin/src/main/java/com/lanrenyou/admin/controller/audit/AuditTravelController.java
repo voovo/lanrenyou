@@ -1,5 +1,6 @@
 package com.lanrenyou.admin.controller.audit;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,10 @@ import java.util.Map;
 
 import mybatis.framework.core.support.PageIterator;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +28,7 @@ import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
 import com.lanrenyou.user.model.UserInfo;
 import com.lanrenyou.user.service.IUserInfoService;
+import com.lanrenyou.util.ConfigProperties;
 
 
 @Controller
@@ -47,6 +53,8 @@ public class AuditTravelController extends BaseController {
 		){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/audit/travel_list");
+		mav.addObject("queryTid", tid);
+		mav.addObject("queryStatus", status);
 		
 		if(null == status ){
 			status = -1;
@@ -119,6 +127,8 @@ public class AuditTravelController extends BaseController {
 		travelInfo.setUpdateIp(this.getRemoteAddr());
 		int result = travelInfoService.updateTravelInfo(travelInfo);
 		
+		deleteTravel(tid);
+		
 		if(result > 0){
 			map.put("status", "y");
 			map.put("info", "操作成功");
@@ -129,5 +139,19 @@ public class AuditTravelController extends BaseController {
 			return gson.toJson(map);
 		}
 	}
+	
+	private void deleteTravel(int tid) {  
+		HttpClient client = new HttpClient();
+	    HttpMethod method = new GetMethod("http://"+ConfigProperties.getProperty("domains.www")+"/search_index/travel/delete?password=woailanrenyou&id="+tid);    // 使用 POST 方式提交数据 
+	    try {
+			client.executeMethod(method);
+		} catch (HttpException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally{
+			method.releaseConnection();  
+		}
+    } 
 }
 

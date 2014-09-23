@@ -77,7 +77,7 @@ public class TravelSearchController  extends BaseController {
 		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, null, pageNo, pageSize, "updateTime", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, null, pageNo, pageSize, "viewCnt", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;
@@ -105,6 +105,8 @@ public class TravelSearchController  extends BaseController {
 	
 	@RequestMapping("/hot")
 	public ModelAndView hotTravel(
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+			@RequestParam(value = "city", required = false, defaultValue = "") String city,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			){
@@ -121,9 +123,11 @@ public class TravelSearchController  extends BaseController {
 		} else {
 			mav.setViewName("/travel/travel_hot");
 		}
+		mav.addObject("keyword", keyword);
+		mav.addObject("city", city);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "viewCnt", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, null, pageNo, pageSize, "viewCnt", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;
@@ -131,6 +135,8 @@ public class TravelSearchController  extends BaseController {
 	
 	@RequestMapping("/latest")
 	public ModelAndView latestTravel(
+			@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+			@RequestParam(value = "city", required = false, defaultValue = "") String city,
 			@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize
 			){
@@ -149,7 +155,7 @@ public class TravelSearchController  extends BaseController {
 		}
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, null, pageNo, pageSize, "createTime", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(keyword.equals("请输入旅游城市或国家") ? "" : keyword, city, null, pageNo, pageSize, "createTime", true);
 		prepareSearchData(pageNo, pageSize, pageIter, mav);
 		
 		return mav;

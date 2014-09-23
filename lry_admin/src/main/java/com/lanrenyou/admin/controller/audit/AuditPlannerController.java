@@ -48,6 +48,9 @@ public class AuditPlannerController extends BaseController {
 		){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/audit/planner_list");
+		mav.addObject("queryUid", uid);
+		mav.addObject("queryStatus", status);
+		
 		
 		if(null == status ){
 			status = -1;

@@ -62,31 +62,35 @@ $(function(){
         <td width="12" height="30"><img src="/img/tab_03.gif" width="12" height="30" /></td>
         <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <td width="46%" valign="middle">
+            <form id="search_form" action="/audit/planner/list" method="get" >
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="5%"><div align="center"><img src="/img/tb.gif" width="16" height="16" /></div></td>
                 <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[规划师管理]
                 
                 <span style="margin-left:30px;">
-                    <input type="text" placeholder="UID" name="queryUid">
+       规划师ID：          <input type="text" placeholder="UID" name="queryUid" value=${queryUid!''}>
                   </span>
 
                   <span style="margin-left:30px;">
                   状态：
                     <select name="queryStatus" id="news_sort" >
                       <option value="-1">全部</option>
-                      <option value="1">已审核</option>
-                      <option value="2">待审核</option>
+                      <option value="1" <#if queryStatus?? && queryStatus == 1>selected="selected"</#if>>已审核</option>
+                      <option value="2" <#if queryStatus?? && queryStatus == 2>selected="selected"</#if>>待审核</option>
                     </select>
                   </span>
                   
                   <span style="margin-left:30px;">
-                    <a href="javascript:;">搜索</a>
+                    <input type="submit" value="搜索" />
                   </span>
 
                 </td>
               </tr>
-            </table></td>
+            </table>
+            </form>
+            </td>
 
           </tr>
         </table></td>
@@ -115,7 +119,7 @@ $(function(){
           <#assign userInfo = userInfoMap.get(uid) />
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <a href="#" target="_blank" title="${userInfo.userIntro!''}">${userInfo.name!''}</a>
+              <a href="http://www.lanrenyou.com/user/${userInfo.id!''}" target="_blank" title="${userInfo.userIntro!''}">${userInfo.name!''}</a>
             </div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userInfo.email!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.targetCity!''}</span></div></td>
