@@ -47,7 +47,7 @@ public class FileUploadServlet extends HttpServlet {
 	    }
 		DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletFileUpload upload = new ServletFileUpload(factory);
-        upload.setSizeMax(1024000);
+        upload.setSizeMax(51200000);
         upload.setHeaderEncoding("utf-8");
         List<FileItem> fileList = null;
         try {

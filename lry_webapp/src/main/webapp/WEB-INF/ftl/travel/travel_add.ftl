@@ -27,6 +27,12 @@
                     <input id="last_home" type="text" name="city" class="input_620 placeholder" placeholder="每个城市请用分号结束" value="">
                 </td>
             </tr>
+            <tr>
+                <td align="right"><i class="rq">*</i>注意：</td>
+                <td>
+                    <div class="label_box"><ul class="label clearfix"><font color="red">所有照片总大小不得超过50M</font></ul></div>
+                </td>
+            </tr>
         </table>
 
         <!-- 添加照片 -->

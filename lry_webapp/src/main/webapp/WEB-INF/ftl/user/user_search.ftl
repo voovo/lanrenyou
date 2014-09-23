@@ -43,8 +43,8 @@
 					<#else>
                     <a href="javascript:;" class="btn_s add_btn" uid="${userInfo.id!''}"></a>
 					</#if>
-                    <a href="javascript:;" class="btn_s msg_btn" uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
                     </#if>
+                    <a href="javascript:;" class="btn_s msg_btn" <#if !isShow>style="display:none;"</#if> uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
                 </dd>
             </dl>
 
