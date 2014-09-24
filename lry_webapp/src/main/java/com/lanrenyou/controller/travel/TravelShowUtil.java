@@ -23,7 +23,13 @@ public class TravelShowUtil {
 			return null;
 		}
 		
-		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		List<Map<String, String>> list = null;
+		try{
+			list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(content);
+		}
 		if(null != list){
 			for(Map<String, String> map : list){
 				if(null != map){
@@ -51,7 +57,13 @@ public class TravelShowUtil {
 			return null;
 		}
 		
-		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		List<Map<String, String>> list = null;
+		try{
+			list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(content);
+		}
 		if(null != list && list.size() >= 1){
 			Map<String, String> map = list.get(0);
 			if(null != map){
@@ -84,7 +96,13 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			List<Map<String, String>> list = null;
+			try{
+				list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error(content);
+			}
 			if(null != list && list.size() >= 1){
 				Map<String, String> map = list.get(0);
 				if(null != map){
@@ -115,7 +133,13 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			List<Map<String, String>> list = null;
+			try{
+				list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error(content);
+			}
 			if(null != list && list.size() >= 1){
 				Map<String, String> map = list.get(0);
 				returnMap.put(key, map);
