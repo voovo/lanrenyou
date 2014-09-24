@@ -23,13 +23,17 @@
             <tr>
                 <td align="right"><i class="rq">*</i>城市：</td>
                 <td>
-                    <div class="label_box hide">
+                    <#if travelInfo.city??>
+                    <div class="label_box">
                     	<ul class="label clearfix">
-                    		<#if travelInfo.city??>
-                    			<li id="li_0" >${travelInfo.city!''}<i class="close" title="删除"></i></li>
-                    		</#if>
+                    			<#assign i = 0 />
+                    			<#list travelInfo.city?split('#') as cityItem>
+                    			<li id="li_${i}" >${cityItem!''}<i class="close" title="删除"></i></li>
+                    			<#assign i = i + 1 />
+                    			</#list>
                     	</ul>
                     </div>
+                    </#if>
                     <input id="last_home" type="text" name="city" class="input_620 placeholder" value="">
                 </td>
             </tr>

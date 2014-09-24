@@ -97,37 +97,16 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-//	@RequestMapping("dealTravel")
+	@RequestMapping("dealTravel")
 	public ModelAndView dealTravelInfo() throws IOException {
-		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 0, 1000);
+		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 417, 50);
 		for(TravelContent travelContent : list){
-			
 			String content = travelContent.getContent();
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			
-			List<Map<String, String>> jsonMapList = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
-			List<Map<String, String>> newList = new ArrayList<Map<String, String>>();
-			if(null != jsonMapList){
-				for(Map<String, String> map : jsonMapList){
-					if(null != map){
-						String img = map.get("src");
-						if(StringUtils.isNotBlank(img)){
-							if(img.contains("wp-content")){
-									img = img.replace(".jpg", "_s.jpg");
-									logger.info("Image Deal, Content:{}",img);
-							}
-						}else{
-							img="";
-						}
-						map.put("src", img);
-						String info = map.get("info");
-						map.put("info", info);
-						newList.add(map);
-					}
-				}
-				travelContent.setContent(gson.toJson(newList));
+			if(content.endsWith("},]")){
+				travelContent.setContent(content.replace("},]", "}]"));
 				travelContentService.updateTravelContent(travelContent);
 			}
 			logger.info("Have Finish Deal Travel ID:{}", travelContent.getTid());
