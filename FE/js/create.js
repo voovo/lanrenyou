@@ -117,7 +117,7 @@ $(function(){
         if(nodes.length > 0 && !('placeholder' in document.createElement('input'))){
             nodes.each(function(){
                 var holder = $(this).attr("placeholder");
-                console.log(holder)
+                //console.log(holder)
             });
         }
 
@@ -141,7 +141,7 @@ $(function(){
 
     // 上传组件
     if($(".file_upload") && $(".file_upload").length > 0){
-        $("#c_title , #last_home").val("");
+        //$("#c_title , #last_home").val("");
 
         var _this = $(this),
             imgArr = new Array();
@@ -175,7 +175,7 @@ $(function(){
                     // 图片上传成功后，创建dom结构
                     setTimeout(function(){
                         setPhotoList(imgSrc);
-                    } , 800);
+                    } , 1000);
                 }
                 
             },
@@ -191,9 +191,20 @@ $(function(){
     if($("#create_youji_btn") && $("#create_youji_btn").length > 0){
         $("#create_youji_btn").click(function(){
             var c_title = $("#c_title").val(),
-                c_area = $(".label_box").find("li").text() || $("#last_home").val(),
+                //c_area = $(".label_box").find("li").text() || $("#last_home").val(),
                 c_len = $(".album_block:visible").length,
                 c_yj = "[";
+
+            // 获取城市信息
+            var getArea = function(){
+                var _areaArr = new Array();
+                $(".label_box").find("li").each(function(){
+                    _areaArr.push($.trim($(this).text()));
+                });
+                return _areaArr.join("#");
+            }
+            
+            c_area = getArea() || $("#last_home").val();
 
             if($(".album_block:visible").length > 0){
                 $(".album_block:visible").each(function(){
@@ -203,8 +214,8 @@ $(function(){
                 }); 
             }
             c_yj+= "]";
-            c_yj.replace(",]" , "]");
-            //console.log(c_title , c_area , c_yj);
+            c_yj = c_yj.replace(",]" , "]");
+            //console.log( c_area );
 
             //return;
 
