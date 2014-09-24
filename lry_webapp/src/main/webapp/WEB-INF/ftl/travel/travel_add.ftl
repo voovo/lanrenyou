@@ -30,7 +30,7 @@
             <tr>
                 <td align="right"><i class="rq">*</i>注意：</td>
                 <td>
-                    <div class="label_box"><ul class="label clearfix"><font color="red">所有照片总大小不得超过50M</font></ul></div>
+                    <span class="red">所有照片总大小不得超过50M</span>
                 </td>
             </tr>
         </table>

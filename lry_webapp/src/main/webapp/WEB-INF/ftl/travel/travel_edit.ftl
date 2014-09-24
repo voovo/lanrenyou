@@ -18,13 +18,19 @@
         	<input type="hidden" name="tid" value="${travelInfo.id!''}" />
             <tr>
                 <td width="130" align="right"><i class="rq">*</i>游记标题：</td>
-                <td><i class="rq"><input id="c_title" name="title" type="text" class="input_620" placeholder="<#if travelInfo.title??>${travelInfo.title!''}<#else>游记标题不超过40字</#if>" maxlength="40" value="${travelInfo.title!''}" /></i></td>
+                <td><i class="rq"><input id="c_title" name="title" type="text" class="input_620" maxlength="40" value="${travelInfo.title!''}" /></i></td>
             </tr>
             <tr>
                 <td align="right"><i class="rq">*</i>城市：</td>
                 <td>
-                    <div class="label_box hide"><ul class="label clearfix"></ul></div>
-                    <input id="last_home" type="text" name="city" class="input_620 placeholder" placeholder="<#if travelInfo.city??>${travelInfo.city!''}<#else>每个城市请用分号结束</#if>" value="${travelInfo.city!''}">
+                    <div class="label_box hide">
+                    	<ul class="label clearfix">
+                    		<#if travelInfo.city??>
+                    			<li id="li_0" >${travelInfo.city!''}<i class="close" title="删除"></i></li>
+                    		</#if>
+                    	</ul>
+                    </div>
+                    <input id="last_home" type="text" name="city" class="input_620 placeholder" value="">
                 </td>
             </tr>
         </table>

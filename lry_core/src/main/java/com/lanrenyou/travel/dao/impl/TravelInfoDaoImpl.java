@@ -76,6 +76,23 @@ public class TravelInfoDaoImpl extends BaseDao<TravelInfo> implements ITravelInf
 		params.put("limit", limit);
 		return this.findList("getTravelInfoListByUid", params);
 	}
+	
+	@Override
+	public int getTravelInfoCountForPlanner(int uid) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		return (Integer)this.findOne("getTravelInfoCountForPlanner", params);
+	}
+
+	@Override
+	public List<TravelInfo> getTravelInfoListForPlanner(int uid, int offset,
+			int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getTravelInfoListForPlanner", params);
+	}
 
 	@Override
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(

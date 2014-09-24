@@ -257,7 +257,7 @@ public class TravelIndexController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/travel/travel_edit");
 		mav.addObject("travelInfo", this.getCurrentTravel());
 		TravelContent travelContent = travelContentService.getTravelContentByTid(this.getCurrentTravel().getId());
-		List<Map<String, String>> contentList = TravelShowUtil.getShowInfoForTravelDetail(travelContent.getContent());
+		List<Map<String, String>> contentList = TravelShowUtil.getShowInfoForTravelEdit(travelContent.getContent());
 		mav.addObject("contentList", contentList);
 		
 		return mav;

@@ -73,6 +73,10 @@ public interface ITravelInfoDao extends IValueObjectDao<TravelInfo> {
 	 * @exception 
 	*/
 	public List<TravelInfo> getTravelInfoListByUid(int uid, int offset, int limit);
+	
+	public int getTravelInfoCountForPlanner(int uid);
+	
+	public List<TravelInfo> getTravelInfoListForPlanner(int uid, int offset, int limit);
 
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(List<Integer> uidList);
 

@@ -31,7 +31,7 @@
             </span>
             </div>
             <div class="u_yj_txtDetail">
-                <h2><a href="/travel/${travelInfo.id}">${travelInfo.title!''}</a></h2>
+                <h2><a href="/travel/${travelInfo.id}">${travelInfo.title!''}</a><#if travelInfo.status?? && travelInfo.status == 3><span class="red" >（审核未通过）</span></#if></h2>
                 <#if infoMap?? && infoMap.get(travelInfo.id)??><#assign travelMsg = infoMap.get(travelInfo.id).get('info') /></#if>
                 <p><@truncateChars value="${travelMsg!''}" length="104"/></p>
             </div>

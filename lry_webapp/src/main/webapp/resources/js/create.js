@@ -203,7 +203,7 @@ $(function(){
                 }); 
             }
             c_yj+= "]";
-            c_yj.replace(",]" , "]");
+            c_yj = c_yj.replace(",]" , "]");
             //console.log(c_title , c_area , c_yj);
 
             //return;

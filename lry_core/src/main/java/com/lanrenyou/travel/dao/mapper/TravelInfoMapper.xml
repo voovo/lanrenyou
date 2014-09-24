@@ -79,6 +79,14 @@
     select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2) order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
+  <select id="getTravelInfoCountForPlanner" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1) from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2,3)
+  </select>
+  
+  <select id="getTravelInfoListForPlanner" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2,3) order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
   <select id="getPublishedTravelCntMapByUidList" resultType="java.util.Map" parameterType="java.lang.Integer" >
     select
     	uid, count(1) as cnt

@@ -78,7 +78,7 @@ public class UserTravelsController  extends BaseController {
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
 		mav.addObject("userInfo", this.getCurrentUser());
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, this.getCurrentUser().getId(), pageNo, pageSize, "updateTime", true);
+		PageIterator<TravelInfo> pageIter = travelInfoService.pageQueryTravelInfoForPlanner(this.getLoginUser().getId().intValue(), pageNo, pageSize);
 		List<Integer> tidList = new ArrayList<Integer>();
 		Set<Integer> uidSet = new HashSet<Integer>();
 		uidSet.add(this.getCurrentUser().getId());

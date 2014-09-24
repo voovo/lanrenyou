@@ -26,7 +26,7 @@ $(function(){
 	$("a[id='passBtn']").click(function(){
 		var _tid = $(this).attr("tid");
 	    $.ajax({
-			url : "/audit/travel/pass?tid="+_uid,
+			url : "/audit/travel/pass?tid="+_tid,
 			success : function(r){
 				var _d = jQuery.parseJSON(r);
 				if(_d.status == "y"){

@@ -74,6 +74,8 @@ public interface ITravelInfoService extends IValueObjectService<TravelInfo> {
 	 * @exception 
 	*/
 	public PageIterator<TravelInfo> pageQueryTravelInfoByUid(int uid, int pageNo, int pageSize);
+	
+	public PageIterator<TravelInfo> pageQueryTravelInfoForPlanner(int uid, int pageNo, int pageSize);
 
 	/**
 	 * 批量获取某些人发布过的游记数量

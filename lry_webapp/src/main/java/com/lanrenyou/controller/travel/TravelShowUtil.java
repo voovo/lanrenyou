@@ -49,6 +49,29 @@ public class TravelShowUtil {
 		return list;
 	}
 	
+	public static List<Map<String, String>> getShowInfoForTravelEdit(String content){
+		if(StringUtils.isBlank(content)){
+			return null;
+		}
+		
+		List<Map<String, String>> list = null;
+		try{
+			list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(content);
+		}
+		if(null != list){
+			for(Map<String, String> map : list){
+				if(null != map){
+					String img = map.get("src");
+					map.put("src", img);
+				}
+			}
+		}
+		return list;
+	}
+	
 	/*
 	 * 取出单个游记内容中的封面与头条信息
 	 */

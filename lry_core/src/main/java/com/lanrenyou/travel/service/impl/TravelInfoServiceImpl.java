@@ -70,6 +70,18 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 		pageIterator.setData(list);
 		return pageIterator;
 	}
+	
+	@Override
+	public PageIterator<TravelInfo> pageQueryTravelInfoForPlanner(int uid, int pageNo, int pageSize) {
+		int totalCount = travelInfoDao.getTravelInfoCountForPlanner(uid);
+		List<TravelInfo> list = null;
+		if(totalCount > 0){
+			list = travelInfoDao.getTravelInfoListForPlanner(uid, (pageNo -1) * pageSize, pageSize);
+		}
+		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
+	}
 
 	@Override
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(
