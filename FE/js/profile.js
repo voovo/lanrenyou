@@ -2,9 +2,12 @@
  * 懒人游 注册页面交互
  * mr.sheak@gmail.com 20140626
  */
+
+
+
 ;$(function(){
 /*********************************************************/
-
+    
 
     // 修改密码 sb_pwd
     if($(".changepwd") && $(".changepwd").length > 0){
@@ -55,6 +58,63 @@
         ]);
     }
 
+    /*
+     * Jcorp 用户头像裁剪
+     * sheak 20140925
+     */
+    var jcrop_api, boundx, boundy,
+
+        // Grab some information about the preview pane
+        $preview = $('#preview-pane'),
+        $pcnt = $('#preview-pane .preview-container'),
+        $pimg = $('#preview-pane .preview-container img'),
+
+        xsize = $pcnt.width(),
+        ysize = $pcnt.height();
+
+    var lanCorp = function(img){
+        // Create variables (in this scope) to hold the API and image size
+        
+        $("#target , #preview-pane .jcrop-preview").show().attr("src" , img);
+        
+        $('#target').Jcrop({
+            onChange: updatePreview,
+            onSelect: updatePreview,
+            aspectRatio: xsize / ysize,
+            boxWidth : 500,
+            boxHeight : 500
+        },
+        function() {
+            // Use the API to get the real image size
+            var bounds = this.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
+            // Store the API in the jcrop_api variable
+            jcrop_api = this;
+
+            // Move the preview into the jcrop container for css positioning
+            $preview.appendTo(jcrop_api.ui.holder);
+        });
+
+        function updatePreview(c) {
+            if (parseInt(c.w) > 0) {
+                var rx = xsize / c.w;
+                var ry = ysize / c.h;
+
+                $pimg.css({
+                    width: Math.round(rx * boundx) + 'px',
+                    height: Math.round(ry * boundy) + 'px',
+                    marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                    marginTop: '-' + Math.round(ry * c.y) + 'px'
+                });
+            }
+
+            //console.log(jcrop_api.tellSelect());//获取选框的值（实际尺寸）
+            //console.log(jcrop_api.tellScaled());//获取选框的值（界面尺寸）
+            
+        };
+    }
+
 
     if($(".file_upload") && $(".file_upload").length > 0){
 
@@ -90,6 +150,9 @@
                     var _img = _d.url;
                     $("#u_now_face_l").attr("src" , _img);
                     $("#avatar").val(_img);
+
+                    // 生成裁剪元素
+                    lanCorp(_img);
                 }else{
                     alert(_d.info);
                 }
@@ -101,6 +164,15 @@
         });
         
     }
+
+
+
+    // 更新用户头像
+    // 提交相关数据
+    $("#up_face_btn").click(function(){
+        alert(jcrop_api.tellScaled());
+        //lanCorp("http://www.lanrenyou.com/wp-content/uploads/2014/09/original_S4Nz_58c6000001ba125f_l.jpg");
+    });
 
 
     
@@ -126,3 +198,5 @@
 
 /*********************************************************/
 });
+
+
