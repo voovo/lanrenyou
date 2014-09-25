@@ -66,4 +66,26 @@ public interface IUserPlannerDao extends IValueObjectDao<UserPlanner> {
 	 * @exception 
 	*/
 	public List<UserPlanner> getListForSearchIndex(Date endTime, int offset, int limit);
+
+	/**
+	 * getCountByUidStatus	获取符合条件的数据的个数
+	 * 
+	 * @param uid
+	 * @param status
+	 * @return int
+	 * @exception
+	 */
+	public int getCountByUidStatus(int uid, int status);
+
+	/**
+	 * getListByUidStatus	分批查询符合条件的规划师数据
+	 * 
+	 * @param uid
+	 * @param status
+	 * @param offset
+	 * @param limit
+	 * @return List<UserPlanner>
+	 * @exception
+	 */
+	public List<UserPlanner> getListByUidStatus(int uid, int status, int offset, int limit);
 }

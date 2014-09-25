@@ -18,13 +18,19 @@
         <table>
             <tr>
                 <td width="130" align="right"><i class="rq">*</i>游记标题：</td>
-                <td><i class="rq"><input type="text" id="c_title" name="title" class="input_620" placeholder="游记标题不超过20字" maxlength="20"></i></td>
+                <td><i class="rq"><input type="text" id="c_title" name="title" class="input_620" placeholder="游记标题不超过40字" maxlength="40"></i></td>
             </tr>
             <tr>
                 <td align="right"><i class="rq">*</i>城市：</td>
                 <td>
                     <div class="label_box hide"><ul class="label clearfix"></ul></div>
                     <input id="last_home" type="text" name="city" class="input_620 placeholder" placeholder="每个城市请用分号结束" value="">
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><i class="rq">*</i>注意：</td>
+                <td>
+                    <span class="red">所有照片总大小不得超过50M</span>
                 </td>
             </tr>
         </table>

@@ -42,10 +42,8 @@ public interface IIndexTravelService extends IValueObjectService<IndexTravel> {
 	 */
 	public int updateIndexTravel(IndexTravel indexTravel);
 	
-	/**
-	 * 获取首页游记
-	 * @return
-	 */
-	public List<IndexTravel> getIndexTravel(int size);
+	public IndexTravel getByTid(int tid);
+
+	public PageIterator<IndexTravel> pageQueryByTidSrcType(int tid, Character srcType, int pageNo, int pageSize);
 	
 }

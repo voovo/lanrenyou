@@ -175,7 +175,7 @@ $(function(){
                     // 图片上传成功后，创建dom结构
                     setTimeout(function(){
                         setPhotoList(imgSrc);
-                    } , 800);
+                    } , 1000);
                 }
                 
             },
@@ -203,7 +203,7 @@ $(function(){
                 }); 
             }
             c_yj+= "]";
-            c_yj.replace(",]" , "]");
+            c_yj = c_yj.replace(",]" , "]");
             //console.log(c_title , c_area , c_yj);
 
             //return;

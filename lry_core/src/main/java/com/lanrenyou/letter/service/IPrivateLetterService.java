@@ -1,9 +1,11 @@
 package com.lanrenyou.letter.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lanrenyou.letter.enums.PrivateLetterHasReadEnum;
 import com.lanrenyou.letter.model.PrivateLetter;
+
 import mybatis.framework.core.service.IValueObjectService;
 import mybatis.framework.core.support.PageIterator;
 
@@ -64,5 +66,7 @@ public interface IPrivateLetterService extends IValueObjectService<PrivateLetter
 	 * @return
 	 */
 	public PageIterator<PrivateLetter> pageQueryUnReadLetterCountByReceiverUid(int receiverUid, int pageNo, int pageSize);
+	
+	public PageIterator<Map<String, Object>> pageQueryByUid(int uid, int pageNo, int pageSize);
 	
 }

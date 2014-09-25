@@ -81,7 +81,7 @@ public class ExportPlanners {
 			doc.addField("fees", vo.getFees());	//收费标准
 			doc.addField("price", vo.getPrice());//规划价格
 			doc.addField("chargeMode", vo.getChargeMode());//收费模式[1:按天; 2:按周; 3:按次;]
-			doc.addField("createUid", vo.getStatus());//创建者
+			doc.addField("status", vo.getStatus());//状态
 			if(null != vo.getCreateTime()){
 				doc.addField("createTime", sdf.format(vo.getCreateTime()));//创建时间
 			}

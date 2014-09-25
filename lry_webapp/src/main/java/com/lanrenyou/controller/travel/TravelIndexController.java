@@ -257,13 +257,13 @@ public class TravelIndexController  extends BaseController {
 		ModelAndView mav = new ModelAndView("/travel/travel_edit");
 		mav.addObject("travelInfo", this.getCurrentTravel());
 		TravelContent travelContent = travelContentService.getTravelContentByTid(this.getCurrentTravel().getId());
-		List<Map<String, String>> contentList = TravelShowUtil.getShowInfoForTravelDetail(travelContent.getContent());
+		List<Map<String, String>> contentList = TravelShowUtil.getShowInfoForTravelEdit(travelContent.getContent());
 		mav.addObject("contentList", contentList);
 		
 		return mav;
 	}
 	
-	@RequestMapping(value={"edit"}, method=RequestMethod.GET)
+	@RequestMapping(value={"edit"}, method=RequestMethod.POST)
 	@ResponseBody
 	public String doEdit(
 			@RequestParam(value = "tid", required=true, defaultValue="") Integer tid,
@@ -312,7 +312,7 @@ public class TravelIndexController  extends BaseController {
 		
 		TravelContent travelContent = travelContentService.getTravelContentByTid(tid);
 		travelContent.setContent(imgs);
-		result = travelContentService.addTravelContent(travelContent);
+		result = travelContentService.updateTravelContent(travelContent);
 		
 		if(result < 1){
 			map.put("status", "n");

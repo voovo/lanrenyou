@@ -174,13 +174,13 @@ public class SolrUtil {
 			querySb.append("*:*");
 		}
 		query.setQuery(querySb.toString());
+		query.setFilterQueries("status:1 or status:2");
 		
 		if(StringUtils.isBlank(orderBy)){
 			query.setSortField("updateTime", ORDER.desc);
 		} else {
 			query.setSortField(orderBy, orderDesc ?ORDER.desc:ORDER.asc);
 		}
-		
 		List<TravelInfo> travelInfoList = null;
 		Integer totalCount = 0;
 		
@@ -281,11 +281,11 @@ public class SolrUtil {
 		}
 		
 		if(querySb.length() <= 0){
-			querySb.append("*:*");
+			querySb.append(" *:* ");
 		}
-		querySb.append(" and !uid:1  and !uid:2");
+		querySb.append(" and !uid:221  and !uid:222");
 		query.setQuery(querySb.toString());
-		
+		query.setFilterQueries("status:2");
 		if(StringUtils.isBlank(orderBy)){
 			query.setSortField("updateTime", ORDER.desc);
 		} else {

@@ -1,11 +1,13 @@
 package com.lanrenyou.letter.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lanrenyou.letter.dao.IPrivateLetterDao;
 import com.lanrenyou.letter.enums.PrivateLetterHasReadEnum;
 import com.lanrenyou.letter.model.PrivateLetter;
 import com.lanrenyou.letter.service.IPrivateLetterService;
+
 import mybatis.framework.core.service.BaseVOService;
 import mybatis.framework.core.support.PageIterator;
 
@@ -74,6 +76,19 @@ public class PrivateLetterServiceImpl extends BaseVOService<PrivateLetter> imple
 			 list = privateLetterDao.getUnReadLetterListByReceiverUid(receiverUid, (pageNo - 1) * pageSize, pageSize);
 		}
 		PageIterator<PrivateLetter> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
+	}
+
+	@Override
+	public PageIterator<Map<String, Object>> pageQueryByUid(
+			int uid, int pageNo, int pageSize) {
+		int totalCount = privateLetterDao.getCountByUid(uid);
+		List<Map<String, Object>> list = null;
+		if(totalCount > 0){
+			 list = privateLetterDao.getListByUid(uid, (pageNo - 1) * pageSize, pageSize);
+		}
+		PageIterator<Map<String, Object>> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
 		pageIterator.setData(list);
 		return pageIterator;
 	}

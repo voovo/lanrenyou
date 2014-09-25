@@ -112,6 +112,8 @@ public class TravelController  extends BaseController {
 			map.put("info", "该规划师已被删除，请重新请求认证");
 			return gson.toJson(map);
 		}
+		logger.info("publish_travel_content:\n{}", imgs);
+		
 		TravelInfo travelInfo = new TravelInfo();
 		travelInfo.setTitle(title.trim());
 		travelInfo.setCity(area.trim());

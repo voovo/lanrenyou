@@ -23,8 +23,8 @@
     
     <ol id="sortbys">
       <!-- <li data-sortby="name">名称</li> -->
-      <li data-sortby="time">发布时间</li>
-      <li data-sortby="popularity" class="active">浏览量</li>
+      <li data-sortby="time" class="active">发布时间</li>
+      <a href="/travel/search/hot?keyword=${keyword!''}&city=${city!''}"><li data-sortby="popularity">浏览量</li></a>
     </ol>
 
 	<#if travelInfoList?? && travelInfoList?size gt 0>

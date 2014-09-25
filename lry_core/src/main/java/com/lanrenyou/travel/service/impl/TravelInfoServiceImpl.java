@@ -70,6 +70,18 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 		pageIterator.setData(list);
 		return pageIterator;
 	}
+	
+	@Override
+	public PageIterator<TravelInfo> pageQueryTravelInfoForPlanner(int uid, int pageNo, int pageSize) {
+		int totalCount = travelInfoDao.getTravelInfoCountForPlanner(uid);
+		List<TravelInfo> list = null;
+		if(totalCount > 0){
+			list = travelInfoDao.getTravelInfoListForPlanner(uid, (pageNo -1) * pageSize, pageSize);
+		}
+		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
+	}
 
 	@Override
 	public Map<Integer, Integer> getPublishedTravelCntMapByUidList(
@@ -89,5 +101,24 @@ public class TravelInfoServiceImpl extends BaseVOService<TravelInfo> implements 
 	public List<Integer> getViewTravelAuthorId(Date startTime, Date endTime,
 			int offset, int limit) {
 		return travelInfoDao.getViewTravelAuthorId(startTime, endTime, offset, limit);
+	}
+
+	@Override
+	public PageIterator<TravelInfo> pageQueryByTidStatus(int tid, int status,
+			int pageNo, int pageSize) {
+		if(pageNo <= 0){
+			pageNo = 1;
+		}
+		if(pageSize <= 0 || pageSize > 100){
+			pageSize = 10;
+		}
+		int totalCount = travelInfoDao.getCountByTidStatus(tid, status);
+		List<TravelInfo> list = null;
+		if(totalCount > 0){
+			list = travelInfoDao.getListByTidStatus(tid, status, (pageNo - 1) * pageSize, pageSize);
+		}
+		PageIterator<TravelInfo> pageIterator = PageIterator.createInstance(pageNo, pageSize, totalCount);
+		pageIterator.setData(list);
+		return pageIterator;
 	}
 }

@@ -1,21 +1,14 @@
-﻿<!doctype html public "-//w3c//dtd html 4.0 frameset//en">
-<html>
-    
-    <head>
-        <title>
-            管理中心<@spring.message "title"/>
-        </title>
-        <meta http-equiv=content-type content="text/html; charset=utf-8">
-        <link href="/css/admin.css" type="text/css" rel="stylesheet">
-    </head>
-    <frameset border=0 framespacing=0 rows="60, *" frameborder=0 >
-        <frame name=header src="/admin/header" frameborder=0 noresize scrolling=no>
-            <frameset cols="170, *">
-                <frame name=menu src="/admin/menu" frameborder=0 noresize>
-                    <frame name=main src="/admin/main" frameborder=0 noresize scrolling=yes>
-            </frameset>
-    </frameset>
-    <noframes>
+﻿<html>
+<head>
+<title>后台管理系统</title>
+<link rel="shortcut icon" type="/image/ico" href="/imgs/favicon.ico">
+</head>
+<frameset rows="64,*"  frameborder="NO" border="0" framespacing="0">
+	<frame src="/admin/header" noresize="noresize" frameborder="NO" name="topFrame" scrolling="no" marginwidth="0" marginheight="0" target="main" />
+  <frameset cols="270,*"  rows="860,*" id="frame">
+	<frame src="/admin/menu" name="leftFrame" noresize="noresize" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" target="main" />
+	<frame src="/admin/main" name="main" marginwidth="0" marginheight="0" frameborder="0" scrolling="auto" target="_self" style="padding:10px; background:#282828;" />
+<noframes>
+  <body></body>
     </noframes>
-
 </html>

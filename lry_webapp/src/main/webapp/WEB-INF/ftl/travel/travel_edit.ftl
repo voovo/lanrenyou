@@ -3,9 +3,9 @@
 	"/resources/css/waper.css",
 	"/resources/css/plug/reveal.css",
 	"/resources/css/plug/uploadify.css",
-	"/resources/js/create.js",
 	"/resources/js/plug/jquery.uploadify.min.js",
-	"/resources/js/plug/jquery.reveal.js"
+	"/resources/js/plug/jquery.reveal.js",
+	"/resources/js/create.js"
 	]
 	>
 
@@ -15,16 +15,26 @@
 
     <div class="add_photo_form_box">
         <table>
-        	<input type="hidden" name="tid" value="${travelInfo.id!''}" />
+        	<input type="hidden" name="tid" id="tid" value="${travelInfo.id!''}" />
             <tr>
                 <td width="130" align="right"><i class="rq">*</i>游记标题：</td>
-                <td><i class="rq"><input id="c_title" type="text" class="input_620" placeholder="<#if travelInfo.title??>${travelInfo.title!''}<#else>游记标题不超过20字</#if>" maxlength="20" value="${travelInfo.title!''}"></i></td>
+                <td><i class="rq"><input id="c_title" name="title" type="text" class="input_620" maxlength="40" value="${travelInfo.title!''}" /></i></td>
             </tr>
             <tr>
                 <td align="right"><i class="rq">*</i>城市：</td>
                 <td>
-                    <div class="label_box hide"><ul class="label clearfix"></ul></div>
-                    <input id="last_home" type="text" class="input_620 placeholder" placeholder="<#if travelInfo.city??>${travelInfo.city!''}<#else>每个城市请用分号结束</#if>" value="${travelInfo.city!''}">
+                    <#if travelInfo.city??>
+                    <div class="label_box">
+                    	<ul class="label clearfix">
+                    			<#assign i = 0 />
+                    			<#list travelInfo.city?split('#') as cityItem>
+                    			<li id="li_${i}" >${cityItem!''}<i class="close" title="删除"></i></li>
+                    			<#assign i = i + 1 />
+                    			</#list>
+                    	</ul>
+                    </div>
+                    </#if>
+                    <input id="last_home" type="text" name="city" class="input_620 placeholder" value="">
                 </td>
             </tr>
         </table>
@@ -62,7 +72,7 @@
     </div>
 
     
-    <a id="create_youji_btn" class="btn blue_btn" href="javascript:;" data-reveal-id="create_success" data-animation="fade">发布游记</a>
+    <a id="edit_youji_btn" class="btn blue_btn" href="javascript:;" data-reveal-id="create_success" data-animation="fade">发布游记</a>
     
 
 </div>

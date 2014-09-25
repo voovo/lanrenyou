@@ -65,7 +65,7 @@
     select
     <include refid="Base_Column_List" />
     from tb_travel_info
-    where status in (1,2) and tid in 
+    where status in (1,2) and id in 
     	<foreach collection="tidList" item="item" index="index" open="(" separator="," close=")">
             #{item, jdbcType=INTEGER}
         </foreach>
@@ -76,7 +76,15 @@
   </select>
   
   <select id="getTravelInfoListByUid" resultMap="BaseResultMap" parameterType="java.util.Map">
-    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2) limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2) order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getTravelInfoCountForPlanner" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1) from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2,3)
+  </select>
+  
+  <select id="getTravelInfoListForPlanner" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info where uid = #{uid, jdbcType=INTEGER} and status in (1,2,3) order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
   <select id="getPublishedTravelCntMapByUidList" resultType="java.util.Map" parameterType="java.lang.Integer" >
@@ -92,5 +100,25 @@
   
   <select id="getViewTravelAuthorId" resultType="java.lang.Integer" parameterType="java.util.Map">
     select ti.uid from tb_travel_info ti, tb_travel_info_stat tis where ti.id=tis.tid and tis.update_time &gt;= #{startTime, jdbcType=TIMESTAMP} and tis.update_time &lt;=#{endTime, jdbcType=TIMESTAMP} order by tis.tid limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCountByTidStatus" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1) from tb_travel_info
+    <where>
+    	<if test="tid != null and tid != '' and tid gt 0">id=#{tid, jdbcType=INTEGER}</if>
+    	<if test="status != null and status != '' and status == -1"> and status in (1,2)</if>
+    	<if test="status != null and status != '' and status gt 0"> and status=#{status, jdbcType=INTEGER}</if>
+    </where>
+  </select>
+  
+  <select id="getListByTidStatus" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select <include refid="Base_Column_List" /> from tb_travel_info 
+    <where>
+    	<if test="tid != null and tid != '' and tid gt 0">id=#{tid, jdbcType=INTEGER}</if>
+    	<if test="status != null and status != '' and status == -1"> and status in (1,2)</if>
+    	<if test="status != null and status != '' and status gt 0"> and status=#{status, jdbcType=INTEGER}</if>
+    </where>
+    order by id desc
+    limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
 </mapper>

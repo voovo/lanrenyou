@@ -42,6 +42,21 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 			if(uri.startsWith("/admin/login")){
 				return true;
 			}
+			if(uri.endsWith(".css")){
+				return true;
+			}
+			if(uri.endsWith(".js")){
+				return true;
+			}
+			if(uri.endsWith(".jpg")){
+				return true;
+			}
+			if(uri.endsWith(".gif")){
+				return true;
+			}
+			if(uri.endsWith(".png")){
+				return true;
+			}
 			this.sendRedirect(request,response);
 			return false;
 		}
@@ -55,7 +70,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
         if (session != null) {
             session.removeAttribute(AdminConstrants.KEY_LOGIN_ADMIN_4_SESSION);
         }
-		response.sendRedirect("http://"+ConfigProperties.getProperty("domain.admin")+"/admin/login");
+		response.sendRedirect("http://"+ConfigProperties.getProperty("domains.admin")+"/admin/login");
 	}
     
 }

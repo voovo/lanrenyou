@@ -1,8 +1,10 @@
 package com.lanrenyou.letter.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lanrenyou.letter.model.PrivateLetter;
+
 import mybatis.framework.core.dao.IValueObjectDao;
 
 public interface IPrivateLetterDao extends IValueObjectDao<PrivateLetter> {
@@ -68,4 +70,8 @@ public interface IPrivateLetterDao extends IValueObjectDao<PrivateLetter> {
 
 	public List<PrivateLetter> getUnReadLetterListByReceiverUid(
 			int receiverUid, int i, int pageSize);
+
+	public int getCountByUid(int uid);
+
+	public List<Map<String, Object>> getListByUid(int uid, int offset, int limitSize);
 }

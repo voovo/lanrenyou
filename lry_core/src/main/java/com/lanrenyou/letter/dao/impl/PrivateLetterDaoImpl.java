@@ -8,7 +8,9 @@ import com.lanrenyou.letter.dao.IPrivateLetterDao;
 import com.lanrenyou.letter.enums.PrivateLetterHasReadEnum;
 import com.lanrenyou.letter.enums.PrivateLetterHasReplyEnum;
 import com.lanrenyou.letter.model.PrivateLetter;
+
 import mybatis.framework.core.dao.BaseDao;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,7 +24,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 	public int getPrivateLetterCountByReceiverUid(int uid) {
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("receiverUid", uid);
-		return (Integer) this.findOne("getPrivateLetterCountByReceiverUid", params);
+		Integer count = (Integer) this.findOne("getPrivateLetterCountByReceiverUid", params);
+		if(null == count){
+			count = 0;
+		}
+		return count;
 	}
 
 	@Override
@@ -47,7 +53,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("senderUid", senderUid);
 		params.put("receiverUid", receiverUid);
-		return (Integer) this.findOne("getPrivateLetterCountByReceiverUidAndSenderUid", params);
+		Integer count = (Integer) this.findOne("getPrivateLetterCountByReceiverUidAndSenderUid", params);
+		if(null == count){
+			count = 0;
+		}
+		return count;
 	}
 
 	@Override
@@ -112,7 +122,11 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("receiverUid", uid);
-		return (Integer) this.findOne("getUnReadLetterCountByReceiverUid", params);
+		Integer count = (Integer) this.findOne("getUnReadLetterCountByReceiverUid", params);
+		if(null == count){
+			return 0;
+		}
+		return count;
 	}
 
 	@Override
@@ -123,5 +137,25 @@ public class PrivateLetterDaoImpl extends BaseDao<PrivateLetter> implements IPri
 		params.put("offset", offset);
 		params.put("limit", limit);
 		return this.findList("getUnReadLetterListByReceiverUid", params);
+	}
+
+	@Override
+	public int getCountByUid(int uid) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		Integer count = (Integer) this.findOne("getCountByUid", params);
+		if(count == null){
+			return 0;
+		}
+		return count;
+	}
+
+	@Override
+	public List<Map<String, Object>> getListByUid(int uid, int offset, int limitSize) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("offset", offset);
+		params.put("limitSize", limitSize);
+		return this.findList("getListByUid", params);
 	}
 }

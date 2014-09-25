@@ -99,4 +99,10 @@
     from tb_user_info
     where email = #{email,jdbcType=VARCHAR}
   </select>
+  
+  <select id="getAllCount" resultType="java.lang.Integer"  >
+    select
+    count(1)
+    from tb_user_info
+  </select>
 </mapper>

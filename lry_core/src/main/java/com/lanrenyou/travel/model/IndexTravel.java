@@ -29,6 +29,11 @@ public class IndexTravel extends BaseValueObject {
     private Integer sort;
     
     /**
+     * 图片显示类型[l:大; s:小; n:窄; f:扁]
+     */
+    private char srcType;
+    
+    /**
      * 更新时间
      */
     private Date updateTime;
@@ -63,6 +68,14 @@ public class IndexTravel extends BaseValueObject {
 
 	public void setSort(Integer sort) {
 		this.sort = sort;
+	}
+
+	public char getSrcType() {
+		return srcType;
+	}
+
+	public void setSrcType(char srcType) {
+		this.srcType = srcType;
 	}
 
 }

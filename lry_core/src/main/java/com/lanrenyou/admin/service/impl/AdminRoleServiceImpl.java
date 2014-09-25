@@ -107,7 +107,7 @@ public class AdminRoleServiceImpl extends BaseVOService<AdminRole> implements IA
 	@Override
 	public AdminRole findWithPowerIdListById(int id) {
 		AdminRole role = super.findById(id);
-		List<Integer> powerIdList = adminRolePowerDao.findList("selectByAdminRoleId", role.getId());
+		List<Integer> powerIdList = adminRolePowerDao.findList("selectByRoleId", role.getId());
 		role.setAdminPowerItemList(powerIdList);
 		return role;
 	}

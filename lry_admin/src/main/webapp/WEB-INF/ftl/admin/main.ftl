@@ -1,140 +1,65 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html>
-    
-    <head>
-        <meta http-equiv=content-type content="text/html; charset=utf-8">
-        <link href="/css/admin.css" type="text/css" rel="stylesheet">
-    </head>
-    
-    <body>
-        <table cellspacing=0 cellpadding=0 width="100%" align=center border=0>
-            <tr height=28>
-                <td background=/imgs/admin/title_bg1.jpg style="padding-left:10px;">
-                    当前位置: 管理首页
-                </td>
-            </tr>
-            <tr>
-                <td bgcolor=#b1ceef height=1>
-                </td>
-            </tr>
-            <tr height=20>
-                <td background=/imgs/admin/shadow_bg.jpg>
-                </td>
-            </tr>
-        </table>
-        <table cellspacing=0 cellpadding=0 width="90%" align=center border=0>
-            <tr height=100>
-                <td align=middle width=100>
-                    <img height=100 src="/imgs/admin/admin_p.gif" width=90>
-                </td>
-                <td width=60>
-                    &nbsp;
-                </td>
-                <td>
-                    <table height=100 cellspacing=0 cellpadding=0 width="100%" border=0>
-                        <tr>
-                            <td>
-                                当前时间：2008-12-27 17:03:55
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; font-size: 16px">
-                                admin
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                欢迎进入网站管理中心！
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan=3 height=10>
-                </td>
-            </tr>
-        </table>
-        <table cellspacing=0 cellpadding=0 width="95%" align=center border=0>
-            <tr height=20>
-                <td>
-                </td>
-            </tr>
-            <tr height=22>
-                <td style="padding-left: 20px; font-weight: bold; color: #ffffff" align=middle
-                background=/imgs/admin/title_bg2.jpg>
-                    您的相关信息
-                </td>
-            </tr>
-            <tr bgcolor=#ecf4fc height=12>
-                <td>
-                </td>
-            </tr>
-            <tr height=20>
-                <td>
-                </td>
-            </tr>
-        </table>
-        <table cellspacing=0 cellpadding=2 width="95%" align=center border=0>
-            <tr>
-                <td align=right width=100>
-                    登陆帐号：
-                </td>
-                <td style="color: #880000">
-                    ${adminUser.name!''}
-                </td>
-            </tr>
-            <tr>
-                <td align=right>
-                    真实姓名：
-                </td>
-                <td style="color: #880000">
-                    admin
-                </td>
-            </tr>
-            <tr>
-                <td align=right>
-                    注册时间：
-                </td>
-                <td style="color: #880000">
-                    ${adminUser.createTime[0..18]}
-                </td>
-            </tr>
-            <tr>
-                <td align=right>
-                    登陆次数：
-                </td>
-                <td style="color: #880000">
-                    ${adminUser.loginNum}
-                </td>
-            </tr>
-            <tr>
-                <td align=right>
-                    上次登录时间：
-                </td>
-                <td style="color: #880000">
-                	<#if adminUser.lastLoginTime?length gt 18>
-                    ${adminUser.lastLoginTime[0..18]}
-                    </#if>
-                </td>
-            </tr>
-            <tr>
-                <td align=right>
-                    ip地址：
-                </td>
-                <td style="color: #880000">
-                    ${userIP!''}
-                </td>
-            </tr>
-            <tr>
-                <td align=right>
-                    身份过期：
-                </td>
-                <td style="color: #880000">
-                    30 分钟
-                </td>
-            </tr>
-        </table>
-	</body>
+<link href="/images/skin.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #282828;
+}
+-->
+</style>
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" style="background:#fff; min-height:700px;">
+  <tr height="50">
+    <td width="17" valign="top"></td>
+    <td valign="top"><table width="100%" height="31" border="0" cellpadding="0" cellspacing="0" class="left_topbg" id="table2">
+      <tr>
+        <td height="31"><div class="titlebt">欢迎界面</div></td>
+      </tr>
+    </table></td>
+    <td width="16" valign="top"></td>
+  </tr>
+  <tr>
+    <td valign="middle">&nbsp;</td>
+    <td valign="top" bgcolor="#F7F8F9"><table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="2" valign="top">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td valign="top">&nbsp;</td>
+      </tr>
+      <tr style="padding-left:20px;">
+        <td colspan="2" valign="top"><span class="left_bt">欢迎来到 懒人游 后台管理系统！</span><br>
+              <br>
+            <span class="left_txt">&nbsp;<img src="/images/ts.gif" width="16" height="16"> 提示：<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网站目前注册人数</span><a href="#"><span class="left_ts">${totalCount!'0'}</span></a><span class="left_txt">人</span></td>
+        <td width="7%">&nbsp;</td>
+        <td width="40%" valign="top"></td>
+      </tr>
+      <tr>
+        <td colspan="2">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="2" valign="top"></td>
+        <td>&nbsp;</td>
+        <td valign="top"></td>
+      </tr>
+
+
+    </table></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="bottom" > </td>
+    <td> </td>
+    <td valign="bottom" > </td>
+  </tr>
+</table>
+
+
 
 </html>
+</body>

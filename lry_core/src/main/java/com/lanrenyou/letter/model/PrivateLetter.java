@@ -41,7 +41,7 @@ public class PrivateLetter extends BaseValueObject {
     /**
      * 发送者删除[0:否; 1:是]
      */
-    private int    senderDeleted;
+    private int senderDeleted;
     
     /**
      * 接收者删除[0:否; 1:是]

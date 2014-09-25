@@ -7,7 +7,9 @@ import java.util.Map;
 
 import com.lanrenyou.user.dao.IUserPlannerDao;
 import com.lanrenyou.user.model.UserPlanner;
+
 import mybatis.framework.core.dao.BaseDao;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -67,5 +69,24 @@ public class UserPlannerDaoImpl extends BaseDao<UserPlanner> implements IUserPla
 		params.put("offset", offset);
 		params.put("limit", limit);
 		return this.findList("getListForFullIndex", params);
+	}
+
+	@Override
+	public int getCountByUidStatus(int uid, int status) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("status", status);
+		return (Integer) this.findOne("getCountByUidStatus", params);
+	}
+
+	@Override
+	public List<UserPlanner> getListByUidStatus(int uid, int status,
+			int offset, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("uid", uid);
+		params.put("status", status);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return this.findList("getListByUidStatus", params);
 	}
 }

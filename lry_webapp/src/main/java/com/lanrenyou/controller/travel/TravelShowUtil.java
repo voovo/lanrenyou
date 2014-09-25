@@ -23,12 +23,18 @@ public class TravelShowUtil {
 			return null;
 		}
 		
-		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		List<Map<String, String>> list = null;
+		try{
+			list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(content);
+		}
 		if(null != list){
 			for(Map<String, String> map : list){
 				if(null != map){
 					String img = map.get("src");
-					if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+					if(StringUtils.isNotBlank(img) && (img.contains("wp-content/uploads") || img.contains("img.lanrenyou.com"))){
 						if(img.endsWith("_s.jpg")){
 							img = img.replace("_s.jpg", "_l.jpg");
 							map.put("src", img);
@@ -43,6 +49,29 @@ public class TravelShowUtil {
 		return list;
 	}
 	
+	public static List<Map<String, String>> getShowInfoForTravelEdit(String content){
+		if(StringUtils.isBlank(content)){
+			return null;
+		}
+		
+		List<Map<String, String>> list = null;
+		try{
+			list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(content);
+		}
+		if(null != list){
+			for(Map<String, String> map : list){
+				if(null != map){
+					String img = map.get("src");
+					map.put("src", img);
+				}
+			}
+		}
+		return list;
+	}
+	
 	/*
 	 * 取出单个游记内容中的封面与头条信息
 	 */
@@ -51,12 +80,18 @@ public class TravelShowUtil {
 			return null;
 		}
 		
-		List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		List<Map<String, String>> list = null;
+		try{
+			list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+		}catch(Exception e){
+			e.printStackTrace();
+			logger.error(content);
+		}
 		if(null != list && list.size() >= 1){
 			Map<String, String> map = list.get(0);
 			if(null != map){
 				String img = map.get("src");
-				if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+				if(StringUtils.isNotBlank(img) && (img.contains("wp-content/uploads") || img.contains("img.lanrenyou.com"))){
 					if(!img.endsWith("_s.jpg")){
 						img = img.replace(".jpg", "_s.jpg");
 						map.put("src", img);
@@ -84,12 +119,18 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			List<Map<String, String>> list = null;
+			try{
+				list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error(content);
+			}
 			if(null != list && list.size() >= 1){
 				Map<String, String> map = list.get(0);
 				if(null != map){
 					String img = map.get("src");
-					if(StringUtils.isNotBlank(img) && img.contains("wp-content/uploads")){
+					if(StringUtils.isNotBlank(img) && (img.contains("wp-content/uploads") || img.contains("img.lanrenyou.com"))){
 						if(!img.endsWith("_s.jpg")){
 							img = img.replace(".jpg", "_l.jpg");
 							map.put("src", img);
@@ -115,7 +156,13 @@ public class TravelShowUtil {
 			if(StringUtils.isBlank(content)){
 				continue;
 			}
-			List<Map<String, String>> list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			List<Map<String, String>> list = null;
+			try{
+				list = gson.fromJson(content, new TypeToken<List<Map<String, String>>>(){}.getType());
+			}catch(Exception e){
+				e.printStackTrace();
+				logger.error(content);
+			}
 			if(null != list && list.size() >= 1){
 				Map<String, String> map = list.get(0);
 				returnMap.put(key, map);

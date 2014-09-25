@@ -203,6 +203,9 @@ public class UserSettingController  extends BaseController {
         if(StringUtils.isBlank(avatarUrl)){
         	return toError("请先上传头像");
         }else {
+        	if(avatarUrl.contains("img.lanrenyou.com")&& !avatarUrl.endsWith("_s.jpg")){
+        		avatarUrl = avatarUrl.replace(".jpg", "_s.jpg");
+        	}
             this.getLoginUser().setAvatar(avatarUrl);
             this.getLoginUser().setUpdateUid(this.getLoginUser().getId());
             this.getLoginUser().setUpdateIp(this.getRemoteAddr());

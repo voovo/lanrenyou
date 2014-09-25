@@ -7,7 +7,7 @@
 		</layout> 
 	</appender>
 	<appender name="commonLoggerFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="C:/logs/commonLoggerFile.log" />
+		<param name="File" value="/ROOT/logs/admin.lanrenyou.com_8030/commonLoggerFile.log" />
 		<param name="Threshold" value="INFO" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd" />
 		<layout class="org.apache.log4j.PatternLayout">

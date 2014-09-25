@@ -43,10 +43,36 @@ public class IndexTravelDaoImpl extends BaseDao<IndexTravel> implements IIndexTr
 	}
 
 	@Override
-	public List<IndexTravel> getIndexTravelList(int offset, int limit) {
+	public List<IndexTravel> getIndexTravelListByTidSrcType(int tid, Character srcType, int offset, int limit) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		if(tid > 0){
+			params.put("tid", tid);
+		}
+		if(null != srcType){
+			params.put("srcType", srcType);
+		}
 		params.put("offset", offset);
 		params.put("limit", limit);
-		return this.findList("getIndexTravelList", params);
+		return this.findList("getIndexTravelListByTidSrcType", params);
+	}
+
+	@Override
+	public IndexTravel getByTid(int tid) {
+		if(tid <= 0){
+			return null;
+		}
+		return (IndexTravel) this.findOne("getByTid", tid);
+	}
+
+	@Override
+	public int getCountByTidSrcType(int tid, Character srcType) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(tid > 0){
+			params.put("tid", tid);
+		}
+		if(null != srcType){
+			params.put("srcType", srcType);
+		}
+		return (Integer) this.findOne("getCountByTidSrcType", params);
 	}
 }

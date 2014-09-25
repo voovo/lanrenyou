@@ -6,10 +6,11 @@
     <result column="tid" property="tid" jdbcType="INTEGER" />
     <result column="is_top" property="isTop" jdbcType="INTEGER" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="src_type" property="srcType" jdbcType="CHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, tid, is_top, sort, update_time
+    id, tid, is_top, sort, src_type, update_time
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_index_travel
@@ -20,12 +21,12 @@
     where tid = #{tid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.travel.model.IndexTravel" useGeneratedKeys="true" keyProperty="id" >
-    insert ignore into tb_index_travel (tid, is_top, sort)
-    values (#{tid,jdbcType=INTEGER}, #{isTop, jdbcType=INTEGER}, #{sort, jdbcType=INTEGER})
+    insert ignore into tb_index_travel (tid, is_top, sort, src_type)
+    values (#{tid,jdbcType=INTEGER}, #{isTop, jdbcType=INTEGER}, #{sort, jdbcType=INTEGER}, #{srcType, jdbcType=CHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.IndexTravel" >
     update tb_index_travel
-    set tid = #{tid,jdbcType=INTEGER}, is_top=#{isTop, jdbcType=INTEGER}, sort=#{sort, jdbcType=INTEGER}
+    set tid = #{tid,jdbcType=INTEGER}, is_top=#{isTop, jdbcType=INTEGER}, sort=#{sort, jdbcType=INTEGER}, src_type=#{srcType, jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -40,9 +41,21 @@
     from tb_index_travel
   </select>
   
-  <select id="getIndexTravelList" resultMap="BaseResultMap" parameterType="java.util.Map">
-  	select <include refid="Base_Column_List" /> from tb_index_travel
+  <select id="getIndexTravelListByTidSrcType" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select <include refid="Base_Column_List" /> from tb_index_travel where 1=1 <if test="tid != null"> and tid = #{tid, jdbcType=INTEGER}</if><if test="srcType != null"> and src_type=#{srcType, jdbcType=CHAR}</if>
     order by is_top desc,sort desc,id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
+  <select id="getByTid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_index_travel
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+  <select id="getCountByTidSrcType" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(1)
+    from tb_index_travel
+    where 1=1 <if test="tid != null"> and tid = #{tid, jdbcType=INTEGER}</if><if test="srcType != null"> and src_type=#{srcType, jdbcType=CHAR}</if>
+  </select>
 </mapper>

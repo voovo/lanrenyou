@@ -42,6 +42,12 @@
     <include refid="Base_Column_List" />
     from tb_admin_role_power
   </select>
+  <select id="selectByRoleId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select
+    power_id
+    from tb_admin_role_power
+    where role_id=#{roleId,jdbcType=INTEGER}
+  </select>
   
   <insert id="insertList" parameterType="java.util.Map">
 	insert into tb_admin_role_power(role_id, power_id, create_uid, create_time, create_ip) values

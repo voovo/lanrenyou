@@ -37,7 +37,7 @@
                 <dd>
                     <ul>
                     	<#list targetCityMap.get(userInfo.id) as city>
-                        <li><a href="/travel/search?city=${city!''}"><@truncateChars value="${city!''}" length="10"/></a></li>
+                        <li><a href="/travel/search/list?city=${city!''}"><@truncateChars value="${city!''}" length="10"/></a></li>
                         </#list>
                     </ul>
                 </dd>

@@ -111,10 +111,25 @@
     where receiver_uid = #{receiverUid,jdbcType=INTEGER} and has_read=0 and receiver_deleted=0
   </select>
   
-  <select id="getUnReadLetterListByReceiverUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+  <select id="getUnReadLetterListByReceiverUid" resultMap="BaseResultMap" parameterType="java.util.Map">
     select
     <include refid="Base_Column_List" />
     from tb_private_letter
     where receiver_uid = #{receiverUid,jdbcType=INTEGER} and has_read=0 and receiver_deleted=0 order by id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
+  
+	<select id="getCountByUid" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(1) from tb_private_letter
+    where 
+    	has_read=0 and receiver_deleted=0
+    	<if test="null != uid and uid != '' and uid gt 0"> and (sender_uid=#{uid, jdbcType=INTEGER} or receiver_uid = #{uid,jdbcType=INTEGER})</if> 
+    	group by sender_uid, receiver_uid  
+	</select>
+	
+	<select id="getListByUid" resultType="java.util.Map" parameterType="java.util.Map">
+    select sender_uid, receiver_uid from tb_private_letter
+    where has_read=0 and receiver_deleted=0
+    	<if test="null != uid and uid != '' and uid gt 0"> and (sender_uid=#{uid, jdbcType=INTEGER} or receiver_uid = #{uid,jdbcType=INTEGER})</if> 
+    	group by sender_uid, receiver_uid order by update_time desc limit #{offset, jdbcType=INTEGER}, #{limitSize, jdbcType=INTEGER}
+	</select>
 </mapper>
