@@ -97,7 +97,7 @@ public class OldDataController extends BaseController {
 		return toError("执行完毕");
 	}
 	
-	@RequestMapping("dealTravel")
+//	@RequestMapping("dealTravel")
 	public ModelAndView dealTravelInfo() throws IOException {
 		List<TravelContent> list = travelContentService.getTravelContentListForSearchIndex(new Date(), 417, 50);
 		for(TravelContent travelContent : list){

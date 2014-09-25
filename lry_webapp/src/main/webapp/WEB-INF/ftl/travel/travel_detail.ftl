@@ -129,6 +129,16 @@
                 </#if>
                 </#if>
 
+				<#if userInfo.presentAddress??>
+                <dl class="plan_area clearfix">
+                    <dt>现居住地：</dt>
+                    <dd>
+                        <ul>
+                            <li><@truncateChars value="${userInfo.presentAddress!''}" length="104"/></li>
+                        </ul>
+                    </dd>
+                </dl>
+                </#if>
                 <!-- 居住地区 -->
                 <#if userInfo.previousAddress??>
                 <dl class="plan_area clearfix">
