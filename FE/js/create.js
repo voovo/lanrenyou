@@ -117,7 +117,7 @@ $(function(){
         if(nodes.length > 0 && !('placeholder' in document.createElement('input'))){
             nodes.each(function(){
                 var holder = $(this).attr("placeholder");
-                console.log(holder)
+                //console.log(holder)
             });
         }
 
@@ -141,7 +141,7 @@ $(function(){
 
     // 上传组件
     if($(".file_upload") && $(".file_upload").length > 0){
-        $("#c_title , #last_home").val("");
+        //$("#c_title , #last_home").val("");
 
         var _this = $(this),
             imgArr = new Array();
@@ -175,7 +175,7 @@ $(function(){
                     // 图片上传成功后，创建dom结构
                     setTimeout(function(){
                         setPhotoList(imgSrc);
-                    } , 800);
+                    } , 1000);
                 }
                 
             },
@@ -191,20 +191,31 @@ $(function(){
     if($("#create_youji_btn") && $("#create_youji_btn").length > 0){
         $("#create_youji_btn").click(function(){
             var c_title = $("#c_title").val(),
-                c_area = $(".label_box").find("li").text() || $("#last_home").val(),
+                //c_area = $(".label_box").find("li").text() || $("#last_home").val(),
                 c_len = $(".album_block:visible").length,
                 c_yj = "[";
+
+            // 获取城市信息
+            var getArea = function(){
+                var _areaArr = new Array();
+                $(".label_box").find("li").each(function(){
+                    _areaArr.push($.trim($(this).text()));
+                });
+                return _areaArr.join("#");
+            }
+            
+            c_area = getArea() || $("#last_home").val();
 
             if($(".album_block:visible").length > 0){
                 $(".album_block:visible").each(function(){
                     var img_src = $(this).find(".img_left img").attr("src"),
                         img_info = $(this).find(".right textarea").val();
-                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info+'"},';
+                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info.replace('"' , '“').replace('"' , '”')+'"},';
                 }); 
             }
             c_yj+= "]";
-            c_yj.replace(",]" , "]");
-            //console.log(c_title , c_area , c_yj);
+            c_yj = c_yj.replace(",]" , "]");
+            //console.log( c_area );
 
             //return;
 
@@ -230,6 +241,75 @@ $(function(){
                             //e.preventDefault();
                             //var modalLocation = $(this).attr('data-reveal-id');
                             var t_url = _d.info;
+                            $('#create_success .suc_link a').eq(0).attr("href" , t_url);
+                            $('#create_success').reveal($(this).data());
+                        }else{
+                            alert(_d.info);
+                        }
+                    },error : function(){
+                        alert("提交失败，请稍后再试!");
+                    }
+                });
+            }
+        });
+    }
+
+
+    // 保存游记
+    if($("#edit_youji_btn") && $("#edit_youji_btn").length > 0){
+        $("#edit_youji_btn").click(function(){
+            var c_title = $("#c_title").val(),
+                c_tid = $("#tid").val(),
+                //c_area = $(".label_box").find("li").text() || $("#last_home").val(),
+                c_len = $(".album_block:visible").length,
+                c_yj = "[";
+
+            // 获取城市信息
+            var getArea = function(){
+                var _areaArr = new Array();
+                $(".label_box").find("li").each(function(){
+                    _areaArr.push($.trim($(this).text()));
+                });
+                return _areaArr.join("#");
+            }
+            
+            c_area = getArea() || $("#last_home").val();
+
+            if($(".album_block:visible").length > 0){
+                $(".album_block:visible").each(function(){
+                    var img_src = $(this).find(".img_left img").attr("src"),
+                        img_info = $(this).find(".right textarea").val();
+                    c_yj +='{"src":"'+img_src+'" , "info" : "'+img_info.replace('"' , '“').replace('"' , '”')+'"},';
+                }); 
+            }
+            c_yj+= "]";
+            c_yj = c_yj.replace(",]" , "]");
+            //console.log( c_area );
+
+            //return;
+
+
+            if(!c_title){
+                alert("游记标题不能为空!");
+                return;
+            }if(!c_area){
+                alert("请用分号分隔城市！");
+                return;
+            }if(c_len == 0){
+                alert("请上传游记照片");
+                return;
+            }else{
+                $.ajax({
+                    url: "/travel/"+c_tid+"/edit",
+                    type: "POST",
+                    data : "tid="+c_tid+"&title="+c_title+"&area="+c_area+"&imgs="+c_yj,
+                    success : function(r){
+                        var _d = jQuery.parseJSON(r);
+                        if(_d.status == "y"){
+                            // 显示弹层
+                            //e.preventDefault();
+                            //var modalLocation = $(this).attr('data-reveal-id');
+                            var t_url =  "/travel/"+c_tid;
                             $('#create_success .suc_link a').eq(0).attr("href" , t_url);
                             $('#create_success').reveal($(this).data());
                         }else{

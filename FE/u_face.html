@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="css/waper.css">
     <!-- 页面自用 -->
 
+    <!-- 用户头像裁剪 -->
+    <script src="js/plug/jquery.Jcrop.js"></script>
+    <link rel="stylesheet" href="css/plug/jquery.Jcrop.css" type="text/css" />
+    <link rel="stylesheet" href="css/profile.css">
 
 </head>
 <body>
@@ -171,10 +175,22 @@
                     <input type="file" name="upload_file" id="u_face" class="file_upload" />
                     </td>
                 </tr>
-
                 <tr>
                     <td></td>
-                    <td><a href="javascript:;" class="btn blue_btn">提交修改</a></td>
+                    <td>
+                        <img src="" id="target" alt="[Jcrop Example]" />
+
+                        <div id="preview-pane">
+                            <div class="preview-container">
+                              <img src="" class="jcrop-preview" alt="Preview" />
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><a id="up_face_btn" href="javascript:;" class="btn blue_btn">提交修改</a></td>
                     <td></td>
                 </tr>
             </table>

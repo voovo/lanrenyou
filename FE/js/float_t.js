@@ -20,7 +20,7 @@
             // Optional, the distance between grid items
             itemWidth: 300,
             // Optional, the width of a grid item
-            comparator: comparatorPopularity,
+            comparator: comparatorTime,
             outerOffset: 10,
             // Optional the distance from grid to parent
             flexibleWidth: '50%' // Optional, the maximum width of a grid item
