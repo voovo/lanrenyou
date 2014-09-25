@@ -18,7 +18,7 @@
     </ul>
     
     <ul id="u_fans_tabs" class="clearfix waper_box">
-        <li class="msgToName">我与 <span>${receiver.name!''}</span> 的私信</li>
+        <li class="msgToName">我与 <span>${receiver.nickname!''}</span> 的私信</li>
         <li><a class="btn_s blue_btn" href="/user/${userInfo.id!''}/msg/list">返回列表</a></li>
     </ul>
     
@@ -34,7 +34,7 @@
             <img src="<#if user??>${user.avatar!''}</#if>" alt="" />
             <div class="clearfix">
                 <p class="left">
-                    <span class="vip_ico"><a href="/user/${user.id!''}">${user.name!''}</a></span>
+                    <span class="vip_ico"><a href="/user/${user.id!''}">${user.nickname!''}</a></span>
                 </p>
                 <p class="left">${letter.updateTime?string('yyyy-MM-dd')!''}</p>
             </div>

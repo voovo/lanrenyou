@@ -36,7 +36,7 @@ body {
             <td width="46%" valign="middle"><table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="5%"><div align="center"><img src="/img/tb.gif" width="16" height="16" /></div></td>
-                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[<a href="/msg/list">私信管理</a>]-[${sender.name!''}与${receiver.name!''}间的全部私信]
+                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[<a href="/msg/list">私信管理</a>]-[${sender.nickname!''}与${receiver.nickname!''}间的全部私信]
                 </td>
               </tr>
             </table></td>
@@ -61,7 +61,7 @@ body {
           <#list letterList as letter >
 	          <tr>
 	            <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-	              <div align="center"><#if userMap.get(letter.senderUid)??>${userMap.get(letter.senderUid).name!''}</#if></div>
+	              <div align="center"><#if userMap.get(letter.senderUid)??>${userMap.get(letter.senderUid).nickname!''}</#if></div>
 	            </div></td>
 	            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${letter.content!''}</span></div></td>
 	            <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">${letter.updateTime?string('yyyy-MM-dd HH:mm:ss')}</div></td>

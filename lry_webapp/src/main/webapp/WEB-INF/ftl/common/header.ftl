@@ -52,7 +52,7 @@
 	            <li>
 	                <img src="${loginUser.avatar!''}" width="20" height="20" alt="" />
 	            </li>
-	            <li class="wap_show bd_right <#if currentUserIsPlanner?? && currentUserIsPlanner>vip_ico</#if>">${loginUser.name!''}</li>
+	            <li class="wap_show bd_right <#if currentUserIsPlanner?? && currentUserIsPlanner>vip_ico</#if>">${loginUser.nickname!''}</li>
 	            <li class="wap_show bd_right"><a href="/travel/toAddPage">发布游记</a></li>
 	            <li id="msg" class="wap_show bd_right show_more">
 	                消息中心(${headerLetterCnt!'0'})
@@ -80,7 +80,7 @@
 	                    <div class="hide more_item">
 	                        <i class="tag_ico"></i>
 	                        <ul>
-	                            <li class="wap_hide hide">${loginUser.name!''}</li>
+	                            <li class="wap_hide hide">${loginUser.nickname!''}</li>
 	                            <li class="wap_hide hide"><a href="/travel/toAddPage">发布游记</a></li>
 	                            <li class="wap_hide hide"><a href="/user/${loginUser.id!''}/msg/list">消息中心(${headerLetterCnt!'0'})</a></li>
 	                            <li><a href="/user/setting/info" title="个人设置">个人设置</a></li>

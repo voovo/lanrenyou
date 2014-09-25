@@ -41,7 +41,7 @@
             <img src="<#if userInfoMap?? && userInfoMap.get(letter.senderUid)??>${userInfoMap.get(letter.senderUid).avatar!''}</#if>" alt="" />
             <div class="clearfix">
                 <p class="left">
-                    <span class="vip_ico"><a href="/user/${letter.senderUid!''}"><#if userInfoMap?? && userInfoMap.get(letter.senderUid)??>${userInfoMap.get(letter.senderUid).name!''}</#if></a></span>
+                    <span class="vip_ico"><a href="/user/${letter.senderUid!''}"><#if userInfoMap?? && userInfoMap.get(letter.senderUid)??>${userInfoMap.get(letter.senderUid).nickname!''}</#if></a></span>
                 </p>
                 <p class="left">${letter.updateTime?string('yyyy-MM-dd')!''}</p>
                 <p class="right">

@@ -84,14 +84,14 @@
                         <img src="${userInfo.avatar!''}" alt="">
                     </div>
                     <div class="left authot_info">
-                        <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
+                        <h2 class="vip_b_ico"><a href="/user/${userInfo.id!''}">${userInfo.nickname!''}</a></h2>
                         <#assign isShow = true />
                         <#if loginUser?? && loginUser.id == userInfo.id>
                         	<#assign isShow = false />
                         </#if>
                         <#if isShow>
                         <p>
-                            <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
+                            <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}" username="${userInfo.nickname!''}"></a>
                             <#if userStarMap?? && userStarMap.get(userInfo.id)??>
 							<a href="javascript:;" class="btn_s added_btn right" uid="${userInfo.id!''}"></a>
 							<#else>

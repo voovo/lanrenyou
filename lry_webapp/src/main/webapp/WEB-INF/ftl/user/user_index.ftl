@@ -13,14 +13,14 @@
             <img src="${userInfo.avatar!''}" alt="">
         </div>
         <div class="authot_info">
-            <h2 <#if currentUserIsPlanner?? && currentUserIsPlanner>class="vip_b_ico"</#if>><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></h2>
+            <h2 <#if currentUserIsPlanner?? && currentUserIsPlanner>class="vip_b_ico"</#if>><a href="/user/${userInfo.id!''}">${userInfo.nickname!''}</a></h2>
             <div class="my_add">
             	<#assign isShow = true />
                 <#if loginUser?? && loginUser.id == userInfo.id>
                 	<#assign isShow = false />
                 </#if>
                 <#if isShow>
-                <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
+                <a href="javascript:;" class="btn_s msg_btn right" uid="${userInfo.id!''}" username="${userInfo.nickname!''}"></a>
                 <#if userStarMap?? && userStarMap.get(userInfo.id)??>
 				<a href="javascript:;" class="btn_s added_btn right" uid="${userInfo.id!''}"></a>
 				<#else>

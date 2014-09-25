@@ -30,7 +30,7 @@
             <div class="u_fans_box clearfix">
                 <img class="left" src="<#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).avatar!''}</#if>" alt="">
                 <div class="left">
-                    <p><span class="vip_ico"><a href="/user/${uid!''}"><#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).name!''}</#if></a></span></p>
+                    <p><span class="vip_ico"><a href="/user/${uid!''}"><#if userInfoMap?? && userInfoMap.get(uid)??>${userInfoMap.get(uid).nickname!''}</#if></a></span></p>
                     <#if starMap?? && starMap.get(uid)??>
                     	<p class="u_fans_links"><a href="javascript:;" class="ico addeach_icon">已互听</a> | <a href="#">取消关注</a></p>
                     <#else>

@@ -122,7 +122,7 @@ $(function(){
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a target="_blank" href="http://www.lanrenyou.com/travel/${travelInfo.id!''}">${travelInfo.title!''}</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://www.lanrenyou.com/user/${travelInfo.uid}" target="_blank">${userInfo.name!''}</a></span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://www.lanrenyou.com/user/${travelInfo.uid}" target="_blank">${userInfo.nickname!''}</a></span></div></td>
             <td bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
             <#if travelInfo.status??>
             	<#if travelInfo.status == -1 >

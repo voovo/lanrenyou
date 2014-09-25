@@ -36,7 +36,7 @@
                 		<#assign author = userInfoMap.get(travelInfoMap.get(tid).uid) />
                 	</#if>
                     <img src="<#if author??>${author.avatar!''}</#if>" alt="">
-                    <a href="<#if author??>${author.id!''}</#if>"><#if author??>${author.name!''}</#if></a>
+                    <a href="<#if author??>${author.id!''}</#if>"><#if author??>${author.nickname!''}</#if></a>
                 </div>
             </div>
             <div class="u_yj_info">

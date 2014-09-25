@@ -24,7 +24,7 @@
                     <img src="${userInfo.avatar!''}" alt="">
                 </dt>
                 <dd class="planner_name">
-                    <span class="vip_ico"><a href="/user/${userInfo.id!''}" target="_blank">${userInfo.name!''}</a></span>
+                    <span class="vip_ico"><a href="/user/${userInfo.id!''}" target="_blank">${userInfo.nickname!''}</a></span>
                 </dd>
                 <dd class="planner_info">
                 	<!--
@@ -44,7 +44,7 @@
                     <a href="javascript:;" class="btn_s add_btn" uid="${userInfo.id!''}"></a>
 					</#if>
                     </#if>
-                    <a href="javascript:;" class="btn_s msg_btn" <#if !isShow>style="display:none;"</#if> uid="${userInfo.id!''}" username="${userInfo.name!''}"></a>
+                    <a href="javascript:;" class="btn_s msg_btn" <#if !isShow>style="display:none;"</#if> uid="${userInfo.id!''}" username="${userInfo.nickname!''}"></a>
                 </dd>
             </dl>
 

@@ -16,7 +16,7 @@
 
           <div class="float_img_author clearfix">
             <img class="u_sm" src="${userInfo.avatar!''}" alt="" width="24" height="24">
-            <span><a href="/user/${userInfo.id!''}">${userInfo.name!''}</a></span>
+            <span><a href="/user/${userInfo.id!''}">${userInfo.nickname!''}</a></span>
             <span class="ico icon_time"><#if travelInfo.createTime??>${travelInfo.createTime?string('yyyy-MM-dd')}</#if></span>
             <span class="ico icon_eye"><#if travelVisitCntMap?? && travelVisitCntMap.get(travelInfo.id)??>${travelVisitCntMap.get(travelInfo.id)!''}<#else>0</#if></span>
           </div>

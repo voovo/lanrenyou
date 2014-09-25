@@ -119,7 +119,7 @@ $(function(){
           <#assign userInfo = userInfoMap.get(uid) />
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center" class="STYLE1">
-              <a href="http://www.lanrenyou.com/user/${userInfo.id!''}" target="_blank" title="${userInfo.userIntro!''}">${userInfo.name!''}</a>
+              <a href="http://www.lanrenyou.com/user/${userInfo.id!''}" target="_blank" title="${userInfo.userIntro!''}">${userInfo.nickname!''}</a>
             </div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userInfo.email!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.targetCity!''}</span></div></td>

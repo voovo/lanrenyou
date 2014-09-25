@@ -76,12 +76,12 @@ body {
 	          <tr>
           	<td height="22" bgcolor="#FFFFFF">
           		<div align="center" class="STYLE1">
-              		<div align="center"><a href="http://www.lanrenyou.com/user/${senderUid}" target="_blank"><#if sender??>${sender.name!''}</#if></a></div>
+              		<div align="center"><a href="http://www.lanrenyou.com/user/${senderUid}" target="_blank"><#if sender??>${sender.nickname!''}</#if></a></div>
             	</div>
             </td>
             <td height="22" bgcolor="#FFFFFF">
           		<div align="center" class="STYLE1">
-              		<div align="center"><a href="http://www.lanrenyou.com/user/${receiverUid}" target="_blank"><#if receiver??>${receiver.name!''}</#if></a></div>
+              		<div align="center"><a href="http://www.lanrenyou.com/user/${receiverUid}" target="_blank"><#if receiver??>${receiver.nickname!''}</#if></a></div>
             	</div>
             </td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE4"><a href="/msg/showMsg?senderUid=${senderUid}&receiverUid=${receiverUid}">查看</a></span></div></td>
