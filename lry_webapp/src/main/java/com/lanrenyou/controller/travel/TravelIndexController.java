@@ -263,7 +263,7 @@ public class TravelIndexController  extends BaseController {
 		return mav;
 	}
 	
-	@RequestMapping(value={"edit"}, method=RequestMethod.GET)
+	@RequestMapping(value={"edit"}, method=RequestMethod.POST)
 	@ResponseBody
 	public String doEdit(
 			@RequestParam(value = "tid", required=true, defaultValue="") Integer tid,
@@ -312,7 +312,7 @@ public class TravelIndexController  extends BaseController {
 		
 		TravelContent travelContent = travelContentService.getTravelContentByTid(tid);
 		travelContent.setContent(imgs);
-		result = travelContentService.addTravelContent(travelContent);
+		result = travelContentService.updateTravelContent(travelContent);
 		
 		if(result < 1){
 			map.put("status", "n");

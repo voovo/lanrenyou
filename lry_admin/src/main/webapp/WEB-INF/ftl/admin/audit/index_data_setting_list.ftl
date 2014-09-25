@@ -108,7 +108,7 @@ $(function(){
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.city!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="http://www.lanrenyou.com/user/${travelInfo.uid}" target="_blank">sheak</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${travelInfo.updateTime?string('yyyy-MM-dd HH:mm:ss')}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="230" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??>http://www.lanrenyou.com${srcUrlMap.get(travelInfo.id)}</#if>" alt=""></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="230" src="<#if srcUrlMap?? && srcUrlMap.get(travelInfo.id)??><#if srcUrlMap.get(travelInfo.id)?contains("wp-content")>http://www.lanrenyou.com${srcUrlMap.get(travelInfo.id)}<#else>${srcUrlMap.get(travelInfo.id)}</#if></#if>" alt=""></div></td>
             <td height="22" bgcolor="#FFFFFF">
             	<div align="center"><img src="/images/check-out_.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}" srcType="l">大图</a></div>
             	<div align="center"><img src="/images/check-out_.gif" width="16" height="16" /><a href="javascript:;" id="passBtn" tid="${travelInfo.id}" srcType="s">小图</a></div>

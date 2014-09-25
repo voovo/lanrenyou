@@ -15,7 +15,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lanrenyou.travel.model.TravelContent" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_travel_content (tid, travel_date, content
+    replace into tb_travel_content (tid, travel_date, content
       )
     values (#{tid,jdbcType=INTEGER}, #{travelDate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
       )

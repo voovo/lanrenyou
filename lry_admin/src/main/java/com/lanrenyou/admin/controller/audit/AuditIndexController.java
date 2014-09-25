@@ -112,7 +112,7 @@ public class AuditIndexController extends BaseController {
 			}
 		} else {
 			mav.setViewName("/admin/audit/index_data_setting_list");
-			PageIterator<IndexTravel> pageIterIndex = indexTravelService.pageQueryByTidSrcType(-1, null, pageNo, pageSize);
+//			PageIterator<IndexTravel> pageIterIndex = indexTravelService.pageQueryByTidSrcType(-1, null, pageNo, pageSize);
 			PageIterator<TravelInfo> pageIter = travelInfoService.pageQueryByTidStatus(tid, TravelInfoStatusEnum.PASS.getValue(), pageNo, pageSize);
 			if(null != pageIter && null != pageIter.getData()){
 				mav.addObject("pageIter", pageIter);
@@ -224,7 +224,7 @@ public class AuditIndexController extends BaseController {
 			if(firstSrcUrl.contains("wp-content/uploads") && !firstSrcUrl.startsWith("http")){
 				firstSrcUrl = "/ROOT/www/www_8000" + firstSrcUrl;
 			} else if (firstSrcUrl.startsWith("http://img.lanrenyou.com")){
-				firstSrcUrl = "/ROOT/www/img_8010/" + firstSrcUrl.substring(26);
+				firstSrcUrl = "/ROOT/www/img_8010/" + firstSrcUrl.substring(25);
 			}
 			cropImageForIndex(firstSrcUrl);
 		} catch (IOException e) {

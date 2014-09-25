@@ -118,6 +118,7 @@
     	<if test="status != null and status != '' and status == -1"> and status in (1,2)</if>
     	<if test="status != null and status != '' and status gt 0"> and status=#{status, jdbcType=INTEGER}</if>
     </where>
+    order by id desc
     limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
 </mapper>

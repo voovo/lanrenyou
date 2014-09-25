@@ -15,7 +15,7 @@
 
     <div class="add_photo_form_box">
         <table>
-        	<input type="hidden" name="tid" value="${travelInfo.id!''}" />
+        	<input type="hidden" name="tid" id="tid" value="${travelInfo.id!''}" />
             <tr>
                 <td width="130" align="right"><i class="rq">*</i>游记标题：</td>
                 <td><i class="rq"><input id="c_title" name="title" type="text" class="input_620" maxlength="40" value="${travelInfo.title!''}" /></i></td>
@@ -72,7 +72,7 @@
     </div>
 
     
-    <a id="create_youji_btn" class="btn blue_btn" href="javascript:;" data-reveal-id="create_success" data-animation="fade">发布游记</a>
+    <a id="edit_youji_btn" class="btn blue_btn" href="javascript:;" data-reveal-id="create_success" data-animation="fade">发布游记</a>
     
 
 </div>
