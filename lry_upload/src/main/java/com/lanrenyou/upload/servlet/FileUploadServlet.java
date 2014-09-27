@@ -96,20 +96,20 @@ public class FileUploadServlet extends HttpServlet {
                 }
                 urlList.add("http://img.lanrenyou.com/"+year+"/"+month+"/"+day+"/"+fileName);
                 if(picDeal){
-                	EXECUTOR_SERVICE.submit(new Runnable() {
-                		@Override
-                		public void run() {
+//                	EXECUTOR_SERVICE.submit(new Runnable() {
+//                		@Override
+//                		public void run() {
                 			try {
                 				ImageUtils.cropImageForTravel(realPath + "/" + fileName);
                 			} catch (IOException e) {
                 				e.printStackTrace();
                 			}
-                		}
-                	});
+//                		}
+//                	});
                 } else {
-                	EXECUTOR_SERVICE.submit(new Runnable() {
-                		@Override
-                		public void run() {
+//                	EXECUTOR_SERVICE.submit(new Runnable() {
+//                		@Override
+//                		public void run() {
                 			String srcPath = realPath + "/" + fileName;
                 			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
                 			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
@@ -119,8 +119,8 @@ public class FileUploadServlet extends HttpServlet {
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-                		}
-                	});
+//                		}
+//                	});
                 }
             }
         }
