@@ -210,7 +210,7 @@ public class AuditIndexController extends BaseController {
 					if(!img.endsWith("_s.jpg")){
 						firstSrcUrl = img;
 					} else {
-						firstSrcUrl = img.replace("_s.jpg", ".jpg");
+						firstSrcUrl = img.replace("_s.jpg", "_l.jpg");
 					}
 				}
 			}
@@ -226,7 +226,16 @@ public class AuditIndexController extends BaseController {
 			} else if (firstSrcUrl.startsWith("http://img.lanrenyou.com")){
 				firstSrcUrl = "/ROOT/www/img_8010/" + firstSrcUrl.substring(25);
 			}
-			cropImageForIndex(firstSrcUrl);
+			switch(srcType){
+				case ('f'):
+					cropImageForIndexF(firstSrcUrl);
+					break;
+				case ('n'):
+					cropImageForIndexN(firstSrcUrl);
+					break;
+				default :
+					break;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			map.put("status", "n");
@@ -280,7 +289,7 @@ public class AuditIndexController extends BaseController {
 		}
 	}
 	
-	public static void cropImageForIndex(String srcPath) throws IOException{
+	public static void cropImageForIndexN(String srcPath) throws IOException{
 		File srcFile = new File(srcPath);
 		Image srcImage = ImageIO.read(srcFile);
 		if(null == srcImage){
@@ -289,45 +298,34 @@ public class AuditIndexController extends BaseController {
 		int w = srcImage.getWidth(null);
 		int h = srcImage.getHeight(null);
 		String operateImgPath = srcPath;
-		if(w > 1000 && h > 661){
-			// 先等比压缩再裁剪
-			float radio = w / 800; 
-			String tmpPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_tmp.jpg";
-			reduceImageEqualProportion(srcPath, tmpPath, radio);
-			srcFile = new File(tmpPath);
-			srcImage = ImageIO.read(srcFile);
-			w = srcImage.getWidth(null);
-			h = srcImage.getHeight(null);
-			operateImgPath = tmpPath;
-		}
 			
-		if(w >= 696 && h >= 468){
-			int toWidth = 696;
+		if(w >= 336 && h >= 468){
+			int toWidth = 336;
 			int toHeight = 468;
-			
-			int x = 0;
-			int y = 0;
-			x = (w - toWidth)/2;
-			y = (h - toHeight)/2;
-//			String toPath696x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_il.jpg";
-//			cropImage(operateImgPath, toPath696x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
-			
-			toWidth = 696;
-			toHeight = 222;
-			x = (w - toWidth)/2;
-			y = (h - toHeight)/2;
-			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_f.jpg";
-			cropImage(operateImgPath, toPath696x222, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
-			
-//			String toPath336x222 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_is.jpg";
-//			reduceImageEqualProportion(toPath696x468, toPath336x222, 2);
-			
-			toWidth = 336;
-			toHeight = 468;
-			x = (w - toWidth)/2;
-			y = (h - toHeight)/2;
-			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_n.jpg";
+			int x = (w - toWidth)/2;
+			int y = (h - toHeight)/2;
+			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.') - 2) + "_n.jpg";
 			cropImage(operateImgPath, toPath336x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
+		}
+	}
+	
+	public static void cropImageForIndexF(String srcPath) throws IOException{
+		File srcFile = new File(srcPath);
+		Image srcImage = ImageIO.read(srcFile);
+		if(null == srcImage){
+			return;
+		}
+		int w = srcImage.getWidth(null);
+		int h = srcImage.getHeight(null);
+		String operateImgPath = srcPath;
+			
+		if(w >= 696 && h >= 222){
+			int toWidth = 696;
+			int toHeight = 222;
+			int x = (w - toWidth)/2;
+			int y = (h - toHeight)/2;
+			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.') -2) + "_f.jpg";
+			cropImage(operateImgPath, toPath696x222, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		}
 	}
 	
@@ -453,5 +451,7 @@ public class AuditIndexController extends BaseController {
                 outBuff.close();
         }
     }
+    
 }
+
 
