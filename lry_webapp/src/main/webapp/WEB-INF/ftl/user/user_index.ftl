@@ -37,11 +37,33 @@
                 <dd>
                     <ul>
                     	<#list targetCityMap.get(userInfo.id) as city>
-                        <li><a href="/travel/search/list?city=${city!''}"><@truncateChars value="${city!''}" length="10"/></a></li>
+                        <li><a href="/travel/search/list?city=${city!''}"><@truncateChars value="${city!''}" length="50"/></a></li>
                         </#list>
                     </ul>
                 </dd>
             </dl>
+        </#if>
+        
+        <#if userPlanner?? && userPlanner.fees??>
+        <dl class="plan_area clearfix">
+            <dt>收费标准：</dt>
+            <dd>
+                <ul>
+                    <li>${userPlanner.fees}</li>
+                </ul>
+            </dd>
+        </dl>
+        </#if>
+
+		<#if userInfo.presentAddress??>
+        <dl class="plan_area clearfix">
+            <dt>现居住地：</dt>
+            <dd>
+                <ul>
+                    <li><@truncateChars value="${userInfo.presentAddress!''}" length="104"/></li>
+                </ul>
+            </dd>
+        </dl>
         </#if>
 
         <!-- 居住地区 -->

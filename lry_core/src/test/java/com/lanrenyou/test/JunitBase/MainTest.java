@@ -35,7 +35,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class MainTest{
 	
 	public static void main(String[] args) throws IOException{
-		String srcPath = "D:/tmp/img/2014/112117190_l.jpg";
+		String srcPath = "D:/tmp/img/2014/031216855_l.jpg";
 		cropImageForIndexF(srcPath);
 		cropImageForIndexN(srcPath);
 	}

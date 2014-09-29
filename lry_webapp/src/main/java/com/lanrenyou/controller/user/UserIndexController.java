@@ -114,15 +114,11 @@ public class UserIndexController  extends BaseController {
 			mav.addObject("fansCount", fansMap.get(this.getCurrentUser().getId()));
 		}
 		
-		Map<Integer, UserPlanner> userPlannerMap = userPlannerService.getUserPlannerMapByUidList(uidList);
-		if(null != userPlannerMap && userPlannerMap.size() > 0){
+		UserPlanner userPlanner = userPlannerService.getUserPlannerByUid(this.getCurrentUser().getId());
+		mav.addObject("userPlanner", userPlanner);
+		if(null != userPlanner && StringUtils.isNotBlank(userPlanner.getTargetCity())){
 			Map<Integer, String[]> targetCityMap = new HashMap<Integer, String[]>();
-			for(Integer uid : userPlannerMap.keySet()){
-				UserPlanner userPlanner = userPlannerMap.get(uid);
-				if(null != userPlanner && StringUtils.isNotBlank(userPlanner.getTargetCity())){
-					targetCityMap.put(uid, userPlanner.getTargetCity().split(","));
-				}
-			}
+			targetCityMap.put(this.getCurrentUser().getId(), userPlanner.getTargetCity().split(","));
 			mav.addObject("targetCityMap", targetCityMap);
 		}
 		

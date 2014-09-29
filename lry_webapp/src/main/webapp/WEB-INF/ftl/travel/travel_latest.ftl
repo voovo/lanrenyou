@@ -6,7 +6,7 @@
 	"/resources/css/plug/float.css",
 	"/resources/js/plug/jquery.imagesloaded.js",
 	"/resources/js/plug/jquery.wookmark.js",
-	"/resources/js/float.js"
+	"/resources/js/float_t.js"
 	]
 	>
 
