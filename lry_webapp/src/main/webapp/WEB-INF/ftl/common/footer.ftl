@@ -6,7 +6,7 @@
                 <a href="javascript:;">微信</a>
                 <div id="erweima" class="hide"></div>
             </li>
-            <li class="wb"><a href="javascript:;">新浪微博</a></li>
+            <li class="wb"><a href="http://www.weibo.com/u/3204652417" target="_blank">新浪微博</a></li>
             <li class="tt"><a href="javascript:;">腾讯微博</a></li>
             <li class="qq"><a href="javascript:;">QQ</a></li>
         </ul>
