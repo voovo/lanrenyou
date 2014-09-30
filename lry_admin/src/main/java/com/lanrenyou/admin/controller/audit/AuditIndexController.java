@@ -290,6 +290,7 @@ public class AuditIndexController extends BaseController {
 	}
 	
 	public static void cropImageForIndexN(String srcPath) throws IOException{
+//		srcPath = srcPath.substring(0, srcPath.lastIndexOf('.') - 2) + ".jpg";
 		File srcFile = new File(srcPath);
 		Image srcImage = ImageIO.read(srcFile);
 		if(null == srcImage){
@@ -298,7 +299,17 @@ public class AuditIndexController extends BaseController {
 		int w = srcImage.getWidth(null);
 		int h = srcImage.getHeight(null);
 		String operateImgPath = srcPath;
-			
+		if(w > 336){
+			// 先等比压缩再裁剪
+			float radio = w / 336; 
+			String bigNarrow = srcPath.substring(0, srcPath.lastIndexOf('.')- 2) + "_bn.jpg";
+			reduceImageEqualProportion(srcPath, bigNarrow, radio);
+			srcFile = new File(bigNarrow);
+			srcImage = ImageIO.read(srcFile);
+			w = srcImage.getWidth(null);
+			h = srcImage.getHeight(null);
+			operateImgPath = bigNarrow;
+		}
 		if(w >= 336 && h >= 468){
 			int toWidth = 336;
 			int toHeight = 468;

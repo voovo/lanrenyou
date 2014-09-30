@@ -35,12 +35,14 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class MainTest{
 	
 	public static void main(String[] args) throws IOException{
-		String srcPath = "D:/tmp/img/2014/031216855_l.jpg";
-		cropImageForIndexF(srcPath);
+		String srcPath = "D:/tmp/img/2014/large_dyuB_763f000060b11190_l.jpg";
+//		cropImageForIndexF(srcPath);
 		cropImageForIndexN(srcPath);
 	}
 	
 	public static void cropImageForIndexN(String srcPath) throws IOException{
+//		srcPath = srcPath.substring(0, srcPath.lastIndexOf('.') - 2) + ".jpg";
+//		System.out.println(srcPath);
 		File srcFile = new File(srcPath);
 		Image srcImage = ImageIO.read(srcFile);
 		if(null == srcImage){
@@ -49,13 +51,23 @@ public class MainTest{
 		int w = srcImage.getWidth(null);
 		int h = srcImage.getHeight(null);
 		String operateImgPath = srcPath;
-			
+		if(w > 336){
+			// 先等比压缩再裁剪
+			float radio = w / 336; 
+			String bigNarrow = srcPath.substring(0, srcPath.lastIndexOf('.') - 2) + "_bn.jpg";
+			reduceImageEqualProportion(srcPath, bigNarrow, radio);
+			srcFile = new File(bigNarrow);
+			srcImage = ImageIO.read(srcFile);
+			w = srcImage.getWidth(null);
+			h = srcImage.getHeight(null);
+			operateImgPath = bigNarrow;
+		}
 		if(w >= 336 && h >= 468){
 			int toWidth = 336;
 			int toHeight = 468;
 			int x = (w - toWidth)/2;
 			int y = (h - toHeight)/2;
-			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.') - 1) + "_n.jpg";
+			String toPath336x468 = srcPath.substring(0, srcPath.lastIndexOf('.') - 2) + "_n.jpg";
 			cropImage(operateImgPath, toPath336x468, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		}
 	}
@@ -75,7 +87,7 @@ public class MainTest{
 			int toHeight = 222;
 			int x = (w - toWidth)/2;
 			int y = (h - toHeight)/2;
-			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.') -1) + "_f.jpg";
+			String toPath696x222 = srcPath.substring(0, srcPath.lastIndexOf('.') -2) + "_f.jpg";
 			cropImage(operateImgPath, toPath696x222, x, y, toWidth, toHeight, srcPath.substring(srcPath.lastIndexOf('.') + 1), "jpeg");
 		}
 	}
@@ -202,4 +214,5 @@ public class MainTest{
                 outBuff.close();
         }
     }
+    
 }

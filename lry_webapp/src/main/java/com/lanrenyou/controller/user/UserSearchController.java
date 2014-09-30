@@ -121,7 +121,7 @@ public class UserSearchController  extends BaseController {
 	public ModelAndView getUserPublishedTravels(@RequestParam(value = "uid", required = true) Integer uid){
 		ModelAndView mav = new ModelAndView("/user/user_search_published_travels");
 		mav.addObject("uid", uid);
-		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, uid, 1, 4, "updateTime", true);
+		PageIterator<TravelInfo> pageIter = solrUtil.searchTravel(null, null, uid, 1, 4, "createTime", true);
 		if(null != pageIter && null != pageIter.getData() && pageIter.getData().size() > 0){
 			mav.addObject("travelInfoList", pageIter.getData());
 			TravelInfo travelInfo = pageIter.getData().get(0);
