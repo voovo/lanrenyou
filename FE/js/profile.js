@@ -109,8 +109,8 @@
                 });
             }
 
-            //console.log(jcrop_api.tellSelect());//获取选框的值（实际尺寸）
-            //console.log(jcrop_api.tellScaled());//获取选框的值（界面尺寸）
+            console.log(jcrop_api.tellSelect());//获取选框的值（实际尺寸）
+            console.log(jcrop_api.tellScaled());//获取选框的值（界面尺寸）
             
         };
     }
@@ -152,7 +152,7 @@
                     $("#avatar").val(_img);
 
                     // 生成裁剪元素
-                    lanCorp(_img);
+                    //lanCorp(_img);
                 }else{
                     alert(_d.info);
                 }
@@ -170,8 +170,8 @@
     // 更新用户头像
     // 提交相关数据
     $("#up_face_btn").click(function(){
-        alert(jcrop_api.tellScaled());
-        //lanCorp("http://www.lanrenyou.com/wp-content/uploads/2014/09/original_S4Nz_58c6000001ba125f_l.jpg");
+
+        lanCorp("http://www.lanrenyou.com/wp-content/uploads/2014/09/original_S4Nz_58c6000001ba125f_l.jpg");
     });
 
 
