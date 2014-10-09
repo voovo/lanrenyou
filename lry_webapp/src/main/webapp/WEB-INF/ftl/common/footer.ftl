@@ -7,8 +7,11 @@
                 <div id="erweima" class="hide"></div>
             </li>
             <li class="wb"><a href="http://www.weibo.com/u/3204652417" target="_blank">新浪微博</a></li>
+            <li class="email"><a href="mailto:info@lanrenyou.com">邮箱</a></li>
+            <!--
             <li class="tt"><a href="javascript:;">腾讯微博</a></li>
             <li class="qq"><a href="javascript:;">QQ</a></li>
+             -->
         </ul>
         <p style="display:none">
             <a href="javascript:;">关于我们</a> | 
