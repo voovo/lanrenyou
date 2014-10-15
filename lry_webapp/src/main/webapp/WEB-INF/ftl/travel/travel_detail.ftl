@@ -1,4 +1,4 @@
-<@page  title="${travelInfo.title!''}-懒人游" description=""  keywords="" 
+<@page  title="${travelInfo.title!''}-懒人游" description="懒人游 ${travelInfo.city!''} 旅行日志"  keywords="${travelInfo.city!''} 懒人游" 
 	assets=[
 	"/resources/css/detail.css",
 	"/resources/js/detail.js"

@@ -1,4 +1,4 @@
-<@page  title="最新游记-懒人游" description=""  keywords="" 
+<@page  title="最新游记-懒人游" description="${city!''} ${keyword!''}最新旅游日志-懒人游"  keywords="${city!''} ${keyword!''}最新旅游日志-懒人游" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/js/waper.js",

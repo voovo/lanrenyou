@@ -1,4 +1,4 @@
-<@page  title="热门游记-懒人游" description=""  keywords="" 
+<@page  title="热门游记-懒人游" description="${city!''} ${keyword!''} 最热门的旅行日志 懒人游， 最热门的出境游规划"  keywords="${city!''} ${keyword!''} 最热门的旅行日志 懒人游， 最热门的出境游规划" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/js/waper.js",

@@ -1,4 +1,4 @@
-<@page  title="个人主页-懒人游" description=""  keywords="" 
+<@page  title="个人主页-懒人游" description="<#if userPlanner?? && userPlanner.targetCity?? >${userPlanner.targetCity!''}</#if>规划师个人信息，策划师人个信息，自助游策划师信息"  keywords="<#if userPlanner?? && userPlanner.targetCity?? >${userPlanner.targetCity!''}</#if> 旅行 旅游 策划 规划 信息" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/js/waper.js"
@@ -27,7 +27,7 @@
                 <a href="javascript:;" class="btn_s add_btn right" uid="${userInfo.id!''}"></a>
 				</#if>
 				</#if>
-                <span class="right">粉丝：${fansCount!'0'}</span>
+                <!-- <span class="right">粉丝：${fansCount!'0'}</span> -->
             </div>
         </div>
         

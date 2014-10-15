@@ -1,4 +1,4 @@
-<@page  title="新建游记-懒人游" description=""  keywords="" 
+<@page  title="新建游记-懒人游" description="编写旅游日志-懒人游"  keywords="编写旅游日志-懒人游" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/css/plug/reveal.css",

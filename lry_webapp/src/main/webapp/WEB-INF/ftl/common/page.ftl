@@ -5,8 +5,8 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="x-ua-compatible" content="ie=7"/>
-    <meta content="${description}" name="description"/>
-    <meta content="${keywords}" name="keywords"/>
+    <meta content="${description} 自助游,游记,攻略,经验,懒人游,旅游攻略,出境游,出境自助游" name="description"/>
+    <meta content="${keywords} 自助游,游记,攻略,经验,懒人游,旅游攻略,出境游,出境自助游" name="keywords"/>
     <title>${title!''}</title>
     <!-- 全站通用 -->
     <link rel="icon" type="image/x-icon" href="/resources/imgs/favicon.ico">

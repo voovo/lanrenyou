@@ -1,4 +1,4 @@
-<@page  title="找游记-懒人游" description=""  keywords="" 
+<@page  title="找游记-懒人游" description="${city!''}${keyword!''} 游记搜索结果，旅游日志搜索结果"  keywords="${city!''}${keyword!''} 游记搜索结果，旅游日志搜索结果" 
 	assets=[
 	"/resources/js/plug/jquery.reveal.js",
 	"/resources/css/plug/reveal.css",

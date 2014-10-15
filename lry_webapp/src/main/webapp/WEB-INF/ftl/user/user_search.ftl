@@ -1,4 +1,4 @@
-<@page  title="找规划师-懒人游" description=""  keywords="" 
+<@page  title="找规划师-懒人游" description="${city!''} ${keyword!''} 规划师列表，策划师列表-懒人游"  keywords="${city!''} ${keyword!''} 规划师 策划师" 
 	assets=[
 	"/resources/css/waper.css",
 	"/resources/js/waper.js"
@@ -31,7 +31,7 @@
                 	<span>关注 <#if starCntMap?? && starCntMap.get(userInfo.id)??>${starCntMap.get(userInfo.id)!''}<#else>0</#if></span>
                 	 -->
                 	<span>总阅读量 <#if userInfo.viewCntSum??>${userInfo.viewCntSum!''}<#else>0</#if></span>
-                    <span>粉丝 <#if fansCntMap?? && fansCntMap.get(userInfo.id)??>${fansCntMap.get(userInfo.id)!''}<#else>0</#if></span>
+                    <!-- <span>粉丝 <#if fansCntMap?? && fansCntMap.get(userInfo.id)??>${fansCntMap.get(userInfo.id)!''}<#else>0</#if></span> -->
                     <span>游记 <a href="/user/${userInfo.id!''}"><#if userPublishedTravelCntMap?? && userPublishedTravelCntMap.get(userInfo.id)??>${userPublishedTravelCntMap.get(userInfo.id)!''}<#else>0</#if></a></span>
                     <#assign isShow = true />
                     <#if loginUser?? && loginUser.id == userInfo.id>

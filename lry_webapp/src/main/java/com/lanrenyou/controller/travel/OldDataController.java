@@ -38,9 +38,9 @@ public class OldDataController extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	
-//	@RequestMapping("/dealPic")
+	@RequestMapping("/dealPic")
 	public ModelAndView dealPic() throws IOException, InterruptedException {
-		String[] dirPath = {
+//		String[] dirPath = {
 //				"/ROOT/www/www_8000/wp-content/uploads/2013/06",
 //				"/ROOT/www/www_8000/wp-content/uploads/2013/07",
 //				"/ROOT/www/www_8000/wp-content/uploads/2013/08",
@@ -55,36 +55,23 @@ public class OldDataController extends BaseController {
 //				"/ROOT/www/www_8000/wp-content/uploads/2014/05",
 //				"/ROOT/www/www_8000/wp-content/uploads/2014/06",
 //				"/ROOT/www/www_8000/wp-content/uploads/2014/07",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/08",
-				"/ROOT/www/www_8000/wp-content/uploads/2014/09"};
-		for(String dir : dirPath){
-			File file = new File(dir);
-			String[] fileNames = file.list();
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/08",
+//				"/ROOT/www/www_8000/wp-content/uploads/2014/09"};
+//		for(String dir : dirPath){
+//			File file = new File(dir);
+//			String[] fileNames = file.list();
+			String[] fileNames = {"DSC02813_s.jpg","IMG_4842_s.jpg","IMG_4860_s.jpg","IMG_2802_s.jpg","IMG_2848_s.jpg","IMG_2660_s.jpg","IMG_2662_s.jpg", "IMG_2642_s.jpg","IMG_4918_ss.jpg","IMG_8996_s.jpg","IMG_8991_s.jpg","IMG_8986_s.jpg","IMG_9058_s.jpg","IMG_9114_s.jpg","IMG_9039_s.jpg","IMG_8981_s.jpg","IMG_9037_s.jpg","IMG_9106_s.jpg","IMG_9089_s.jpg","PHH_3610_s.jpg","IMG_8918_s.jpg","PHH_3603_s.jpg","IMG_9175_s.jpg","IMG_9141_s.jpg","IMG_9170_s.jpg","IMG_9368_s.jpg","IMG_9410_s.jpg","IMG_9312_s.jpg","IMG_9341_s.jpg"};
 			if(null != fileNames){
 				for(String fileName : fileNames){
 					if(StringUtils.isNotBlank(fileName)){
 						if((fileName.toLowerCase().endsWith(".jpg"))){
-							ImageUtils.cropImageForTravel(dir+"/"+fileName);
-						} else if (fileName.toLowerCase().endsWith(".jpeg")){
-							String srcPath = dir + "/" + fileName;
-							String sourceJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + ".jpg";
-							ImageUtils.copyFile(new File(srcPath), new File(sourceJPGPath));
-							ImageUtils.cropImageForTravel(dir+"/"+fileName);
-						} else {
-							String srcPath = dir + "/" + fileName;
-							String sourceJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + ".jpg";
-                			String sJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_s.jpg";
-                			String lJPGPath = srcPath.substring(0, srcPath.lastIndexOf('.')) + "_l.jpg";
-               				ImageUtils.copyFile(new File(srcPath), new File(sourceJPGPath));
-							ImageUtils.copyFile(new File(srcPath), new File(sJPGPath));
-							ImageUtils.copyFile(new File(srcPath), new File(lJPGPath));
+							ImageUtils.cropImageForTravel("/ROOT/www/www_8000/wp-content/uploads/2014/05/"+fileName);
 						}
-						Thread.sleep(500);
 					}
 				}
 			}
-			logger.info("Deal Old Data Have Finish Dir:{}", dir);
-		}
+//			logger.info("Deal Old Data Have Finish Dir:{}", dir);
+//		}
 
 		return toError("执行完毕");
 	}
