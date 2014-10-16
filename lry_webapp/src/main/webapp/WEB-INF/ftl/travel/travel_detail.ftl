@@ -101,7 +101,7 @@
                         </#if>
                     </div>
                 </div>
-                <p id="author_produ">${userInfo.userIntro!''}</p>
+                <p id="author_produ"><@truncateChars value="${userInfo.userIntro!''}" length="520"/></p>
                 
                 <!-- 策划地区 -->
                 <#if userPlanner?? >
