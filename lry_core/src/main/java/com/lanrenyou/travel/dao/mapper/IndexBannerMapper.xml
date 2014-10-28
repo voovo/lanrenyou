@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >
+<mapper namespace="com.lanrenyou.travel.dao.IIndexBannerDao" >
+  <resultMap id="BaseResultMap" type="com.lanrenyou.travel.model.IndexBanner" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="alt" property="alt" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="link_url" property="linkUrl" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, alt, pic_url, link_url, sort, is_del, update_time
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_index_banner
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lanrenyou.travel.model.IndexBanner" useGeneratedKeys="true" keyProperty="id" >
+    insert ignore into tb_index_banner (alt, pic_url, link_url, sort, is_del)
+    values (#{alt,jdbcType=VARCHAR}, #{picUrl, jdbcType=VARCHAR}, #{linkUrl, jdbcType=VARCHAR}, #{sort, jdbcType=INTEGER}, #{isDel, jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lanrenyou.travel.model.IndexBanner" >
+    update tb_index_banner
+    set alt = #{alt,jdbcType=VARCHAR}, pic_url=#{picUrl, jdbcType=VARCHAR}, link_url=#{linkUrl, jdbcType=VARCHAR}, sort=#{sort, jdbcType=VARCHAR}, is_del=#{isDel, jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateToDelById" parameterType="java.lang.Integer" >
+    update tb_index_banner
+    set is_del=#{isDel, jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_index_banner 
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_index_banner
+  </select>
+  
+  <select id="getListByStatus" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select <include refid="Base_Column_List" /> from tb_index_banner where 1=1 <if test="isDel != null and isDel gte 0"> and is_del = #{isDel, jdbcType=INTEGER}</if>
+    order by sort desc,id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCountByStatus" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(1)
+    from tb_index_banner
+    where 1=1 <if test="isDel != null"> and is_del = #{isDel, jdbcType=INTEGER}</if>
+  </select>
+</mapper>
