@@ -16,8 +16,13 @@
       <form name="Webform" action="/upload/submit" method="post" enctype="multipart/form-data">
          图片:
          <br />
-         <input type="file" name="upload_file">
+         <input type="file" name="upfile">
          <br />
+         
+         <input type="text" name="alt" />
+         
+         <input type="text" name="linkUrl" />
+
          <input type="submit" name="Submit" value="Submit Files" />
       </form>
 
