@@ -42,4 +42,9 @@ public class IndexBannerServiceImpl extends BaseVOService<IndexBanner> implement
 		pageIterator.setData(list);
 		return pageIterator;
 	}
+
+	@Override
+	public int updateToDel(int id) {
+		return indexBannerDao.updateToDel(id);
+	}
 }

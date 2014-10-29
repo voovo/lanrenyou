@@ -52,4 +52,9 @@ public class IndexBannerDaoImpl extends BaseDao<IndexBanner> implements IIndexBa
 		params.put("isDel", isDel);
 		return (Integer) this.findOne("getCountByStatus", params);
 	}
+
+	@Override
+	public int updateToDel(int id) {
+		return this.doUpdate("updateToDelById", id);
+	}
 }

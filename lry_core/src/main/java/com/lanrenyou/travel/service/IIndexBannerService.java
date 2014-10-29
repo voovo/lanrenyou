@@ -24,6 +24,8 @@ public interface IIndexBannerService extends IValueObjectService<IndexBanner> {
 	*/
 	public int deleteById(int id);
 	
+	public int updateToDel(int id);
+	
 	/**
 	 * @param indexBanner
 	 * @return

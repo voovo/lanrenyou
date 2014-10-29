@@ -44,4 +44,6 @@ public interface IIndexBannerDao extends IValueObjectDao<IndexBanner> {
 
 	public int getCountByStatus(int isDel);
 
+	public int updateToDel(int id);
+
 }

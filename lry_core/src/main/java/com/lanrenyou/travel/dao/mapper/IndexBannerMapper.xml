@@ -28,7 +28,7 @@
   </update>
   <update id="updateToDelById" parameterType="java.lang.Integer" >
     update tb_index_banner
-    set is_del=#{isDel, jdbcType=INTEGER}
+    set is_del=1
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
