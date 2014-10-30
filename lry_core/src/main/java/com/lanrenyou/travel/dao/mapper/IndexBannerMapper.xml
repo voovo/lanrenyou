@@ -45,7 +45,7 @@
   
   <select id="getListByStatus" resultMap="BaseResultMap" parameterType="java.util.Map">
   	select <include refid="Base_Column_List" /> from tb_index_banner where 1=1 <if test="isDel != null and isDel gte 0"> and is_del = #{isDel, jdbcType=INTEGER}</if>
-    order by sort desc,id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
+    order by sort asc,id desc limit #{offset, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}
   </select>
   
   <select id="getCountByStatus" resultType="java.lang.Integer" parameterType="java.util.Map">

@@ -21,9 +21,11 @@ import com.google.gson.reflect.TypeToken;
 import com.lanrenyou.controller.base.BaseController;
 import com.lanrenyou.controller.travel.TravelShowUtil;
 import com.lanrenyou.letter.migrate.Migrate;
+import com.lanrenyou.travel.model.IndexBanner;
 import com.lanrenyou.travel.model.IndexTravel;
 import com.lanrenyou.travel.model.TravelContent;
 import com.lanrenyou.travel.model.TravelInfo;
+import com.lanrenyou.travel.service.IIndexBannerService;
 import com.lanrenyou.travel.service.IIndexTravelService;
 import com.lanrenyou.travel.service.ITravelContentService;
 import com.lanrenyou.travel.service.ITravelInfoService;
@@ -48,9 +50,16 @@ public class IndexController  extends BaseController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	
+	@Autowired
+	private IIndexBannerService indexBannerService;
+	
 	@RequestMapping(value={"/index", "/", ""})
 	public ModelAndView index(){
 		ModelAndView mav =  new ModelAndView("/index");
+		PageIterator<IndexBanner> pageIter = indexBannerService.pageQueryByStatus(0, 1, 4);
+		if(null != pageIter && null != pageIter.getData()){
+			mav.addObject("bannerList", pageIter.getData());
+		}
 		return mav;
 	}
 	

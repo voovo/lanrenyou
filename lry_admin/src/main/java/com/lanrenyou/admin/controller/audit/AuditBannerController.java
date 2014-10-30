@@ -36,7 +36,7 @@ public class AuditBannerController extends BaseController {
 	private IIndexBannerService indexBannerService;
 	
 	@RequestMapping(value="/list")
-	public ModelAndView plannerList(
+	public ModelAndView bannerList(
 			@RequestParam(value="isDel",required=false, defaultValue="0") Integer isDel,
 			@RequestParam(value="pageNo",required=false, defaultValue="1") int pageNo,
 			@RequestParam(value="pageSize",required=false, defaultValue="10") int pageSize
@@ -45,12 +45,19 @@ public class AuditBannerController extends BaseController {
 		mav.addObject("isDel", isDel);
 		mav.addObject("pageNo", pageNo);
 		mav.addObject("pageSize", pageSize);
-			mav.setViewName("/admin/audit/index_banner_list");
-			PageIterator<IndexBanner> pageIter = indexBannerService.pageQueryByStatus(isDel, pageNo, pageSize);
-			if(null != pageIter && null != pageIter.getData() && pageIter.getData().size() > 0){
-				mav.addObject("pageIter", pageIter);
-			}
+		mav.setViewName("/admin/audit/index_banner_list");
+		PageIterator<IndexBanner> pageIter = indexBannerService.pageQueryByStatus(isDel, pageNo, pageSize);
+		if(null != pageIter && null != pageIter.getData() && pageIter.getData().size() > 0){
+			mav.addObject("pageIter", pageIter);
+		}
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="/addpage")
+	public ModelAndView addPage(){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/admin/audit/index_banner_add");
 		return mav;
 	}
 

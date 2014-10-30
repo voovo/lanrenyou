@@ -25,7 +25,7 @@ body {
 $(function(){
 	
 	$("a[id='nopassBtn']").click(function(){
-		var _id = $(this).attr("id");
+		var _id = $(this).attr("operid");
 	    $.ajax({
 			url : "/audit/index_banner/remove?id="+_id,
 			success : function(r){
@@ -53,31 +53,14 @@ $(function(){
         <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
             <td width="46%" valign="middle">
-            <form id="search_form" action="/audit/index_data/list" method="get" >
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="5%"><div align="center"><img src="/img/tb.gif" width="16" height="16" /></div></td>
-                <td width="95%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[Banner设置]
-                  <span style="margin-left:30px;">
-                    游记ID:<input type="text" placeholder="游记ID" name="queryTid" value=${queryTid!''}>
-                  </span>
-                
-                  <span style="margin-left:30px;">
-                 类别：
-                    <select name="queryType" id="queryType">
-                      <option value="0" selected="selected">已推荐</option>
-                      <option value="1">未推荐</option>
-                    </select>
-                  </span>
-                  
-                  <span style="margin-left:30px;">
-                    <input type="submit" value="搜索" />
-                  </span>
-
+                <td width="90%" class="STYLE1"><span class="STYLE3">你当前的位置</span>：[管理后台]-[Banner设置]
                 </td>
+                <td width="5%"><div align="center"><span class="STYLE3"><a href="/audit/index_banner/addpage" >添加Banner</a></span></div></td>
               </tr>
             </table>
-            </form>
             </td>
           </tr>
         </table></td>
@@ -92,9 +75,7 @@ $(function(){
         <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6">
           <tr>
             <td width="20%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">标题</div></td>
-            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">城市</div></td>
-            <td width="5%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">作者</div></td>
-            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">创建时间</div></td>
+            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">链接</div></td>
             <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">缩略图</div></td>
             <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">操作</div></td>
           </tr>
@@ -102,9 +83,9 @@ $(function(){
           <#list pageIter.getData() as indexBanner >
           <tr>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${indexBanner.alt!''}</span></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${indexBaner.linkUrl!''}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1"><a href="${indexBanner.linkUrl!'javascript:;'}" target="_blank" >${indexBanner.linkUrl!''}</a></span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><img height="230" src="${indexBanner.picUrl!''}" alt=""></div></td>
-            <td height="22" bgcolor="#FFFFFF"><div align="center"><img src="/images/pic23.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" id="${indexBanner.id}">取消推荐</a></div></td>
+            <td height="22" bgcolor="#FFFFFF"><div align="center"><img src="/images/pic23.gif" width="16" height="16" /><a href="javascript:;" id="nopassBtn" operid="${indexBanner.id}">取消推荐</a></div></td>
           </tr>
           </#list>
           </#if>

@@ -155,6 +155,7 @@ div.type a {
     <td width="270" valign="top"><div id="container">
       <div class="type cur"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px 2px; background-repeat: no-repeat;" href="/admin/main" target="main">管理首页</a></div>
       <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -126px; background-repeat: no-repeat;" href="/audit/index_data/list" target="main">首页设置</a></div>
+      <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -126px; background-repeat: no-repeat;" href="/audit/index_banner/list" target="main">Banner设置</a></div>
       <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -42px; background-repeat: no-repeat;" href="/msg/list" target="main">私信管理</a></div>
       <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -84px; background-repeat: no-repeat;" href="/audit/travel/list" target="main">游记列表</a></div>
       <div class="type"><a style="background-image:url(/images/admin_index_left_icon.png); background-position: 60px -166px; background-repeat: no-repeat;" href="/audit/planner/list" target="main">规划师管理</a></div>
