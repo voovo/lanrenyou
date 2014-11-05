@@ -105,12 +105,13 @@ $(function(){
         <td><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="b5d6e6">
           <tr>
             <td width="10%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">规划师</span></div></td>
-            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">邮箱</span></div></td>
+            <td width="10%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">邮箱</span></div></td>
+            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">社交账号</span></div></td>
             <td width="20%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">可策划地</span></div></td>
             <td width="5%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">价格</span></div></td>
-            <td width="14%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建时间</span></div></td>
-            <td width="5%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">状态</span></div></td>
-            <td width="15%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
+            <td width="10%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">创建时间</span></div></td>
+            <td width="10%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">状态</span></div></td>
+            <td width="10%" height="26" background="/img/bg.gif" bgcolor="#FFFFFF" class="STYLE1"><div align="center">基本操作</div></td>
           </tr>
           <#if pageIter?? && pageIter.getData()??>
           <#list pageIter.getData() as userPlanner>
@@ -122,6 +123,7 @@ $(function(){
               <a href="http://www.lanrenyou.com/user/${userInfo.id!''}" target="_blank" title="${userInfo.userIntro!''}">${userInfo.nickname!''}</a>
             </div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userInfo.email!''}</span></div></td>
+            <td height="22" bgcolor="#FFFFFF"><span class="STYLE1">微信：${userInfo.wechatName!'未填写'}</br>微博账号：${userInfo.weiboName!'未填写'}</br>微博链接:${userInfo.weiboUrl!'未填写'}</span></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.targetCity!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.fees!''}</span></div></td>
             <td height="22" bgcolor="#FFFFFF"><div align="center"><span class="STYLE1">${userPlanner.createTime?string('yyyy-MM-dd')}</span></div></td>

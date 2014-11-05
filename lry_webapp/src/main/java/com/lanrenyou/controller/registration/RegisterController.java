@@ -310,6 +310,9 @@ public class RegisterController extends BaseController {
             @RequestParam(value = "userIntro", required = false, defaultValue = "") String userIntro,
             @RequestParam(value = "presentAddress", required = false, defaultValue = "") String presentAddress,
             @RequestParam(value = "previousAddress", required = false, defaultValue = "") String previousAddress,
+            @RequestParam(value = "wechat", required = false, defaultValue = "") String wechat,
+            @RequestParam(value = "weiboName", required = false, defaultValue = "") String weiboName,
+            @RequestParam(value = "weiboUrl", required = false, defaultValue = "") String weiboUrl,
             @RequestParam(value = "toBePlanner", required = false) Integer toBePlanner,
             @RequestParam(value = "targetCity", required = false, defaultValue = "") String targetCity,
             @RequestParam(value = "fees", required = false, defaultValue = "") String fees){
@@ -339,6 +342,18 @@ public class RegisterController extends BaseController {
 		}
 		if(StringUtils.isNotBlank(previousAddress)){
 			userInfo.setPreviousAddress(previousAddress);
+			hasUpdateUserInfo = true;
+		}
+		if(StringUtils.isNotBlank(wechat)){
+			userInfo.setWechatName(wechat);
+			hasUpdateUserInfo = true;
+		}
+		if(StringUtils.isNotBlank(weiboName)){
+			userInfo.setWeiboName(weiboName);
+			hasUpdateUserInfo = true;
+		}
+		if(StringUtils.isNotBlank(weiboUrl)){
+			userInfo.setWeiboUrl(weiboUrl);
 			hasUpdateUserInfo = true;
 		}
 		

@@ -50,6 +50,18 @@
                     <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
                     <td><input type="text" class="input_100" name="previousAddress" value="${userInfo.previousAddress!''}"></td>
                 </tr>
+                <tr>
+                    <td width="18%" align="right"><span class="ft_14">微信账号：</span></td>
+                    <td><input type="text" class="input_100" name="wechat" value="${userInfo.wechatName!''}"></td>
+                </tr>
+                <tr>
+                    <td width="18%" align="right"><span class="ft_14">微博账号：</span></td>
+                    <td><input type="text" class="input_100" name="weiboName" value="${userInfo.weiboName!''}"></td>
+                </tr>
+                <tr>
+                    <td width="18%" align="right"><span class="ft_14">微博链接：</span></td>
+                    <td><input type="text" class="input_100" name="weiboUrl" value="${userInfo.weiboUrl!''}"></td>
+                </tr>
                 <#if !(userPlanner?? && userPlanner.status == 2)>
                 <tr>
                     <td width="18%" align="right"></td>

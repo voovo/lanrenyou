@@ -35,6 +35,18 @@
                     <td width="18%" align="right"><span class="ft_14">曾居住地：</span></td>
                     <td><input type="text" name="previousAddress" class="input_100"></td>
                 </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">微信账号：</span></td>
+                    <td><input type="text" name="wechat" class="input_100"></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">微博账号：</span></td>
+                    <td><input type="text" name="weiboName" class="input_100"></td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="ft_14">微博链接：</span></td>
+                    <td><input type="text" name="weiboUrl" class="input_100"></td>
+                </tr>
                <tr>
                     <td width="18%" align="right"></td>
                     <td>
